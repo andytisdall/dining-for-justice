@@ -4,9 +4,10 @@ export default StyleSheet.create({
   signin: {
     paddingHorizontal: 15,
     alignItems: 'center',
-    // backgroundColor: colors.beige,
     backgroundColor: 'pink',
+    // width: '100%',
     flex: 1,
+    // height: 100,
     borderWidth: 1,
     paddingVertical: 25,
   },

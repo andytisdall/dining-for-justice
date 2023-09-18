@@ -2,11 +2,12 @@ import {api} from '../api';
 
 type User = {username: string};
 
-const authApi = api.injectEndpoints({
+export const authApi = api.injectEndpoints({
   endpoints: builder => ({
     getUser: builder.query<User, void>({
       query: () => 'user',
       transformResponse: (response: {data: User}) => response.data,
+      providesTags: [{type: 'user'}],
     }),
     signIn: builder.mutation<User, {username: string; password: string}>({
       query: body => ({
@@ -15,8 +16,15 @@ const authApi = api.injectEndpoints({
         body,
       }),
       transformResponse: (response: {data: User}) => response.data,
+      invalidatesTags: result => {
+        if (result) {
+          return [{type: 'user'}];
+        } else {
+          return [];
+        }
+      },
     }),
   }),
 });
 
-export const {useGetUserQuery} = authApi;
+export const {useGetUserQuery, useSignInMutation} = authApi;

@@ -17,7 +17,7 @@ import {TextInput} from 'react-native-paper';
 //   AppleRequestResponse,
 // } from '@invertase/react-native-apple-authentication';
 
-import Error from '../reusable/Error';
+import ErrorMessage from '../reusable/Error';
 import Btn from '../reusable/Btn';
 // import reusableStyles from '../reusable/styles';
 // import {RootStackParamList, RootTabParamsList} from '../../../App';
@@ -32,8 +32,9 @@ import styles from './styles';
 // } from '../../actions';
 // import useLoading from '../../hooks/useLoading';
 // import Loading from '../reusable/Loading';
-import {useGetUserQuery} from '../../state/apis/authApi';
 // import type {RootStackParamsList} from '../../../App';
+import {useSignInMutation} from '../../state/apis/authApi';
+import Loading from '../reusable/Loading';
 
 // interface SignInProps {
 //   signIn: (username: string, password: string) => Promise<void>;
@@ -43,15 +44,25 @@ import {useGetUserQuery} from '../../state/apis/authApi';
 
 // type ScreenProps = NativeStackScreenProps<RootStackParamsList, 'SignIn'>;
 
-const SignIn = () => {
-  const {error} = useGetUserQuery();
+// function assert(condition: any, msg = 'Generic Assertion'): asserts condition {
+//   if (!condition) {
+//     throw Error(`Assertion failed: ${msg}`);
+//   }
+// }
 
+const SignIn = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const passwordFieldRef = useRef<NativeTextInput | null>(null);
 
-  const handleSubmit = () => {};
+  const [signIn, signInResult] = useSignInMutation();
+
+  const handleSubmit = () => {
+    signIn({username, password});
+  };
+
+  // assert(authApi.endpoints.getUser?.useQuery, 'Endpoint `getUser` not loaded!');
 
   // const submitGoogleSignIn = async () => {
   //   setLoading(true);
@@ -90,49 +101,48 @@ const SignIn = () => {
   //     setError('Apple Login Failed');
   //   }
   // };
-
   return (
     // <ScrollView contentContainerStyle={baseStyles.scrollView}>
     <View style={styles.signin}>
       <View style={styles.CKSignin}>
         <Text style={styles.signinText}>Sign in with your CK username</Text>
-
-        <View style={styles.signinFields}>
-          <TextInput
-            style={styles.authInput}
-            value={username}
-            onChangeText={setUsername}
-            textColor="black"
-            placeholder="Username"
-            blurOnSubmit
-            returnKeyType="next"
-            placeholderTextColor="grey"
-            onSubmitEditing={() => {
-              if (passwordFieldRef.current) {
-                passwordFieldRef.current.focus();
-              }
-            }}
-          />
-          <TextInput
-            style={styles.authInput}
-            value={password}
-            onChangeText={setPassword}
-            textColor="black"
-            placeholder="Password"
-            blurOnSubmit
-            returnKeyType="next"
-            ref={passwordFieldRef}
-            onSubmitEditing={handleSubmit}
-            secureTextEntry
-            placeholderTextColor="grey"
-          />
-          <Btn style={styles.signinBtn} onPress={handleSubmit}>
-            <Text style={styles.signinBtnText}>Sign In</Text>
-          </Btn>
-        </View>
       </View>
-      <Error error={error} />
-      <Text style={styles.signinText}>Or</Text>
+      <View style={styles.signinFields}>
+        <TextInput
+          style={styles.authInput}
+          value={username}
+          onChangeText={setUsername}
+          textColor="black"
+          placeholder="Username"
+          blurOnSubmit
+          returnKeyType="next"
+          placeholderTextColor="grey"
+          onSubmitEditing={() => {
+            if (passwordFieldRef.current) {
+              passwordFieldRef.current.focus();
+            }
+          }}
+        />
+        <TextInput
+          style={styles.authInput}
+          value={password}
+          onChangeText={setPassword}
+          textColor="black"
+          placeholder="Password"
+          blurOnSubmit
+          returnKeyType="next"
+          ref={passwordFieldRef}
+          onSubmitEditing={handleSubmit}
+          secureTextEntry
+          placeholderTextColor="grey"
+        />
+        <Btn style={styles.signinBtn} onPress={handleSubmit}>
+          <Text style={styles.signinBtnText}>Sign In</Text>
+        </Btn>
+      </View>
+      {signInResult.error && <ErrorMessage error={signInResult.error} />}
+      {signInResult.isLoading && <Loading />}
+      {/* <Text style={styles.signinText}>Or</Text> */}
       {/* <View style={styles.googleSignIn}>
           <Pressable onPress={submitGoogleSignIn}>
             {({pressed}) => {

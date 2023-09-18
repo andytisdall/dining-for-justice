@@ -1,16 +1,13 @@
 import {View, Text} from 'react-native';
 
-import Error from './reusable/Error';
-import {useGetUserQuery} from '../state/apis/authApi';
+// import { useSelector } from 'react-redux';
+import baseStyles from './styles/baseStyles';
 
 const Home = () => {
-  const {data, error} = useGetUserQuery();
-
   return (
-    <View>
+    <View style={baseStyles.main}>
       <Text>Hello</Text>
-      <Text>{data}</Text>
-      <Error error={error} />
+      {/* <Text>{user?.username}</Text> */}
     </View>
   );
 };
