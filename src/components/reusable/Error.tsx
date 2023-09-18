@@ -9,6 +9,7 @@ const Error = ({
   error: FetchBaseQueryError | SerializedError | undefined;
 }) => {
   if (error) {
+    console.log(error);
     if ('status' in error) {
       // you can access all properties of `FetchBaseQueryError` here
       const errMsg =

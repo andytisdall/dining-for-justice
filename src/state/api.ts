@@ -4,6 +4,7 @@ import type {
   FetchArgs,
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 let url = 'http://192.168.0.101:3001/api/';
 
@@ -15,12 +16,15 @@ const baseQueryWithToken: BaseQueryFn<
   string | FetchArgs,
   unknown,
   FetchBaseQueryError
-> = (args, baseQueryApi, extraOptions) => {
+> = async (args, baseQueryApi, extraOptions) => {
+  const token = await AsyncStorage.getItem('d4j-token');
   const baseQuery = fetchBaseQuery({
     baseUrl: url,
     prepareHeaders: headers => {
-      headers.set('Content-type', 'appliation/json');
-      headers.set('auth-token', 'token');
+      headers.set('Content-type', 'application/json');
+      if (token) {
+        headers.set('authorization', token);
+      }
       return headers;
     },
   });
@@ -31,5 +35,5 @@ export const api = createApi({
   reducerPath: 'api',
   baseQuery: baseQueryWithToken,
   endpoints: () => ({}),
-  tagTypes: ['user'],
+  tagTypes: ['User'],
 });
