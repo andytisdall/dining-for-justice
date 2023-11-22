@@ -14,7 +14,6 @@ export default StyleSheet.create({
     alignItems: 'center',
     padding: 20,
   },
-
   screen: {
     flex: 1,
     backgroundColor: 'rgb(50,50,50)',
@@ -23,16 +22,16 @@ export default StyleSheet.create({
   screenSection: {
     paddingVertical: 15,
   },
-  screenTitle: {
-    textAlign: 'center',
-    fontSize: 25,
-  },
   text: {
     fontSize: 15,
     color: 'white',
   },
+  textLg: {
+    fontSize: 20,
+    color: 'white',
+  },
   title: {
-    fontSize: 25,
+    fontSize: 30,
     color: 'white',
     textAlign: 'center',
   },

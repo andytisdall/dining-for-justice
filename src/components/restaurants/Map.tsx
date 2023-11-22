@@ -23,7 +23,7 @@ const Map = () => {
           <Marker
             key={restaurant.name}
             title={restaurant.name}
-            description="restaurant"
+            description={restaurant.details.primaryTypeDisplayName.text}
             coordinate={{
               latitude: restaurant.coords!.latitude!,
               longitude: restaurant.coords!.longitude!,

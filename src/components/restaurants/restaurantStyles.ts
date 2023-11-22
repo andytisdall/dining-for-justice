@@ -7,4 +7,12 @@ export default StyleSheet.create({
     borderBottomColor: 'white',
     borderBottomWidth: 1,
   },
+  restaurantDetailItem: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  restaurantDetailItemTitle: {
+    color: 'yellow',
+    fontWeight: '600',
+  },
 });

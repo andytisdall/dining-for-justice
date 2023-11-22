@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(150, 200, 150, 1)',
     overflow: 'hidden',
     alignSelf: 'baseline',
+    margin: 10,
   },
   filterStyle: {
     padding: 10,

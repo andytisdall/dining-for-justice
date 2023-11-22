@@ -11,6 +11,11 @@ interface UploadReceiptArgs {
   date: Date;
 }
 
+interface D4JVisit {
+  id: string;
+  restaurant: string;
+}
+
 const receiptApi = api.injectEndpoints({
   endpoints: builder => ({
     uploadReceipt: builder.mutation<null, UploadReceiptArgs>({
@@ -28,7 +33,10 @@ const receiptApi = api.injectEndpoints({
         return {method: 'POST', url: '/d4j/receipt', formData: true, body};
       },
     }),
+    getVisits: builder.query<D4JVisit[], string>({
+      query: id => '/d4j/visits/' + id,
+    }),
   }),
 });
 
-export const {useUploadReceiptMutation} = receiptApi;
+export const {useUploadReceiptMutation, useGetVisitsQuery} = receiptApi;

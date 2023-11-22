@@ -26,7 +26,6 @@ const AddPhoto = ({setPhoto, photoFile}: AddPhotoProps) => {
   const setLocalPhoto = (response: ImagePickerResponse) => {
     if (!response.didCancel && !response.errorCode && response.assets) {
       setPhotoLoading(true);
-
       const photo = response.assets[0];
       setPhoto({
         name: photo.fileName,
@@ -51,11 +50,13 @@ const AddPhoto = ({setPhoto, photoFile}: AddPhotoProps) => {
   const renderPhoto = () => {
     return (
       <View style={styles.photoPreview}>
-        <Pressable
-          style={styles.photoDelete}
-          onPress={() => setPhoto(undefined)}>
-          <Text style={styles.photoDeleteText}>X</Text>
-        </Pressable>
+        {!photoLoading && (
+          <Pressable
+            style={styles.photoDelete}
+            onPress={() => setPhoto(undefined)}>
+            <Text style={styles.photoDeleteText}>X</Text>
+          </Pressable>
+        )}
         {photoLoading && <Loading />}
         <Image
           style={styles.photoPreviewPhoto}

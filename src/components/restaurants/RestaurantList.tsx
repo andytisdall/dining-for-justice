@@ -42,7 +42,7 @@ const RestaurantList = ({navigation}: RestaurantsScreenProps) => {
           onPress={() => navigation.navigate('RestaurantDetail', {id: item.id})}
           style={restaurantStyles.restaurantListItem}>
           <View>
-            <Text style={baseStyles.text}>{item.name}</Text>
+            <Text style={baseStyles.textLg}>{item.name}</Text>
           </View>
         </Pressable>
       );

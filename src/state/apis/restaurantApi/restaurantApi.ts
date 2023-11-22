@@ -16,6 +16,7 @@ export interface Restaurant {
   cuisine: string[];
   id: string;
   coords?: {latitude?: number; longitude?: number};
+  details: Record<string, string>;
 }
 
 export const restaurantApi = api.injectEndpoints({

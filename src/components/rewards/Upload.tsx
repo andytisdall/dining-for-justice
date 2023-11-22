@@ -3,6 +3,7 @@ import {useState, useMemo} from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
+import baseStyles from '../styles/baseStyles';
 import {RewardsStackParams} from './RewardsNavigator';
 import {useGetRestaurantsQuery} from '../../state/apis/restaurantApi/restaurantApi';
 import {useUploadReceiptMutation} from '../../state/apis/rewardsApi/receiptApi';
@@ -43,24 +44,28 @@ const Upload = ({navigation}: UploadScreenProps) => {
     return [];
   }, [restaurants]);
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  const renderUpload = () => {
+    return (
+      <View>
+        <Text style={baseStyles.title}>Upload Receipt</Text>
+        <AddPhoto photoFile={photo} setPhoto={setPhoto} />
+        <DropDownPicker
+          open={dropdownOpen}
+          setOpen={setDropdownOpen}
+          items={restaurantOptions}
+          value={restaurantId || null}
+          setValue={setRestaurantId}
+        />
+        <Btn onPress={onSubmit}>
+          <Text>Submit</Text>
+        </Btn>
+      </View>
+    );
+  };
 
   return (
-    <View>
-      <Text>Upload Receipt</Text>
-      <AddPhoto photoFile={photo} setPhoto={setPhoto} />
-      <DropDownPicker
-        open={dropdownOpen}
-        setOpen={setDropdownOpen}
-        items={restaurantOptions}
-        value={restaurantId || null}
-        setValue={setRestaurantId}
-      />
-      <Btn onPress={onSubmit}>
-        <Text>Submit</Text>
-      </Btn>
+    <View style={baseStyles.screen}>
+      {isLoading ? <Loading /> : renderUpload()}
     </View>
   );
 };
