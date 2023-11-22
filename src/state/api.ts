@@ -6,11 +6,7 @@ import type {
 } from '@reduxjs/toolkit/query/react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-let url = 'http://192.168.0.101:3001/api/';
-
-// const baseQuery = fetchBaseQuery({
-//   baseUrl: url,
-// });
+let url = 'http://192.168.0.104:3001/api';
 
 const baseQueryWithToken: BaseQueryFn<
   string | FetchArgs,

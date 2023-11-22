@@ -6,11 +6,34 @@ export default StyleSheet.create({
     minHeight: '100%',
     backgroundColor: 'white',
   },
-  main: {
-    flex: 1,
-    backgroundColor: 'blue',
-  },
   error: {
+    position: 'absolute',
     height: 100,
+    justifyContent: 'center',
+    backgroundColor: 'red',
+    alignItems: 'center',
+    padding: 20,
+  },
+
+  screen: {
+    flex: 1,
+    backgroundColor: 'rgb(50,50,50)',
+    padding: 15,
+  },
+  screenSection: {
+    paddingVertical: 15,
+  },
+  screenTitle: {
+    textAlign: 'center',
+    fontSize: 25,
+  },
+  text: {
+    fontSize: 15,
+    color: 'white',
+  },
+  title: {
+    fontSize: 25,
+    color: 'white',
+    textAlign: 'center',
   },
 });
