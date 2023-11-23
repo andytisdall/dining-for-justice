@@ -7,7 +7,7 @@ import Map from './Map';
 export type RestaurantStackParams = {
   RestaurantDetail: {id: string};
   RestaurantList: undefined;
-  RestaurantMap: undefined;
+  RestaurantMap: {id: string};
 };
 
 const RestaurantStack = createNativeStackNavigator<RestaurantStackParams>();

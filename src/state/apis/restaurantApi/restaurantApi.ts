@@ -1,22 +1,38 @@
 import {api} from '../../api';
 
-type Tag = 'woman' | 'poc' | 'vegan' | 'new' | 'underserved';
+export interface RestaurantDetails {
+  name: string;
+  url: string;
+  openNow: boolean;
+  openHours: string[];
+  type: string;
+  serves: {
+    breakfast: boolean;
+    vegetarian: boolean;
+    cocktails: boolean;
+    beer: boolean;
+  };
+}
+
+export interface RestaurantAddress {
+  street: string;
+  city: string;
+  state: string;
+  postalCode: string;
+}
 
 export interface Restaurant {
-  address?: {
-    street: string;
-    city: string;
-    state: string;
-    postalCode: string;
-  };
-  tags: Tag[];
+  address?: RestaurantAddress;
   name: string;
-  photo: string;
   neighborhood: string;
   cuisine: string[];
   id: string;
   coords?: {latitude?: number; longitude?: number};
-  details: Record<string, string>;
+  details: RestaurantDetails;
+  pocOwned?: string;
+  underservedNeighborhood: boolean;
+  vegan: boolean;
+  femaleOwned: boolean;
 }
 
 export const restaurantApi = api.injectEndpoints({

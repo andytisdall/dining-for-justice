@@ -15,6 +15,9 @@ import Error from './src/components/reusable/ErrorMessage';
 import RestaurantNavigator from './src/components/restaurants/RestaurantNavigator';
 import RewardsNavigator from './src/components/rewards/RewardsNavigator';
 import baseStyles from './src/components/styles/baseStyles';
+import {enableLatestRenderer} from 'react-native-maps';
+
+enableLatestRenderer();
 
 export type RootTabsParams = {
   Rewards: undefined;

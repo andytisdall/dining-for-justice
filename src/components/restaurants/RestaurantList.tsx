@@ -50,6 +50,7 @@ const RestaurantList = ({navigation}: RestaurantsScreenProps) => {
 
     return (
       <FlatList
+        style={restaurantStyles.restaurantList}
         data={sortedRestaurants}
         renderItem={renderRestaurantListItem}
         keyExtractor={item => item.id}
@@ -57,14 +58,24 @@ const RestaurantList = ({navigation}: RestaurantsScreenProps) => {
     );
   };
 
-  return (
-    <View style={baseStyles.screen}>
-      <Text style={baseStyles.title}>Restaurants</Text>
-      <View style={baseStyles.screenSection}>{renderRestaurants()}</View>
-      <Btn onPress={() => navigation.navigate('RestaurantMap')}>
+  const title = <Text style={baseStyles.title}>Restaurants</Text>;
+  const mapBtn = (
+    <View style={baseStyles.centerSection}>
+      <Btn onPress={() => navigation.navigate('RestaurantMap', {id: ''})}>
         <Text>Map</Text>
       </Btn>
     </View>
+  );
+  const restaurantList = (
+    <View style={baseStyles.screenSection}>{renderRestaurants()}</View>
+  );
+
+  return (
+    <FlatList
+      style={baseStyles.screen}
+      data={[title, mapBtn, restaurantList]}
+      renderItem={({item}) => item}
+    />
   );
 };
 

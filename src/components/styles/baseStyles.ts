@@ -35,4 +35,7 @@ export default StyleSheet.create({
     color: 'white',
     textAlign: 'center',
   },
+  centerSection: {
+    alignItems: 'center',
+  },
 });

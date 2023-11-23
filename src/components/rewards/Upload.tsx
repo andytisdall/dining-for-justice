@@ -1,8 +1,9 @@
-import {Text, View} from 'react-native';
+import {Text, View, FlatList} from 'react-native';
 import {useState, useMemo} from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
+import rewardsStyles from './rewardsStyles';
 import baseStyles from '../styles/baseStyles';
 import {RewardsStackParams} from './RewardsNavigator';
 import {useGetRestaurantsQuery} from '../../state/apis/restaurantApi/restaurantApi';
@@ -46,7 +47,7 @@ const Upload = ({navigation}: UploadScreenProps) => {
 
   const renderUpload = () => {
     return (
-      <View>
+      <View style={rewardsStyles.rewardsUpload}>
         <Text style={baseStyles.title}>Upload Receipt</Text>
         <AddPhoto photoFile={photo} setPhoto={setPhoto} />
         <DropDownPicker
@@ -56,17 +57,21 @@ const Upload = ({navigation}: UploadScreenProps) => {
           value={restaurantId || null}
           setValue={setRestaurantId}
         />
-        <Btn onPress={onSubmit}>
-          <Text>Submit</Text>
-        </Btn>
+        <View style={baseStyles.centerSection}>
+          <Btn onPress={onSubmit}>
+            <Text>Submit</Text>
+          </Btn>
+        </View>
       </View>
     );
   };
 
   return (
-    <View style={baseStyles.screen}>
-      {isLoading ? <Loading /> : renderUpload()}
-    </View>
+    <FlatList
+      style={baseStyles.screen}
+      data={isLoading ? [<Loading />] : [renderUpload()]}
+      renderItem={({item}) => item}
+    />
   );
 };
 
