@@ -17,7 +17,6 @@ const baseQueryWithToken: BaseQueryFn<
   const baseQuery = fetchBaseQuery({
     baseUrl: url,
     prepareHeaders: headers => {
-      headers.set('Content-type', 'application/json');
       if (token) {
         headers.set('authorization', token);
       }
@@ -31,5 +30,5 @@ export const api = createApi({
   reducerPath: 'api',
   baseQuery: baseQueryWithToken,
   endpoints: () => ({}),
-  tagTypes: ['User'],
+  tagTypes: ['Contact', 'Visit'],
 });

@@ -22,13 +22,15 @@ const Btn = ({style, children, onPress, disabled, onError}: BtnProps) => {
   return (
     <Animated.View style={{transform: [{translateY: translateValue}]}}>
       <Pressable
-        onPressIn={() =>
-          Animated.timing(translateValue, {
-            toValue: 4,
-            duration: 50,
-            useNativeDriver: true,
-          }).start()
-        }
+        onPressIn={() => {
+          if (!disabled) {
+            Animated.timing(translateValue, {
+              toValue: 4,
+              duration: 50,
+              useNativeDriver: true,
+            }).start();
+          }
+        }}
         onPressOut={() =>
           Animated.timing(translateValue, {
             toValue: 0,

@@ -21,20 +21,19 @@ const Upload = ({navigation}: UploadScreenProps) => {
 
   const {data: restaurants} = useGetRestaurantsQuery();
 
+  const [uploadReceipt, {isLoading}] = useUploadReceiptMutation();
+
   const onSubmit = () => {
     if (photo && restaurantId) {
       uploadReceipt({
         photo,
         restaurantId,
-        contactId: '0037400000FU7XrAAL',
         date: new Date(),
       })
         .unwrap()
         .then(() => navigation.navigate('UploadSuccess'));
     }
   };
-
-  const [uploadReceipt, {isLoading}] = useUploadReceiptMutation();
 
   const restaurantOptions = useMemo(() => {
     if (restaurants) {
@@ -56,9 +55,10 @@ const Upload = ({navigation}: UploadScreenProps) => {
           items={restaurantOptions}
           value={restaurantId || null}
           setValue={setRestaurantId}
+          listMode="MODAL"
         />
         <View style={baseStyles.centerSection}>
-          <Btn onPress={onSubmit}>
+          <Btn onPress={onSubmit} disabled={!restaurantId || !photo}>
             <Text>Submit</Text>
           </Btn>
         </View>
@@ -66,10 +66,14 @@ const Upload = ({navigation}: UploadScreenProps) => {
     );
   };
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <FlatList
       style={baseStyles.screen}
-      data={isLoading ? [<Loading />] : [renderUpload()]}
+      data={[renderUpload()]}
       renderItem={({item}) => item}
     />
   );

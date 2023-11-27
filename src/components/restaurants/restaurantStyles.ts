@@ -32,11 +32,11 @@ export default StyleSheet.create({
     color: 'yellow',
   },
   restaurantTagItem: {
-    borderColor: 'rgb(200,130,200)',
+    borderColor: 'rgb(250,180,250)',
     borderWidth: 1,
   },
   restaurantTagItemText: {
-    color: 'rgb(200,130,200)',
+    color: 'rgb(250,180,250)',
   },
   restaurantIcons: {
     marginTop: 15,

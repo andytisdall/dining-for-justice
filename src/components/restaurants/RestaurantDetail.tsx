@@ -70,7 +70,7 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
         onPress={() =>
           navigation.navigate('RestaurantMap', {id: restaurantId})
         }>
-        <Text>Map</Text>
+        <Text>View on Map</Text>
       </Btn>
     );
   };
@@ -90,10 +90,12 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
               servesIcon('Serves Cocktails')}
           </View>
           <View style={restaurantStyles.restaurantIcons}>
-            {restaurant.femaleOwned && tagIcon('Women Owned')}
+            {restaurant.femaleOwned && tagIcon('Woman Owned')}
           </View>
-          {restaurantLink()}
-          {mapBtn(restaurant.id)}
+          <View style={restaurantStyles.restaurantIcons}>
+            {restaurantLink()}
+            {mapBtn(restaurant.id)}
+          </View>
         </View>
       );
     }
