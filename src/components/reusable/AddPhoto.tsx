@@ -73,6 +73,7 @@ const AddPhoto = ({setPhoto, photoFile}: AddPhotoProps) => {
       <Btn onPress={getPhotoFromLibrary}>
         <Text>Select Photo from Your Library</Text>
       </Btn>
+      <Text style={styles.or}>OR</Text>
       <Btn onPress={takePhoto}>
         <Text>Take Photo</Text>
       </Btn>
@@ -84,12 +85,12 @@ const AddPhoto = ({setPhoto, photoFile}: AddPhotoProps) => {
 const styles = StyleSheet.create({
   photo: {
     marginTop: 20,
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   photoPreview: {
     height: 330,
     width: '100%',
-    marginVertical: 20,
+    marginVertical: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -108,6 +109,10 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'contain',
     width: '100%',
+  },
+  or: {
+    color: 'white',
+    marginLeft: 20,
   },
 });
 

@@ -1,4 +1,4 @@
-import {View, Text, ScrollView, Linking} from 'react-native';
+import {View, Text, Linking, FlatList} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {RestaurantStackParams} from './RestaurantNavigator';
@@ -75,6 +75,53 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     );
   };
 
+  const renderHourItem = ({item}: {item: string}) => {
+    const items = item.split(':');
+    const day = items.splice(0, 1);
+    return (
+      <View style={restaurantStyles.hoursItem}>
+        <Text style={baseStyles.text}>{day}:</Text>
+        <Text style={baseStyles.text}>{items.join(':')}</Text>
+      </View>
+    );
+  };
+
+  const renderHours = () => {
+    return (
+      <View>
+        <View style={baseStyles.centerSection}>
+          <Text style={[baseStyles.textLg, restaurantStyles.restaurantIcons]}>
+            Hours:
+          </Text>
+        </View>
+        <FlatList
+          data={restaurant?.details.openHours}
+          renderItem={renderHourItem}
+        />
+      </View>
+    );
+  };
+
+  const renderServesItems = () => {
+    return (
+      <View style={restaurantStyles.restaurantIcons}>
+        {restaurant?.details.serves.beer && servesIcon('Beer')}
+        {restaurant?.details.serves.breakfast && servesIcon('Breakfast')}
+        {restaurant?.details.serves.cocktails && servesIcon('Cocktails')}
+      </View>
+    );
+  };
+
+  const renderTags = () => {
+    return (
+      <View style={restaurantStyles.restaurantIcons}>
+        {restaurant?.femaleOwned && tagIcon('Woman Owned')}
+        {restaurant?.pocOwned && tagIcon('P.O.C. Owned')}
+        {restaurant?.details.openNow && tagIcon('Open Now')}
+      </View>
+    );
+  };
+
   const renderDetails = () => {
     if (restaurant) {
       return (
@@ -82,33 +129,26 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
           {detail('Name', restaurant.details.name)}
           {detail('Type', restaurant.details.type)}
           {!!restaurant.address && detail('Address', restaurant.address.street)}
-          <View style={restaurantStyles.restaurantIcons}>
-            {restaurant.details.serves.beer && servesIcon('Serves Beer')}
-            {restaurant.details.serves.breakfast &&
-              servesIcon('Serves Breakfast')}
-            {restaurant.details.serves.cocktails &&
-              servesIcon('Serves Cocktails')}
-          </View>
-          <View style={restaurantStyles.restaurantIcons}>
-            {restaurant.femaleOwned && tagIcon('Woman Owned')}
-          </View>
-          <View style={restaurantStyles.restaurantIcons}>
+          <View style={[restaurantStyles.restaurantIcons]}>
             {restaurantLink()}
             {mapBtn(restaurant.id)}
           </View>
+          {renderServesItems()}
+          {renderTags()}
+          {renderHours()}
         </View>
       );
     }
   };
 
-  return (
-    <ScrollView contentContainerStyle={baseStyles.scrollView}>
-      <View style={baseStyles.screen}>
-        <Text style={baseStyles.title}>{restaurant?.name}</Text>
-        {renderDetails()}
-      </View>
-    </ScrollView>
+  const base = (
+    <View style={baseStyles.screen}>
+      <Text style={baseStyles.title}>{restaurant?.name}</Text>
+      {renderDetails()}
+    </View>
   );
+
+  return <FlatList data={[base]} renderItem={({item}) => item} />;
 };
 
 export default RestaurantDetail;

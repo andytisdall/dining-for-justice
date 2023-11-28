@@ -5,7 +5,6 @@ export default StyleSheet.create({
     paddingBottom: 50,
   },
   restaurantListItem: {
-    backgroundColor: 'rgb(100,50,20)',
     padding: 10,
     borderBottomColor: 'white',
     borderBottomWidth: 1,
@@ -39,8 +38,30 @@ export default StyleSheet.create({
     color: 'rgb(250,180,250)',
   },
   restaurantIcons: {
-    marginTop: 15,
+    marginVertical: 5,
     flexDirection: 'row',
     flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  filterBtn: {flexDirection: 'row', alignItems: 'center'},
+  filterCheckboxes: {
+    marginLeft: 25,
+  },
+  checkbox: {
+    flexDirection: 'row',
+    marginBottom: 10,
+    alignItems: 'center',
+  },
+  filterIcon: {
+    width: 15,
+    height: 15,
+  },
+  listHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  hoursItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

@@ -26,6 +26,10 @@ export default StyleSheet.create({
     fontSize: 15,
     color: 'white',
   },
+  textSm: {
+    fontSize: 12,
+    color: 'white',
+  },
   textLg: {
     fontSize: 20,
     color: 'white',

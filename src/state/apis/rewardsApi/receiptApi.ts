@@ -16,9 +16,14 @@ export interface D4JVisit {
   date: string;
 }
 
+export interface UploadReceiptResponse {
+  date: string;
+  restaurantId: string;
+}
+
 export const receiptApi = api.injectEndpoints({
   endpoints: builder => ({
-    uploadReceipt: builder.mutation<null, UploadReceiptArgs>({
+    uploadReceipt: builder.mutation<UploadReceiptResponse, UploadReceiptArgs>({
       query: ({photo, restaurantId, date}) => {
         if (photo && Platform.OS === 'ios') {
           photo.uri = photo!.uri?.replace('file://', '');
