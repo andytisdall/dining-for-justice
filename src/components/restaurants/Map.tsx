@@ -1,4 +1,4 @@
-import {View, Text, ScrollView} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import MapView, {
   PROVIDER_GOOGLE,
   Region,
@@ -8,7 +8,7 @@ import MapView, {
 import {useRef, useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-import Btn from '../reusable/Btn';
+import MapText from './MapText';
 import {RestaurantStackParams} from './RestaurantNavigator';
 import {useGetRestaurantsQuery} from '../../state/apis/restaurantApi/restaurantApi';
 import mapStyles from './mapStyles';
@@ -98,17 +98,14 @@ const Map = ({navigation, route}: MapScreenProps) => {
           {renderMarkers()}
         </MapView>
         {!!restaurant && (
-          <View style={baseStyles.centerSection}>
-            <Text style={baseStyles.title}>{restaurant.name}</Text>
-            <Btn
-              onPress={() =>
-                navigation.navigate('RestaurantDetail', {
-                  id: selectedRestaurant,
-                })
-              }>
-              <Text>See Restaurant Details</Text>
-            </Btn>
-          </View>
+          <MapText
+            restaurant={restaurant}
+            navigate={() =>
+              navigation.navigate('RestaurantDetail', {
+                id: restaurant.id,
+              })
+            }
+          />
         )}
       </View>
     </ScrollView>

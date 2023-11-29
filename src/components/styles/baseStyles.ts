@@ -1,5 +1,7 @@
 import {StyleSheet} from 'react-native';
 
+import colors from './colors';
+
 export default StyleSheet.create({
   app: {flex: 1},
   scrollView: {
@@ -16,11 +18,10 @@ export default StyleSheet.create({
   },
   screen: {
     flex: 1,
-    backgroundColor: 'rgb(50,50,50)',
-    padding: 15,
+    backgroundColor: colors.darkGrey,
   },
   screenSection: {
-    paddingVertical: 15,
+    padding: 10,
   },
   text: {
     fontSize: 15,
@@ -35,9 +36,10 @@ export default StyleSheet.create({
     color: 'white',
   },
   title: {
-    fontSize: 30,
+    fontSize: 25,
     color: 'white',
     textAlign: 'center',
+    paddingTop: 15,
   },
   centerSection: {
     alignItems: 'center',

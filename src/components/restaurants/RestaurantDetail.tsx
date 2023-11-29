@@ -1,11 +1,13 @@
 import {View, Text, Linking, FlatList} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useEffect} from 'react';
 
 import {RestaurantStackParams} from './RestaurantNavigator';
 import {useGetRestaurantsQuery} from '../../state/apis/restaurantApi/restaurantApi';
 import baseStyles from '../styles/baseStyles';
 import restaurantStyles from './restaurantStyles';
 import Btn from '../reusable/Btn';
+import OpeningHours from './OpeningHours';
 
 type RestaurantDetailScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
@@ -18,6 +20,11 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
   const {id} = route.params;
 
   const restaurant = data?.find(res => res.id === id);
+
+  useEffect(
+    () => navigation.setOptions({headerTitle: restaurant?.name}),
+    [navigation, restaurant],
+  );
 
   const restaurantLink = () => {
     if (restaurant?.details.url) {
@@ -75,33 +82,6 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     );
   };
 
-  const renderHourItem = ({item}: {item: string}) => {
-    const items = item.split(':');
-    const day = items.splice(0, 1);
-    return (
-      <View style={restaurantStyles.hoursItem}>
-        <Text style={baseStyles.text}>{day}:</Text>
-        <Text style={baseStyles.text}>{items.join(':')}</Text>
-      </View>
-    );
-  };
-
-  const renderHours = () => {
-    return (
-      <View>
-        <View style={baseStyles.centerSection}>
-          <Text style={[baseStyles.textLg, restaurantStyles.restaurantIcons]}>
-            Hours:
-          </Text>
-        </View>
-        <FlatList
-          data={restaurant?.details.openHours}
-          renderItem={renderHourItem}
-        />
-      </View>
-    );
-  };
-
   const renderServesItems = () => {
     return (
       <View style={restaurantStyles.restaurantIcons}>
@@ -135,7 +115,7 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
           </View>
           {renderServesItems()}
           {renderTags()}
-          {renderHours()}
+          <OpeningHours restaurant={restaurant} />
         </View>
       );
     }
@@ -143,8 +123,7 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
 
   const base = (
     <View style={baseStyles.screen}>
-      <Text style={baseStyles.title}>{restaurant?.name}</Text>
-      {renderDetails()}
+      <View style={baseStyles.screenSection}>{renderDetails()}</View>
     </View>
   );
 

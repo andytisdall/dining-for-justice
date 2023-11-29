@@ -21,7 +21,6 @@ const UploadSuccess = ({route, navigation}: UploadSuccessScreenProps) => {
 
   return (
     <View style={baseStyles.screen}>
-      <Text style={baseStyles.title}>Upload Successful</Text>
       <View style={[baseStyles.screenSection]}>
         <Text style={baseStyles.text}>Restaurant: {restaurant?.name}</Text>
         <Text style={baseStyles.text}>

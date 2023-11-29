@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import RestaurantDetail from './RestaurantDetail';
 import RestaurantList from './RestaurantList';
 import Map from './Map';
+import StackHeader from '../reusable/StackHeader';
 
 export type RestaurantStackParams = {
   RestaurantDetail: {id: string};
@@ -18,12 +19,18 @@ const RestaurantNavigator = () => {
       <RestaurantStack.Screen
         name="RestaurantList"
         component={RestaurantList}
+        options={{headerShown: false}}
       />
       <RestaurantStack.Screen
         name="RestaurantDetail"
         component={RestaurantDetail}
+        options={{header: StackHeader}}
       />
-      <RestaurantStack.Screen name="RestaurantMap" component={Map} />
+      <RestaurantStack.Screen
+        name="RestaurantMap"
+        component={Map}
+        options={{header: StackHeader, headerTitle: 'Dining for Justice Map'}}
+      />
     </RestaurantStack.Navigator>
   );
 };

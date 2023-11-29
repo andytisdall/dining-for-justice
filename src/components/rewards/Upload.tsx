@@ -68,8 +68,7 @@ const Upload = ({navigation}: UploadScreenProps) => {
 
   const renderUpload = () => {
     return (
-      <View style={rewardsStyles.rewardsUpload}>
-        <Text style={baseStyles.title}>Upload Receipt</Text>
+      <View style={baseStyles.screenSection}>
         <View style={rewardsStyles.uploadItem}>
           <Text style={baseStyles.text}>Provide a photo of your receipt:</Text>
           <AddPhoto photoFile={photo} setPhoto={setPhoto} />

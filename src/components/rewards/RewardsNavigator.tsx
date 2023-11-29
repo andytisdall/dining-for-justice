@@ -1,10 +1,11 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import RewardsHome from './RewardsHome';
-import Upload from './Upload';
-import UploadSuccess from './UploadSuccess';
-import GetContact from './auth/GetContact';
+import RewardsHome from '../rewards/RewardsHome';
+import Upload from '../rewards/Upload';
+import UploadSuccess from '../rewards/UploadSuccess';
+import GetContact from '../rewards/auth/GetContact';
 import {UploadReceiptResponse} from '../../state/apis/rewardsApi/receiptApi';
+import StackHeader from '../reusable/StackHeader';
 
 export type RewardsStackParams = {
   RewardsHome: undefined;
@@ -18,11 +19,31 @@ const RewardsStack = createNativeStackNavigator<RewardsStackParams>();
 
 const RewardsNavigator = () => {
   return (
-    <RewardsStack.Navigator screenOptions={{headerShown: false}}>
-      <RewardsStack.Screen name="RewardsHome" component={RewardsHome} />
-      <RewardsStack.Screen name="Upload" component={Upload} />
-      <RewardsStack.Screen name="UploadSuccess" component={UploadSuccess} />
-      <RewardsStack.Screen name="GetContact" component={GetContact} />
+    <RewardsStack.Navigator>
+      <RewardsStack.Screen
+        name="RewardsHome"
+        component={RewardsHome}
+        options={{headerShown: false}}
+      />
+      <RewardsStack.Screen
+        name="Upload"
+        component={Upload}
+        options={{header: StackHeader, headerTitle: 'Enter a Visit'}}
+      />
+      <RewardsStack.Screen
+        name="UploadSuccess"
+        component={UploadSuccess}
+        options={{
+          header: StackHeader,
+          headerBackVisible: true,
+          headerTitle: 'Visit Entered Successfully',
+        }}
+      />
+      <RewardsStack.Screen
+        name="GetContact"
+        component={GetContact}
+        options={{header: StackHeader, headerTitle: 'Your Info'}}
+      />
     </RewardsStack.Navigator>
   );
 };

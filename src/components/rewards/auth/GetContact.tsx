@@ -73,12 +73,17 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
     );
   };
 
+  if (signInResult.isLoading || createContactResult.isLoading) {
+    return <Loading />;
+  }
   return (
     <ScrollView contentContainerStyle={baseStyles.scrollView}>
       <View style={baseStyles.screen}>
-        <Text style={baseStyles.text}>
-          Enter your email to do rewards things
-        </Text>
+        <View style={baseStyles.screenSection}>
+          <Text style={baseStyles.text}>
+            Enter your email to do rewards things
+          </Text>
+        </View>
         <View style={baseStyles.screenSection}>
           {showNameFields ? (
             <>
@@ -93,13 +98,10 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
           ) : (
             <EnterEmail email={email} setEmail={setEmail} />
           )}
-          {signInResult.isLoading || createContactResult.isLoading ? (
-            <Loading />
-          ) : (
-            <Btn onPress={handleSubmit}>
-              <Text>Submit</Text>
-            </Btn>
-          )}
+
+          <Btn onPress={handleSubmit}>
+            <Text>Submit</Text>
+          </Btn>
         </View>
       </View>
     </ScrollView>
