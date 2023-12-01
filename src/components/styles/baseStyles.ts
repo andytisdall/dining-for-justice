@@ -4,10 +4,7 @@ import colors from './colors';
 
 export default StyleSheet.create({
   app: {flex: 1},
-  scrollView: {
-    minHeight: '100%',
-    backgroundColor: 'white',
-  },
+  // scrollView: {flex: 1},
   error: {
     position: 'absolute',
     height: 100,
@@ -24,19 +21,23 @@ export default StyleSheet.create({
     padding: 10,
   },
   text: {
-    fontSize: 15,
-    color: 'white',
-  },
-  textSm: {
-    fontSize: 12,
-    color: 'white',
-  },
-  textLg: {
     fontSize: 20,
     color: 'white',
   },
-  title: {
+  textSm: {
+    fontSize: 15,
+    color: 'white',
+  },
+  textLg: {
     fontSize: 25,
+    color: 'white',
+  },
+  btnText: {
+    fontSize: 20,
+    color: colors.grey,
+  },
+  title: {
+    fontSize: 30,
     color: 'white',
     textAlign: 'center',
     paddingTop: 15,

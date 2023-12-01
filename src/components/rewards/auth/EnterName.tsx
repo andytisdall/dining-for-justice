@@ -7,11 +7,13 @@ const EnterName = ({
   lastName,
   setFirstName,
   setLastName,
+  next,
 }: {
   firstName: string;
   lastName: string;
   setFirstName: React.Dispatch<React.SetStateAction<string>>;
   setLastName: React.Dispatch<React.SetStateAction<string>>;
+  next: () => void;
 }) => {
   return (
     <View style={baseStyles.screenSection}>
@@ -25,7 +27,11 @@ const EnterName = ({
       </View>
       <View style={baseStyles.screenSection}>
         <Text style={baseStyles.text}>Last Name:</Text>
-        <TextInput value={lastName} onChangeText={setLastName} />
+        <TextInput
+          value={lastName}
+          onChangeText={setLastName}
+          onSubmitEditing={next}
+        />
       </View>
     </View>
   );

@@ -1,7 +1,9 @@
 import {useState, useEffect} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {View, Text, ScrollView} from 'react-native';
+import {useDispatch} from 'react-redux';
 
+import {setError} from '../../../state/apis/slices/errorSlice';
 import {RewardsStackParams} from '../RewardsNavigator';
 import Loading from '../../reusable/Loading';
 import EnterEmail from './EnterEmail';
@@ -19,6 +21,13 @@ type GetContactScreenProps = NativeStackScreenProps<
   'GetContact'
 >;
 
+const validateEmail = (input: string) => {
+  const validRegex =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+  return input.match(validRegex);
+};
+
 const GetContact = ({navigation}: GetContactScreenProps) => {
   const [email, setEmail] = useState('');
   const [showNameFields, setShowNameFields] = useState(false);
@@ -31,6 +40,8 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
 
   const redirectScreen = 'RewardsHome';
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (contact) {
       navigation.navigate(redirectScreen);
@@ -39,6 +50,9 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
 
   const handleSubmit = () => {
     if (!showNameFields) {
+      if (!validateEmail(email)) {
+        return dispatch(setError('Please enter a valid email address'));
+      }
       signIn(email)
         .unwrap()
         .then(user => {
@@ -74,10 +88,14 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
   };
 
   if (signInResult.isLoading || createContactResult.isLoading) {
-    return <Loading />;
+    return (
+      <View style={baseStyles.screen}>
+        <Loading />
+      </View>
+    );
   }
   return (
-    <ScrollView contentContainerStyle={baseStyles.scrollView}>
+    <ScrollView contentContainerStyle={baseStyles.screen}>
       <View style={baseStyles.screen}>
         <View style={baseStyles.screenSection}>
           <Text style={baseStyles.text}>
@@ -93,10 +111,11 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
                 lastName={lastName}
                 setFirstName={setFirstName}
                 setLastName={setLastName}
+                next={handleSubmit}
               />
             </>
           ) : (
-            <EnterEmail email={email} setEmail={setEmail} />
+            <EnterEmail email={email} setEmail={setEmail} next={handleSubmit} />
           )}
 
           <Btn onPress={handleSubmit}>

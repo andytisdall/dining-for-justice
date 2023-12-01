@@ -77,7 +77,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
   const restaurant = restaurants?.find(r => r.id === selectedRestaurant);
 
   return (
-    <ScrollView contentContainerStyle={baseStyles.scrollView}>
+    <ScrollView contentContainerStyle={baseStyles.screen}>
       <View style={baseStyles.screen}>
         <MapView
           ref={mapRef}

@@ -5,7 +5,9 @@ import {
 } from 'react-native-image-picker';
 import {Pressable, View, Text, Image, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
+import {useDispatch} from 'react-redux';
 
+import {setError} from '../../state/apis/slices/errorSlice';
 import Btn from './Btn';
 import Loading from './Loading';
 
@@ -22,6 +24,8 @@ export interface PhotoFile {
 
 const AddPhoto = ({setPhoto, photoFile}: AddPhotoProps) => {
   const [photoLoading, setPhotoLoading] = useState(false);
+
+  const dispatch = useDispatch();
 
   const setLocalPhoto = (response: ImagePickerResponse) => {
     if (!response.didCancel && !response.errorCode && response.assets) {
@@ -63,6 +67,11 @@ const AddPhoto = ({setPhoto, photoFile}: AddPhotoProps) => {
           source={{uri: photoFile?.uri}}
           alt="preview"
           onLoad={() => setPhotoLoading(false)}
+          onError={() => {
+            setPhotoLoading(false);
+            setPhoto(undefined);
+            dispatch(setError('Failed to load image'));
+          }}
         />
       </View>
     );
@@ -85,7 +94,6 @@ const AddPhoto = ({setPhoto, photoFile}: AddPhotoProps) => {
 const styles = StyleSheet.create({
   photo: {
     marginTop: 20,
-    // alignItems: 'center',
   },
   photoPreview: {
     height: 330,

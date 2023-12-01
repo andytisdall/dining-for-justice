@@ -1,24 +1,28 @@
 import {StyleSheet} from 'react-native';
+import colors from '../styles/colors';
 
 export default StyleSheet.create({
   restaurantList: {
     paddingBottom: 50,
   },
   restaurantListItem: {
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 15,
     borderBottomColor: 'white',
     borderBottomWidth: 1,
   },
   restaurantDetailItem: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    alignItems: 'center',
+    marginBottom: 5,
   },
   restaurantDetailItemTitle: {
-    color: 'yellow',
+    color: colors.yellow,
+    marginRight: 5,
     fontWeight: '600',
   },
   restaurantInfoItem: {
-    alignSelf: 'baseline',
     borderRadius: 30,
     padding: 10,
     marginRight: 10,
@@ -41,7 +45,7 @@ export default StyleSheet.create({
     marginVertical: 5,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
   },
   filterBtn: {flexDirection: 'row', alignItems: 'center'},
   filterCheckboxes: {
@@ -53,8 +57,8 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   filterIcon: {
-    width: 15,
-    height: 15,
+    width: 25,
+    height: 25,
   },
   listHeader: {
     flexDirection: 'row',
@@ -63,5 +67,15 @@ export default StyleSheet.create({
   hoursItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingBottom: 5,
+  },
+  linkRow: {
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
+  },
+  mapIcon: {
+    height: 35,
+    width: 35,
+    alignSelf: 'center',
   },
 });

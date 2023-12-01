@@ -1,4 +1,4 @@
-import {View, Text, Linking, FlatList} from 'react-native';
+import {View, Text, Linking, FlatList, Image, Pressable} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useEffect} from 'react';
 
@@ -13,6 +13,8 @@ type RestaurantDetailScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
   'RestaurantDetail'
 >;
+
+const mapIcon = require('../../assets/mapIcon.png');
 
 const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
   const {data} = useGetRestaurantsQuery();
@@ -73,12 +75,13 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
 
   const mapBtn = (restaurantId: string) => {
     return (
-      <Btn
+      <Pressable
         onPress={() =>
           navigation.navigate('RestaurantMap', {id: restaurantId})
         }>
-        <Text>View on Map</Text>
-      </Btn>
+        <Image source={mapIcon} style={restaurantStyles.mapIcon} />
+        <Text style={baseStyles.textSm}>View on Map</Text>
+      </Pressable>
     );
   };
 
@@ -107,9 +110,13 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
       return (
         <View>
           {detail('Name', restaurant.details.name)}
-          {detail('Type', restaurant.details.type)}
+          {!!restaurant.cuisine && detail('Type of Food', restaurant.cuisine)}
           {!!restaurant.address && detail('Address', restaurant.address.street)}
-          <View style={[restaurantStyles.restaurantIcons]}>
+          <View
+            style={[
+              restaurantStyles.restaurantIcons,
+              restaurantStyles.linkRow,
+            ]}>
             {restaurantLink()}
             {mapBtn(restaurant.id)}
           </View>
@@ -121,13 +128,15 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     }
   };
 
-  const base = (
-    <View style={baseStyles.screen}>
-      <View style={baseStyles.screenSection}>{renderDetails()}</View>
-    </View>
-  );
+  const base = <View style={baseStyles.screenSection}>{renderDetails()}</View>;
 
-  return <FlatList data={[base]} renderItem={({item}) => item} />;
+  return (
+    <FlatList
+      data={[base]}
+      renderItem={({item}) => item}
+      style={baseStyles.screen}
+    />
+  );
 };
 
 export default RestaurantDetail;

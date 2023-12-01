@@ -5,14 +5,24 @@ import baseStyles from '../../styles/baseStyles';
 const EnterEmail = ({
   email,
   setEmail,
+  next,
 }: {
   email: string;
   setEmail: React.Dispatch<React.SetStateAction<string>>;
+  next: () => void;
 }) => {
   return (
     <View>
       <Text style={baseStyles.text}>Email:</Text>
-      <TextInput value={email} onChangeText={setEmail} />
+      <TextInput
+        value={email}
+        onChangeText={setEmail}
+        autoCapitalize="none"
+        autoComplete="email"
+        autoCorrect={false}
+        textContentType="emailAddress"
+        onSubmitEditing={next}
+      />
     </View>
   );
 };

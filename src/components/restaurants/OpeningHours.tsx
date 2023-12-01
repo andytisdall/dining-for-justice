@@ -17,9 +17,9 @@ const OpeningHours = ({restaurant}: {restaurant: Restaurant}) => {
   };
 
   return (
-    <View>
+    <View style={baseStyles.screenSection}>
       <View style={baseStyles.centerSection}>
-        <Text style={[baseStyles.textLg, restaurantStyles.restaurantIcons]}>
+        <Text style={[baseStyles.text, restaurantStyles.restaurantIcons]}>
           Hours:
         </Text>
       </View>

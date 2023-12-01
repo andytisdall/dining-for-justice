@@ -66,6 +66,7 @@ const RestaurantList = ({navigation}: RestaurantsScreenProps) => {
         style={restaurantStyles.restaurantListItem}>
         <View>
           <Text style={baseStyles.text}>{item.name}</Text>
+          <Text style={baseStyles.textSm}>{item.cuisine}</Text>
         </View>
       </Pressable>
     );
@@ -139,7 +140,7 @@ const RestaurantList = ({navigation}: RestaurantsScreenProps) => {
   const title = <Text style={baseStyles.title}>Restaurants</Text>;
   const mapBtn = (
     <Btn onPress={() => navigation.navigate('RestaurantMap', {id: ''})}>
-      <Text>Map</Text>
+      <Text style={baseStyles.btnText}>Map</Text>
     </Btn>
   );
   const restaurantList = (

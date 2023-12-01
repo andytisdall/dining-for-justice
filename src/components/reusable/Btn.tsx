@@ -17,8 +17,6 @@ const Btn = ({style, children, onPress, disabled, onError}: BtnProps) => {
     btnStyle.push(styles.btnDisabled);
   }
 
-  const filterStyle: any[] = [styles.filterStyle];
-
   return (
     <Animated.View style={{transform: [{translateY: translateValue}]}}>
       <Pressable
@@ -48,7 +46,10 @@ const Btn = ({style, children, onPress, disabled, onError}: BtnProps) => {
         }}
         style={btnStyle}>
         {({pressed}) => {
+          const filterStyle: any[] = [styles.filterStyle];
+
           if (pressed && !disabled) {
+            console.log('press');
             filterStyle.push(styles.btnPressed);
           }
           return <View style={filterStyle}>{children}</View>;
@@ -73,7 +74,6 @@ const styles = StyleSheet.create({
   btnPressed: {
     backgroundColor: 'rgba(250,250,250,.3)',
   },
-  btnContainerPressed: {},
   btnDisabled: {backgroundColor: 'rgb(130,130,130)'},
 });
 

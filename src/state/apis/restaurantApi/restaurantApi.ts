@@ -5,7 +5,6 @@ export interface RestaurantDetails {
   url: string;
   openNow: boolean;
   openHours: string[];
-  type: string;
   serves: {
     breakfast: boolean;
     vegetarian: boolean;
@@ -25,7 +24,7 @@ export interface Restaurant {
   address?: RestaurantAddress;
   name: string;
   neighborhood: string;
-  cuisine: string[];
+  cuisine?: string;
   id: string;
   coords?: {latitude?: number; longitude?: number};
   details: RestaurantDetails;
