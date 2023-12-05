@@ -1,8 +1,8 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import RestaurantDetail from './RestaurantDetail';
+import RestaurantDetail from './restaurantDetail/RestaurantDetail';
 import RestaurantList from './RestaurantList';
-import Map from './Map';
+import Map from './map/Map';
 import StackHeader from '../reusable/StackHeader';
 
 export type RestaurantStackParams = {

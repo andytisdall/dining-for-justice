@@ -1,8 +1,8 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import RewardsHome from '../rewards/RewardsHome';
-import Upload from '../rewards/Upload';
-import UploadSuccess from '../rewards/UploadSuccess';
+import Upload from './upload/Upload';
+import UploadSuccess from './upload/UploadSuccess';
 import GetContact from '../rewards/auth/GetContact';
 import {UploadReceiptResponse} from '../../state/apis/rewardsApi/receiptApi';
 import StackHeader from '../reusable/StackHeader';

@@ -49,7 +49,6 @@ const Btn = ({style, children, onPress, disabled, onError}: BtnProps) => {
           const filterStyle: any[] = [styles.filterStyle];
 
           if (pressed && !disabled) {
-            console.log('press');
             filterStyle.push(styles.btnPressed);
           }
           return <View style={filterStyle}>{children}</View>;

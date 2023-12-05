@@ -1,8 +1,8 @@
 import {View, Text} from 'react-native';
 
-import baseStyles from '../styles/baseStyles';
-import Btn from '../reusable/Btn';
-import {Restaurant} from '../../state/apis/restaurantApi/restaurantApi';
+import baseStyles from '../../styles/baseStyles';
+import Btn from '../../reusable/Btn';
+import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
 
 const MapText = ({
   restaurant,

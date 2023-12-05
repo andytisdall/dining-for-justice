@@ -66,7 +66,9 @@ const RestaurantList = ({navigation}: RestaurantsScreenProps) => {
         style={restaurantStyles.restaurantListItem}>
         <View>
           <Text style={baseStyles.text}>{item.name}</Text>
-          <Text style={baseStyles.textSm}>{item.cuisine}</Text>
+          <Text style={[baseStyles.textSm, restaurantStyles.cuisine]}>
+            {item.cuisine}
+          </Text>
         </View>
       </Pressable>
     );

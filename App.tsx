@@ -31,7 +31,8 @@ const RootComponent = () => {
     <SafeAreaView style={baseStyles.app}>
       <NavigationContainer>
         <Provider store={store}>
-          <RootTabs.Navigator screenOptions={{headerShown: false}}>
+          <RootTabs.Navigator
+            screenOptions={{headerShown: false, tabBarHideOnKeyboard: true}}>
             <RootTabs.Screen
               name="Restaurants"
               component={RestaurantNavigator}

@@ -7,34 +7,52 @@ export default StyleSheet.create({
 
   uploadBtn: {
     backgroundColor: 'transparent',
-    borderColor: colors.yellow,
+    borderColor: 'transparent',
   },
   uploadBtnText: {
-    color: colors.yellow,
-    fontSize: 25,
+    color: colors.blue,
+    fontSize: 20,
   },
-  dropdown: {
-    width: 200,
-    marginVertical: 10,
-    marginLeft: 10,
-    backgroundColor: colors.green,
-  },
-  dropdownPlaceholder: {color: colors.grey},
-  uploadItem: {
-    borderWidth: 1,
-    borderColor: 'white',
-    marginVertical: 10,
-    padding: 10,
-  },
-  user: {flexDirection: 'row', alignItems: 'center'},
 
-  signOutBtn: {
-    backgroundColor: 'transparent',
-    borderColor: colors.green,
-    // borderWidth: 0,
+  pastVisitsHeader: {
+    backgroundColor: colors.lightGrey,
     borderBottomWidth: 1,
+    borderColor: 'white',
+    paddingBottom: 3,
+    paddingTop: 2,
+    width: 'auto',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    paddingHorizontal: 10,
   },
-  signOutBtnText: {
-    color: colors.green,
+  pastVisitHeaderText: {
+    color: 'black',
+  },
+  pastVisitItem: {
+    borderBottomWidth: 1,
+    borderColor: 'white',
+    paddingBottom: 3,
+    paddingTop: 2,
+    width: 'auto',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  pastVisitItemText: {
+    flex: 1,
+  },
+  pastVisitItemStatus: {fontSize: 12, textAlign: 'right'},
+  showMoreBtn: {
+    justifySelf: 'center',
+    marginVertical: 10,
+    padding: 5,
+    backgroundColor: colors.lightGrey,
+  },
+  textInput: {
+    borderRadius: 0,
+  },
+  pointsSummary: {
+    flexDirection: 'row',
   },
 });

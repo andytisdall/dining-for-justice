@@ -2,10 +2,10 @@ import {View, Text} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {format} from 'date-fns-tz';
 
-import {RewardsStackParams} from './RewardsNavigator';
-import baseStyles from '../styles/baseStyles';
-import Btn from '../reusable/Btn';
-import {useGetRestaurantsQuery} from '../../state/apis/restaurantApi/restaurantApi';
+import {RewardsStackParams} from '../RewardsNavigator';
+import baseStyles from '../../styles/baseStyles';
+import Btn from '../../reusable/Btn';
+import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
 
 type UploadSuccessScreenProps = NativeStackScreenProps<
   RewardsStackParams,

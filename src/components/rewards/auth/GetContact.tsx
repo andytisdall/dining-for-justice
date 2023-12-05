@@ -95,7 +95,7 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
     );
   }
   return (
-    <ScrollView contentContainerStyle={baseStyles.screen}>
+    <ScrollView contentContainerStyle={baseStyles.scrollView}>
       <View style={baseStyles.screen}>
         <View style={baseStyles.screenSection}>
           <Text style={baseStyles.text}>

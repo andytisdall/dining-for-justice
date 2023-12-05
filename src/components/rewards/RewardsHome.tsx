@@ -9,6 +9,7 @@ import {useGetContactQuery} from '../../state/apis/contact/contactApi';
 import PastVisits from './PastVisits';
 import User from './auth/User';
 import rewardsStyles from './rewardsStyles';
+import Points from './Points';
 
 type RewardsScreenProps = NativeStackScreenProps<
   RewardsStackParams,
@@ -18,17 +19,19 @@ type RewardsScreenProps = NativeStackScreenProps<
 const RewardsHome = ({navigation}: RewardsScreenProps) => {
   const {data: contact, isLoading: contactIsLoading} = useGetContactQuery();
 
+  const uploadBtn = (
+    <Btn
+      onPress={() => navigation.navigate('Upload')}
+      style={rewardsStyles.uploadBtn}>
+      <Text style={rewardsStyles.uploadBtnText}>Enter a Receipt</Text>
+    </Btn>
+  );
+
   const renderSignedIn = () => {
     return (
       <View style={baseStyles.screenSection}>
         <User />
-        <View style={baseStyles.centerSection}>
-          <Btn
-            onPress={() => navigation.navigate('Upload')}
-            style={rewardsStyles.uploadBtn}>
-            <Text style={rewardsStyles.uploadBtnText}>Upload Receipt</Text>
-          </Btn>
-        </View>
+        <Points>{uploadBtn}</Points>
         <PastVisits />
       </View>
     );

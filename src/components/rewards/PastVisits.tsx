@@ -1,5 +1,6 @@
 import {format, utcToZonedTime} from 'date-fns-tz';
-import {Text, View, FlatList} from 'react-native';
+import {Text, View, FlatList, Pressable} from 'react-native';
+import {useState} from 'react';
 
 import Loading from '../reusable/Loading';
 import {
@@ -8,8 +9,11 @@ import {
 } from '../../state/apis/rewardsApi/receiptApi';
 import baseStyles from '../styles/baseStyles';
 import {useGetRestaurantsQuery} from '../../state/apis/restaurantApi/restaurantApi';
+import rewardsStyles from './rewardsStyles';
 
 const PastVisits = () => {
+  const [showMore, setShowMore] = useState(false);
+
   const {data: visits, isLoading: visitsAreLoading} = useGetVisitsQuery();
   const {data: restaurants, isLoading: restaurantsAreLoading} =
     useGetRestaurantsQuery();
@@ -18,10 +22,42 @@ const PastVisits = () => {
     const rest = restaurants?.find(r => r.id === item.restaurant);
 
     return (
-      <Text style={baseStyles.text}>
-        {format(utcToZonedTime(item.date, 'America/Los_Angeles'), 'M/d/yy')} -{' '}
-        {rest?.name}
-      </Text>
+      <View style={rewardsStyles.pastVisitItem}>
+        <Text style={[baseStyles.textSm, rewardsStyles.pastVisitItemText]}>
+          {format(utcToZonedTime(item.date, 'America/Los_Angeles'), 'M/d/yy')}
+        </Text>
+        <Text style={[baseStyles.textSm, rewardsStyles.pastVisitItemText]}>
+          {rest?.name}
+        </Text>
+        <Text
+          style={[
+            baseStyles.textSm,
+            rewardsStyles.pastVisitItemText,
+            rewardsStyles.pastVisitItemStatus,
+          ]}>
+          {item.status}
+        </Text>
+      </View>
+    );
+  };
+
+  const renderShowMoreBtn = () => {
+    return (
+      <Pressable
+        onPress={() => setShowMore(true)}
+        style={rewardsStyles.showMoreBtn}>
+        <Text style={[baseStyles.textSm, baseStyles.textBlack]}>Show More</Text>
+      </Pressable>
+    );
+  };
+
+  const renderShowLessBtn = () => {
+    return (
+      <Pressable
+        onPress={() => setShowMore(false)}
+        style={rewardsStyles.showMoreBtn}>
+        <Text style={[baseStyles.textSm, baseStyles.textBlack]}>Show Less</Text>
+      </Pressable>
     );
   };
 
@@ -30,6 +66,7 @@ const PastVisits = () => {
   }
 
   if (visits?.length) {
+    const visitsToRender = showMore ? visits : visits.slice(0, 3);
     return (
       <>
         <View style={baseStyles.screenSection}>
@@ -37,7 +74,34 @@ const PastVisits = () => {
             <Text style={baseStyles.textLg}>Past Visits</Text>
           </View>
         </View>
-        <FlatList data={visits} renderItem={renderVisit} />
+        <View style={rewardsStyles.pastVisitsHeader}>
+          <Text
+            style={[
+              rewardsStyles.pastVisitHeaderText,
+              rewardsStyles.pastVisitItemText,
+            ]}>
+            Date
+          </Text>
+          <Text
+            style={[
+              rewardsStyles.pastVisitHeaderText,
+              rewardsStyles.pastVisitItemText,
+            ]}>
+            Restaurant
+          </Text>
+          <Text
+            style={[
+              rewardsStyles.pastVisitHeaderText,
+              rewardsStyles.pastVisitItemText,
+              rewardsStyles.pastVisitItemStatus,
+            ]}>
+            Status
+          </Text>
+        </View>
+        <FlatList data={visitsToRender} renderItem={renderVisit} />
+        <View style={baseStyles.centerSection}>
+          {!showMore ? renderShowMoreBtn() : renderShowLessBtn()}
+        </View>
       </>
     );
   } else {

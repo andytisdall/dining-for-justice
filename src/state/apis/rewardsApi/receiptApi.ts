@@ -14,6 +14,7 @@ export interface D4JVisit {
   id: string;
   restaurant: string;
   date: string;
+  status: string;
 }
 
 export interface UploadReceiptResponse {

@@ -1,6 +1,7 @@
 import {TextInput} from 'react-native-paper';
 import {Text, View} from 'react-native';
 import baseStyles from '../../styles/baseStyles';
+import rewardsStyles from '../rewardsStyles';
 
 const EnterName = ({
   firstName,
@@ -31,6 +32,8 @@ const EnterName = ({
           value={lastName}
           onChangeText={setLastName}
           onSubmitEditing={next}
+          returnKeyType="next"
+          style={rewardsStyles.textInput}
         />
       </View>
     </View>

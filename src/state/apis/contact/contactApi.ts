@@ -11,6 +11,7 @@ export interface Contact {
   id: string;
   firstName: string;
   email: string;
+  d4jPoints?: number;
 }
 
 export interface CreateContactArgs {

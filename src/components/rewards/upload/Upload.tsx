@@ -5,14 +5,14 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import DatePicker from 'react-native-date-picker';
 import {format} from 'date-fns-tz';
 
-import rewardsStyles from './rewardsStyles';
-import baseStyles from '../styles/baseStyles';
-import {RewardsStackParams} from './RewardsNavigator';
-import {useGetRestaurantsQuery} from '../../state/apis/restaurantApi/restaurantApi';
-import {useUploadReceiptMutation} from '../../state/apis/rewardsApi/receiptApi';
-import AddPhoto, {PhotoFile} from '../reusable/AddPhoto';
-import Btn from '../reusable/Btn';
-import Loading from '../reusable/Loading';
+import uploadStyles from './uploadStyles';
+import baseStyles from '../../styles/baseStyles';
+import {RewardsStackParams} from '../RewardsNavigator';
+import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
+import {useUploadReceiptMutation} from '../../../state/apis/rewardsApi/receiptApi';
+import AddPhoto, {PhotoFile} from '../../reusable/AddPhoto';
+import Btn from '../../reusable/Btn';
+import Loading from '../../reusable/Loading';
 
 type UploadScreenProps = NativeStackScreenProps<RewardsStackParams, 'Upload'>;
 
@@ -69,12 +69,12 @@ const Upload = ({navigation}: UploadScreenProps) => {
   const renderUpload = () => {
     return (
       <View style={baseStyles.screenSection}>
-        <View style={rewardsStyles.uploadItem}>
+        <View style={uploadStyles.uploadItem}>
           <Text style={baseStyles.text}>Provide a photo of your receipt:</Text>
           <AddPhoto photoFile={photo} setPhoto={setPhoto} />
         </View>
 
-        <View style={rewardsStyles.uploadItem}>
+        <View style={uploadStyles.uploadItem}>
           <Text style={baseStyles.text}>Restaurant:</Text>
           <DropDownPicker
             open={dropdownOpen}
@@ -83,13 +83,13 @@ const Upload = ({navigation}: UploadScreenProps) => {
             value={restaurantId || null}
             setValue={setRestaurantId}
             listMode="MODAL"
-            style={rewardsStyles.dropdown}
+            style={uploadStyles.dropdown}
             placeholder="Select restaurant"
-            placeholderStyle={rewardsStyles.dropdownPlaceholder}
-            textStyle={rewardsStyles.dropdownPlaceholder}
+            placeholderStyle={uploadStyles.dropdownPlaceholder}
+            textStyle={uploadStyles.dropdownPlaceholder}
           />
         </View>
-        <View style={rewardsStyles.uploadItem}>
+        <View style={uploadStyles.uploadItem}>
           <Text style={baseStyles.text}>Date of visit:</Text>
           <Btn onPress={() => setDateOpen(true)}>
             <Text>{format(date, 'M/d/yy')}</Text>

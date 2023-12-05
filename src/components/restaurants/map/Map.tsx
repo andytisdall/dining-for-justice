@@ -9,10 +9,10 @@ import {useRef, useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import MapText from './MapText';
-import {RestaurantStackParams} from './RestaurantNavigator';
-import {useGetRestaurantsQuery} from '../../state/apis/restaurantApi/restaurantApi';
+import {RestaurantStackParams} from '../RestaurantNavigator';
+import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
 import mapStyles from './mapStyles';
-import baseStyles from '../styles/baseStyles';
+import baseStyles from '../../styles/baseStyles';
 
 type MapScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
@@ -26,7 +26,7 @@ const INITIAL_COORDS: Region = {
   longitudeDelta: 0.15,
 };
 
-const restaurantIcon = require('../../assets/restaurantIcon.png');
+const restaurantIcon = require('../../../assets/restaurantIcon.png');
 
 const Map = ({navigation, route}: MapScreenProps) => {
   const {id} = route.params;
@@ -47,7 +47,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
             <Marker
               key={restaurant.name}
               title={restaurant.name}
-              description={restaurant.details.type}
+              description={restaurant.cuisine}
               coordinate={{
                 latitude: restaurant.coords!.latitude!,
                 longitude: restaurant.coords!.longitude!,
@@ -62,7 +62,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
           <Marker
             key={restaurant.name}
             title={restaurant.name}
-            description={restaurant.details.type}
+            description={restaurant.cuisine}
             coordinate={{
               latitude: restaurant.coords!.latitude!,
               longitude: restaurant.coords!.longitude!,
