@@ -1,6 +1,8 @@
 import {StyleSheet, Pressable, Animated, View} from 'react-native';
 import {ReactNode, useRef} from 'react';
 
+import colors from '../styles/colors';
+
 interface BtnProps {
   style?: Record<string, any> | Record<string, any>[];
   children: ReactNode;
@@ -62,7 +64,7 @@ const styles = StyleSheet.create({
   btn: {
     borderWidth: 1,
     borderRadius: 5,
-    backgroundColor: 'rgba(150, 200, 150, 1)',
+    backgroundColor: colors.green,
     overflow: 'hidden',
     alignSelf: 'baseline',
     margin: 10,

@@ -10,6 +10,8 @@ import PastVisits from './PastVisits';
 import User from './auth/User';
 import rewardsStyles from './rewardsStyles';
 import Points from './Points';
+import Triangle from '../../assets/tri.svg';
+import colors from '../styles/colors';
 
 type RewardsScreenProps = NativeStackScreenProps<
   RewardsStackParams,
@@ -23,7 +25,15 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
     <Btn
       onPress={() => navigation.navigate('Upload')}
       style={rewardsStyles.uploadBtn}>
-      <Text style={rewardsStyles.uploadBtnText}>Enter a Receipt</Text>
+      <View style={rewardsStyles.pointsSummary}>
+        <Triangle
+          width={20}
+          height={20}
+          fill={colors.blue}
+          style={rewardsStyles.triangle}
+        />
+        <Text style={rewardsStyles.uploadBtnText}>Enter a Receipt</Text>
+      </View>
     </Btn>
   );
 

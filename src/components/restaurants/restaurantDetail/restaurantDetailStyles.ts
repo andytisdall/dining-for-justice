@@ -52,4 +52,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     paddingBottom: 5,
   },
+  hoursItemRight: {
+    alignItems: 'flex-end',
+  },
 });

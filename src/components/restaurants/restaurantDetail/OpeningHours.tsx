@@ -1,17 +1,23 @@
 import {FlatList, Text, View} from 'react-native';
 
 import baseStyles from '../../styles/baseStyles';
-import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
 import restaurantDetailStyles from './restaurantDetailStyles';
 
-const OpeningHours = ({restaurant}: {restaurant: Restaurant}) => {
+const OpeningHours = ({openHours}: {openHours: string[]}) => {
   const renderHourItem = ({item}: {item: string}) => {
     const items = item.split(':');
     const day = items.splice(0, 1);
+    const hours = items.join(':').split(',');
     return (
       <View style={restaurantDetailStyles.hoursItem}>
         <Text style={baseStyles.text}>{day}:</Text>
-        <Text style={baseStyles.text}>{items.join(':')}</Text>
+        <View style={restaurantDetailStyles.hoursItemRight}>
+          {hours.map((hour, i) => (
+            <Text key={i} style={baseStyles.text}>
+              {hour}
+            </Text>
+          ))}
+        </View>
       </View>
     );
   };
@@ -23,10 +29,7 @@ const OpeningHours = ({restaurant}: {restaurant: Restaurant}) => {
           Hours:
         </Text>
       </View>
-      <FlatList
-        data={restaurant?.details.openHours}
-        renderItem={renderHourItem}
-      />
+      <FlatList data={openHours} renderItem={renderHourItem} />
     </View>
   );
 };

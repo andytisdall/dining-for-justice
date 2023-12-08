@@ -3,7 +3,10 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useEffect} from 'react';
 
 import {RestaurantStackParams} from '../RestaurantNavigator';
-import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
+import {
+  useGetRestaurantsQuery,
+  useGetRestaurantDetailsQuery,
+} from '../../../state/apis/restaurantApi/restaurantApi';
 import baseStyles from '../../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetailStyles';
 import Btn from '../../reusable/Btn';
@@ -23,15 +26,17 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
 
   const restaurant = data?.find(res => res.id === id);
 
+  const {data: details} = useGetRestaurantDetailsQuery(restaurant?.googleId);
+
   useEffect(
     () => navigation.setOptions({headerTitle: restaurant?.name}),
     [navigation, restaurant],
   );
 
   const restaurantLink = () => {
-    if (restaurant?.details.url) {
+    if (details?.url) {
       return (
-        <Btn onPress={() => Linking.openURL(restaurant.details.url)}>
+        <Btn onPress={() => Linking.openURL(details.url)}>
           <Text>Website</Text>
         </Btn>
       );
@@ -90,9 +95,9 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
   const renderServesItems = () => {
     return (
       <View style={restaurantDetailStyles.restaurantIcons}>
-        {restaurant?.details.serves.beer && servesIcon('Beer')}
-        {restaurant?.details.serves.breakfast && servesIcon('Breakfast')}
-        {restaurant?.details.serves.cocktails && servesIcon('Cocktails')}
+        {details?.serves.beer && servesIcon('Beer')}
+        {details?.serves.breakfast && servesIcon('Breakfast')}
+        {details?.serves.cocktails && servesIcon('Cocktails')}
       </View>
     );
   };
@@ -102,7 +107,7 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
       <View style={restaurantDetailStyles.restaurantIcons}>
         {restaurant?.femaleOwned && tagIcon('Woman Owned')}
         {restaurant?.pocOwned && tagIcon('P.O.C. Owned')}
-        {restaurant?.details.openNow && tagIcon('Open Now')}
+        {details?.openNow && tagIcon('Open Now')}
       </View>
     );
   };
@@ -111,9 +116,8 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     if (restaurant) {
       return (
         <View>
-          {detail('Name', restaurant.name)}
           {!!restaurant.cuisine && detail('Type of Food', restaurant.cuisine)}
-          {!!restaurant.address && detail('Address', restaurant.address.street)}
+          {!!details?.address && detail('Address', details.address)}
           <View
             style={[
               restaurantDetailStyles.restaurantIcons,
@@ -124,7 +128,9 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
           </View>
           {renderServesItems()}
           {renderTags()}
-          <OpeningHours restaurant={restaurant} />
+          {!!restaurant.openHours && (
+            <OpeningHours openHours={restaurant.openHours} />
+          )}
         </View>
       );
     }

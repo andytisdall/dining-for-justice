@@ -7,6 +7,7 @@ import type {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 let url = 'http://192.168.0.104:3001/api';
+// let url = 'https://portal.ckoakland.org/api';
 
 const baseQueryWithToken: BaseQueryFn<
   string | FetchArgs,
@@ -30,5 +31,5 @@ export const api = createApi({
   reducerPath: 'api',
   baseQuery: baseQueryWithToken,
   endpoints: () => ({}),
-  tagTypes: ['Contact', 'Visit'],
+  tagTypes: ['Contact', 'Visit', 'Restaurants', 'RestaurantDetails'],
 });

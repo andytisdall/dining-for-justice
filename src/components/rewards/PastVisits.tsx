@@ -100,7 +100,8 @@ const PastVisits = () => {
         </View>
         <FlatList data={visitsToRender} renderItem={renderVisit} />
         <View style={baseStyles.centerSection}>
-          {!showMore ? renderShowMoreBtn() : renderShowLessBtn()}
+          {visitsToRender.length > 3 &&
+            (!showMore ? renderShowMoreBtn() : renderShowLessBtn())}
         </View>
       </>
     );

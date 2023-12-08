@@ -3,6 +3,7 @@ import {View, Text} from 'react-native';
 import baseStyles from '../../styles/baseStyles';
 import Btn from '../../reusable/Btn';
 import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
+import restaurantStyles from '../restaurantStyles';
 
 const MapText = ({
   restaurant,
@@ -15,6 +16,7 @@ const MapText = ({
     <View style={baseStyles.screenSection}>
       <View style={baseStyles.centerSection}>
         <Text style={baseStyles.textLg}>{restaurant.name}</Text>
+        <Text style={restaurantStyles.cuisine}>{restaurant.cuisine}</Text>
         <Btn onPress={navigate}>
           <Text>See Restaurant Details</Text>
         </Btn>

@@ -55,4 +55,8 @@ export default StyleSheet.create({
   pointsSummary: {
     flexDirection: 'row',
   },
+  triangle: {
+    marginRight: 10,
+    transform: [{rotate: '30deg'}, {translateY: 5}],
+  },
 });

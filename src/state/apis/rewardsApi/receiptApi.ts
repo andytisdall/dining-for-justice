@@ -36,7 +36,7 @@ export const receiptApi = api.injectEndpoints({
         body.append('date', dateString);
         return {method: 'POST', url: '/d4j/receipt', formData: true, body};
       },
-      invalidatesTags: ['Visit'],
+      invalidatesTags: ['Visit', 'Contact'],
     }),
 
     getVisits: builder.query<D4JVisit[] | null, void>({
