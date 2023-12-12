@@ -7,8 +7,6 @@ export default StyleSheet.create({
   scrollView: {minHeight: '100%'},
   error: {
     position: 'absolute',
-    // bottom: 0,
-    // left: 0,
     width: '100%',
     height: 100,
     justifyContent: 'center',
@@ -21,7 +19,7 @@ export default StyleSheet.create({
     backgroundColor: colors.darkGrey,
   },
   screenSection: {
-    padding: 10,
+    padding: 15,
   },
   screenBorders: {
     borderTopColor: colors.lightGrey,
@@ -53,9 +51,24 @@ export default StyleSheet.create({
     fontSize: 30,
     color: 'white',
     textAlign: 'center',
-    paddingTop: 15,
+    paddingTop: 10,
   },
   centerSection: {
     alignItems: 'center',
   },
+
+  loadingContainer: {
+    height: 300,
+    width: '100%',
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 });
+
+export const getPressedStyle = (pressed: boolean) => {
+  if (pressed) {
+    return [{backgroundColor: 'rgba(250,250,250,.3)'}];
+  }
+};

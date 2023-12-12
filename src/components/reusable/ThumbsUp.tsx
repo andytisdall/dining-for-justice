@@ -1,0 +1,31 @@
+import {StyleSheet, Animated} from 'react-native';
+import {useRef} from 'react';
+
+import Thumb from '../../assets/thumb.svg';
+
+const ThumbsUp = () => {
+  const translateValue = useRef(new Animated.Value(0)).current;
+
+  Animated.timing(translateValue, {
+    toValue: 3,
+    duration: 1000,
+    useNativeDriver: true,
+  }).start();
+
+  return (
+    <Animated.View
+      style={[styles.container, {transform: [{scale: translateValue}]}]}>
+      <Thumb height={60} width={60} />
+    </Animated.View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    minHeight: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
+export default ThumbsUp;

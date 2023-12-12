@@ -1,25 +1,16 @@
 import {View, Text} from 'react-native';
 
 import baseStyles from '../../styles/baseStyles';
-import Btn from '../../reusable/Btn';
 import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
-import restaurantStyles from '../restaurantStyles';
+import mapStyles from './mapStyles';
 
-const MapText = ({
-  restaurant,
-  navigate,
-}: {
-  restaurant: Restaurant;
-  navigate: () => void;
-}) => {
+const MapText = ({restaurant}: {restaurant: Restaurant}) => {
   return (
-    <View style={baseStyles.screenSection}>
+    <View>
       <View style={baseStyles.centerSection}>
-        <Text style={baseStyles.textLg}>{restaurant.name}</Text>
-        <Text style={restaurantStyles.cuisine}>{restaurant.cuisine}</Text>
-        <Btn onPress={navigate}>
-          <Text>See Restaurant Details</Text>
-        </Btn>
+        <Text style={mapStyles.calloutName}>{restaurant.name}</Text>
+        <Text style={mapStyles.calloutCuisine}>{restaurant.cuisine}</Text>
+        <Text>click to see details</Text>
       </View>
     </View>
   );

@@ -12,6 +12,7 @@ import rewardsStyles from './rewardsStyles';
 import Points from './Points';
 import Triangle from '../../assets/tri.svg';
 import colors from '../styles/colors';
+import Header from '../reusable/Header';
 
 type RewardsScreenProps = NativeStackScreenProps<
   RewardsStackParams,
@@ -37,11 +38,34 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
     </Btn>
   );
 
+  const renderPrizesBtn = () => {
+    return (
+      <View style={[baseStyles.centerSection, baseStyles.screenSection]}>
+        <Text style={baseStyles.textLg}>Use your points</Text>
+        <Text style={baseStyles.textSm}>
+          Exchange your Dining for Justice points for rewards
+        </Text>
+        <Btn onPress={() => navigation.navigate('Prizes')}>
+          <Text>Shop</Text>
+        </Btn>
+      </View>
+    );
+  };
+
   const renderSignedIn = () => {
     return (
       <View style={baseStyles.screenSection}>
         <User />
-        <Points>{uploadBtn}</Points>
+        <Points>
+          <View>
+            <Text style={baseStyles.textSm}>
+              Earn points by giving us a receipt of your visit to a Dining for
+              Justice restaurant
+            </Text>
+          </View>
+          {uploadBtn}
+        </Points>
+        {renderPrizesBtn()}
         <PastVisits />
       </View>
     );
@@ -50,20 +74,23 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
   const renderNotSignedIn = () => {
     return (
       <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
-        <Btn onPress={() => navigation.navigate('GetContact')}>
-          <Text>Get Started</Text>
-        </Btn>
         <Text style={baseStyles.text}>
           To start earning points, enter your Dining for Justice restaurant
           visits!
         </Text>
+
+        <Btn onPress={() => navigation.navigate('GetContact')}>
+          <Text>Enter your email address to get started</Text>
+        </Btn>
       </View>
     );
   };
 
   const renderScreen = () => {
     return contactIsLoading ? (
-      <Loading />
+      <View style={baseStyles.loadingContainer}>
+        <Loading />
+      </View>
     ) : !contact ? (
       renderNotSignedIn()
     ) : (
@@ -72,7 +99,7 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
   };
 
   const screenTitle = () => {
-    return <Text style={baseStyles.title}>Rewards Home</Text>;
+    return <Header title="Rewards" />;
   };
 
   return (

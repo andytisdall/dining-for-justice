@@ -14,12 +14,7 @@ const Points = ({children}: PropsWithChildren) => {
         <Text style={baseStyles.text}>D4J Points: </Text>
         <Text style={baseStyles.text}>{contact?.d4jPoints || 0}</Text>
       </View>
-      <View>
-        <Text style={baseStyles.textSm}>
-          Earn points by giving us a receipt of your visit to a Dining for
-          Justice restaurant
-        </Text>
-      </View>
+
       <View>{children}</View>
     </View>
   );

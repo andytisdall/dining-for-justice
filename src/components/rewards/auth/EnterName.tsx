@@ -1,5 +1,7 @@
 import {TextInput} from 'react-native-paper';
-import {Text, View} from 'react-native';
+import {Text, View, TextInput as TextInputType} from 'react-native';
+import {useRef} from 'react';
+
 import baseStyles from '../../styles/baseStyles';
 import rewardsStyles from '../rewardsStyles';
 
@@ -16,6 +18,8 @@ const EnterName = ({
   setLastName: React.Dispatch<React.SetStateAction<string>>;
   next: () => void;
 }) => {
+  const lastNameRef = useRef<TextInputType>(null);
+
   return (
     <View style={baseStyles.screenSection}>
       <Text style={baseStyles.text}>
@@ -24,7 +28,13 @@ const EnterName = ({
       </Text>
       <View style={baseStyles.screenSection}>
         <Text style={baseStyles.text}>First Name:</Text>
-        <TextInput autoFocus value={firstName} onChangeText={setFirstName} />
+        <TextInput
+          autoFocus
+          value={firstName}
+          onChangeText={setFirstName}
+          onSubmitEditing={() => lastNameRef.current?.focus()}
+          blurOnSubmit
+        />
       </View>
       <View style={baseStyles.screenSection}>
         <Text style={baseStyles.text}>Last Name:</Text>
@@ -34,6 +44,8 @@ const EnterName = ({
           onSubmitEditing={next}
           returnKeyType="next"
           style={rewardsStyles.textInput}
+          ref={lastNameRef}
+          blurOnSubmit
         />
       </View>
     </View>

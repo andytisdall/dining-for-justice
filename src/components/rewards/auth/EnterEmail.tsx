@@ -1,6 +1,7 @@
 import {TextInput} from 'react-native-paper';
 import {View, Text} from 'react-native';
 import baseStyles from '../../styles/baseStyles';
+import authStyles from './authStyles';
 
 const EnterEmail = ({
   email,
@@ -13,7 +14,7 @@ const EnterEmail = ({
 }) => {
   return (
     <View>
-      <Text style={baseStyles.text}>Email:</Text>
+      <Text style={[baseStyles.textSm, authStyles.authFieldLabel]}>Email:</Text>
       <TextInput
         value={email}
         onChangeText={setEmail}
@@ -22,6 +23,7 @@ const EnterEmail = ({
         autoCorrect={false}
         textContentType="emailAddress"
         onSubmitEditing={next}
+        blurOnSubmit
       />
     </View>
   );

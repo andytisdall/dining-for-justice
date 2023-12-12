@@ -16,12 +16,16 @@ import RestaurantNavigator from './src/components/restaurants/RestaurantNavigato
 import RewardsNavigator from './src/components/rewards/RewardsNavigator';
 import baseStyles from './src/components/styles/baseStyles';
 import {enableLatestRenderer} from 'react-native-maps';
+import Home from './src/components/home/Home';
+import createTabIcon from './src/components/reusable/tabs/TabIcon';
+import createTabLabel from './src/components/reusable/tabs/TabLabel';
 
 enableLatestRenderer();
 
 export type RootTabsParams = {
   Rewards: undefined;
   Restaurants: undefined;
+  Home: undefined;
 };
 
 const RootTabs = createBottomTabNavigator<RootTabsParams>();
@@ -34,10 +38,29 @@ const RootComponent = () => {
           <RootTabs.Navigator
             screenOptions={{headerShown: false, tabBarHideOnKeyboard: true}}>
             <RootTabs.Screen
+              name="Home"
+              component={Home}
+              options={{
+                tabBarIcon: createTabIcon('home'),
+                tabBarLabel: createTabLabel('Home'),
+              }}
+            />
+            <RootTabs.Screen
               name="Restaurants"
               component={RestaurantNavigator}
+              options={{
+                tabBarIcon: createTabIcon('restaurants'),
+                tabBarLabel: createTabLabel('Restaurants'),
+              }}
             />
-            <RootTabs.Screen name="Rewards" component={RewardsNavigator} />
+            <RootTabs.Screen
+              name="Rewards"
+              component={RewardsNavigator}
+              options={{
+                tabBarIcon: createTabIcon('rewards'),
+                tabBarLabel: createTabLabel('Rewards'),
+              }}
+            />
           </RootTabs.Navigator>
           <Error />
         </Provider>

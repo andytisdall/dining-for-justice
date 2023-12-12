@@ -13,7 +13,7 @@ const OpeningHours = ({openHours}: {openHours: string[]}) => {
         <Text style={baseStyles.text}>{day}:</Text>
         <View style={restaurantDetailStyles.hoursItemRight}>
           {hours.map((hour, i) => (
-            <Text key={i} style={baseStyles.text}>
+            <Text key={i} style={baseStyles.textSm}>
               {hour}
             </Text>
           ))}
@@ -23,14 +23,19 @@ const OpeningHours = ({openHours}: {openHours: string[]}) => {
   };
 
   return (
-    <View style={baseStyles.screenSection}>
+    <>
       <View style={baseStyles.centerSection}>
-        <Text style={[baseStyles.text, restaurantDetailStyles.restaurantIcons]}>
+        <Text
+          style={[
+            baseStyles.text,
+            restaurantDetailStyles.restaurantIcons,
+            baseStyles.screenSection,
+          ]}>
           Hours:
         </Text>
       </View>
       <FlatList data={openHours} renderItem={renderHourItem} />
-    </View>
+    </>
   );
 };
 export default OpeningHours;

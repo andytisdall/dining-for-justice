@@ -13,6 +13,7 @@ export interface RestaurantDetails {
   };
   address?: string;
   id: string;
+  openHours: string[];
 }
 
 // export type RestaurantDetailsState = Record<string, RestaurantDetails>;
@@ -29,6 +30,7 @@ export interface Restaurant {
   googleId: string;
   coords?: {latitude: number; longitude: number};
   openHours: string[];
+  photo?: string;
 }
 
 export const restaurantApi = api.injectEndpoints({

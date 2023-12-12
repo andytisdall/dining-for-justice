@@ -5,5 +5,6 @@ export default {
   darkGrey: 'rgb(50,50,50)',
   lightGrey: 'rgb(150,150,150)',
   blue: 'rgb(190,210,245)',
+  darkBlue: 'rgb(120,140,180)',
   pink: 'rgb(250,220,250)',
 };

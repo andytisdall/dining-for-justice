@@ -59,9 +59,11 @@ const Upload = ({navigation}: UploadScreenProps) => {
 
   const restaurantOptions = useMemo(() => {
     if (restaurants) {
-      return restaurants.map(rest => {
-        return {label: rest.name, value: rest.id};
-      });
+      return [...restaurants]
+        .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1))
+        .map(rest => {
+          return {label: rest.name, value: rest.id};
+        });
     }
     return [];
   }, [restaurants]);

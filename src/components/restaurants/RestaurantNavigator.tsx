@@ -29,7 +29,7 @@ const RestaurantNavigator = () => {
       <RestaurantStack.Screen
         name="RestaurantMap"
         component={Map}
-        options={{header: StackHeader, headerTitle: 'Dining for Justice Map'}}
+        options={{header: StackHeader, headerTitle: 'Restaurant Map'}}
       />
     </RestaurantStack.Navigator>
   );

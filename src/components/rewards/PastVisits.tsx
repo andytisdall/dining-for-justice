@@ -71,7 +71,7 @@ const PastVisits = () => {
       <>
         <View style={baseStyles.screenSection}>
           <View style={baseStyles.centerSection}>
-            <Text style={baseStyles.textLg}>Past Visits</Text>
+            <Text style={baseStyles.textLg}>Your Past Visits</Text>
           </View>
         </View>
         <View style={rewardsStyles.pastVisitsHeader}>
@@ -100,13 +100,13 @@ const PastVisits = () => {
         </View>
         <FlatList data={visitsToRender} renderItem={renderVisit} />
         <View style={baseStyles.centerSection}>
-          {visitsToRender.length > 3 &&
+          {visits.length > 3 &&
             (!showMore ? renderShowMoreBtn() : renderShowLessBtn())}
         </View>
       </>
     );
   } else {
-    return <Text style={baseStyles.text}>No Visits Found</Text>;
+    return <View />;
   }
 };
 

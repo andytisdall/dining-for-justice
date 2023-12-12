@@ -1,13 +1,16 @@
-import {View, ScrollView} from 'react-native';
+import {View, ScrollView, Text} from 'react-native';
 import MapView, {
   PROVIDER_GOOGLE,
   Region,
   Marker,
   MapMarker,
+  Callout,
 } from 'react-native-maps';
 import {useRef, useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
+import useFilter from '../../../hooks/useFilter';
+import Btn from '../../reusable/Btn';
 import MapText from './MapText';
 import {RestaurantStackParams} from '../RestaurantNavigator';
 import {
@@ -16,17 +19,20 @@ import {
 } from '../../../state/apis/restaurantApi/restaurantApi';
 import mapStyles from './mapStyles';
 import baseStyles from '../../styles/baseStyles';
+import restaurantStyles from '../restaurantStyles';
 
 type MapScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
   'RestaurantMap'
 >;
 
+const ZOOM_VALUE = 0.04;
+
 const INITIAL_COORDS: Region = {
-  latitude: 37.8,
+  latitude: 37.82,
   longitude: -122.25,
-  latitudeDelta: 0.12,
-  longitudeDelta: 0.12,
+  latitudeDelta: 0.1,
+  longitudeDelta: 0.1,
 };
 
 const Map = ({navigation, route}: MapScreenProps) => {
@@ -35,11 +41,13 @@ const Map = ({navigation, route}: MapScreenProps) => {
   const [selectedRestaurant, setSelectedRestaurant] = useState(id);
 
   const {data: restaurants} = useGetRestaurantsQuery();
-  1;
+
+  const [sortedRestaurants, filterComponent] = useFilter(restaurants);
 
   const markerRef = useRef<MapMarker>(null);
   const mapRef = useRef<MapView>(null);
   const initialLoadRef = useRef(false);
+  const zoomRef = useRef(INITIAL_COORDS.latitudeDelta);
 
   const onMapLoaded = () => {
     if (
@@ -55,24 +63,10 @@ const Map = ({navigation, route}: MapScreenProps) => {
   };
 
   const renderMarkers = () => {
-    return restaurants
+    return sortedRestaurants
       ?.filter(r => r.coords)
       .map(restaurant => {
-        if (restaurant.id === id) {
-          return (
-            <Marker
-              key={restaurant.name}
-              title={restaurant.name}
-              description={restaurant.cuisine}
-              coordinate={{
-                latitude: restaurant.coords!.latitude,
-                longitude: restaurant.coords!.longitude,
-              }}
-              onPress={() => setSelectedRestaurant(restaurant.id)}
-              ref={markerRef}
-            />
-          );
-        }
+        const ref = restaurant.id === id ? markerRef : undefined;
         return (
           <Marker
             key={restaurant.name}
@@ -86,45 +80,66 @@ const Map = ({navigation, route}: MapScreenProps) => {
               setSelectedRestaurant(restaurant.id);
               centerMarker(restaurant);
             }}
-          />
+            ref={ref}>
+            <Callout
+              onPress={() =>
+                navigation.navigate('RestaurantDetail', {
+                  id: restaurant.id,
+                })
+              }>
+              <View>
+                <MapText restaurant={restaurant} />
+              </View>
+            </Callout>
+          </Marker>
         );
       });
   };
 
-  const restaurant = restaurants?.find(r => r.id === selectedRestaurant);
+  const restaurant = sortedRestaurants?.find(r => r.id === selectedRestaurant);
 
   const centerMarker = (rest: Restaurant) => {
     if (mapRef.current && rest.coords) {
-      mapRef.current.animateToRegion({
-        latitude: rest.coords.latitude,
-        longitude: rest.coords.longitude,
-        latitudeDelta: 0.04,
-        longitudeDelta: 0.04,
-      });
+      if (zoomRef.current > ZOOM_VALUE) {
+        mapRef.current.animateToRegion({
+          latitude: rest.coords.latitude,
+          longitude: rest.coords.longitude,
+          latitudeDelta: ZOOM_VALUE,
+          longitudeDelta: ZOOM_VALUE,
+        });
+      } else {
+        mapRef.current.animateToRegion({
+          latitude: rest.coords.latitude,
+          longitude: rest.coords.longitude,
+          latitudeDelta: zoomRef.current,
+          longitudeDelta: zoomRef.current,
+        });
+      }
     }
   };
 
+  const syncZoomRef = (region: Region) => {
+    zoomRef.current = region.latitudeDelta;
+  };
+
   return (
-    <ScrollView contentContainerStyle={baseStyles.screen}>
-      <View style={baseStyles.screen}>
+    <ScrollView contentContainerStyle={mapStyles.mapContainer}>
+      <View style={[baseStyles.screen]}>
         <MapView
           ref={mapRef}
           provider={PROVIDER_GOOGLE}
           style={mapStyles.map}
           initialRegion={INITIAL_COORDS}
-          onMapLoaded={onMapLoaded}>
+          onMapLoaded={onMapLoaded}
+          onRegionChangeComplete={syncZoomRef}>
           {renderMarkers()}
         </MapView>
-        {!!restaurant && (
-          <MapText
-            restaurant={restaurant}
-            navigate={() =>
-              navigation.navigate('RestaurantDetail', {
-                id: restaurant.id,
-              })
-            }
-          />
-        )}
+        <View style={restaurantStyles.listHeader}>
+          {filterComponent}
+          <Btn onPress={() => mapRef.current?.animateToRegion(INITIAL_COORDS)}>
+            <Text>Reset Map</Text>
+          </Btn>
+        </View>
       </View>
     </ScrollView>
   );

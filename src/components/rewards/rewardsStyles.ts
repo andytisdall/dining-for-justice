@@ -57,6 +57,17 @@ export default StyleSheet.create({
   },
   triangle: {
     marginRight: 10,
-    transform: [{rotate: '30deg'}, {translateY: 5}],
+    transform: [{rotate: '30deg'}, {translateY: 8}],
+  },
+  prize: {
+    borderBottomColor: colors.lightGrey,
+    borderBottomWidth: 1,
+  },
+  prizeDescription: {
+    marginLeft: 20,
+  },
+  prizePoints: {
+    color: colors.yellow,
+    marginRight: 5,
   },
 });

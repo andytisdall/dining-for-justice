@@ -18,4 +18,14 @@ export default StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'center',
   },
+  authFieldLabel: {
+    color: colors.yellow,
+    marginBottom: 10,
+  },
+  authHeader: {
+    textAlign: 'center',
+    borderBottomColor: colors.lightGrey,
+    borderBottomWidth: 1,
+    padding: 10,
+  },
 });

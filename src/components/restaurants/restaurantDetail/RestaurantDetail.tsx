@@ -7,10 +7,11 @@ import {
   useGetRestaurantsQuery,
   useGetRestaurantDetailsQuery,
 } from '../../../state/apis/restaurantApi/restaurantApi';
-import baseStyles from '../../styles/baseStyles';
+import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetailStyles';
-import Btn from '../../reusable/Btn';
 import OpeningHours from './OpeningHours';
+import InternetIcon from '../../../assets/internet.svg';
+import Loading from '../../reusable/Loading';
 
 type RestaurantDetailScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
@@ -26,7 +27,9 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
 
   const restaurant = data?.find(res => res.id === id);
 
-  const {data: details} = useGetRestaurantDetailsQuery(restaurant?.googleId);
+  const {data: details, isLoading} = useGetRestaurantDetailsQuery(
+    restaurant?.googleId,
+  );
 
   useEffect(
     () => navigation.setOptions({headerTitle: restaurant?.name}),
@@ -36,9 +39,25 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
   const restaurantLink = () => {
     if (details?.url) {
       return (
-        <Btn onPress={() => Linking.openURL(details.url)}>
-          <Text>Website</Text>
-        </Btn>
+        <Pressable
+          onPress={() => Linking.openURL(details.url)}
+          style={restaurantDetailStyles.restaurantLink}>
+          {({pressed}) => {
+            const pressedStyle = getPressedStyle(pressed);
+
+            return (
+              <View style={[pressedStyle, restaurantDetailStyles.mapBtn]}>
+                <InternetIcon
+                  style={restaurantDetailStyles.restaurantLinkIcon}
+                  width={30}
+                  height={30}
+                  fill="white"
+                />
+                <Text style={baseStyles.textSm}>Restaurant Website</Text>
+              </View>
+            );
+          }}
+        </Pressable>
       );
     }
   };
@@ -75,7 +94,7 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
         <Text style={restaurantDetailStyles.restaurantDetailItemTitle}>
           {detailName}:{' '}
         </Text>
-        <Text style={baseStyles.text}>{detailText}</Text>
+        <Text style={baseStyles.textSm}>{detailText}</Text>
       </View>
     );
   };
@@ -83,18 +102,27 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
   const mapBtn = (restaurantId: string) => {
     return (
       <Pressable
-        onPress={() =>
-          navigation.navigate('RestaurantMap', {id: restaurantId})
-        }>
-        <Image source={mapIcon} style={restaurantDetailStyles.mapIcon} />
-        <Text style={baseStyles.textSm}>View on Map</Text>
+        onPress={() => navigation.navigate('RestaurantMap', {id: restaurantId})}
+        style={restaurantDetailStyles.restaurantLink}>
+        {({pressed}) => {
+          const pressedStyle = getPressedStyle(pressed);
+          return (
+            <View style={[pressedStyle, restaurantDetailStyles.mapBtn]}>
+              <Image
+                source={mapIcon}
+                style={[restaurantDetailStyles.restaurantLinkIcon]}
+              />
+              <Text style={baseStyles.textSm}>View on Map</Text>
+            </View>
+          );
+        }}
       </Pressable>
     );
   };
 
   const renderServesItems = () => {
     return (
-      <View style={restaurantDetailStyles.restaurantIcons}>
+      <View style={restaurantDetailStyles.restaurantIconColumn}>
         {details?.serves.beer && servesIcon('Beer')}
         {details?.serves.breakfast && servesIcon('Breakfast')}
         {details?.serves.cocktails && servesIcon('Cocktails')}
@@ -104,7 +132,7 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
 
   const renderTags = () => {
     return (
-      <View style={restaurantDetailStyles.restaurantIcons}>
+      <View style={restaurantDetailStyles.restaurantIconColumn}>
         {restaurant?.femaleOwned && tagIcon('Woman Owned')}
         {restaurant?.pocOwned && tagIcon('P.O.C. Owned')}
         {details?.openNow && tagIcon('Open Now')}
@@ -112,35 +140,61 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     );
   };
 
-  const renderDetails = () => {
-    if (restaurant) {
+  const renderImage = () => {
+    if (restaurant?.photo) {
       return (
-        <View>
-          {!!restaurant.cuisine && detail('Type of Food', restaurant.cuisine)}
-          {!!details?.address && detail('Address', details.address)}
-          <View
-            style={[
-              restaurantDetailStyles.restaurantIcons,
-              restaurantDetailStyles.linkRow,
-            ]}>
-            {restaurantLink()}
-            {mapBtn(restaurant.id)}
-          </View>
-          {renderServesItems()}
-          {renderTags()}
-          {!!restaurant.openHours && (
-            <OpeningHours openHours={restaurant.openHours} />
-          )}
-        </View>
+        <Image
+          source={{
+            uri: restaurant.photo,
+          }}
+          style={restaurantDetailStyles.photo}
+        />
       );
     }
   };
 
-  const base = <View style={baseStyles.screenSection}>{renderDetails()}</View>;
+  const renderDetails = () => {
+    if (isLoading) {
+      return (
+        // <View style={baseStyles.loadingContainer}>
+        <Loading />
+        // </View>
+      );
+    }
+    if (restaurant) {
+      return (
+        <View style={baseStyles.screenSection}>
+          <View style={baseStyles.screenSection}>
+            {!!restaurant.cuisine && detail('Type of Food', restaurant.cuisine)}
+            {!!details?.address && detail('Address', details.address)}
+          </View>
+          <View style={[restaurantDetailStyles.restaurantIcons]}>
+            {renderServesItems()}
+            {renderTags()}
+          </View>
+
+          <View style={[restaurantDetailStyles.restaurantLinkRow]}>
+            {mapBtn(restaurant.id)}
+            {restaurantLink()}
+          </View>
+
+          {!!details?.openHours && (
+            <OpeningHours openHours={details.openHours} />
+          )}
+          {renderImage()}
+        </View>
+      );
+    }
+    return (
+      <View style={baseStyles.screenSection}>
+        <Text>No restaurant data could be found.</Text>
+      </View>
+    );
+  };
 
   return (
     <FlatList
-      data={[base]}
+      data={[renderDetails()]}
       renderItem={({item}) => item}
       style={baseStyles.screen}
     />

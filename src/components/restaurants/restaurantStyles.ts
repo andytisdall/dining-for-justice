@@ -7,27 +7,17 @@ export default StyleSheet.create({
     paddingBottom: 50,
   },
   restaurantListItem: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
     paddingVertical: 15,
     borderBottomColor: 'white',
     borderBottomWidth: 1,
   },
-  filterBtn: {flexDirection: 'row', alignItems: 'center'},
-  filterCheckboxes: {
-    marginLeft: 25,
-  },
-  checkbox: {
-    flexDirection: 'row',
-    marginBottom: 10,
-    alignItems: 'center',
-  },
-  filterIcon: {
-    width: 25,
-    height: 25,
-  },
+
   listHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingHorizontal: 10,
+    marginTop: 10,
   },
   cuisine: {
     color: colors.blue,

@@ -6,6 +6,7 @@ import {RewardsStackParams} from '../RewardsNavigator';
 import baseStyles from '../../styles/baseStyles';
 import Btn from '../../reusable/Btn';
 import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
+import {useGetContactQuery} from '../../../state/apis/contact/contactApi';
 
 type UploadSuccessScreenProps = NativeStackScreenProps<
   RewardsStackParams,
@@ -16,6 +17,7 @@ const UploadSuccess = ({route, navigation}: UploadSuccessScreenProps) => {
   const {data} = route.params;
 
   const {data: restaurants} = useGetRestaurantsQuery();
+  const {data: contact} = useGetContactQuery();
 
   const restaurant = restaurants?.find(r => r.id === data.restaurantId);
 
@@ -26,6 +28,7 @@ const UploadSuccess = ({route, navigation}: UploadSuccessScreenProps) => {
         <Text style={baseStyles.text}>
           Date: {format(new Date(data.date), 'M/d/yy')}
         </Text>
+        <Text style={baseStyles.text}>Your email: {contact?.email}</Text>
       </View>
       <View style={baseStyles.centerSection}>
         <Btn onPress={() => navigation.navigate('RewardsHome')}>

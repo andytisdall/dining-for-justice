@@ -17,7 +17,7 @@ export default StyleSheet.create({
   restaurantInfoItem: {
     borderRadius: 30,
     padding: 10,
-    marginRight: 10,
+    marginBottom: 10,
   },
   restaurantServesItem: {
     borderColor: colors.yellow,
@@ -33,16 +33,19 @@ export default StyleSheet.create({
   restaurantTagItemText: {
     color: colors.pink,
   },
-  restaurantIcons: {
-    marginVertical: 5,
+  restaurantLinkRow: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
+    alignItems: 'flex-end',
   },
-  linkRow: {
-    justifyContent: 'space-between',
-    paddingHorizontal: 10,
+  restaurantIcons: {
+    flexDirection: 'row',
   },
-  mapIcon: {
+  restaurantIconColumn: {alignItems: 'flex-start', marginRight: 20},
+  restaurantLink: {
+    marginRight: 30,
+  },
+  mapBtn: {padding: 10},
+  restaurantLinkIcon: {
     height: 35,
     width: 35,
     alignSelf: 'center',
@@ -51,8 +54,11 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingBottom: 5,
+    flexWrap: 'wrap',
+    alignItems: 'center',
   },
   hoursItemRight: {
     alignItems: 'flex-end',
   },
+  photo: {height: 300, width: 300, borderWidth: 2, borderColor: 'white'},
 });

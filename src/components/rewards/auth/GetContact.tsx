@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {View, Text, ScrollView} from 'react-native';
 import {useDispatch} from 'react-redux';
@@ -11,10 +11,12 @@ import EnterName from './EnterName';
 import {
   useSignInMutation,
   useCreateContactMutation,
-  useGetContactQuery,
 } from '../../../state/apis/contact/contactApi';
 import Btn from '../../reusable/Btn';
 import baseStyles from '../../styles/baseStyles';
+import ThumbsUp from '../../reusable/ThumbsUp';
+import AnimatedLoading from '../../reusable/AnimatedLoading';
+import authStyles from './authStyles';
 
 type GetContactScreenProps = NativeStackScreenProps<
   RewardsStackParams,
@@ -36,17 +38,11 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
 
   const [signIn, signInResult] = useSignInMutation();
   const [createContact, createContactResult] = useCreateContactMutation();
-  const {data: contact} = useGetContactQuery();
+  // const {data: contact} = useGetContactQuery();
 
   const redirectScreen = 'RewardsHome';
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (contact) {
-      navigation.navigate(redirectScreen);
-    }
-  }, [contact, navigation]);
 
   const handleSubmit = () => {
     if (!showNameFields) {
@@ -87,19 +83,36 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
     );
   };
 
-  if (signInResult.isLoading || createContactResult.isLoading) {
+  if (createContactResult.isSuccess) {
+    return (
+      <View style={baseStyles.screen}>
+        <ThumbsUp />
+      </View>
+    );
+  }
+
+  if (signInResult.isLoading) {
     return (
       <View style={baseStyles.screen}>
         <Loading />
       </View>
     );
   }
+
+  if (createContactResult.isLoading) {
+    return (
+      <View style={baseStyles.screen}>
+        <AnimatedLoading />
+      </View>
+    );
+  }
+
   return (
     <ScrollView contentContainerStyle={baseStyles.scrollView}>
       <View style={baseStyles.screen}>
         <View style={baseStyles.screenSection}>
-          <Text style={baseStyles.text}>
-            Enter your email to do rewards things
+          <Text style={[baseStyles.text, authStyles.authHeader]}>
+            Enter your email to claim your rewards
           </Text>
         </View>
         <View style={baseStyles.screenSection}>

@@ -6,6 +6,8 @@ import UploadSuccess from './upload/UploadSuccess';
 import GetContact from '../rewards/auth/GetContact';
 import {UploadReceiptResponse} from '../../state/apis/rewardsApi/receiptApi';
 import StackHeader from '../reusable/StackHeader';
+import Prizes from './Prizes';
+import PrizeDetail from './PrizeDetail';
 
 export type RewardsStackParams = {
   RewardsHome: undefined;
@@ -13,6 +15,8 @@ export type RewardsStackParams = {
   UploadSuccess: {data: UploadReceiptResponse};
   RewardsSummary: undefined;
   GetContact: undefined;
+  Prizes: undefined;
+  PrizeDetail: {name: 'giftCert'};
 };
 
 const RewardsStack = createNativeStackNavigator<RewardsStackParams>();
@@ -43,6 +47,16 @@ const RewardsNavigator = () => {
         name="GetContact"
         component={GetContact}
         options={{header: StackHeader, headerTitle: 'Your Info'}}
+      />
+      <RewardsStack.Screen
+        name="Prizes"
+        component={Prizes}
+        options={{header: StackHeader, headerTitle: 'Use Your Points'}}
+      />
+      <RewardsStack.Screen
+        name="PrizeDetail"
+        component={PrizeDetail}
+        options={{header: StackHeader}}
       />
     </RewardsStack.Navigator>
   );
