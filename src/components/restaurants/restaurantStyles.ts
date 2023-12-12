@@ -3,6 +3,7 @@ import {StyleSheet} from 'react-native';
 import colors from '../styles/colors';
 
 export default StyleSheet.create({
+  loading: {height: 500},
   restaurantList: {
     paddingBottom: 50,
   },

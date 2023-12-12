@@ -91,9 +91,7 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
   const detail = (detailName: string, detailText: string) => {
     return (
       <View style={restaurantDetailStyles.restaurantDetailItem}>
-        <Text style={restaurantDetailStyles.restaurantDetailItemTitle}>
-          {detailName}:{' '}
-        </Text>
+        <Text style={baseStyles.inputLabel}>{detailName}: </Text>
         <Text style={baseStyles.textSm}>{detailText}</Text>
       </View>
     );
@@ -156,19 +154,25 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
   const renderDetails = () => {
     if (isLoading) {
       return (
-        // <View style={baseStyles.loadingContainer}>
-        <Loading />
-        // </View>
+        <View style={baseStyles.loadingContainer}>
+          <Loading />
+        </View>
       );
     }
     if (restaurant) {
       return (
         <View style={baseStyles.screenSection}>
+          {renderImage()}
+
           <View style={baseStyles.screenSection}>
             {!!restaurant.cuisine && detail('Type of Food', restaurant.cuisine)}
             {!!details?.address && detail('Address', details.address)}
           </View>
-          <View style={[restaurantDetailStyles.restaurantIcons]}>
+          <View
+            style={[
+              restaurantDetailStyles.restaurantIcons,
+              baseStyles.screenSection,
+            ]}>
             {renderServesItems()}
             {renderTags()}
           </View>
@@ -181,7 +185,6 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
           {!!details?.openHours && (
             <OpeningHours openHours={details.openHours} />
           )}
-          {renderImage()}
         </View>
       );
     }

@@ -65,6 +65,11 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  inputLabel: {
+    color: colors.yellow,
+    marginRight: 5,
+    fontWeight: '600',
+  },
 });
 
 export const getPressedStyle = (pressed: boolean) => {

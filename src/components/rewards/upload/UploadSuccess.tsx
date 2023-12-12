@@ -24,13 +24,26 @@ const UploadSuccess = ({route, navigation}: UploadSuccessScreenProps) => {
   return (
     <View style={baseStyles.screen}>
       <View style={[baseStyles.screenSection]}>
-        <Text style={baseStyles.text}>Restaurant: {restaurant?.name}</Text>
-        <Text style={baseStyles.text}>
-          Date: {format(new Date(data.date), 'M/d/yy')}
-        </Text>
-        <Text style={baseStyles.text}>Your email: {contact?.email}</Text>
+        <Text style={baseStyles.inputLabel}>Restaurant: </Text>
+        <Text style={baseStyles.text}>{restaurant?.name}</Text>
       </View>
-      <View style={baseStyles.centerSection}>
+      <View style={[baseStyles.screenSection]}>
+        <Text style={baseStyles.inputLabel}>Date: </Text>
+        <Text style={baseStyles.text}>
+          {format(new Date(data.date), 'M/d/yy')}
+        </Text>
+      </View>
+      <View style={[baseStyles.screenSection]}>
+        <Text style={baseStyles.inputLabel}>Your email: </Text>
+        <Text style={baseStyles.text}>{contact?.email}</Text>
+      </View>
+      <View style={[baseStyles.centerSection, baseStyles.screenSection]}>
+        <Text style={baseStyles.textSm}>
+          Your receipt is pending approval. Once it is approved, you will have 1
+          D4J point added to your account.
+        </Text>
+      </View>
+      <View style={[baseStyles.centerSection, baseStyles.screenSection]}>
         <Btn onPress={() => navigation.navigate('RewardsHome')}>
           <Text>Finish</Text>
         </Btn>

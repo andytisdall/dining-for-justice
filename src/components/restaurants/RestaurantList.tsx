@@ -3,7 +3,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import restaurantStyles from './restaurantStyles';
 import {RestaurantStackParams} from './RestaurantNavigator';
-import Loading from '../reusable/Loading';
+import AnimatedLoading from '../reusable/AnimatedLoading';
 import {useGetRestaurantsQuery} from '../../state/apis/restaurantApi/restaurantApi';
 import baseStyles, {getPressedStyle} from '../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetail/restaurantDetailStyles';
@@ -46,8 +46,8 @@ const RestaurantList = ({navigation}: RestaurantsScreenProps) => {
   const renderRestaurants = () => {
     if (isLoading) {
       return (
-        <View style={baseStyles.loadingContainer}>
-          <Loading />
+        <View style={restaurantStyles.loading}>
+          <AnimatedLoading />
         </View>
       );
     }
@@ -94,7 +94,11 @@ const RestaurantList = ({navigation}: RestaurantsScreenProps) => {
       {mapBtn}
     </View>
   );
-  const restaurantSection = <View>{renderRestaurants()}</View>;
+  const restaurantSection = renderRestaurants() || (
+    <View>
+      <Text>No data</Text>
+    </View>
+  );
 
   return (
     <FlatList

@@ -9,11 +9,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginBottom: 5,
   },
-  restaurantDetailItemTitle: {
-    color: colors.yellow,
-    marginRight: 5,
-    fontWeight: '600',
-  },
+
   restaurantInfoItem: {
     borderRadius: 30,
     padding: 10,
@@ -60,5 +56,5 @@ export default StyleSheet.create({
   hoursItemRight: {
     alignItems: 'flex-end',
   },
-  photo: {height: 300, width: 300, borderWidth: 2, borderColor: 'white'},
+  photo: {height: 300, resizeMode: 'contain'},
 });

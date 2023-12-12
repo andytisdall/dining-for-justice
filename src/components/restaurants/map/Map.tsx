@@ -49,6 +49,8 @@ const Map = ({navigation, route}: MapScreenProps) => {
   const initialLoadRef = useRef(false);
   const zoomRef = useRef(INITIAL_COORDS.latitudeDelta);
 
+  const VERTICAL_OFFSET = zoomRef.current > 0.035 ? 0.01 : 0;
+
   const onMapLoaded = () => {
     if (
       !initialLoadRef.current &&
@@ -102,14 +104,14 @@ const Map = ({navigation, route}: MapScreenProps) => {
     if (mapRef.current && rest.coords) {
       if (zoomRef.current > ZOOM_VALUE) {
         mapRef.current.animateToRegion({
-          latitude: rest.coords.latitude,
+          latitude: rest.coords.latitude + VERTICAL_OFFSET,
           longitude: rest.coords.longitude,
           latitudeDelta: ZOOM_VALUE,
           longitudeDelta: ZOOM_VALUE,
         });
       } else {
         mapRef.current.animateToRegion({
-          latitude: rest.coords.latitude,
+          latitude: rest.coords.latitude + VERTICAL_OFFSET,
           longitude: rest.coords.longitude,
           latitudeDelta: zoomRef.current,
           longitudeDelta: zoomRef.current,

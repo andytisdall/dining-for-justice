@@ -3,6 +3,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RewardsStackParams} from './RewardsNavigator';
 import {Text, View} from 'react-native';
 import Btn from '../reusable/Btn';
+import baseStyles from '../styles/baseStyles';
 
 type RewardsScreenProps = NativeStackScreenProps<
   RewardsStackParams,
@@ -27,13 +28,17 @@ const PrizeDetail = ({route}: RewardsScreenProps) => {
   }
 
   return (
-    <View>
-      <Text>
-        You want to exchange {prize.points} for {prize.title}
-      </Text>
-      <Btn onPress={() => {}}>
-        <Text>Confirm</Text>
-      </Btn>
+    <View style={baseStyles.screen}>
+      <View style={baseStyles.screenSection}>
+        <Text style={baseStyles.textSm}>
+          You want to exchange {prize.points} points for {prize.title}
+        </Text>
+        <View style={baseStyles.centerSection}>
+          <Btn onPress={() => {}}>
+            <Text>Confirm</Text>
+          </Btn>
+        </View>
+      </View>
     </View>
   );
 };
