@@ -4,6 +4,7 @@ import {useRef} from 'react';
 import {getHeaderTitle} from '@react-navigation/elements';
 
 import colors from '../styles/colors';
+import {sizeMultiplier} from '../styles/baseStyles';
 
 const backIcon = require('../../assets/backIcon.png');
 
@@ -51,13 +52,14 @@ const StackHeader = ({navigation, route, options}: NativeStackHeaderProps) => {
 
 export const styles = StyleSheet.create({
   headerContainer: {
-    padding: 2,
+    padding: 2 * sizeMultiplier,
     backgroundColor: 'white',
   },
   header: {
     width: '100%',
     backgroundColor: colors.grey,
     paddingHorizontal: 10,
+    paddingVertical: 5 * sizeMultiplier,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -65,8 +67,8 @@ export const styles = StyleSheet.create({
     borderColor: colors.lightGrey,
   },
   btn: {
-    height: 40,
-    width: 40,
+    height: 40 * sizeMultiplier,
+    width: 40 * sizeMultiplier,
   },
   image: {
     width: '100%',
@@ -79,7 +81,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   titleText: {
-    fontSize: 25,
+    fontSize: 25 * sizeMultiplier,
     color: 'white',
     textAlign: 'center',
   },

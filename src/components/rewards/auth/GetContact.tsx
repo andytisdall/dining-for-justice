@@ -73,11 +73,13 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
 
   const displayEmail = () => {
     return (
-      <View style={baseStyles.screenSection}>
-        <Text style={baseStyles.text}>Email:</Text>
-        <Text style={baseStyles.text}>{email}</Text>
+      <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
+        <View style={authStyles.user}>
+          <Text style={baseStyles.inputLabel}>Email:</Text>
+          <Text style={baseStyles.textSm}>{email}</Text>
+        </View>
         <Btn onPress={() => setShowNameFields(false)}>
-          <Text>Use a different email address</Text>
+          <Text style={baseStyles.btnText}>Use a different email address</Text>
         </Btn>
       </View>
     );
@@ -110,8 +112,8 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
   return (
     <ScrollView contentContainerStyle={baseStyles.scrollView}>
       <View style={baseStyles.screen}>
-        <View style={baseStyles.screenSection}>
-          <Text style={[baseStyles.text, authStyles.authHeader]}>
+        <View style={[baseStyles.screenSection, authStyles.authHeader]}>
+          <Text style={[baseStyles.text]}>
             Enter your email to claim your rewards
           </Text>
         </View>
@@ -132,7 +134,7 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
           )}
 
           <Btn onPress={handleSubmit}>
-            <Text>Submit</Text>
+            <Text style={baseStyles.btnText}>Submit</Text>
           </Btn>
         </View>
       </View>

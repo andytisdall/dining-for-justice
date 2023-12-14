@@ -2,6 +2,7 @@ import {StyleSheet, Pressable, Animated, View} from 'react-native';
 import {ReactNode, useRef} from 'react';
 
 import colors from '../styles/colors';
+import {sizeMultiplier} from '../styles/baseStyles';
 
 interface BtnProps {
   style?: Record<string, any> | Record<string, any>[];
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   filterStyle: {
-    padding: 10,
+    padding: 10 * sizeMultiplier,
   },
   btnPressed: {
     backgroundColor: 'rgba(250,250,250,.3)',

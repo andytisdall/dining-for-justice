@@ -23,4 +23,8 @@ export default StyleSheet.create({
   cuisine: {
     color: colors.blue,
   },
+  listMap: {
+    position: 'absolute',
+    right: 5,
+  },
 });

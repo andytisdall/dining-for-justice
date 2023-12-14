@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 import colors from '../../styles/colors';
+import {sizeMultiplier} from '../../styles/baseStyles';
 
 export default StyleSheet.create({
   restaurantDetailItem: {
@@ -12,7 +13,7 @@ export default StyleSheet.create({
 
   restaurantInfoItem: {
     borderRadius: 30,
-    padding: 10,
+    padding: 10 * sizeMultiplier,
     marginBottom: 10,
   },
   restaurantServesItem: {
@@ -21,6 +22,7 @@ export default StyleSheet.create({
   },
   restaurantServesItemText: {
     color: colors.yellow,
+    fontSize: 12 * sizeMultiplier,
   },
   restaurantTagItem: {
     borderColor: colors.pink,
@@ -28,6 +30,7 @@ export default StyleSheet.create({
   },
   restaurantTagItemText: {
     color: colors.pink,
+    fontSize: 12 * sizeMultiplier,
   },
   restaurantLinkRow: {
     flexDirection: 'row',

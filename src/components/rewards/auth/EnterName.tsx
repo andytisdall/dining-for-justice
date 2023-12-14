@@ -22,12 +22,12 @@ const EnterName = ({
 
   return (
     <View style={baseStyles.screenSection}>
-      <Text style={baseStyles.text}>
+      <Text style={baseStyles.textSm}>
         Please enter your name for our records (in the future you'll only need
         to enter your email):
       </Text>
       <View style={baseStyles.screenSection}>
-        <Text style={baseStyles.text}>First Name:</Text>
+        <Text style={baseStyles.inputLabel}>First Name:</Text>
         <TextInput
           autoFocus
           value={firstName}
@@ -37,7 +37,7 @@ const EnterName = ({
         />
       </View>
       <View style={baseStyles.screenSection}>
-        <Text style={baseStyles.text}>Last Name:</Text>
+        <Text style={baseStyles.inputLabel}>Last Name:</Text>
         <TextInput
           value={lastName}
           onChangeText={setLastName}

@@ -10,18 +10,23 @@ import {Restaurant} from '../state/apis/restaurantApi/restaurantApi';
 const styles = StyleSheet.create({
   filterBtn: {flexDirection: 'row', alignItems: 'center'},
   filterCheckboxes: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     marginLeft: 18,
     marginBottom: 10,
+    marginTop: 10,
   },
   checkbox: {
     flexDirection: 'row',
-    marginBottom: 10,
     alignItems: 'center',
+    paddingTop: 5,
+    paddingBottom: 10,
   },
   filterIcon: {
     width: 20,
     height: 20,
   },
+  filterCol: {marginRight: 30},
 });
 
 const filterIcon = (
@@ -130,35 +135,42 @@ const useFilter: (
           </View>
 
           <View style={styles.filterCheckboxes}>
-            <View style={styles.checkbox}>
-              <BouncyCheckbox
-                onPress={(isChecked: boolean) => setPocOwned(isChecked)}
-                isChecked={pocOwned}
-              />
-              <Text style={baseStyles.textSm}>POC Owned</Text>
-            </View>
+            <View style={styles.filterCol}>
+              <View style={styles.checkbox}>
+                <BouncyCheckbox
+                  onPress={(isChecked: boolean) => setPocOwned(isChecked)}
+                  isChecked={pocOwned}
+                  size={30}
+                />
+                <Text style={baseStyles.textXSm}>POC Owned</Text>
+              </View>
 
-            <View style={styles.checkbox}>
-              <BouncyCheckbox
-                onPress={(isChecked: boolean) => setFemaleOwned(isChecked)}
-                isChecked={femaleOwned}
-              />
-              <Text style={baseStyles.textSm}>Female Owned</Text>
+              <View style={styles.checkbox}>
+                <BouncyCheckbox
+                  onPress={(isChecked: boolean) => setFemaleOwned(isChecked)}
+                  isChecked={femaleOwned}
+                  size={30}
+                />
+                <Text style={baseStyles.textXSm}>Female Owned</Text>
+              </View>
             </View>
-
-            <View style={styles.checkbox}>
-              <BouncyCheckbox
-                onPress={(isChecked: boolean) => setOpenNow(isChecked)}
-                isChecked={openNow}
-              />
-              <Text style={baseStyles.textSm}>Open Now</Text>
-            </View>
-            <View style={styles.checkbox}>
-              <BouncyCheckbox
-                onPress={(isChecked: boolean) => setVegan(isChecked)}
-                isChecked={vegan}
-              />
-              <Text style={baseStyles.textSm}>Vegan</Text>
+            <View style={styles.filterCol}>
+              <View style={styles.checkbox}>
+                <BouncyCheckbox
+                  onPress={(isChecked: boolean) => setOpenNow(isChecked)}
+                  isChecked={openNow}
+                  size={30}
+                />
+                <Text style={baseStyles.textXSm}>Open Now</Text>
+              </View>
+              <View style={styles.checkbox}>
+                <BouncyCheckbox
+                  onPress={(isChecked: boolean) => setVegan(isChecked)}
+                  isChecked={vegan}
+                  size={30}
+                />
+                <Text style={baseStyles.textXSm}>Vegan</Text>
+              </View>
             </View>
           </View>
         </View>

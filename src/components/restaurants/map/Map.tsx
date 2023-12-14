@@ -29,8 +29,8 @@ type MapScreenProps = NativeStackScreenProps<
 const ZOOM_VALUE = 0.04;
 
 const INITIAL_COORDS: Region = {
-  latitude: 37.82,
-  longitude: -122.25,
+  latitude: 37.81,
+  longitude: -122.233,
   latitudeDelta: 0.1,
   longitudeDelta: 0.1,
 };
@@ -125,7 +125,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={mapStyles.mapContainer}>
+    <ScrollView contentContainerStyle={baseStyles.scrollView}>
       <View style={[baseStyles.screen]}>
         <MapView
           ref={mapRef}
@@ -138,8 +138,10 @@ const Map = ({navigation, route}: MapScreenProps) => {
         </MapView>
         <View style={restaurantStyles.listHeader}>
           {filterComponent}
-          <Btn onPress={() => mapRef.current?.animateToRegion(INITIAL_COORDS)}>
-            <Text>Reset Map</Text>
+          <Btn
+            style={mapStyles.resetBtn}
+            onPress={() => mapRef.current?.animateToRegion(INITIAL_COORDS)}>
+            <Text style={baseStyles.btnText}>Reset Map</Text>
           </Btn>
         </View>
       </View>

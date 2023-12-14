@@ -10,7 +10,7 @@ const OpeningHours = ({openHours}: {openHours: string[]}) => {
     const hours = items.join(':').split(',');
     return (
       <View style={restaurantDetailStyles.hoursItem}>
-        <Text style={baseStyles.text}>{day}:</Text>
+        <Text style={baseStyles.inputLabel}>{day}:</Text>
         <View style={restaurantDetailStyles.hoursItemRight}>
           {hours.map((hour, i) => (
             <Text key={i} style={baseStyles.textSm}>

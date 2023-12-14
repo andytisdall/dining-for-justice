@@ -45,7 +45,7 @@ const UploadSuccess = ({route, navigation}: UploadSuccessScreenProps) => {
       </View>
       <View style={[baseStyles.centerSection, baseStyles.screenSection]}>
         <Btn onPress={() => navigation.navigate('RewardsHome')}>
-          <Text>Finish</Text>
+          <Text style={baseStyles.btnText}>Finish</Text>
         </Btn>
       </View>
     </View>

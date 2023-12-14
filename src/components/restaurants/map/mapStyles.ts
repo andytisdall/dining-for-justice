@@ -1,13 +1,11 @@
 import {StyleSheet} from 'react-native';
 
 import colors from '../../styles/colors';
+import {sizeMultiplier} from '../../styles/baseStyles';
 
 export default StyleSheet.create({
-  mapContainer: {minHeight: '100%'},
   map: {
-    height: '70%',
-    minHeight: 300,
-    maxHeight: 500,
+    height: 300 * sizeMultiplier,
   },
   callout: {},
   calloutNameContainer: {
@@ -29,5 +27,9 @@ export default StyleSheet.create({
   image: {width: '100%', height: '100%', resizeMode: 'contain'},
   detailsText: {
     color: colors.grey,
+  },
+  resetBtn: {
+    position: 'absolute',
+    right: 5,
   },
 });

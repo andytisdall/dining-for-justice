@@ -26,6 +26,6 @@ export default StyleSheet.create({
     textAlign: 'center',
     borderBottomColor: colors.lightGrey,
     borderBottomWidth: 1,
-    padding: 10,
+    marginHorizontal: 20,
   },
 });

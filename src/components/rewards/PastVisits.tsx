@@ -68,8 +68,8 @@ const PastVisits = () => {
   if (visits?.length) {
     const visitsToRender = showMore ? visits : visits.slice(0, 3);
     return (
-      <>
-        <View style={baseStyles.screenSection}>
+      <View style={baseStyles.screenBorders}>
+        <View style={[baseStyles.screenSection]}>
           <View style={baseStyles.centerSection}>
             <Text style={baseStyles.textLg}>Your Past Visits</Text>
           </View>
@@ -103,7 +103,7 @@ const PastVisits = () => {
           {visits.length > 3 &&
             (!showMore ? renderShowMoreBtn() : renderShowLessBtn())}
         </View>
-      </>
+      </View>
     );
   } else {
     return <View />;

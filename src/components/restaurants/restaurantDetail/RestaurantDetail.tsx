@@ -122,8 +122,9 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     return (
       <View style={restaurantDetailStyles.restaurantIconColumn}>
         {details?.serves.beer && servesIcon('Beer')}
-        {details?.serves.breakfast && servesIcon('Breakfast')}
+        {details?.serves.beer && servesIcon('Wine')}
         {details?.serves.cocktails && servesIcon('Cocktails')}
+        {details?.serves.breakfast && servesIcon('Breakfast')}
       </View>
     );
   };
@@ -133,6 +134,7 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
       <View style={restaurantDetailStyles.restaurantIconColumn}>
         {restaurant?.femaleOwned && tagIcon('Woman Owned')}
         {restaurant?.pocOwned && tagIcon('P.O.C. Owned')}
+        {restaurant?.vegan && tagIcon('Vegan')}
         {details?.openNow && tagIcon('Open Now')}
       </View>
     );

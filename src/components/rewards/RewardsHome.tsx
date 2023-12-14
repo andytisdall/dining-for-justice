@@ -40,13 +40,18 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
 
   const renderPrizesBtn = () => {
     return (
-      <View style={[baseStyles.centerSection, baseStyles.screenSection]}>
+      <View
+        style={[
+          baseStyles.centerSection,
+          baseStyles.screenSection,
+          baseStyles.screenBorders,
+        ]}>
         <Text style={baseStyles.textLg}>Use your points</Text>
         <Text style={baseStyles.textSm}>
           Exchange your Dining for Justice points for rewards
         </Text>
         <Btn onPress={() => navigation.navigate('Prizes')}>
-          <Text>Shop</Text>
+          <Text style={baseStyles.btnText}>Shop</Text>
         </Btn>
       </View>
     );
@@ -78,10 +83,13 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
           To start earning points, enter your Dining for Justice restaurant
           visits!
         </Text>
-
-        <Btn onPress={() => navigation.navigate('GetContact')}>
-          <Text>Enter your email address to get started</Text>
-        </Btn>
+        <View style={baseStyles.screenSection}>
+          <Btn onPress={() => navigation.navigate('GetContact')}>
+            <Text style={[baseStyles.btnText, baseStyles.centerText]}>
+              Enter your email address to get started
+            </Text>
+          </Btn>
+        </View>
       </View>
     );
   };

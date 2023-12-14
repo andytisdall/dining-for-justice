@@ -7,4 +7,6 @@ export default {
   blue: 'rgb(190,210,245)',
   darkBlue: 'rgb(120,140,180)',
   pink: 'rgb(250,220,250)',
+  red: 'rgb(250,30,80)',
+  darkRed: 'rgb(150,0,30)',
 };

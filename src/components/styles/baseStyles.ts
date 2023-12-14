@@ -1,57 +1,54 @@
 import {StyleSheet} from 'react-native';
+import {Dimensions} from 'react-native';
 
 import colors from './colors';
+
+export const sizeMultiplier = Dimensions.get('screen').width / 300;
 
 export default StyleSheet.create({
   app: {flex: 1},
   scrollView: {minHeight: '100%'},
-  error: {
-    position: 'absolute',
-    width: '100%',
-    height: 100,
-    justifyContent: 'center',
-    backgroundColor: 'red',
-    alignItems: 'center',
-    padding: 20,
-  },
+
   screen: {
     flex: 1,
     backgroundColor: colors.darkGrey,
   },
   screenSection: {
-    padding: 15,
+    padding: 15 * sizeMultiplier,
   },
   screenBorders: {
     borderTopColor: colors.lightGrey,
     borderTopWidth: 2,
-    borderBottomColor: colors.lightGrey,
-    borderBottomWidth: 2,
     marginVertical: 10,
   },
   text: {
-    fontSize: 20,
+    fontSize: 20 * sizeMultiplier,
     color: 'white',
   },
   textSm: {
-    fontSize: 15,
+    fontSize: 15 * sizeMultiplier,
+    color: 'white',
+  },
+  textXSm: {
+    fontSize: 12 * sizeMultiplier,
     color: 'white',
   },
   textLg: {
-    fontSize: 25,
+    fontSize: 25 * sizeMultiplier,
     color: 'white',
   },
   btnText: {
-    fontSize: 20,
+    fontSize: 15 * sizeMultiplier,
     color: colors.grey,
   },
   textBlack: {
     color: 'black',
   },
   title: {
-    fontSize: 30,
+    fontSize: 30 * sizeMultiplier,
     color: 'white',
     textAlign: 'center',
-    paddingTop: 10,
+    paddingTop: 10 * sizeMultiplier,
   },
   centerSection: {
     alignItems: 'center',
@@ -69,6 +66,10 @@ export default StyleSheet.create({
     color: colors.yellow,
     marginRight: 5,
     fontWeight: '600',
+    fontSize: 15 * sizeMultiplier,
+  },
+  centerText: {
+    textAlign: 'center',
   },
 });
 

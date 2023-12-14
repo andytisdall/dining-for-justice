@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 import colors from '../styles/colors';
+import {sizeMultiplier} from '../styles/baseStyles';
 
 export default StyleSheet.create({
   rewardsBackground: {backgroundColor: 'rgba(150,150,250, .3)'},
@@ -11,7 +12,7 @@ export default StyleSheet.create({
   },
   uploadBtnText: {
     color: colors.blue,
-    fontSize: 20,
+    fontSize: 20 * sizeMultiplier,
   },
 
   pastVisitsHeader: {
@@ -28,12 +29,13 @@ export default StyleSheet.create({
   },
   pastVisitHeaderText: {
     color: 'black',
+    fontSize: 15 * sizeMultiplier,
   },
   pastVisitItem: {
     borderBottomWidth: 1,
     borderColor: 'white',
-    paddingBottom: 3,
-    paddingTop: 2,
+    paddingBottom: 4 * sizeMultiplier,
+    paddingTop: 3 * sizeMultiplier,
     width: 'auto',
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -42,11 +44,11 @@ export default StyleSheet.create({
   pastVisitItemText: {
     flex: 1,
   },
-  pastVisitItemStatus: {fontSize: 12, textAlign: 'right'},
+  pastVisitItemStatus: {fontSize: 12 * sizeMultiplier, textAlign: 'right'},
   showMoreBtn: {
     justifySelf: 'center',
     marginVertical: 10,
-    padding: 5,
+    padding: 5 * sizeMultiplier,
     backgroundColor: colors.lightGrey,
   },
   textInput: {
@@ -69,5 +71,9 @@ export default StyleSheet.create({
   prizePoints: {
     color: colors.yellow,
     marginRight: 5,
+  },
+  prizeError: {
+    backgroundColor: colors.red,
+    padding: 10,
   },
 });
