@@ -35,6 +35,9 @@ const PrizeDetail = ({route}: RewardsScreenProps) => {
   const {data: restaurants} = useGetRestaurantsQuery();
   const [redeemPoints, {isLoading}] = useRedeemPointsMutation();
 
+  const insufficientPoints =
+    contact?.d4jPoints !== undefined && prize.points > contact.d4jPoints;
+
   const restaurantOptions = useMemo(() => {
     if (restaurants) {
       return [...restaurants]
@@ -71,12 +74,14 @@ const PrizeDetail = ({route}: RewardsScreenProps) => {
   };
 
   const renderError = () => {
-    if (contact?.d4jPoints !== undefined && prize.points > contact.d4jPoints) {
+    if (insufficientPoints) {
       return (
-        <View style={rewardsStyles.prizeError}>
-          <Text style={[baseStyles.textSm, baseStyles.centerText]}>
-            You do not have enough points to redeem this prize.
-          </Text>
+        <View style={baseStyles.screenSection}>
+          <View style={rewardsStyles.prizeError}>
+            <Text style={[baseStyles.textSm, baseStyles.centerText]}>
+              You do not have enough points to redeem this prize.
+            </Text>
+          </View>
         </View>
       );
     }
@@ -106,7 +111,9 @@ const PrizeDetail = ({route}: RewardsScreenProps) => {
           ) : (
             <Btn
               onPress={() => redeemPoints({prize: name, restaurantName})}
-              disabled={name === 'giftCert' && !restaurantName}>
+              disabled={
+                insufficientPoints || (name === 'giftCert' && !restaurantName)
+              }>
               <Text style={baseStyles.btnText}>Confirm</Text>
             </Btn>
           )}

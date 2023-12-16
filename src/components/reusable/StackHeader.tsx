@@ -1,12 +1,10 @@
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
-import {Image, Pressable, Animated, StyleSheet, View, Text} from 'react-native';
+import {Pressable, Animated, StyleSheet, View, Text} from 'react-native';
 import {useRef} from 'react';
 import {getHeaderTitle} from '@react-navigation/elements';
 
 import colors from '../styles/colors';
 import {sizeMultiplier} from '../styles/baseStyles';
-
-const backIcon = require('../../assets/backIcon.png');
 
 const StackHeader = ({navigation, route, options}: NativeStackHeaderProps) => {
   const translateValue = useRef(new Animated.Value(0)).current;
@@ -17,7 +15,13 @@ const StackHeader = ({navigation, route, options}: NativeStackHeaderProps) => {
     <View style={styles.headerContainer}>
       <View style={styles.header}>
         {!options.headerBackVisible && (
-          <Animated.View style={{transform: [{translateY: translateValue}]}}>
+          <Animated.View
+            style={[
+              {
+                transform: [{translateY: translateValue}],
+              },
+              styles.arrow,
+            ]}>
             <Pressable
               onPressIn={() => {
                 Animated.timing(translateValue, {
@@ -35,7 +39,8 @@ const StackHeader = ({navigation, route, options}: NativeStackHeaderProps) => {
               }
               style={styles.btn}
               onPress={() => navigation.goBack()}>
-              <Image style={styles.image} source={backIcon} />
+              {/* <Image style={styles.image} source={backIcon} /> */}
+              <Text style={styles.arrowText}>&larr;</Text>
             </Pressable>
           </Animated.View>
         )}
@@ -84,6 +89,20 @@ export const styles = StyleSheet.create({
     fontSize: 25 * sizeMultiplier,
     color: 'white',
     textAlign: 'center',
+  },
+  arrow: {
+    borderWidth: 2,
+    borderRadius: 50,
+    backgroundColor: colors.blue,
+    borderColor: colors.darkBlue,
+    marginLeft: 10,
+    height: 40 * sizeMultiplier,
+    width: 40 * sizeMultiplier,
+  },
+  arrowText: {
+    textAlign: 'center',
+    marginTop: 1,
+    fontSize: 30 * sizeMultiplier,
   },
 });
 

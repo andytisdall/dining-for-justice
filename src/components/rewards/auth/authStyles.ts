@@ -5,11 +5,11 @@ import colors from '../../styles/colors';
 export default StyleSheet.create({
   signOutBtn: {
     backgroundColor: 'transparent',
-    borderColor: colors.green,
+    borderColor: colors.pink,
     borderBottomWidth: 1,
   },
   signOutBtnText: {
-    color: colors.green,
+    color: colors.pink,
   },
 
   user: {

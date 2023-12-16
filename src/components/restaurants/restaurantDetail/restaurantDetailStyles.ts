@@ -38,8 +38,9 @@ export default StyleSheet.create({
   },
   restaurantIcons: {
     flexDirection: 'row',
+    justifyContent: 'space-around',
   },
-  restaurantIconColumn: {alignItems: 'flex-start', marginRight: 20},
+  restaurantIconColumn: {alignItems: 'center', marginRight: 20},
   restaurantLink: {
     marginRight: 30,
   },

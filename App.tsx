@@ -19,6 +19,7 @@ import {enableLatestRenderer} from 'react-native-maps';
 import Home from './src/components/home/Home';
 import createTabIcon from './src/components/reusable/tabs/TabIcon';
 import createTabLabel from './src/components/reusable/tabs/TabLabel';
+import EventsNavigator from './src/components/events/EventsNavigator';
 
 enableLatestRenderer();
 
@@ -26,6 +27,7 @@ export type RootTabsParams = {
   Rewards: undefined;
   Restaurants: undefined;
   Home: undefined;
+  Events: undefined;
 };
 
 const RootTabs = createBottomTabNavigator<RootTabsParams>();
@@ -51,6 +53,14 @@ const RootComponent = () => {
               options={{
                 tabBarIcon: createTabIcon('restaurants'),
                 tabBarLabel: createTabLabel('Restaurants'),
+              }}
+            />
+            <RootTabs.Screen
+              name="Events"
+              component={EventsNavigator}
+              options={{
+                tabBarIcon: createTabIcon('events'),
+                tabBarLabel: createTabLabel('Events'),
               }}
             />
             <RootTabs.Screen

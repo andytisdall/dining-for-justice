@@ -7,7 +7,7 @@ export interface RestaurantDetails {
   openNow: boolean;
   serves: {
     breakfast: boolean;
-    vegetarian: boolean;
+    wine: boolean;
     cocktails: boolean;
     beer: boolean;
   };

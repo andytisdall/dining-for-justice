@@ -119,25 +119,37 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
   };
 
   const renderServesItems = () => {
-    return (
-      <View style={restaurantDetailStyles.restaurantIconColumn}>
-        {details?.serves.beer && servesIcon('Beer')}
-        {details?.serves.beer && servesIcon('Wine')}
-        {details?.serves.cocktails && servesIcon('Cocktails')}
-        {details?.serves.breakfast && servesIcon('Breakfast')}
-      </View>
-    );
+    if (details) {
+      const {beer, wine, cocktails, breakfast} = details.serves;
+
+      if (beer || wine || cocktails || breakfast) {
+        return (
+          <View style={restaurantDetailStyles.restaurantIconColumn}>
+            {beer && servesIcon('Beer')}
+            {wine && servesIcon('Wine')}
+            {cocktails && servesIcon('Cocktails')}
+            {breakfast && servesIcon('Breakfast')}
+          </View>
+        );
+      }
+    }
   };
 
   const renderTags = () => {
-    return (
-      <View style={restaurantDetailStyles.restaurantIconColumn}>
-        {restaurant?.femaleOwned && tagIcon('Woman Owned')}
-        {restaurant?.pocOwned && tagIcon('P.O.C. Owned')}
-        {restaurant?.vegan && tagIcon('Vegan')}
-        {details?.openNow && tagIcon('Open Now')}
-      </View>
-    );
+    if (details && restaurant) {
+      const {openNow} = details;
+      const {femaleOwned, pocOwned, vegan} = restaurant;
+      if (openNow || femaleOwned || pocOwned || vegan) {
+        return (
+          <View style={restaurantDetailStyles.restaurantIconColumn}>
+            {femaleOwned && tagIcon('Woman Owned')}
+            {pocOwned && tagIcon('P.O.C. Owned')}
+            {vegan && tagIcon('Vegan')}
+            {openNow && tagIcon('Open Now')}
+          </View>
+        );
+      }
+    }
   };
 
   const renderImage = () => {
