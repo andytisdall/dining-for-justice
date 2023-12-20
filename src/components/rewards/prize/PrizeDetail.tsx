@@ -1,18 +1,17 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {useMemo, useState} from 'react';
-import DropDownPicker from 'react-native-dropdown-picker';
+import {useState, useEffect} from 'react';
 
-import {RewardsStackParams} from './RewardsNavigator';
+import {RewardsStackParams} from '../RewardsNavigator';
 import {ScrollView, Text, View} from 'react-native';
-import Btn from '../reusable/Btn';
-import baseStyles from '../styles/baseStyles';
-import {useGetRestaurantsQuery} from '../../state/apis/restaurantApi/restaurantApi';
-import uploadStyles from './upload/uploadStyles';
-import {useGetContactQuery} from '../../state/apis/contact/contactApi';
-import Points from './Points';
-import rewardsStyles from './rewardsStyles';
-import {useRedeemPointsMutation} from '../../state/apis/rewardsApi/prizeApi';
-import Loading from '../reusable/Loading';
+import Btn from '../../reusable/Btn';
+import baseStyles from '../../styles/baseStyles';
+import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
+import {useGetContactQuery} from '../../../state/apis/contact/contactApi';
+import Points from '../Points';
+import rewardsStyles from '../rewardsStyles';
+import {useRedeemPointsMutation} from '../../../state/apis/rewardsApi/prizeApi';
+import Loading from '../../reusable/Loading';
+import RestaurantDropdown from '../RestaurantDropdown';
 
 type RewardsScreenProps = NativeStackScreenProps<
   RewardsStackParams,
@@ -23,9 +22,8 @@ const prizes = {
   giftCert: {points: 5, title: '$50 Gift Certificate'},
 };
 
-const PrizeDetail = ({route}: RewardsScreenProps) => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [restaurantName, setRestaurantName] = useState('');
+const PrizeDetail = ({route, navigation}: RewardsScreenProps) => {
+  const [restaurantId, setRestaurantId] = useState('');
 
   const {data: contact} = useGetContactQuery();
 
@@ -38,16 +36,10 @@ const PrizeDetail = ({route}: RewardsScreenProps) => {
   const insufficientPoints =
     contact?.d4jPoints !== undefined && prize.points > contact.d4jPoints;
 
-  const restaurantOptions = useMemo(() => {
-    if (restaurants) {
-      return [...restaurants]
-        .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1))
-        .map(rest => {
-          return {label: rest.name, value: rest.name};
-        });
-    }
-    return [];
-  }, [restaurants]);
+  useEffect(
+    () => navigation.setOptions({headerTitle: prize.title}),
+    [navigation, prize],
+  );
 
   const dropdown = () => {
     if (name === 'giftCert') {
@@ -56,17 +48,9 @@ const PrizeDetail = ({route}: RewardsScreenProps) => {
           <Text style={baseStyles.inputLabel}>
             Select which restaurant you want a $50 gift certificate for:
           </Text>
-          <DropDownPicker
-            open={dropdownOpen}
-            setOpen={setDropdownOpen}
-            items={restaurantOptions}
-            value={restaurantName || null}
-            setValue={setRestaurantName}
-            listMode="MODAL"
-            style={uploadStyles.dropdown}
-            placeholder="Select restaurant"
-            placeholderStyle={uploadStyles.dropdownPlaceholder}
-            textStyle={uploadStyles.dropdownPlaceholder}
+          <RestaurantDropdown
+            restaurantId={restaurantId}
+            setRestaurantId={setRestaurantId}
           />
         </View>
       );
@@ -110,9 +94,21 @@ const PrizeDetail = ({route}: RewardsScreenProps) => {
             <Loading />
           ) : (
             <Btn
-              onPress={() => redeemPoints({prize: name, restaurantName})}
+              onPress={() => {
+                const restaurantIndex = restaurants?.findIndex(
+                  r => r.id === restaurantId,
+                );
+                if (restaurants && restaurantIndex) {
+                  redeemPoints({
+                    prize: name,
+                    restaurantName: restaurants[restaurantIndex].name,
+                  })
+                    .unwrap()
+                    .then(() => navigation.navigate('PrizeSuccess'));
+                }
+              }}
               disabled={
-                insufficientPoints || (name === 'giftCert' && !restaurantName)
+                insufficientPoints || (name === 'giftCert' && !restaurantId)
               }>
               <Text style={baseStyles.btnText}>Confirm</Text>
             </Btn>

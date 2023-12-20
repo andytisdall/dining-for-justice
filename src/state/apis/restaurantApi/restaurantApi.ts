@@ -1,5 +1,3 @@
-// import _ from 'lodash';
-
 import {api} from '../../api';
 
 export interface RestaurantDetails {
@@ -16,8 +14,6 @@ export interface RestaurantDetails {
   openHours: string[];
 }
 
-// export type RestaurantDetailsState = Record<string, RestaurantDetails>;
-
 export interface Restaurant {
   name: string;
   neighborhood: string;
@@ -31,13 +27,13 @@ export interface Restaurant {
   coords?: {latitude: number; longitude: number};
   openHours: string[];
   photo?: string;
+  active: boolean;
 }
 
 export const restaurantApi = api.injectEndpoints({
   endpoints: builder => ({
     getRestaurants: builder.query<Restaurant[], void>({
       query: () => '/d4j/restaurants',
-      providesTags: ['Restaurants'],
     }),
     getRestaurantDetails: builder.query<RestaurantDetails, string | undefined>({
       query: restaurantId =>

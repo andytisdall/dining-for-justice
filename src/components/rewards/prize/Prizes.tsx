@@ -1,12 +1,12 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {Pressable, Text, View} from 'react-native';
-import baseStyles, {getPressedStyle} from '../styles/baseStyles';
+import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
 
-import rewardsStyles from './rewardsStyles';
-import Points from './Points';
+import rewardsStyles from '../rewardsStyles';
+import Points from '../Points';
 
-import {RewardsStackParams} from './RewardsNavigator';
+import {RewardsStackParams} from '../RewardsNavigator';
 
 type RewardsScreenProps = NativeStackScreenProps<RewardsStackParams, 'Prizes'>;
 

@@ -1,6 +1,5 @@
 import {Text, View, FlatList} from 'react-native';
-import {useState, useMemo} from 'react';
-import DropDownPicker from 'react-native-dropdown-picker';
+import {useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import DatePicker from 'react-native-date-picker';
 import {format} from 'date-fns-tz';
@@ -8,11 +7,11 @@ import {format} from 'date-fns-tz';
 import uploadStyles from './uploadStyles';
 import baseStyles from '../../styles/baseStyles';
 import {RewardsStackParams} from '../RewardsNavigator';
-import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
 import {useUploadReceiptMutation} from '../../../state/apis/rewardsApi/receiptApi';
 import AddPhoto, {PhotoFile} from '../../reusable/AddPhoto';
 import Btn from '../../reusable/Btn';
 import Loading from '../../reusable/Loading';
+import RestaurantDropdown from '../RestaurantDropdown';
 
 type UploadScreenProps = NativeStackScreenProps<RewardsStackParams, 'Upload'>;
 
@@ -20,10 +19,7 @@ const Upload = ({navigation}: UploadScreenProps) => {
   const [photo, setPhoto] = useState<PhotoFile>();
   const [restaurantId, setRestaurantId] = useState('');
   const [date, setDate] = useState(new Date());
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dateOpen, setDateOpen] = useState(false);
-
-  const {data: restaurants} = useGetRestaurantsQuery();
 
   const [uploadReceipt, {isLoading}] = useUploadReceiptMutation();
 
@@ -57,17 +53,6 @@ const Upload = ({navigation}: UploadScreenProps) => {
     );
   };
 
-  const restaurantOptions = useMemo(() => {
-    if (restaurants) {
-      return [...restaurants]
-        .sort((a, b) => (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1))
-        .map(rest => {
-          return {label: rest.name, value: rest.id};
-        });
-    }
-    return [];
-  }, [restaurants]);
-
   const renderUpload = () => {
     return (
       <View style={baseStyles.screenSection}>
@@ -78,17 +63,9 @@ const Upload = ({navigation}: UploadScreenProps) => {
 
         <View style={uploadStyles.uploadItem}>
           <Text style={baseStyles.text}>Restaurant:</Text>
-          <DropDownPicker
-            open={dropdownOpen}
-            setOpen={setDropdownOpen}
-            items={restaurantOptions}
-            value={restaurantId || null}
-            setValue={setRestaurantId}
-            listMode="MODAL"
-            style={uploadStyles.dropdown}
-            placeholder="Select restaurant"
-            placeholderStyle={uploadStyles.dropdownPlaceholder}
-            textStyle={uploadStyles.dropdownPlaceholder}
+          <RestaurantDropdown
+            restaurantId={restaurantId}
+            setRestaurantId={setRestaurantId}
           />
         </View>
         <View style={uploadStyles.uploadItem}>

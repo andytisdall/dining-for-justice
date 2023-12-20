@@ -111,13 +111,9 @@ const AnimatedLoading = () => {
 };
 
 const styles = StyleSheet.create({
-  pizza: {height: 60, width: 60},
+  pizza: {height: 100, width: 100},
   container: {
     flexDirection: 'row',
-    // minHeight: '100%',
-    // // flex: 1,
-    // borderWidth: 1,
-    // borderColor: 'white',
     alignItems: 'flex-start',
     justifyContent: 'space-around',
   },

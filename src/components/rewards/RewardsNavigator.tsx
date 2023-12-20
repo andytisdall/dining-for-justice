@@ -6,8 +6,8 @@ import UploadSuccess from './upload/UploadSuccess';
 import GetContact from '../rewards/auth/GetContact';
 import {UploadReceiptResponse} from '../../state/apis/rewardsApi/receiptApi';
 import StackHeader from '../reusable/StackHeader';
-import Prizes from './Prizes';
-import PrizeDetail from './PrizeDetail';
+import Prizes from './prize/Prizes';
+import PrizeDetail from './prize/PrizeDetail';
 
 export type RewardsStackParams = {
   RewardsHome: undefined;
@@ -17,6 +17,7 @@ export type RewardsStackParams = {
   GetContact: undefined;
   Prizes: undefined;
   PrizeDetail: {name: 'giftCert'};
+  PrizeSuccess: undefined;
 };
 
 const RewardsStack = createNativeStackNavigator<RewardsStackParams>();

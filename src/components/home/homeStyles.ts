@@ -5,4 +5,5 @@ export default StyleSheet.create({
     height: 250,
   },
   logo: {resizeMode: 'contain', height: '100%'},
+  totalMeals: {fontSize: 35, color: 'pink', marginTop: 10, fontWeight: '600'},
 });
