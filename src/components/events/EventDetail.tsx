@@ -1,10 +1,13 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {View, Text, ScrollView, Linking, Pressable} from 'react-native';
+import {View, Text, ScrollView, Linking, Image} from 'react-native';
+import {format} from 'date-fns-tz';
 import {useEffect} from 'react';
 
+import Btn from '../reusable/Btn';
 import {useGetEventsQuery} from '../../state/apis/eventsApi/eventsApi';
 import {EventsStackParams} from './EventsNavigator';
 import baseStyles from '../styles/baseStyles';
+import eventStyles from './eventStyles';
 
 type EventDetailProps = NativeStackScreenProps<
   EventsStackParams,
@@ -28,10 +31,20 @@ const EventDetail = ({route, navigation}: EventDetailProps) => {
     if (event) {
       return (
         <View style={baseStyles.screenSection}>
-          <Text style={baseStyles.textLg}>Date: {event.date}</Text>
-          <Pressable onPress={() => Linking.openURL(event.url)}>
-            <Text style={baseStyles.text}>Event Website</Text>
-          </Pressable>
+          {!!event.photo && (
+            <Image source={{uri: event.photo}} style={eventStyles.photo} />
+          )}
+          <Text style={baseStyles.inputLabel}>Date: </Text>
+          <Text style={baseStyles.text}>
+            {format(new Date(event.date), 'eee, M/d/yy')}
+          </Text>
+          {!!event.url && (
+            <View style={baseStyles.centerSection}>
+              <Btn onPress={() => Linking.openURL(event.photo!)}>
+                <Text style={baseStyles.btnText}>Event Website</Text>
+              </Btn>
+            </View>
+          )}
         </View>
       );
     }

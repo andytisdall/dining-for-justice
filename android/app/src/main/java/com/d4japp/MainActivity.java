@@ -2,6 +2,8 @@ package com.d4japp;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
+
+
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactActivityDelegate;
 
@@ -15,6 +17,7 @@ public class MainActivity extends ReactActivity {
   protected String getMainComponentName() {
     return "d4japp";
   }
+
 
   /**
    * Returns the instance of the {@link ReactActivityDelegate}. Here we use a util class {@link

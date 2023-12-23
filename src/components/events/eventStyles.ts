@@ -18,4 +18,8 @@ export default StyleSheet.create({
     fontWeight: '600',
     fontSize: 10 * sizeMultiplier,
   },
+  photo: {
+    height: 300,
+    resizeMode: 'contain',
+  },
 });

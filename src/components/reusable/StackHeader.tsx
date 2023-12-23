@@ -3,6 +3,7 @@ import {Pressable, Animated, StyleSheet, View, Text} from 'react-native';
 import {useRef} from 'react';
 import {getHeaderTitle} from '@react-navigation/elements';
 
+import Arrow from '../../assets/arrow.svg';
 import colors from '../styles/colors';
 import {sizeMultiplier} from '../styles/baseStyles';
 
@@ -20,7 +21,7 @@ const StackHeader = ({navigation, route, options}: NativeStackHeaderProps) => {
               {
                 transform: [{translateY: translateValue}],
               },
-              styles.arrow,
+              styles.btn,
             ]}>
             <Pressable
               onPressIn={() => {
@@ -37,10 +38,8 @@ const StackHeader = ({navigation, route, options}: NativeStackHeaderProps) => {
                   useNativeDriver: true,
                 }).start()
               }
-              style={styles.btn}
               onPress={() => navigation.goBack()}>
-              {/* <Image style={styles.image} source={backIcon} /> */}
-              <Text style={styles.arrowText}>&larr;</Text>
+              <Arrow style={styles.arrow} />
             </Pressable>
           </Animated.View>
         )}
@@ -71,10 +70,7 @@ export const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: colors.lightGrey,
   },
-  btn: {
-    height: 40 * sizeMultiplier,
-    width: 40 * sizeMultiplier,
-  },
+
   image: {
     width: '100%',
     height: '100%',
@@ -90,7 +86,7 @@ export const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
   },
-  arrow: {
+  btn: {
     borderWidth: 2,
     borderRadius: 50,
     backgroundColor: colors.blue,
@@ -99,10 +95,11 @@ export const styles = StyleSheet.create({
     height: 40 * sizeMultiplier,
     width: 40 * sizeMultiplier,
   },
-  arrowText: {
-    textAlign: 'center',
-    marginTop: 1,
-    fontSize: 30 * sizeMultiplier,
+  arrow: {
+    marginLeft: 2,
+    height: 32 * sizeMultiplier,
+    width: 32 * sizeMultiplier,
+    transform: [{rotate: '180deg'}],
   },
 });
 

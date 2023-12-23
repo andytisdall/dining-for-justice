@@ -6,7 +6,9 @@ interface Event {
   date: string;
   name: string;
   id: string;
-  url: string;
+  url?: string;
+  photo?: string;
+  time: string;
 }
 
 type EventsState = Record<string, Event>;

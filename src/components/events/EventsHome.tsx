@@ -20,7 +20,9 @@ const EventsHome = ({navigation}: EventsHomeProps) => {
         <Pressable
           style={eventStyles.eventContainer}
           onPress={() =>
-            navigation.navigate('EventDetail', {date: event.date})
+            navigation.navigate('EventDetail', {
+              date: event.date,
+            })
           }>
           <View style={eventStyles.event}>
             <Text style={eventStyles.eventText}>tap for details</Text>
@@ -35,16 +37,7 @@ const EventsHome = ({navigation}: EventsHomeProps) => {
   return (
     <View style={baseStyles.screen}>
       <Header title="Events" />
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <View style={[baseStyles.screenSection]}>
-          <Text style={[baseStyles.textSm, baseStyles.centerText]}>
-            Upcoming Dining for Justice Events
-          </Text>
-          <Calendar renderItems={renderEvent} />
-        </View>
-      )}
+      {isLoading ? <Loading /> : <Calendar renderItems={renderEvent} />}
     </View>
   );
 };

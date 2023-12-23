@@ -94,7 +94,7 @@ const AnimatedLoading = () => {
         }}>
         <Image
           source={require('../../assets/chicken.png')}
-          style={styles.pizza}
+          style={styles.chicken}
         />
       </Animated.View>
       <Animated.View
@@ -103,7 +103,7 @@ const AnimatedLoading = () => {
         }}>
         <Image
           source={require('../../assets/cocktail.png')}
-          style={styles.pizza}
+          style={styles.chicken}
         />
       </Animated.View>
     </View>
@@ -112,6 +112,7 @@ const AnimatedLoading = () => {
 
 const styles = StyleSheet.create({
   pizza: {height: 100, width: 100},
+  chicken: {height: 80, width: 80},
   container: {
     flexDirection: 'row',
     alignItems: 'flex-start',

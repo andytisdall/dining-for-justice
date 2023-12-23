@@ -1,11 +1,12 @@
 import {StyleSheet, Dimensions} from 'react-native';
 
+const dateHeight = Dimensions.get('screen').height / 11;
+
 export default StyleSheet.create({
   calendar: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     flex: 1,
-    // width: Dimensions.get('screen').width,
   },
   calendarWeekdays: {
     flexDirection: 'row',
@@ -22,16 +23,13 @@ export default StyleSheet.create({
     flexBasis: '14.285%',
     borderWidth: 1,
     backgroundColor: 'rgba(255, 255, 255, 0.6)',
-    minHeight: 70,
+    minHeight: dateHeight,
   },
   blankDate: {
-    minHeight: 70,
+    minHeight: dateHeight,
     flexBasis: '14.285%',
   },
   calendarDateNumberContainer: {
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    // alignSelf: 'flex-start',
     position: 'absolute',
     top: 0,
   },
@@ -45,9 +43,8 @@ export default StyleSheet.create({
     padding: 3,
   },
   arrow: {
-    height: 40,
+    height: 22,
     width: 70,
-    paddingVertical: 5,
   },
   arrowHighlight: {
     backgroundColor: 'rgba(250,250,250,.5)',
@@ -64,7 +61,7 @@ export default StyleSheet.create({
     transform: [{rotateY: '180deg'}],
   },
   monthTitle: {
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: '600',
     color: 'white',
   },

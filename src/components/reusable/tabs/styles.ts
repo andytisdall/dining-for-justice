@@ -8,10 +8,9 @@ export default StyleSheet.create({
     resizeMode: 'contain',
     width: '100%',
   },
-  tabLabel: {fontSize: 16, fontWeight: '600'},
+  tabLabel: {fontWeight: '600'},
   focusedText: {
     fontWeight: '800',
-    fontSize: 16,
   },
   focusedIcon: {
     transform: [{scale: 1.2}],
