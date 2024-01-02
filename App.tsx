@@ -20,6 +20,7 @@ import Home from './src/components/home/Home';
 import createTabIcon from './src/components/reusable/tabs/TabIcon';
 import createTabLabel from './src/components/reusable/tabs/TabLabel';
 import EventsNavigator from './src/components/events/EventsNavigator';
+import Notifications from './src/notifications/NotificationService';
 
 enableLatestRenderer();
 
@@ -86,5 +87,7 @@ function App(): JSX.Element {
     </Provider>
   );
 }
+
+Notifications.init();
 
 export default App;

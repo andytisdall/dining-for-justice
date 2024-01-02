@@ -1,14 +1,12 @@
-import {View, Text, Image, ScrollView} from 'react-native';
-// import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import {View, Text, Image, ScrollView, Linking} from 'react-native';
 
+import ScreenBackground from '../reusable/ScreenBackground';
 import baseStyles from '../styles/baseStyles';
 import Header from '../reusable/Header';
 import homeStyles from './homeStyles';
 import {useGetTotalMealsQuery} from '../../state/apis/impactApi/impactApi';
 import Loading from '../reusable/Loading';
-// import {RootTabsParams} from '../../../App';
-
-// type HomeProps = BottomTabScreenProps<RootTabsParams, 'Home'>;
+import Btn from '../reusable/Btn';
 
 const Home = () => {
   const {data: meals, isLoading} = useGetTotalMealsQuery();
@@ -35,7 +33,7 @@ const Home = () => {
   };
   return (
     <ScrollView contentContainerStyle={[baseStyles.scrollView]}>
-      <View style={baseStyles.screen}>
+      <ScreenBackground>
         <Header title="Home" />
         <View style={baseStyles.screenSection}>
           <View style={[homeStyles.logoContainer, baseStyles.centerSection]}>
@@ -47,7 +45,14 @@ const Home = () => {
         </View>
 
         {renderTotalMeals()}
-      </View>
+        <View style={baseStyles.centerSection}>
+          <Btn
+            style={homeStyles.donateBtn}
+            onPress={() => Linking.openURL('https://www.ckoakland.org/donate')}>
+            <Text style={homeStyles.donateBtnText}>Donate Now</Text>
+          </Btn>
+        </View>
+      </ScreenBackground>
     </ScrollView>
   );
 };

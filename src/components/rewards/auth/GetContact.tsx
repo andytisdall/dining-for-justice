@@ -1,6 +1,12 @@
 import {useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {View, Text, ScrollView} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import {useDispatch} from 'react-redux';
 
 import {setError} from '../../../state/apis/slices/errorSlice';
@@ -17,6 +23,7 @@ import baseStyles from '../../styles/baseStyles';
 import ThumbsUp from '../../reusable/ThumbsUp';
 import AnimatedLoading from '../../reusable/AnimatedLoading';
 import authStyles from './authStyles';
+import ScreenBackground from '../../reusable/ScreenBackground';
 
 type GetContactScreenProps = NativeStackScreenProps<
   RewardsStackParams,
@@ -85,33 +92,20 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
     );
   };
 
-  if (createContactResult.isSuccess) {
-    return (
-      <View style={baseStyles.screen}>
-        <ThumbsUp />
-      </View>
-    );
-  }
+  const renderContent = () => {
+    if (createContactResult.isSuccess) {
+      return <ThumbsUp />;
+    }
 
-  if (signInResult.isLoading) {
-    return (
-      <View style={baseStyles.screen}>
-        <Loading />
-      </View>
-    );
-  }
+    if (signInResult.isLoading) {
+      return <Loading />;
+    }
 
-  if (createContactResult.isLoading) {
+    if (createContactResult.isLoading) {
+      return <AnimatedLoading />;
+    }
     return (
-      <View style={baseStyles.screen}>
-        <AnimatedLoading />
-      </View>
-    );
-  }
-
-  return (
-    <ScrollView contentContainerStyle={baseStyles.scrollView}>
-      <View style={baseStyles.screen}>
+      <>
         <View style={[baseStyles.screenSection, authStyles.authHeader]}>
           <Text style={[baseStyles.text]}>
             Enter your email to claim your rewards
@@ -132,12 +126,24 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
           ) : (
             <EnterEmail email={email} setEmail={setEmail} next={handleSubmit} />
           )}
-
-          <Btn onPress={handleSubmit}>
-            <Text style={baseStyles.btnText}>Submit</Text>
-          </Btn>
+          <View style={baseStyles.centerSection}>
+            <Btn onPress={handleSubmit}>
+              <Text style={baseStyles.btnText}>Submit</Text>
+            </Btn>
+          </View>
         </View>
-      </View>
+      </>
+    );
+  };
+
+  return (
+    <ScrollView contentContainerStyle={baseStyles.scrollView}>
+      <ScreenBackground>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          {renderContent()}
+        </KeyboardAvoidingView>
+      </ScreenBackground>
     </ScrollView>
   );
 };

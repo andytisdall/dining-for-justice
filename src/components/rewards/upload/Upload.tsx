@@ -12,6 +12,7 @@ import AddPhoto, {PhotoFile} from '../../reusable/AddPhoto';
 import Btn from '../../reusable/Btn';
 import Loading from '../../reusable/Loading';
 import RestaurantDropdown from '../RestaurantDropdown';
+import ScreenBackground from '../../reusable/ScreenBackground';
 
 type UploadScreenProps = NativeStackScreenProps<RewardsStackParams, 'Upload'>;
 
@@ -84,21 +85,18 @@ const Upload = ({navigation}: UploadScreenProps) => {
     );
   };
 
-  if (isLoading) {
-    return (
-      <View style={baseStyles.screen}>
-        <Loading />
-      </View>
-    );
-  }
+  const renderContent = () => {
+    if (isLoading) {
+      return (
+        <View style={baseStyles.screen}>
+          <Loading />
+        </View>
+      );
+    }
+    return <FlatList data={[renderUpload()]} renderItem={({item}) => item} />;
+  };
 
-  return (
-    <FlatList
-      style={baseStyles.screen}
-      data={[renderUpload()]}
-      renderItem={({item}) => item}
-    />
-  );
+  return <ScreenBackground>{renderContent()}</ScreenBackground>;
 };
 
 export default Upload;

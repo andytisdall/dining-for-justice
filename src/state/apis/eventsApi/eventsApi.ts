@@ -9,6 +9,7 @@ interface Event {
   url?: string;
   photo?: string;
   time: string;
+  description: string;
 }
 
 type EventsState = Record<string, Event>;

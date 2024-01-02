@@ -1,4 +1,4 @@
-package com.d4japp;
+package org.ckoakland.diningforjustice;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

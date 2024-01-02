@@ -9,6 +9,7 @@ import baseStyles, {getPressedStyle} from '../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetail/restaurantDetailStyles';
 import Header from '../reusable/Header';
 import useFilter from '../../hooks/useFilter';
+import ScreenBackground from '../reusable/ScreenBackground';
 
 type RestaurantsScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
@@ -106,11 +107,12 @@ const RestaurantList = ({navigation}: RestaurantsScreenProps) => {
   );
 
   return (
-    <FlatList
-      style={baseStyles.screen}
-      data={[title, listHeader, restaurantSection]}
-      renderItem={({item}) => item}
-    />
+    <ScreenBackground>
+      <FlatList
+        data={[title, listHeader, restaurantSection]}
+        renderItem={({item}) => item}
+      />
+    </ScreenBackground>
   );
 };
 

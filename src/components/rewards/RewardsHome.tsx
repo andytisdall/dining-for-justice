@@ -10,9 +10,9 @@ import PastVisits from './PastVisits';
 import User from './auth/User';
 import rewardsStyles from './rewardsStyles';
 import Points from './Points';
-import Triangle from '../../assets/tri.svg';
-import colors from '../styles/colors';
+
 import Header from '../reusable/Header';
+import ScreenBackground from '../reusable/ScreenBackground';
 
 type RewardsScreenProps = NativeStackScreenProps<
   RewardsStackParams,
@@ -20,20 +20,12 @@ type RewardsScreenProps = NativeStackScreenProps<
 >;
 
 const RewardsHome = ({navigation}: RewardsScreenProps) => {
-  const {data: contact, isLoading: contactIsLoading} = useGetContactQuery();
+  const {data: contact, isFetching: contactIsLoading} = useGetContactQuery();
 
   const uploadBtn = (
-    <Btn
-      onPress={() => navigation.navigate('Upload')}
-      style={rewardsStyles.uploadBtn}>
+    <Btn onPress={() => navigation.navigate('Upload')}>
       <View style={rewardsStyles.pointsSummary}>
-        <Triangle
-          width={20}
-          height={20}
-          fill={colors.blue}
-          style={rewardsStyles.triangle}
-        />
-        <Text style={rewardsStyles.uploadBtnText}>Enter a Receipt</Text>
+        <Text style={baseStyles.btnText}>Enter a Receipt</Text>
       </View>
     </Btn>
   );
@@ -68,7 +60,7 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
               Justice restaurant
             </Text>
           </View>
-          {uploadBtn}
+          <View style={baseStyles.centerSection}>{uploadBtn}</View>
         </Points>
         {renderPrizesBtn()}
         <PastVisits />
@@ -111,11 +103,12 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
   };
 
   return (
-    <FlatList
-      style={[baseStyles.screen]}
-      data={[screenTitle(), renderScreen()]}
-      renderItem={({item}) => item}
-    />
+    <ScreenBackground>
+      <FlatList
+        data={[screenTitle(), renderScreen()]}
+        renderItem={({item}) => item}
+      />
+    </ScreenBackground>
   );
 };
 

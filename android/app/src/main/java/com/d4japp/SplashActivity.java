@@ -1,5 +1,5 @@
 
-package com.d4japp; // make sure this is your package name
+package org.ckoakland.diningforjustice; // make sure this is your package name
 
 import android.content.Intent;
 import android.os.Bundle;

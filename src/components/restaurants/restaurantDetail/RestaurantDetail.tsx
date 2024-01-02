@@ -12,6 +12,7 @@ import restaurantDetailStyles from './restaurantDetailStyles';
 import OpeningHours from './OpeningHours';
 import InternetIcon from '../../../assets/internet.svg';
 import Loading from '../../reusable/Loading';
+import ScreenBackground from '../../reusable/ScreenBackground';
 
 type RestaurantDetailScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
@@ -210,11 +211,9 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
   };
 
   return (
-    <FlatList
-      data={[renderDetails()]}
-      renderItem={({item}) => item}
-      style={baseStyles.screen}
-    />
+    <ScreenBackground>
+      <FlatList data={[renderDetails()]} renderItem={({item}) => item} />
+    </ScreenBackground>
   );
 };
 

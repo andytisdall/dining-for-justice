@@ -1,7 +1,15 @@
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
-import {Pressable, Animated, StyleSheet, View, Text} from 'react-native';
+import {
+  Pressable,
+  Animated,
+  StyleSheet,
+  View,
+  Text,
+  Platform,
+} from 'react-native';
 import {useRef} from 'react';
 import {getHeaderTitle} from '@react-navigation/elements';
+import LinearGradient from 'react-native-linear-gradient';
 
 import Arrow from '../../assets/arrow.svg';
 import colors from '../styles/colors';
@@ -14,7 +22,9 @@ const StackHeader = ({navigation, route, options}: NativeStackHeaderProps) => {
 
   return (
     <View style={styles.headerContainer}>
-      <View style={styles.header}>
+      <LinearGradient
+        style={styles.header}
+        colors={[colors.grey, colors.darkGrey, 'black']}>
         {!options.headerBackVisible && (
           <Animated.View
             style={[
@@ -39,7 +49,7 @@ const StackHeader = ({navigation, route, options}: NativeStackHeaderProps) => {
                 }).start()
               }
               onPress={() => navigation.goBack()}>
-              <Arrow style={styles.arrow} />
+              <Arrow style={[styles.arrow]} />
             </Pressable>
           </Animated.View>
         )}
@@ -47,17 +57,16 @@ const StackHeader = ({navigation, route, options}: NativeStackHeaderProps) => {
         <View style={styles.title}>
           <Text style={styles.titleText}>{title}</Text>
         </View>
-
-        {!options.headerBackVisible && <View style={styles.btn} />}
-      </View>
+        {!options.headerBackVisible && <View style={styles.sides} />}
+      </LinearGradient>
     </View>
   );
 };
 
 export const styles = StyleSheet.create({
   headerContainer: {
-    padding: 2 * sizeMultiplier,
-    backgroundColor: 'white',
+    padding: 1 * sizeMultiplier,
+    backgroundColor: colors.lightGrey,
   },
   header: {
     width: '100%',
@@ -67,8 +76,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 3,
-    borderColor: colors.lightGrey,
+    borderWidth: 2,
+    borderColor: colors.darkGrey,
   },
 
   image: {
@@ -89,17 +98,19 @@ export const styles = StyleSheet.create({
   btn: {
     borderWidth: 2,
     borderRadius: 50,
-    backgroundColor: colors.blue,
-    borderColor: colors.darkBlue,
+    backgroundColor: colors.lightGrey,
+    borderColor: colors.nightBlue,
     marginLeft: 10,
     height: 40 * sizeMultiplier,
     width: 40 * sizeMultiplier,
+    padding: 10,
   },
+  sides: {flex: 1},
   arrow: {
-    marginLeft: 2,
-    height: 32 * sizeMultiplier,
-    width: 32 * sizeMultiplier,
     transform: [{rotate: '180deg'}],
+    maxHeight: 23 * sizeMultiplier,
+    maxWidth: 22 * sizeMultiplier,
+    position: Platform.OS === 'ios' ? 'relative' : 'absolute',
   },
 });
 

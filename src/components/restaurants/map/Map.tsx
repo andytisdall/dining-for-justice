@@ -20,6 +20,7 @@ import {
 import mapStyles from './mapStyles';
 import baseStyles from '../../styles/baseStyles';
 import restaurantStyles from '../restaurantStyles';
+import ScreenBackground from '../../reusable/ScreenBackground';
 
 type MapScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
@@ -126,7 +127,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
 
   return (
     <ScrollView contentContainerStyle={baseStyles.scrollView}>
-      <View style={[baseStyles.screen]}>
+      <ScreenBackground>
         <MapView
           ref={mapRef}
           provider={PROVIDER_GOOGLE}
@@ -144,7 +145,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
             <Text style={baseStyles.btnText}>Reset Map</Text>
           </Btn>
         </View>
-      </View>
+      </ScreenBackground>
     </ScrollView>
   );
 };

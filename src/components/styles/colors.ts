@@ -5,8 +5,11 @@ export default {
   darkGrey: 'rgb(50,50,50)',
   lightGrey: 'rgb(150,150,150)',
   blue: 'rgb(160,210,245)',
-  darkBlue: 'rgb(120,140,180)',
+  darkBlue: 'rgb(60,60,80)',
+  midnightBlue: 'rgb(20,20,30)',
+  nightBlue: 'rgb(30,30,60)',
   pink: 'rgb(250,220,250)',
   red: 'rgb(250,30,80)',
   darkRed: 'rgb(150,0,30)',
+  purple: 'rgb(50,0,50)',
 };

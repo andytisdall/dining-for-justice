@@ -3,11 +3,11 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import {EventsStackParams} from './EventsNavigator';
 import Header from '../reusable/Header';
-import baseStyles from '../styles/baseStyles';
 import Calendar from '../reusable/calendar/Calendar';
 import eventStyles from './eventStyles';
 import {useGetEventsQuery} from '../../state/apis/eventsApi/eventsApi';
 import Loading from '../reusable/Loading';
+import ScreenBackground from '../reusable/ScreenBackground';
 
 type EventsHomeProps = NativeStackScreenProps<EventsStackParams, 'EventsHome'>;
 
@@ -35,10 +35,10 @@ const EventsHome = ({navigation}: EventsHomeProps) => {
   };
 
   return (
-    <View style={baseStyles.screen}>
+    <ScreenBackground>
       <Header title="Events" />
       {isLoading ? <Loading /> : <Calendar renderItems={renderEvent} />}
-    </View>
+    </ScreenBackground>
   );
 };
 

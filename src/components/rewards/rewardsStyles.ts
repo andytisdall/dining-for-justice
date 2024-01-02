@@ -5,20 +5,9 @@ import {sizeMultiplier} from '../styles/baseStyles';
 
 export default StyleSheet.create({
   rewardsBackground: {backgroundColor: 'rgba(150,150,250, .3)'},
-
-  uploadBtn: {
-    backgroundColor: 'transparent',
-    borderColor: 'transparent',
-  },
-  uploadBtnText: {
-    color: colors.blue,
-    fontSize: 20 * sizeMultiplier,
-  },
-
   pastVisitsHeader: {
-    backgroundColor: colors.lightGrey,
-    borderBottomWidth: 1,
-    borderColor: 'white',
+    backgroundColor: colors.blue,
+
     paddingBottom: 3,
     paddingTop: 2,
     width: 'auto',

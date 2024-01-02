@@ -19,7 +19,13 @@ export default StyleSheet.create({
     fontSize: 10 * sizeMultiplier,
   },
   photo: {
-    height: 300,
+    height: 250,
     resizeMode: 'contain',
+    marginBottom: 10,
+  },
+  eventDetailsLine: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 5,
   },
 });

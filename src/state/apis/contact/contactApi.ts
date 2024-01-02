@@ -63,6 +63,10 @@ const contactApi = api.injectEndpoints({
       },
       invalidatesTags: ['Contact', 'Visit'],
     }),
+
+    registerDevice: builder.mutation<null, {token: string}>({
+      query: body => ({url: '/d4j/register-device', method: 'POST', body}),
+    }),
   }),
 });
 
@@ -71,4 +75,5 @@ export const {
   useSignInMutation,
   useSignOutMutation,
   useCreateContactMutation,
+  endpoints,
 } = contactApi;

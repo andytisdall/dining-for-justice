@@ -7,15 +7,17 @@ import rewardsStyles from '../rewardsStyles';
 import Points from '../Points';
 
 import {RewardsStackParams} from '../RewardsNavigator';
+import ScreenBackground from '../../reusable/ScreenBackground';
 
 type RewardsScreenProps = NativeStackScreenProps<RewardsStackParams, 'Prizes'>;
 
 const Prizes = ({navigation}: RewardsScreenProps) => {
   return (
-    <View style={baseStyles.screen}>
+    <ScreenBackground>
+      <Points />
+
       <View style={baseStyles.screenSection}>
         <Text style={baseStyles.text}>Choose your reward</Text>
-        <Points />
       </View>
       <Pressable
         onPress={() => navigation.navigate('PrizeDetail', {name: 'giftCert'})}>
@@ -53,7 +55,7 @@ const Prizes = ({navigation}: RewardsScreenProps) => {
           Private dinner with any personage living or dead
         </Text>
       </View>
-    </View>
+    </ScreenBackground>
   );
 };
 

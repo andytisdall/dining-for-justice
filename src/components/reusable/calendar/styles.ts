@@ -21,7 +21,7 @@ export default StyleSheet.create({
   },
   calendarDate: {
     flexBasis: '14.285%',
-    borderWidth: 1,
+    borderWidth: 0.5,
     backgroundColor: 'rgba(255, 255, 255, 0.6)',
     minHeight: dateHeight,
   },

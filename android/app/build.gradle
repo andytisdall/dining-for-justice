@@ -78,9 +78,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.d4japp"
+    namespace "org.ckoakland.diningforjustice"
     defaultConfig {
-        applicationId "com.d4japp"
+        applicationId "org.ckoakland.diningforjustice"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -123,7 +123,13 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    implementation platform('com.google.firebase:firebase-bom:32.7.0')
+
+    implementation 'com.google.firebase:firebase-analytics'
 }
+
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 
+apply plugin: 'com.google.gms.google-services'
