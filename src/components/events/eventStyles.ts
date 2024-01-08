@@ -24,8 +24,6 @@ export default StyleSheet.create({
     marginBottom: 10,
   },
   eventDetailsLine: {
-    flexDirection: 'row',
-    alignItems: 'center',
     marginBottom: 5,
   },
 });

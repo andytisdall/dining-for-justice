@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">d4japp</string>
+    <string name="app_name">Dining for Justice</string>
     <string name="default_notification_channel_id">PUSH-LOCAL-NOTIFICATIONS</string>
 </resources>

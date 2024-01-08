@@ -4,6 +4,7 @@
 
     <item
         android:drawable="@mipmap/icon"
+        android:gravity="fill"
     />
 
 

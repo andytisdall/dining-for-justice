@@ -8,6 +8,8 @@ import {useGetTotalMealsQuery} from '../../state/apis/impactApi/impactApi';
 import Loading from '../reusable/Loading';
 import Btn from '../reusable/Btn';
 
+const orwLogo = require('../../assets/orw-logo.png');
+
 const Home = () => {
   const {data: meals, isLoading} = useGetTotalMealsQuery();
 
@@ -23,7 +25,7 @@ const Home = () => {
     if (totalMeals) {
       return (
         <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
-          <Text style={baseStyles.text}>
+          <Text style={[baseStyles.text, baseStyles.centerText]}>
             Total Meals Served by the CK Free Meal Program:
           </Text>
           <Text style={homeStyles.totalMeals}>{totalMeals}</Text>
@@ -37,10 +39,7 @@ const Home = () => {
         <Header title="Home" />
         <View style={baseStyles.screenSection}>
           <View style={[homeStyles.logoContainer, baseStyles.centerSection]}>
-            <Image
-              source={require('../../assets/d4j-logo.jpg')}
-              style={homeStyles.logo}
-            />
+            <Image source={orwLogo} style={homeStyles.logo} />
           </View>
         </View>
 

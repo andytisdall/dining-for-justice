@@ -1,5 +1,5 @@
 import {Platform} from 'react-native';
-import {format} from 'date-fns-tz';
+import {format} from 'date-fns-tz/esm';
 
 import {api} from '../../api';
 import {PhotoFile} from '../../../components/reusable/AddPhoto';

@@ -4,7 +4,7 @@ import colors from '../styles/colors';
 
 export default StyleSheet.create({
   logoContainer: {
-    height: 250,
+    height: 200,
   },
   logo: {resizeMode: 'contain', height: '100%'},
   totalMeals: {fontSize: 35, color: 'pink', marginTop: 10, fontWeight: '600'},

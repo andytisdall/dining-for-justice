@@ -1,12 +1,5 @@
 import {NativeStackHeaderProps} from '@react-navigation/native-stack';
-import {
-  Pressable,
-  Animated,
-  StyleSheet,
-  View,
-  Text,
-  Platform,
-} from 'react-native';
+import {Pressable, Animated, StyleSheet, View, Text} from 'react-native';
 import {useRef} from 'react';
 import {getHeaderTitle} from '@react-navigation/elements';
 import LinearGradient from 'react-native-linear-gradient';
@@ -103,14 +96,19 @@ export const styles = StyleSheet.create({
     marginLeft: 10,
     height: 40 * sizeMultiplier,
     width: 40 * sizeMultiplier,
-    padding: 10,
+    position: 'relative',
   },
   sides: {flex: 1},
   arrow: {
-    transform: [{rotate: '180deg'}],
-    maxHeight: 23 * sizeMultiplier,
-    maxWidth: 22 * sizeMultiplier,
-    position: Platform.OS === 'ios' ? 'relative' : 'absolute',
+    transform: [
+      {rotate: '180deg'},
+      {translateX: 12.5 * sizeMultiplier},
+      {translateY: -6.5 * sizeMultiplier},
+    ],
+    maxHeight: 25 * sizeMultiplier,
+    maxWidth: 23 * sizeMultiplier,
+    position: 'absolute',
+    left: '50%',
   },
 });
 

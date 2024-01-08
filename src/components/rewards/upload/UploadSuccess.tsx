@@ -23,11 +23,11 @@ const UploadSuccess = ({route, navigation}: UploadSuccessScreenProps) => {
   const restaurant = restaurants?.find(r => r.id === data.restaurantId);
 
   return (
-    <ScrollView style={baseStyles.screen}>
+    <ScrollView contentContainerStyle={baseStyles.scrollView}>
       <ScreenBackground>
         <View style={[baseStyles.screenSection]}>
           <Text style={baseStyles.inputLabel}>Restaurant: </Text>
-          <Text style={baseStyles.text}>{restaurant?.name}</Text>
+          <Text style={[baseStyles.text]}>{restaurant?.name}</Text>
         </View>
         <View style={[baseStyles.screenSection]}>
           <Text style={baseStyles.inputLabel}>Date: </Text>

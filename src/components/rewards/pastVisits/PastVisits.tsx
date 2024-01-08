@@ -2,14 +2,14 @@ import {format, utcToZonedTime} from 'date-fns-tz';
 import {Text, View, FlatList, Pressable} from 'react-native';
 import {useState} from 'react';
 
-import Loading from '../reusable/Loading';
+import Loading from '../../reusable/Loading';
 import {
   useGetVisitsQuery,
   D4JVisit,
-} from '../../state/apis/rewardsApi/receiptApi';
-import baseStyles from '../styles/baseStyles';
-import {useGetRestaurantsQuery} from '../../state/apis/restaurantApi/restaurantApi';
-import rewardsStyles from './rewardsStyles';
+} from '../../../state/apis/rewardsApi/receiptApi';
+import baseStyles from '../../styles/baseStyles';
+import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
+import pastVisitsStyles from './pastVisitsStyles';
 
 const PastVisits = () => {
   const [showMore, setShowMore] = useState(false);
@@ -22,18 +22,18 @@ const PastVisits = () => {
     const rest = restaurants?.find(r => r.id === item.restaurant);
 
     return (
-      <View style={rewardsStyles.pastVisitItem}>
-        <Text style={[baseStyles.textSm, rewardsStyles.pastVisitItemText]}>
+      <View style={pastVisitsStyles.pastVisitItem}>
+        <Text style={[baseStyles.textSm, pastVisitsStyles.pastVisitItemText]}>
           {format(utcToZonedTime(item.date, 'America/Los_Angeles'), 'M/d/yy')}
         </Text>
-        <Text style={[baseStyles.textSm, rewardsStyles.pastVisitItemText]}>
+        <Text style={[baseStyles.textSm, pastVisitsStyles.pastVisitItemText]}>
           {rest?.name}
         </Text>
         <Text
           style={[
             baseStyles.textSm,
-            rewardsStyles.pastVisitItemText,
-            rewardsStyles.pastVisitItemStatus,
+            pastVisitsStyles.pastVisitItemText,
+            pastVisitsStyles.pastVisitItemStatus,
           ]}>
           {item.status}
         </Text>
@@ -45,7 +45,7 @@ const PastVisits = () => {
     return (
       <Pressable
         onPress={() => setShowMore(true)}
-        style={rewardsStyles.showMoreBtn}>
+        style={pastVisitsStyles.showMoreBtn}>
         <Text style={[baseStyles.textSm, baseStyles.textBlack]}>Show More</Text>
       </Pressable>
     );
@@ -55,7 +55,7 @@ const PastVisits = () => {
     return (
       <Pressable
         onPress={() => setShowMore(false)}
-        style={rewardsStyles.showMoreBtn}>
+        style={pastVisitsStyles.showMoreBtn}>
         <Text style={[baseStyles.textSm, baseStyles.textBlack]}>Show Less</Text>
       </Pressable>
     );
@@ -71,29 +71,29 @@ const PastVisits = () => {
       <View style={baseStyles.screenBorders}>
         <View style={[baseStyles.screenSection]}>
           <View style={baseStyles.centerSection}>
-            <Text style={baseStyles.textLg}>Your Past Visits</Text>
+            <Text style={baseStyles.text}>Your Past Visits</Text>
           </View>
         </View>
-        <View style={rewardsStyles.pastVisitsHeader}>
+        <View style={pastVisitsStyles.pastVisitsHeader}>
           <Text
             style={[
-              rewardsStyles.pastVisitHeaderText,
-              rewardsStyles.pastVisitItemText,
+              pastVisitsStyles.pastVisitHeaderText,
+              pastVisitsStyles.pastVisitItemText,
             ]}>
             Date
           </Text>
           <Text
             style={[
-              rewardsStyles.pastVisitHeaderText,
-              rewardsStyles.pastVisitItemText,
+              pastVisitsStyles.pastVisitHeaderText,
+              pastVisitsStyles.pastVisitItemText,
             ]}>
             Restaurant
           </Text>
           <Text
             style={[
-              rewardsStyles.pastVisitHeaderText,
-              rewardsStyles.pastVisitItemText,
-              rewardsStyles.pastVisitItemStatus,
+              pastVisitsStyles.pastVisitHeaderText,
+              pastVisitsStyles.pastVisitItemText,
+              pastVisitsStyles.pastVisitItemStatus,
             ]}>
             Status
           </Text>

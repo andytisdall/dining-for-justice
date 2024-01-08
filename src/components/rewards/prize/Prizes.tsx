@@ -3,7 +3,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Pressable, Text, View} from 'react-native';
 import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
 
-import rewardsStyles from '../rewardsStyles';
+import prizeStyles from './prizeStyles';
 import Points from '../Points';
 
 import {RewardsStackParams} from '../RewardsNavigator';
@@ -28,15 +28,15 @@ const Prizes = ({navigation}: RewardsScreenProps) => {
               style={[
                 pressedStyle,
                 baseStyles.screenSection,
-                rewardsStyles.prize,
+                prizeStyles.prize,
               ]}>
               <View style={[baseStyles.row]}>
-                <Text style={[baseStyles.text, rewardsStyles.prizePoints]}>
+                <Text style={[baseStyles.text, prizeStyles.prizePoints]}>
                   5 points:
                 </Text>
                 <Text style={baseStyles.textSm}>Gift Certificate</Text>
               </View>
-              <Text style={[baseStyles.textSm, rewardsStyles.prizeDescription]}>
+              <Text style={[baseStyles.textSm, prizeStyles.prizeDescription]}>
                 Get a $50 gift certificate to any current Dining for Justice
                 restaurant
               </Text>
@@ -44,14 +44,14 @@ const Prizes = ({navigation}: RewardsScreenProps) => {
           );
         }}
       </Pressable>
-      <View style={[baseStyles.screenSection, rewardsStyles.prize]}>
+      <View style={[baseStyles.screenSection, prizeStyles.prize]}>
         <View style={baseStyles.row}>
-          <Text style={[baseStyles.text, rewardsStyles.prizePoints]}>
+          <Text style={[baseStyles.text, prizeStyles.prizePoints]}>
             10 points:
           </Text>
           <Text style={baseStyles.textSm}>Private Dinner</Text>
         </View>
-        <Text style={[baseStyles.textSm, rewardsStyles.prizeDescription]}>
+        <Text style={[baseStyles.textSm, prizeStyles.prizeDescription]}>
           Private dinner with any personage living or dead
         </Text>
       </View>

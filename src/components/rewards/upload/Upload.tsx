@@ -13,6 +13,7 @@ import Btn from '../../reusable/Btn';
 import Loading from '../../reusable/Loading';
 import RestaurantDropdown from '../RestaurantDropdown';
 import ScreenBackground from '../../reusable/ScreenBackground';
+import ThumbsUp from '../../reusable/ThumbsUp';
 
 type UploadScreenProps = NativeStackScreenProps<RewardsStackParams, 'Upload'>;
 
@@ -22,7 +23,7 @@ const Upload = ({navigation}: UploadScreenProps) => {
   const [date, setDate] = useState(new Date());
   const [dateOpen, setDateOpen] = useState(false);
 
-  const [uploadReceipt, {isLoading}] = useUploadReceiptMutation();
+  const [uploadReceipt, {isLoading, isSuccess}] = useUploadReceiptMutation();
 
   const onSubmit = () => {
     if (photo && restaurantId) {
@@ -87,11 +88,10 @@ const Upload = ({navigation}: UploadScreenProps) => {
 
   const renderContent = () => {
     if (isLoading) {
-      return (
-        <View style={baseStyles.screen}>
-          <Loading />
-        </View>
-      );
+      return <Loading />;
+    }
+    if (isSuccess) {
+      return <ThumbsUp />;
     }
     return <FlatList data={[renderUpload()]} renderItem={({item}) => item} />;
   };

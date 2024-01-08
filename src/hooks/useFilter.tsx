@@ -8,7 +8,20 @@ import baseStyles from '../components/styles/baseStyles';
 import {Restaurant} from '../state/apis/restaurantApi/restaurantApi';
 
 const styles = StyleSheet.create({
-  filterBtn: {flexDirection: 'row', alignItems: 'center'},
+  filterBtnContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginLeft: 5,
+    alignSelf: 'flex-start',
+    width: 120,
+  },
+  filterBtn: {
+    height: 35,
+    width: 35,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 0,
+  },
   filterCheckboxes: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -22,10 +35,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 10,
   },
-  filterIcon: {
-    width: 20,
-    height: 20,
-  },
+  filterIcon: {width: 20, height: 20},
   filterCol: {marginRight: 30},
 });
 
@@ -130,8 +140,18 @@ const useFilter: (
     if (filterVisible) {
       return (
         <View>
-          <View style={styles.filterBtn}>
-            <Btn onPress={() => setFilterVisible(false)}>{filterIcon}</Btn>
+          <View style={styles.filterBtnContainer}>
+            <Btn
+              style={styles.filterBtn}
+              onPress={() => {
+                setFilterVisible(false);
+                setPocOwned(false);
+                setFemaleOwned(false);
+                setVegan(false);
+                setOpenNow(false);
+              }}>
+              {filterIcon}
+            </Btn>
             <Text style={baseStyles.textSm}>Hide Filters</Text>
           </View>
 
@@ -178,8 +198,10 @@ const useFilter: (
       );
     } else {
       return (
-        <View style={styles.filterBtn}>
-          <Btn onPress={() => setFilterVisible(true)}>{filterIcon}</Btn>
+        <View style={styles.filterBtnContainer}>
+          <Btn onPress={() => setFilterVisible(true)} style={styles.filterBtn}>
+            {filterIcon}
+          </Btn>
           <Text style={baseStyles.textSm}>Show Filters</Text>
         </View>
       );

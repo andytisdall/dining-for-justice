@@ -1,15 +1,17 @@
-import _ from 'lodash';
+import {format, zonedTimeToUtc} from 'date-fns-tz';
 
 import {api} from '../../api';
+import {addDays} from 'date-fns';
 
 interface Event {
-  date: string;
   name: string;
-  id: string;
-  url?: string;
-  photo?: string;
-  time: string;
   description: string;
+  id: string;
+  startDate: string;
+  endDate?: string;
+  photo?: string;
+  url?: string;
+  time?: string;
 }
 
 type EventsState = Record<string, Event>;
@@ -19,7 +21,24 @@ const eventsApi = api.injectEndpoints({
     getEvents: builder.query<EventsState, void>({
       query: () => '/d4j/events',
       transformResponse: (res: Event[]) => {
-        return _.mapKeys(res, 'date');
+        const state: EventsState = {};
+        res.forEach(event => {
+          const dates = [event.startDate];
+          if (event.endDate) {
+            for (
+              let i = zonedTimeToUtc(event.startDate, 'America/Los_Angeles');
+              i <= zonedTimeToUtc(event.endDate, 'America/Los_Angeles');
+              i = addDays(i, 1)
+            ) {
+              dates.push(format(i, 'yyyy-MM-dd'));
+            }
+          }
+          dates.forEach(date => {
+            state[date] = event;
+          });
+        });
+
+        return state;
       },
     }),
   }),

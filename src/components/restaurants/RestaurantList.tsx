@@ -1,15 +1,20 @@
 import {View, Text, FlatList, Pressable, Image} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useCallback} from 'react';
 
 import restaurantStyles from './restaurantStyles';
 import {RestaurantStackParams} from './RestaurantNavigator';
 import AnimatedLoading from '../reusable/AnimatedLoading';
-import {useGetRestaurantsQuery} from '../../state/apis/restaurantApi/restaurantApi';
+import {
+  useGetRestaurantsQuery,
+  Restaurant,
+} from '../../state/apis/restaurantApi/restaurantApi';
 import baseStyles, {getPressedStyle} from '../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetail/restaurantDetailStyles';
 import Header from '../reusable/Header';
 import useFilter from '../../hooks/useFilter';
 import ScreenBackground from '../reusable/ScreenBackground';
+import Refresh from '../reusable/Refresh';
 
 type RestaurantsScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
@@ -19,30 +24,39 @@ type RestaurantsScreenProps = NativeStackScreenProps<
 const mapIcon = require('../../assets/mapIcon.png');
 
 const RestaurantList = ({navigation}: RestaurantsScreenProps) => {
-  const {data: restaurants, isLoading} = useGetRestaurantsQuery();
+  const {data: restaurants, isLoading, refetch} = useGetRestaurantsQuery();
 
   const [sortedRestaurants, filterComponent] = useFilter(restaurants);
 
-  const renderRestaurantListItem = ({item}: {item: any}) => {
-    return (
-      <Pressable
-        onPress={() => {
-          navigation.navigate('RestaurantDetail', {id: item.id});
-        }}>
-        {({pressed}) => {
-          const pressedStyle = getPressedStyle(pressed);
-          return (
-            <View style={[restaurantStyles.restaurantListItem, pressedStyle]}>
-              <Text style={baseStyles.text}>{item.name}</Text>
-              <Text style={[baseStyles.textSm, restaurantStyles.cuisine]}>
-                {item.cuisine}
-              </Text>
-            </View>
-          );
-        }}
-      </Pressable>
-    );
-  };
+  const renderRestaurantListItem = useCallback(
+    ({item}: {item: Restaurant}) => {
+      return (
+        <Pressable
+          onPress={() => {
+            navigation.navigate('RestaurantDetail', {id: item.id});
+          }}>
+          {({pressed}) => {
+            const pressedStyle = getPressedStyle(pressed);
+            return (
+              <View style={[restaurantStyles.restaurantListItem, pressedStyle]}>
+                <View style={restaurantStyles.restaurantListItemText}>
+                  <Text style={baseStyles.text}>{item.name}</Text>
+                  <Text style={[baseStyles.textSm, restaurantStyles.cuisine]}>
+                    {item.cuisine}
+                  </Text>
+                </View>
+                <Image
+                  source={{uri: item.photo}}
+                  style={restaurantStyles.restaurantListItemImage}
+                />
+              </View>
+            );
+          }}
+        </Pressable>
+      );
+    },
+    [navigation],
+  );
 
   const renderRestaurants = () => {
     if (isLoading) {
@@ -54,8 +68,9 @@ const RestaurantList = ({navigation}: RestaurantsScreenProps) => {
     }
     if (!sortedRestaurants?.length) {
       return (
-        <View style={baseStyles.centerSection}>
-          <Text style={baseStyles.text}>No Results Found.</Text>
+        <View style={[baseStyles.centerSection, baseStyles.screenSection]}>
+          <Text style={baseStyles.textSm}>No Results Found.</Text>
+          <Refresh refetch={refetch} />
         </View>
       );
     }

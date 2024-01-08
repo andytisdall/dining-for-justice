@@ -2,11 +2,13 @@ import PushNotification, {
   ReceivedNotification,
 } from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
-import {AppState, Platform, AppStateStatus} from 'react-native';
+import {
+  AppState,
+  Platform,
+  AppStateStatus,
+  PermissionsAndroid,
+} from 'react-native';
 import {checkNotifications, RESULTS} from 'react-native-permissions';
-
-import {endpoints} from '../state/apis/contact/contactApi';
-import {store} from '../state/store';
 
 // BIIIIG WARNING: in iOS you'll get a token ONLY if you request permission for it.
 // Therefore, a call for PushNotification.requestPermissions() is required.
@@ -15,16 +17,21 @@ import {store} from '../state/store';
 // but Android's user can still turn off notifications in the system settings
 
 class NotificationService {
-  init = () => {
-    this.configure();
+  init = (handleRegister: ({token}: {token: string}) => void) => {
+    this.configure(handleRegister);
   };
 
   delete = () => {
     PushNotificationIOS.removeEventListener('registrationError');
   };
 
-  async configure() {
-    const onRegister = this.handleRegister;
+  async configure(register: ({token}: {token: string}) => void) {
+    const onRegister = register;
+    if (Platform.OS === 'android') {
+      PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
+      );
+    }
     PushNotification.configure({
       onNotification: this.handleNotification,
       onRegister,
@@ -61,16 +68,6 @@ class NotificationService {
       return;
     }
     console.log(message);
-  };
-
-  handleRegister = async ({token}: {token: string}) => {
-    if (token) {
-      try {
-        store.dispatch(endpoints.registerDevice.initiate({token}));
-      } catch (err) {
-        console.log('Could not register device token', err);
-      }
-    }
   };
 
   checkPermission = async () => {

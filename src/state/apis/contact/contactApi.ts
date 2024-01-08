@@ -75,5 +75,5 @@ export const {
   useSignInMutation,
   useSignOutMutation,
   useCreateContactMutation,
-  endpoints,
+  useRegisterDeviceMutation,
 } = contactApi;

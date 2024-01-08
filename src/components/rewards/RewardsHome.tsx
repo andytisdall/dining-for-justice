@@ -6,7 +6,7 @@ import {RewardsStackParams} from './RewardsNavigator';
 import Btn from '../reusable/Btn';
 import baseStyles from '../styles/baseStyles';
 import {useGetContactQuery} from '../../state/apis/contact/contactApi';
-import PastVisits from './PastVisits';
+import PastVisits from './pastVisits/PastVisits';
 import User from './auth/User';
 import rewardsStyles from './rewardsStyles';
 import Points from './Points';
@@ -30,20 +30,53 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
     </Btn>
   );
 
+  const rewardsText = (
+    <View style={baseStyles.centerSection}>
+      <Text style={[baseStyles.text, rewardsStyles.rewardsHeadline]}>
+        Earn a chance to win prizes
+      </Text>
+      <Text style={[baseStyles.textSm, baseStyles.centerText]}>
+        by providing us a receipt of your visit to a Dining for Justice
+        restaurant
+      </Text>
+    </View>
+  );
+
+  // const renderPrizesBtn = () => {
+  //   return (
+  //     <View
+  //       style={[
+  //         baseStyles.centerSection,
+  //         baseStyles.screenSection,
+  //         baseStyles.screenBorders,
+  //       ]}>
+  //       <Text style={baseStyles.textLg}>Use your points</Text>
+  //       <Text style={baseStyles.textSm}>
+  //         Exchange your Dining for Justice points for rewards
+  //       </Text>
+  //       <Btn onPress={() => navigation.navigate('Prizes')}>
+  //         <Text style={baseStyles.btnText}>Shop</Text>
+  //       </Btn>
+  //     </View>
+  //   );
+  // };
+
   const renderPrizesBtn = () => {
     return (
-      <View
-        style={[
-          baseStyles.centerSection,
-          baseStyles.screenSection,
-          baseStyles.screenBorders,
-        ]}>
-        <Text style={baseStyles.textLg}>Use your points</Text>
-        <Text style={baseStyles.textSm}>
-          Exchange your Dining for Justice points for rewards
+      <View style={[baseStyles.screenBorders, baseStyles.centerSection]}>
+        <Text
+          style={[
+            baseStyles.text,
+            rewardsStyles.rewardsHeadline,
+            baseStyles.centerText,
+          ]}>
+          ORW 2024 Raffle
         </Text>
-        <Btn onPress={() => navigation.navigate('Prizes')}>
-          <Text style={baseStyles.btnText}>Shop</Text>
+        <Text style={[baseStyles.centerText, baseStyles.textSm]}>
+          Every D4J restaurant you visit is a chance to win prizes!
+        </Text>
+        <Btn onPress={() => navigation.navigate('ORWPrize')}>
+          <Text style={baseStyles.btnText}>More Info</Text>
         </Btn>
       </View>
     );
@@ -53,16 +86,15 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
     return (
       <View style={baseStyles.screenSection}>
         <User />
-        <Points>
-          <View>
-            <Text style={baseStyles.textSm}>
-              Earn points by giving us a receipt of your visit to a Dining for
-              Justice restaurant
-            </Text>
-          </View>
+
+        <View style={baseStyles.screenBorders}>
+          {rewardsText}
           <View style={baseStyles.centerSection}>{uploadBtn}</View>
-        </Points>
+          <Points />
+        </View>
+
         {renderPrizesBtn()}
+
         <PastVisits />
       </View>
     );
@@ -71,10 +103,7 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
   const renderNotSignedIn = () => {
     return (
       <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
-        <Text style={baseStyles.text}>
-          To start earning points, enter your Dining for Justice restaurant
-          visits!
-        </Text>
+        {rewardsText}
         <View style={baseStyles.screenSection}>
           <Btn onPress={() => navigation.navigate('GetContact')}>
             <Text style={[baseStyles.btnText, baseStyles.centerText]}>

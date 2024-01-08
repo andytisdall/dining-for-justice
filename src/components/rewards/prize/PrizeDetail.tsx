@@ -8,10 +8,10 @@ import baseStyles from '../../styles/baseStyles';
 import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
 import {useGetContactQuery} from '../../../state/apis/contact/contactApi';
 import Points from '../Points';
-import rewardsStyles from '../rewardsStyles';
 import {useRedeemPointsMutation} from '../../../state/apis/rewardsApi/prizeApi';
 import Loading from '../../reusable/Loading';
 import RestaurantDropdown from '../RestaurantDropdown';
+import prizeStyles from './prizeStyles';
 
 type RewardsScreenProps = NativeStackScreenProps<
   RewardsStackParams,
@@ -61,7 +61,7 @@ const PrizeDetail = ({route, navigation}: RewardsScreenProps) => {
     if (insufficientPoints) {
       return (
         <View style={baseStyles.screenSection}>
-          <View style={rewardsStyles.prizeError}>
+          <View style={prizeStyles.prizeError}>
             <Text style={[baseStyles.textSm, baseStyles.centerText]}>
               You do not have enough points to redeem this prize.
             </Text>

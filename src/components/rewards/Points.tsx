@@ -9,10 +9,11 @@ const Points = ({children}: PropsWithChildren) => {
   const {data: contact} = useGetContactQuery();
 
   return (
-    <View style={[baseStyles.screenBorders, baseStyles.centerSection]}>
+    <View style={[baseStyles.centerSection]}>
       <View style={[baseStyles.screenSection, rewardsStyles.pointsSummary]}>
-        <Text style={baseStyles.text}>D4J Points: </Text>
-        <Text style={baseStyles.text}>{contact?.d4jPoints || 0}</Text>
+        <Text style={baseStyles.textSm}>
+          You have {contact?.d4jPoints || 0} D4J Points
+        </Text>
       </View>
 
       <View>{children}</View>

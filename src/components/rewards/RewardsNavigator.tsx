@@ -8,6 +8,7 @@ import {UploadReceiptResponse} from '../../state/apis/rewardsApi/receiptApi';
 import StackHeader from '../reusable/StackHeader';
 import Prizes from './prize/Prizes';
 import PrizeDetail from './prize/PrizeDetail';
+import ORWPrize from './prize/ORWPrize';
 
 export type RewardsStackParams = {
   RewardsHome: undefined;
@@ -18,6 +19,7 @@ export type RewardsStackParams = {
   Prizes: undefined;
   PrizeDetail: {name: 'giftCert'};
   PrizeSuccess: undefined;
+  ORWPrize: undefined;
 };
 
 const RewardsStack = createNativeStackNavigator<RewardsStackParams>();
@@ -57,6 +59,11 @@ const RewardsNavigator = () => {
       <RewardsStack.Screen
         name="PrizeDetail"
         component={PrizeDetail}
+        options={{header: StackHeader}}
+      />
+      <RewardsStack.Screen
+        name="ORWPrize"
+        component={ORWPrize}
         options={{header: StackHeader}}
       />
     </RewardsStack.Navigator>

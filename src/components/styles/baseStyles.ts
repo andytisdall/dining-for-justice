@@ -20,6 +20,7 @@ export default StyleSheet.create({
     borderTopColor: colors.lightGrey,
     borderTopWidth: 2,
     marginVertical: 10,
+    paddingTop: 10,
   },
   text: {
     fontSize: 20 * sizeMultiplier,
