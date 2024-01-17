@@ -19,7 +19,7 @@ export default StyleSheet.create({
     fontSize: 10 * sizeMultiplier,
   },
   photo: {
-    height: 250,
+    height: 200,
     resizeMode: 'contain',
     marginBottom: 10,
   },

@@ -91,7 +91,7 @@ export const styles = StyleSheet.create({
   btn: {
     borderWidth: 2,
     borderRadius: 50,
-    backgroundColor: colors.lightGrey,
+    backgroundColor: colors.blue,
     borderColor: colors.nightBlue,
     marginLeft: 10,
     height: 40 * sizeMultiplier,

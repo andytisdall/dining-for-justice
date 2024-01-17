@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     width: 35,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 0,
+    marginBottom: 1,
   },
   filterCheckboxes: {
     flexDirection: 'row',

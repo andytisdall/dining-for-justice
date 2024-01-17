@@ -1,4 +1,5 @@
 import {View, Text, Image, ScrollView, Linking} from 'react-native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import ScreenBackground from '../reusable/ScreenBackground';
 import baseStyles from '../styles/baseStyles';
@@ -7,10 +8,13 @@ import homeStyles from './homeStyles';
 import {useGetTotalMealsQuery} from '../../state/apis/impactApi/impactApi';
 import Loading from '../reusable/Loading';
 import Btn from '../reusable/Btn';
+import {RootTabsParams} from '../../../App';
 
 const orwLogo = require('../../assets/orw-logo.png');
 
-const Home = () => {
+type HomeScreenProps = NativeStackScreenProps<RootTabsParams, 'Home'>;
+
+const Home = ({navigation}: HomeScreenProps) => {
   const {data: meals, isLoading} = useGetTotalMealsQuery();
 
   const totalMeals =
@@ -26,7 +30,7 @@ const Home = () => {
       return (
         <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
           <Text style={[baseStyles.text, baseStyles.centerText]}>
-            Total Meals Served by the CK Free Meal Program:
+            Total Free Meals Served by Community Kitchens
           </Text>
           <Text style={homeStyles.totalMeals}>{totalMeals}</Text>
         </View>
@@ -37,10 +41,20 @@ const Home = () => {
     <ScrollView contentContainerStyle={[baseStyles.scrollView]}>
       <ScreenBackground>
         <Header title="Home" />
-        <View style={baseStyles.screenSection}>
+        <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
           <View style={[homeStyles.logoContainer, baseStyles.centerSection]}>
             <Image source={orwLogo} style={homeStyles.logo} />
           </View>
+          <Text style={[baseStyles.inputLabel, baseStyles.centerText]}>
+            Visit Dining for Justice restaurants during Oakland Restaurant Week
+            for a chance to win prizes
+          </Text>
+          <Text style={[baseStyles.text, baseStyles.centerText]}>
+            3/14 - 3/24
+          </Text>
+          <Btn onPress={() => navigation.navigate('Rewards')}>
+            <Text style={baseStyles.btnText}>More Info</Text>
+          </Btn>
         </View>
 
         {renderTotalMeals()}

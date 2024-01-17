@@ -13,6 +13,7 @@ import OpeningHours from './OpeningHours';
 import InternetIcon from '../../../assets/internet.svg';
 import Loading from '../../reusable/Loading';
 import ScreenBackground from '../../reusable/ScreenBackground';
+import Btn from '../../reusable/Btn';
 
 type RestaurantDetailScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
@@ -182,6 +183,12 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
           <View style={baseStyles.screenSection}>
             {!!restaurant.cuisine && detail('Type of Food', restaurant.cuisine)}
             {!!details?.address && detail('Address', details.address)}
+          </View>
+
+          <View style={baseStyles.centerSection}>
+            <Btn onPress={() => Linking.openURL('https://ckoakland.org')}>
+              <Text>Oakland Restaurant Week Menu</Text>
+            </Btn>
           </View>
           <View
             style={[

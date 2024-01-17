@@ -60,5 +60,5 @@ export default StyleSheet.create({
   hoursItemRight: {
     alignItems: 'flex-end',
   },
-  photo: {height: 300, resizeMode: 'contain'},
+  photo: {height: 200, resizeMode: 'contain'},
 });

@@ -51,7 +51,9 @@ const RootComponent = () => {
 
   useEffect(() => {
     Notifications.init(handleRegister);
-    return () => Notifications.delete();
+    return () => {
+      Notifications.delete();
+    };
   }, [handleRegister]);
 
   return (

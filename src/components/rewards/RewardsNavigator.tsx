@@ -64,7 +64,7 @@ const RewardsNavigator = () => {
       <RewardsStack.Screen
         name="ORWPrize"
         component={ORWPrize}
-        options={{header: StackHeader}}
+        options={{header: StackHeader, headerTitle: 'Prizes'}}
       />
     </RewardsStack.Navigator>
   );

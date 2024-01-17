@@ -5,6 +5,7 @@ import MapView, {
   Marker,
   MapMarker,
   Callout,
+  Circle,
 } from 'react-native-maps';
 import {useRef, useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -21,6 +22,7 @@ import mapStyles from './mapStyles';
 import baseStyles from '../../styles/baseStyles';
 import restaurantStyles from '../restaurantStyles';
 import ScreenBackground from '../../reusable/ScreenBackground';
+import useLocation from '../../../hooks/useLocation';
 
 type MapScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
@@ -44,6 +46,8 @@ const Map = ({navigation, route}: MapScreenProps) => {
   const {data: restaurants} = useGetRestaurantsQuery();
 
   const [sortedRestaurants, filterComponent] = useFilter(restaurants);
+
+  const [location, locationPermission] = useLocation();
 
   const markerRef = useRef<MapMarker>(null);
   const mapRef = useRef<MapView>(null);
@@ -121,6 +125,21 @@ const Map = ({navigation, route}: MapScreenProps) => {
     }
   };
 
+  const renderUserMarker = () => {
+    if (locationPermission && location) {
+      const {latitude, longitude} = location;
+      console.log(latitude, longitude);
+      return (
+        <Circle
+          center={{latitude, longitude}}
+          radius={100}
+          fillColor="blue"
+          strokeColor="black"
+        />
+      );
+    }
+  };
+
   const syncZoomRef = (region: Region) => {
     zoomRef.current = region.latitudeDelta;
   };
@@ -135,6 +154,9 @@ const Map = ({navigation, route}: MapScreenProps) => {
           initialRegion={INITIAL_COORDS}
           onMapLoaded={onMapLoaded}
           onRegionChangeComplete={syncZoomRef}>
+          {renderUserMarker()}
+          <Marker coordinate={{latitude: 37.785834, longitude: -122.406417}} />
+
           {renderMarkers()}
         </MapView>
         <View style={restaurantStyles.listHeader}>
