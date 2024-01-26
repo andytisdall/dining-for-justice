@@ -61,4 +61,12 @@ export default StyleSheet.create({
     alignItems: 'flex-end',
   },
   photo: {height: 200, resizeMode: 'contain'},
+  withinRange: {
+    padding: 20,
+    backgroundColor: 'green',
+  },
+  notWithinRange: {
+    passing: 20,
+    backgroundColor: 'red',
+  },
 });

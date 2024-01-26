@@ -38,7 +38,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Placeholder</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Find a D4J Restaurant</string>
+	<string>Check in at a D4J Restaurant</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Placeholder</string>
 	<key>UILaunchStoryboardName</key>

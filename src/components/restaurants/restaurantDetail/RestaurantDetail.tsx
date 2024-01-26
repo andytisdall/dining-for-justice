@@ -14,6 +14,7 @@ import InternetIcon from '../../../assets/internet.svg';
 import Loading from '../../reusable/Loading';
 import ScreenBackground from '../../reusable/ScreenBackground';
 import Btn from '../../reusable/Btn';
+import useLocation from '../../../hooks/useLocation';
 
 type RestaurantDetailScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
@@ -32,6 +33,9 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
   const {data: details, isLoading} = useGetRestaurantDetailsQuery(
     restaurant?.googleId,
   );
+
+  const [, locationPermission, compareLocation, userIsWithinRange] =
+    useLocation();
 
   useEffect(
     () => navigation.setOptions({headerTitle: restaurant?.name}),
@@ -167,6 +171,55 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     }
   };
 
+  const withinRange = () => {
+    return (
+      <View
+        style={[baseStyles.centerSection, restaurantDetailStyles.withinRange]}>
+        <Text style={baseStyles.inputLabel}>You are within range!</Text>
+      </View>
+    );
+  };
+
+  const notWithinRange = () => {
+    return (
+      <View
+        style={[
+          baseStyles.centerSection,
+          restaurantDetailStyles.notWithinRange,
+        ]}>
+        <Text style={baseStyles.inputLabel}>You are within range!</Text>
+      </View>
+    );
+  };
+
+  const checkIn = () => {
+    if (locationPermission && restaurant?.coords) {
+      // 37.802811
+      // 122.272682
+      return (
+        <>
+          <Btn
+            onPress={() => {
+              compareLocation({latitude: 37.802811, longitude: 122.272682});
+            }}>
+            <Text>Check In</Text>
+          </Btn>
+          {userIsWithinRange !== undefined &&
+            (userIsWithinRange ? withinRange() : notWithinRange())}
+        </>
+      );
+    }
+    if (!locationPermission) {
+      return (
+        <View>
+          <Text style={baseStyles.textSm}>
+            You Must Enable Location Services to Check In
+          </Text>
+        </View>
+      );
+    }
+  };
+
   const renderDetails = () => {
     if (isLoading) {
       return (
@@ -185,11 +238,13 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
             {!!details?.address && detail('Address', details.address)}
           </View>
 
-          <View style={baseStyles.centerSection}>
+          {/* <View style={baseStyles.centerSection}>
             <Btn onPress={() => Linking.openURL('https://ckoakland.org')}>
               <Text>Oakland Restaurant Week Menu</Text>
             </Btn>
-          </View>
+          </View> */}
+
+          <View style={baseStyles.centerSection}>{checkIn()}</View>
           <View
             style={[
               restaurantDetailStyles.restaurantIcons,

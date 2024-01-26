@@ -1,60 +1,57 @@
-import {useEffect, useRef, useState} from 'react';
-import RNLocation, {Location} from 'react-native-location';
+import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
+import {Platform} from 'react-native';
+import {useState, useEffect} from 'react';
+import Geolocation from 'react-native-geolocation-service';
 
-const useLocation: () => [Location | undefined, boolean] = () => {
-  const [location, setLocation] = useState<Location | undefined>();
-  const activationRef = useRef(false);
+import {useUserIsWithinRangeOfLocationMutation} from '../state/apis/restaurantApi/restaurantApi';
+import {Coordinates} from '../state/apis/restaurantApi/restaurantApi';
 
+const useLocation = (): [
+  Coordinates | undefined,
+  boolean,
+  (targetCoords: Coordinates) => void,
+  boolean | undefined,
+] => {
   const [permission, setPermission] = useState(false);
+  const [location, setLocation] = useState<Coordinates>();
+
+  const [userIsWithinRange, {data}] = useUserIsWithinRangeOfLocationMutation();
+
+  const getPermissions = async (OS: 'ios' | 'android') => {
+    const permissionName =
+      OS === 'android'
+        ? PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION
+        : PERMISSIONS.IOS.LOCATION_WHEN_IN_USE;
+
+    const checkResult = await check(permissionName);
+    if (checkResult === RESULTS.GRANTED) {
+      return setPermission(true);
+    }
+
+    const requestResult = await request(permissionName);
+    if (requestResult === RESULTS.GRANTED) {
+      return setPermission(true);
+    }
+  };
 
   useEffect(() => {
-    const setupLocation = async () => {
-      await RNLocation.configure({
-        distanceFilter: 5,
-        interval: 10000,
-      });
-
-      let currentPermission = await RNLocation.checkPermission({
-        ios: 'whenInUse',
-        android: {
-          detail: 'coarse',
-        },
-      });
-
-      if (!currentPermission) {
-        currentPermission = await RNLocation.requestPermission({
-          ios: 'whenInUse',
-          android: {
-            detail: 'coarse',
-          },
-        });
-      }
-
-      activationRef.current = true;
-      setPermission(currentPermission);
-    };
-    if (!activationRef.current) {
-      setupLocation();
+    if (Platform.OS === 'android' || Platform.OS === 'ios') {
+      getPermissions(Platform.OS);
     }
   }, []);
 
   useEffect(() => {
     if (permission) {
-      const unsubscribe = RNLocation.subscribeToLocationUpdates(locations =>
-        setLocation(locations.pop()),
-      );
-      return unsubscribe;
-    } else {
-      RNLocation.requestPermission({
-        ios: 'whenInUse',
-        android: {
-          detail: 'coarse',
-        },
-      }).then(result => setPermission(result));
+      Geolocation.getCurrentPosition(position => {
+        setLocation({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        });
+      });
     }
-  }, [permission]);
+  });
 
-  return [location, permission];
+  return [location, permission, userIsWithinRange, data];
 };
 
 export default useLocation;
