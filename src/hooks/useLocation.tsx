@@ -3,19 +3,11 @@ import {Platform} from 'react-native';
 import {useState, useEffect} from 'react';
 import Geolocation from 'react-native-geolocation-service';
 
-import {useUserIsWithinRangeOfLocationMutation} from '../state/apis/restaurantApi/restaurantApi';
 import {Coordinates} from '../state/apis/restaurantApi/restaurantApi';
 
-const useLocation = (): [
-  Coordinates | undefined,
-  boolean,
-  (targetCoords: Coordinates) => void,
-  boolean | undefined,
-] => {
+const useLocation = (): [Coordinates | undefined, boolean] => {
   const [permission, setPermission] = useState(false);
   const [location, setLocation] = useState<Coordinates>();
-
-  const [userIsWithinRange, {data}] = useUserIsWithinRangeOfLocationMutation();
 
   const getPermissions = async (OS: 'ios' | 'android') => {
     const permissionName =
@@ -49,9 +41,9 @@ const useLocation = (): [
         });
       });
     }
-  });
+  }, [permission]);
 
-  return [location, permission, userIsWithinRange, data];
+  return [location, permission];
 };
 
 export default useLocation;

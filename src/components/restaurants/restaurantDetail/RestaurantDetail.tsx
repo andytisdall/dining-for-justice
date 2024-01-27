@@ -15,6 +15,7 @@ import Loading from '../../reusable/Loading';
 import ScreenBackground from '../../reusable/ScreenBackground';
 import Btn from '../../reusable/Btn';
 import useLocation from '../../../hooks/useLocation';
+import {useUserIsWithinRangeOfLocationMutation} from '../../../state/apis/restaurantApi/restaurantApi';
 
 type RestaurantDetailScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
@@ -34,8 +35,11 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     restaurant?.googleId,
   );
 
-  const [, locationPermission, compareLocation, userIsWithinRange] =
-    useLocation();
+  const [userIsWithinRange, userIsWithinRangeResult] =
+    useUserIsWithinRangeOfLocationMutation();
+
+  const [, locationPermission] = useLocation();
+  console.log('d');
 
   useEffect(
     () => navigation.setOptions({headerTitle: restaurant?.name}),
@@ -187,25 +191,26 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
           baseStyles.centerSection,
           restaurantDetailStyles.notWithinRange,
         ]}>
-        <Text style={baseStyles.inputLabel}>You are within range!</Text>
+        <Text style={baseStyles.inputLabel}>You ain't within range!</Text>
       </View>
     );
   };
 
   const checkIn = () => {
     if (locationPermission && restaurant?.coords) {
-      // 37.802811
-      // 122.272682
+      // 37.791200
+      // -122.203840
       return (
         <>
           <Btn
             onPress={() => {
-              compareLocation({latitude: 37.802811, longitude: 122.272682});
+              userIsWithinRange({latitude: 37.79128, longitude: -122.20392});
             }}>
             <Text>Check In</Text>
           </Btn>
-          {userIsWithinRange !== undefined &&
-            (userIsWithinRange ? withinRange() : notWithinRange())}
+          {userIsWithinRangeResult.isLoading && <Loading />}
+          {userIsWithinRangeResult.data !== undefined &&
+            (userIsWithinRangeResult.data ? withinRange() : notWithinRange())}
         </>
       );
     }

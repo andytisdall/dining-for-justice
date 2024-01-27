@@ -66,7 +66,7 @@ export default StyleSheet.create({
     backgroundColor: 'green',
   },
   notWithinRange: {
-    passing: 20,
+    padding: 20,
     backgroundColor: 'red',
   },
 });
