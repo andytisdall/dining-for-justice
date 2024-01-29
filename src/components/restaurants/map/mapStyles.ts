@@ -24,7 +24,7 @@ export default StyleSheet.create({
     height: 120,
     width: 120,
   },
-  image: {width: '100%', height: '100%', resizeMode: 'contain'},
+  image: {width: '100%', height: '100%', resizeMode: 'cover'},
   detailsText: {
     color: colors.grey,
   },
@@ -32,4 +32,5 @@ export default StyleSheet.create({
     position: 'absolute',
     right: 5,
   },
+  svg: {borderColor: 'red', borderWidth: 1},
 });

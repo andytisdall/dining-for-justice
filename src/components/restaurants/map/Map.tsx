@@ -2,8 +2,8 @@ import {View, ScrollView, Text} from 'react-native';
 import MapView, {
   PROVIDER_GOOGLE,
   Region,
-  Marker,
   MapMarker,
+  Marker,
   Callout,
   // Circle,
 } from 'react-native-maps';
@@ -12,7 +12,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import useFilter from '../../../hooks/useFilter';
 import Btn from '../../reusable/Btn';
-import MapText from './MapText';
+import RestaurantCallout from './RestaurantCallout';
 import {RestaurantStackParams} from '../RestaurantNavigator';
 import {
   useGetRestaurantsQuery,
@@ -47,8 +47,6 @@ const Map = ({navigation, route}: MapScreenProps) => {
 
   const [sortedRestaurants, filterComponent] = useFilter(restaurants);
 
-  // const [location, locationPermission] = useLocation();
-
   const markerRef = useRef<MapMarker>(null);
   const mapRef = useRef<MapView>(null);
   const initialLoadRef = useRef(false);
@@ -74,29 +72,27 @@ const Map = ({navigation, route}: MapScreenProps) => {
       ?.filter(r => r.coords)
       .map(restaurant => {
         const ref = restaurant.id === id ? markerRef : undefined;
+        const onPressMarker = () => {
+          setSelectedRestaurant(restaurant.id);
+          centerMarker(restaurant);
+        };
+        const navigate = () =>
+          navigation.navigate('RestaurantDetail', {
+            id: restaurant.id,
+          });
         return (
           <Marker
-            key={restaurant.name}
+            key={restaurant.id}
             title={restaurant.name}
             description={restaurant.cuisine}
             coordinate={{
               latitude: restaurant.coords!.latitude,
               longitude: restaurant.coords!.longitude,
             }}
-            onPress={() => {
-              setSelectedRestaurant(restaurant.id);
-              centerMarker(restaurant);
-            }}
+            onPress={onPressMarker}
             ref={ref}>
-            <Callout
-              onPress={() =>
-                navigation.navigate('RestaurantDetail', {
-                  id: restaurant.id,
-                })
-              }>
-              <View>
-                <MapText restaurant={restaurant} />
-              </View>
+            <Callout onPress={navigate}>
+              <RestaurantCallout restaurant={restaurant} />
             </Callout>
           </Marker>
         );
@@ -155,7 +151,6 @@ const Map = ({navigation, route}: MapScreenProps) => {
           onMapLoaded={onMapLoaded}
           onRegionChangeComplete={syncZoomRef}>
           {/* {renderUserMarker()} */}
-          <Marker coordinate={{latitude: 37.785834, longitude: -122.406417}} />
 
           {renderMarkers()}
         </MapView>

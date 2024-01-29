@@ -34,11 +34,13 @@
     "react-native-maps": "^1.8.0",
     "react-native-paper": "^5.10.4",
     "react-native-permissions": "^4.0.3",
+    "react-native-pure-jwt": "^3.0.2",
     "react-native-push-notification": "^8.1.1",
     "react-native-safe-area-context": "^4.7.2",
     "react-native-screens": "^3.25.0",
     "react-native-svg": "^14.1.0",
     "react-native-svg-transformer": "^1.1.0",
+    "react-native-webview": "^13.6.4",
     "react-redux": "^8.1.2"
   },
   "devDependencies": {
@@ -48,6 +50,7 @@
     "@react-native/eslint-config": "^0.72.2",
     "@react-native/metro-config": "^0.72.11",
     "@tsconfig/react-native": "^3.0.0",
+    "@types/jsonwebtoken": "^9.0.5",
     "@types/react": "^18.0.24",
     "@types/react-native-push-notification": "^8.1.4",
     "@types/react-test-renderer": "^18.0.0",

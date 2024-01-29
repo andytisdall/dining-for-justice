@@ -25,6 +25,11 @@ const contactApi = api.injectEndpoints({
     getContact: builder.query<Contact | null, void>({
       query: () => '/d4j/contact',
       providesTags: ['Contact'],
+      transformErrorResponse: async err => {
+        await AsyncStorage.removeItem('d4j-token');
+        api.util.resetApiState();
+        return {data: err};
+      },
     }),
 
     signIn: builder.mutation<Contact | null, string>({

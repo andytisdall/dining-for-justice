@@ -34,7 +34,6 @@ export const rtkQueryErrorLogger: Middleware =
         } else if (error.message) {
           message = error.message;
         }
-        console.log(message);
         api.dispatch(setError(message));
       }
     }

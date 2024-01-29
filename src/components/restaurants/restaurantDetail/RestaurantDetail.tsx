@@ -16,6 +16,7 @@ import ScreenBackground from '../../reusable/ScreenBackground';
 import Btn from '../../reusable/Btn';
 import useLocation from '../../../hooks/useLocation';
 import {useUserIsWithinRangeOfLocationMutation} from '../../../state/apis/restaurantApi/restaurantApi';
+import {useCheckInMutation} from '../../../state/apis/rewardsApi/checkInApi';
 
 type RestaurantDetailScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
@@ -39,7 +40,8 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     useUserIsWithinRangeOfLocationMutation();
 
   const [, locationPermission] = useLocation();
-  console.log('d');
+
+  const [checkIn] = useCheckInMutation();
 
   useEffect(
     () => navigation.setOptions({headerTitle: restaurant?.name}),
@@ -196,7 +198,7 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     );
   };
 
-  const checkIn = () => {
+  const renderCheckIn = () => {
     if (locationPermission && restaurant?.coords) {
       // 37.791200
       // -122.203840
@@ -205,6 +207,7 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
           <Btn
             onPress={() => {
               userIsWithinRange({latitude: 37.79128, longitude: -122.20392});
+              checkIn({restaurantId: restaurant.id});
             }}>
             <Text>Check In</Text>
           </Btn>
@@ -249,7 +252,7 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
             </Btn>
           </View> */}
 
-          <View style={baseStyles.centerSection}>{checkIn()}</View>
+          <View style={baseStyles.centerSection}>{renderCheckIn()}</View>
           <View
             style={[
               restaurantDetailStyles.restaurantIcons,
