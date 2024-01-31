@@ -1,6 +1,11 @@
 import {sign} from 'react-native-pure-jwt';
 import {api} from '../../api';
 
+export interface CheckIn {
+  date: string;
+  restaurant: string;
+}
+
 const checkInApi = api.injectEndpoints({
   endpoints: builder => ({
     checkIn: builder.mutation<null, {restaurantId: string}>({
@@ -22,8 +27,13 @@ const checkInApi = api.injectEndpoints({
         });
         return {data: null};
       },
+      invalidatesTags: ['CheckIn'],
+    }),
+    getPoints: builder.query<CheckIn[], void>({
+      query: () => '/rewards/checkin-in',
+      providesTags: ['CheckIn'],
     }),
   }),
 });
 
-export const {useCheckInMutation} = checkInApi;
+export const {useCheckInMutation, useGetPointsQuery} = checkInApi;

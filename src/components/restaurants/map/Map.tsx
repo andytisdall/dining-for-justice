@@ -5,7 +5,7 @@ import MapView, {
   MapMarker,
   Marker,
   Callout,
-  // Circle,
+  Circle,
 } from 'react-native-maps';
 import {useRef, useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -20,9 +20,8 @@ import {
 } from '../../../state/apis/restaurantApi/restaurantApi';
 import mapStyles from './mapStyles';
 import baseStyles from '../../styles/baseStyles';
-import restaurantStyles from '../restaurantStyles';
 import ScreenBackground from '../../reusable/ScreenBackground';
-// import useLocation from '../../../hooks/useLocation';
+import useLocation from '../../../hooks/useLocation';
 
 type MapScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
@@ -46,6 +45,8 @@ const Map = ({navigation, route}: MapScreenProps) => {
   const {data: restaurants} = useGetRestaurantsQuery();
 
   const [sortedRestaurants, filterComponent] = useFilter(restaurants);
+
+  const [location, locationPermission] = useLocation();
 
   const markerRef = useRef<MapMarker>(null);
   const mapRef = useRef<MapView>(null);
@@ -121,20 +122,39 @@ const Map = ({navigation, route}: MapScreenProps) => {
     }
   };
 
-  // const renderUserMarker = () => {
-  //   if (locationPermission && location) {
-  //     const {latitude, longitude} = location;
-  //     console.log(latitude, longitude);
-  //     return (
-  //       <Circle
-  //         center={{latitude, longitude}}
-  //         radius={100}
-  //         fillColor="blue"
-  //         strokeColor="black"
-  //       />
-  //     );
-  //   }
-  // };
+  const zoomToLocation = () => {
+    if (mapRef.current && location) {
+      if (zoomRef.current > ZOOM_VALUE) {
+        mapRef.current.animateToRegion({
+          latitude: location.latitude,
+          longitude: location.longitude,
+          latitudeDelta: ZOOM_VALUE,
+          longitudeDelta: ZOOM_VALUE,
+        });
+      } else {
+        mapRef.current.animateToRegion({
+          latitude: location.latitude,
+          longitude: location.longitude,
+          latitudeDelta: zoomRef.current,
+          longitudeDelta: zoomRef.current,
+        });
+      }
+    }
+  };
+
+  const renderUserMarker = () => {
+    if (locationPermission && location) {
+      const {latitude, longitude} = location;
+      return (
+        <Circle
+          center={{latitude, longitude}}
+          radius={50}
+          fillColor="rgba(100,100,250,.5)"
+          strokeColor="black"
+        />
+      );
+    }
+  };
 
   const syncZoomRef = (region: Region) => {
     zoomRef.current = region.latitudeDelta;
@@ -143,6 +163,18 @@ const Map = ({navigation, route}: MapScreenProps) => {
   return (
     <ScrollView contentContainerStyle={baseStyles.scrollView}>
       <ScreenBackground>
+        {filterComponent}
+        <View style={mapStyles.mapBtns}>
+          {locationPermission && (
+            <Btn onPress={zoomToLocation}>
+              <Text style={baseStyles.btnTextSm}>My Location</Text>
+            </Btn>
+          )}
+
+          <Btn onPress={() => mapRef.current?.animateToRegion(INITIAL_COORDS)}>
+            <Text style={baseStyles.btnTextSm}>Reset Map</Text>
+          </Btn>
+        </View>
         <MapView
           ref={mapRef}
           provider={PROVIDER_GOOGLE}
@@ -150,18 +182,10 @@ const Map = ({navigation, route}: MapScreenProps) => {
           initialRegion={INITIAL_COORDS}
           onMapLoaded={onMapLoaded}
           onRegionChangeComplete={syncZoomRef}>
-          {/* {renderUserMarker()} */}
+          {renderUserMarker()}
 
           {renderMarkers()}
         </MapView>
-        <View style={restaurantStyles.listHeader}>
-          {filterComponent}
-          <Btn
-            style={mapStyles.resetBtn}
-            onPress={() => mapRef.current?.animateToRegion(INITIAL_COORDS)}>
-            <Text style={baseStyles.btnText}>Reset Map</Text>
-          </Btn>
-        </View>
       </ScreenBackground>
     </ScrollView>
   );

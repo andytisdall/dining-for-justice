@@ -6,7 +6,7 @@ export type Coordinates = {latitude: number; longitude: number};
 
 export interface RestaurantDetails {
   url: string;
-  openNow: boolean;
+  openNow?: boolean;
   serves: {
     breakfast: boolean;
     wine: boolean;
@@ -15,7 +15,7 @@ export interface RestaurantDetails {
   };
   address?: string;
   id: string;
-  openHours: string[];
+  openHours?: string[];
 }
 
 export interface Restaurant {
@@ -35,19 +35,22 @@ export interface Restaurant {
 }
 
 const comparePosition = (targetCoords: Coordinates): Promise<boolean> => {
-  return new Promise(resolve => {
-    Geolocation.getCurrentPosition(position => {
-      const MAX_DIFFERENCE = 0.0003;
+  return new Promise((resolve, reject) => {
+    Geolocation.getCurrentPosition(
+      position => {
+        const MAX_DIFFERENCE = 0.0003;
 
-      const latDiff = Math.abs(
-        position.coords.latitude - targetCoords.latitude,
-      );
-      const lngDiff = Math.abs(
-        position.coords.longitude - targetCoords.longitude,
-      );
+        const latDiff = Math.abs(
+          position.coords.latitude - targetCoords.latitude,
+        );
+        const lngDiff = Math.abs(
+          position.coords.longitude - targetCoords.longitude,
+        );
 
-      resolve(latDiff + lngDiff <= MAX_DIFFERENCE);
-    });
+        resolve(latDiff + lngDiff <= MAX_DIFFERENCE);
+      },
+      error => reject(error),
+    );
   });
 };
 
@@ -64,8 +67,12 @@ export const restaurantApi = api.injectEndpoints({
     }),
     userIsWithinRangeOfLocation: builder.mutation<boolean, Coordinates>({
       queryFn: async targetCoords => {
-        const withinRange = await comparePosition(targetCoords);
-        return {data: withinRange};
+        try {
+          const withinRange = await comparePosition(targetCoords);
+          return {data: withinRange};
+        } catch (err) {
+          return {error: {error: `${err}`, status: 'CUSTOM_ERROR'}};
+        }
       },
     }),
   }),

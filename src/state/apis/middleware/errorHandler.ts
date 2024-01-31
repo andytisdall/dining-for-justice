@@ -7,12 +7,11 @@ import {
 
 import {setError} from '../slices/errorSlice';
 import {FetchBaseQueryError} from '@reduxjs/toolkit/query';
-import {AnyAction} from '@reduxjs/toolkit';
 
 type ServerErrorPayload = {data: {error: string}; status: number};
 
 export const rtkQueryErrorLogger: Middleware =
-  (api: MiddlewareAPI) => next => (action: AnyAction) => {
+  (api: MiddlewareAPI) => next => action => {
     // RTK Query uses `createAsyncThunk` from redux-toolkit under the hood, so we're able to utilize these use matchers!
     if (isRejectedWithValue(action)) {
       // console.log(action);

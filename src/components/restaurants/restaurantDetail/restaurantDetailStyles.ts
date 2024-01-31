@@ -15,6 +15,7 @@ export default StyleSheet.create({
     borderRadius: 30,
     padding: 10 * sizeMultiplier,
     marginBottom: 10,
+    marginHorizontal: 5,
   },
   restaurantServesItem: {
     borderColor: colors.yellow,
@@ -37,10 +38,11 @@ export default StyleSheet.create({
     alignItems: 'flex-end',
   },
   restaurantIcons: {
+    justifyContent: 'center',
+    alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexWrap: 'wrap',
   },
-  restaurantIconColumn: {alignItems: 'center', marginRight: 20},
   restaurantLink: {
     marginRight: 30,
   },

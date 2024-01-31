@@ -3,39 +3,39 @@ import {Text, View, FlatList, Pressable} from 'react-native';
 import {useState} from 'react';
 
 import Loading from '../../reusable/Loading';
+// import {
+//   useGetVisitsQuery,
+//   D4JVisit,
+// } from '../../../state/apis/rewardsApi/receiptApi';
+
 import {
-  useGetVisitsQuery,
-  D4JVisit,
-} from '../../../state/apis/rewardsApi/receiptApi';
+  useGetPointsQuery,
+  CheckIn,
+} from '../../../state/apis/rewardsApi/checkInApi';
 import baseStyles from '../../styles/baseStyles';
 import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
 import pastVisitsStyles from './pastVisitsStyles';
 
-const PastVisits = () => {
+const PastCheckIns = () => {
   const [showMore, setShowMore] = useState(false);
 
-  const {data: visits, isLoading: visitsAreLoading} = useGetVisitsQuery();
+  const {data: checkIns, isLoading: checkInsAreLoading} = useGetPointsQuery();
   const {data: restaurants, isLoading: restaurantsAreLoading} =
     useGetRestaurantsQuery();
 
-  const renderVisit = ({item}: {item: D4JVisit}) => {
+  const renderVisit = ({item}: {item: CheckIn}) => {
     const rest = restaurants?.find(r => r.id === item.restaurant);
 
     return (
       <View style={pastVisitsStyles.pastVisitItem}>
         <Text style={[baseStyles.textSm, pastVisitsStyles.pastVisitItemText]}>
-          {format(utcToZonedTime(item.date, 'America/Los_Angeles'), 'M/d/yy')}
+          {format(
+            utcToZonedTime(item.date, 'America/Los_Angeles'),
+            'M/d/yy h:mm a',
+          )}
         </Text>
         <Text style={[baseStyles.textSm, pastVisitsStyles.pastVisitItemText]}>
           {rest?.name}
-        </Text>
-        <Text
-          style={[
-            baseStyles.textSm,
-            pastVisitsStyles.pastVisitItemText,
-            pastVisitsStyles.pastVisitItemStatus,
-          ]}>
-          {item.status}
         </Text>
       </View>
     );
@@ -61,12 +61,12 @@ const PastVisits = () => {
     );
   };
 
-  if (visitsAreLoading || restaurantsAreLoading) {
+  if (checkInsAreLoading || restaurantsAreLoading) {
     return <Loading />;
   }
 
-  if (visits?.length) {
-    const visitsToRender = showMore ? visits : visits.slice(0, 3);
+  if (checkIns?.length) {
+    const visitsToRender = showMore ? checkIns : checkIns.slice(0, 3);
     return (
       <View style={baseStyles.screenBorders}>
         <View style={[baseStyles.screenSection]}>
@@ -89,18 +89,10 @@ const PastVisits = () => {
             ]}>
             Restaurant
           </Text>
-          <Text
-            style={[
-              pastVisitsStyles.pastVisitHeaderText,
-              pastVisitsStyles.pastVisitItemText,
-              pastVisitsStyles.pastVisitItemStatus,
-            ]}>
-            Status
-          </Text>
         </View>
         <FlatList data={visitsToRender} renderItem={renderVisit} />
         <View style={baseStyles.centerSection}>
-          {visits.length > 3 &&
+          {checkIns.length > 3 &&
             (!showMore ? renderShowMoreBtn() : renderShowLessBtn())}
         </View>
       </View>
@@ -110,4 +102,4 @@ const PastVisits = () => {
   }
 };
 
-export default PastVisits;
+export default PastCheckIns;

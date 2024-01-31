@@ -14,7 +14,7 @@ export default StyleSheet.create({
     backgroundColor: colors.darkGrey,
   },
   screenSection: {
-    padding: 15 * sizeMultiplier,
+    padding: 12 * sizeMultiplier,
   },
   screenBorders: {
     borderTopColor: colors.lightGrey,
@@ -40,6 +40,10 @@ export default StyleSheet.create({
   },
   btnText: {
     fontSize: 15 * sizeMultiplier,
+    color: colors.grey,
+  },
+  btnTextSm: {
+    fontSize: 12 * sizeMultiplier,
     color: colors.grey,
   },
   textBlack: {

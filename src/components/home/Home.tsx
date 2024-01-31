@@ -37,6 +37,7 @@ const Home = ({navigation}: HomeScreenProps) => {
       );
     }
   };
+
   return (
     <ScrollView contentContainerStyle={[baseStyles.scrollView]}>
       <ScreenBackground>

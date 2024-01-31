@@ -9,9 +9,9 @@ export interface SignInResponse {
 
 export interface Contact {
   id: string;
-  firstName: string;
+  // firstName: string;
   email: string;
-  d4jPoints?: number;
+  // d4jPoints?: number;
 }
 
 export interface CreateContactArgs {

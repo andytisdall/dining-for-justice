@@ -70,7 +70,7 @@ const RestaurantList = ({navigation}: RestaurantsScreenProps) => {
       return (
         <View style={[baseStyles.centerSection, baseStyles.screenSection]}>
           <Text style={baseStyles.textSm}>No Results Found.</Text>
-          <Refresh refetch={refetch} />
+          {restaurants?.length === 0 && <Refresh refetch={refetch} />}
         </View>
       );
     }

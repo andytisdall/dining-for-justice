@@ -1,0 +1,3 @@
+import Resta
+
+const RestaurantInfo = ()

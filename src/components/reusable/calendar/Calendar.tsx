@@ -31,41 +31,42 @@ const Calendar = ({
 
   const translateValue = useRef(new Animated.Value(0)).current;
 
+  const springBack = Animated.spring(translateValue, {
+    toValue: 0,
+    useNativeDriver: true,
+  });
+
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponder: () => true,
       onPanResponderEnd: (event, gesture) => {
         if (gesture.dx < -150) {
-          setMonth(current => addMonths(current, 1));
-          translateValue.setValue(200);
+          Animated.timing(translateValue, {
+            toValue: -SCREEN_WIDTH,
+            useNativeDriver: true,
+            duration: 100,
+          }).start(() => {
+            translateValue.setValue(200);
+            setMonth(current => addMonths(current, 1));
+            springBack.start();
+          });
         } else if (gesture.dx > 150) {
-          translateValue.setValue(-200);
-          setMonth(current => subMonths(current, 1));
+          Animated.timing(translateValue, {
+            toValue: SCREEN_WIDTH,
+            useNativeDriver: true,
+            duration: 10,
+          }).start(() => {
+            translateValue.setValue(-200);
+            setMonth(current => subMonths(current, 1));
+            springBack.start();
+          });
+        } else {
+          springBack.start();
         }
-        Animated.spring(translateValue, {
-          toValue: 0,
-          useNativeDriver: true,
-        }).start();
       },
       onPanResponderMove: (event, gesture) => {
-        if (gesture.dx < -150) {
-          Animated.sequence([
-            Animated.spring(translateValue, {
-              toValue: -SCREEN_WIDTH,
-              useNativeDriver: true,
-            }),
-          ]).start();
-        } else if (gesture.dx > 150) {
-          Animated.sequence([
-            Animated.spring(translateValue, {
-              toValue: SCREEN_WIDTH,
-              useNativeDriver: true,
-            }),
-          ]).start();
-        } else {
-          translateValue.setValue(gesture.dx);
-        }
+        translateValue.setValue(gesture.dx);
       },
     }),
   ).current;

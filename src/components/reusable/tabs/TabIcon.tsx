@@ -7,11 +7,11 @@ type TabIconProps = {focused: boolean; color: string; size: number};
 const tabImages = {
   home: require('../../../assets/homeIcon.webp'),
   restaurants: require('../../../assets/restaurantIcon.png'),
-  info: require('../../../assets/dollarIcon.webp'),
-  // events: require('../../../assets/cal.jpg'),
+  rewards: require('../../../assets/dollarIcon.webp'),
+  events: require('../../../assets/cal.jpg'),
 };
 
-const createTabIcon = (icon: 'home' | 'restaurants' | 'info') => {
+const createTabIcon = (icon: 'home' | 'restaurants' | 'rewards' | 'events') => {
   const TabIcon = ({size, focused}: TabIconProps) => {
     const style: any[] = [styles.tabIconContainer, {height: size, width: size}];
     if (focused) {

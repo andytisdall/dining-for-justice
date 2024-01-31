@@ -1,11 +1,10 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
 import colors from '../../styles/colors';
-import {sizeMultiplier} from '../../styles/baseStyles';
 
 export default StyleSheet.create({
   map: {
-    height: 300 * sizeMultiplier,
+    height: Dimensions.get('window').height * 0.6,
   },
   callout: {},
   calloutNameContainer: {
@@ -28,9 +27,9 @@ export default StyleSheet.create({
   detailsText: {
     color: colors.grey,
   },
-  resetBtn: {
+  mapBtns: {
     position: 'absolute',
-    right: 5,
+    flexDirection: 'row',
+    right: 0,
   },
-  svg: {borderColor: 'red', borderWidth: 1},
 });
