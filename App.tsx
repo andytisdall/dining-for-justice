@@ -4,7 +4,7 @@
  *
  * @format
  */
-
+import {useEffect, useCallback} from 'react';
 import {SafeAreaView} from 'react-native';
 import {Provider} from 'react-redux';
 import {store} from './src/state/store';
@@ -20,6 +20,8 @@ import Home from './src/components/home/Home';
 import createTabIcon from './src/components/reusable/tabs/TabIcon';
 import createTabLabel from './src/components/reusable/tabs/TabLabel';
 import EventsNavigator from './src/components/events/EventsNavigator';
+import {useRegisterDeviceMutation} from './src/state/apis/contact/contactApi';
+import Notifications from './src/notifications/NotificationsService';
 
 enableLatestRenderer();
 
@@ -33,6 +35,26 @@ export type RootTabsParams = {
 const RootTabs = createBottomTabNavigator<RootTabsParams>();
 
 const RootComponent = () => {
+  const [registerDevice] = useRegisterDeviceMutation();
+
+  const handleRegister = useCallback(
+    ({token}: {token: string}) => {
+      try {
+        registerDevice({token});
+      } catch (err) {
+        console.log('Could not register device token', err);
+      }
+    },
+    [registerDevice],
+  );
+
+  useEffect(() => {
+    Notifications.init(handleRegister);
+    return () => {
+      Notifications.delete();
+    };
+  }, [handleRegister]);
+
   return (
     <SafeAreaView style={baseStyles.app}>
       <NavigationContainer>

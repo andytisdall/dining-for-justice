@@ -13,8 +13,8 @@ export default StyleSheet.create({
   },
   restaurantListItem: {
     paddingHorizontal: 20,
-    paddingVertical: 15,
-    borderBottomColor: 'white',
+    paddingVertical: 10,
+    borderBottomColor: colors.grey,
     borderBottomWidth: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',

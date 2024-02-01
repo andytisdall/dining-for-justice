@@ -35,7 +35,8 @@ export default StyleSheet.create({
   },
   restaurantLinkRow: {
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
   restaurantIcons: {
     justifyContent: 'center',
@@ -51,7 +52,9 @@ export default StyleSheet.create({
     height: 35,
     width: 35,
     alignSelf: 'center',
+    marginBottom: 2,
   },
+
   hoursItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',

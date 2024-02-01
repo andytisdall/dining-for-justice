@@ -23,37 +23,37 @@ export default StyleSheet.create({
     paddingTop: 10,
   },
   text: {
-    fontSize: 20 * sizeMultiplier,
+    fontSize: 16 * sizeMultiplier,
     color: 'white',
   },
   textSm: {
-    fontSize: 15 * sizeMultiplier,
+    fontSize: 13 * sizeMultiplier,
     color: 'white',
   },
   textXSm: {
-    fontSize: 12 * sizeMultiplier,
+    fontSize: 10 * sizeMultiplier,
     color: 'white',
   },
   textLg: {
-    fontSize: 25 * sizeMultiplier,
+    fontSize: 20 * sizeMultiplier,
     color: 'white',
   },
   btnText: {
-    fontSize: 15 * sizeMultiplier,
+    fontSize: 12 * sizeMultiplier,
     color: colors.grey,
   },
   btnTextSm: {
-    fontSize: 12 * sizeMultiplier,
+    fontSize: 10 * sizeMultiplier,
     color: colors.grey,
   },
   textBlack: {
     color: 'black',
   },
   title: {
-    fontSize: 30 * sizeMultiplier,
+    fontSize: 25 * sizeMultiplier,
     color: 'white',
     textAlign: 'center',
-    paddingTop: 10 * sizeMultiplier,
+    paddingTop: 8 * sizeMultiplier,
   },
   centerSection: {
     alignItems: 'center',

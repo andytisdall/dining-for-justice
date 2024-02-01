@@ -24,6 +24,7 @@ import ThumbsUp from '../../reusable/ThumbsUp';
 import AnimatedLoading from '../../reusable/AnimatedLoading';
 import authStyles from './authStyles';
 import ScreenBackground from '../../reusable/ScreenBackground';
+import Notifications from '../../../notifications/NotificationsService';
 
 type GetContactScreenProps = NativeStackScreenProps<
   RewardsStackParams,
@@ -45,7 +46,6 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
 
   const [signIn, signInResult] = useSignInMutation();
   const [createContact, createContactResult] = useCreateContactMutation();
-  // const {data: contact} = useGetContactQuery();
 
   const redirectScreen = 'RewardsHome';
 
@@ -66,15 +66,17 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
           }
         });
     } else {
-      createContact({email, firstName, lastName})
-        .unwrap()
-        .then(user =>
-          signIn(user.email)
-            .unwrap()
-            .then(() => {
-              navigation.navigate(redirectScreen);
-            }),
-        );
+      Notifications.init(({token}: {token: string}) => {
+        createContact({email, firstName, lastName, token})
+          .unwrap()
+          .then(user =>
+            signIn(user.email)
+              .unwrap()
+              .then(() => {
+                navigation.navigate(redirectScreen);
+              }),
+          );
+      });
     }
   };
 

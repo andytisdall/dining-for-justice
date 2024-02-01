@@ -9,15 +9,14 @@ export interface SignInResponse {
 
 export interface Contact {
   id: string;
-  // firstName: string;
   email: string;
-  // d4jPoints?: number;
 }
 
 export interface CreateContactArgs {
   email: string;
   firstName: string;
   lastName: string;
+  token?: string;
 }
 
 const contactApi = api.injectEndpoints({

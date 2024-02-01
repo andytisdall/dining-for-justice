@@ -84,7 +84,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   titleText: {
-    fontSize: 25 * sizeMultiplier,
+    fontSize: 20 * sizeMultiplier,
     color: 'white',
     textAlign: 'center',
   },

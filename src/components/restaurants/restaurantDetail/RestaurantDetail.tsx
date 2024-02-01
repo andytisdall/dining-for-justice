@@ -15,6 +15,7 @@ import ScreenBackground from '../../reusable/ScreenBackground';
 import CheckIn from './CheckIn';
 import RestaurantTags from './RestaurantTags';
 import RestaurantLinks from './RestaurantLinks';
+import RestaurantInfo from './RestaurantInfo';
 
 type RestaurantDetailScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
@@ -36,15 +37,6 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     () => navigation.setOptions({headerTitle: restaurant?.name}),
     [navigation, restaurant],
   );
-
-  const detail = (detailName: string, detailText: string) => {
-    return (
-      <View style={restaurantDetailStyles.restaurantDetailItem}>
-        <Text style={baseStyles.inputLabel}>{detailName}: </Text>
-        <Text style={baseStyles.textSm}>{detailText}</Text>
-      </View>
-    );
-  };
 
   const navigateToMap = () => {
     if (restaurant) {
@@ -77,12 +69,7 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
       return (
         <View style={baseStyles.screenSection}>
           {renderImage()}
-
-          <View style={baseStyles.screenSection}>
-            {!!restaurant.cuisine && detail('Type of Food', restaurant.cuisine)}
-            {!!details?.address && detail('Address', details.address)}
-          </View>
-
+          <RestaurantInfo restaurant={restaurant} />
           <CheckIn restaurant={restaurant} />
           <RestaurantTags restaurant={restaurant} />
           {!!details && (

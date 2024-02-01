@@ -1,12 +1,12 @@
 import {View, Text, Linking, Image, Pressable} from 'react-native';
 
-import Btn from '../../reusable/Btn';
 import {RestaurantDetails} from '../../../state/apis/restaurantApi/restaurantApi';
 import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetailStyles';
-import InternetIcon from '../../../assets/internet.svg';
+// import MenuIcon from '../../../assets/menu-icon.svg';
 
 const mapIcon = require('../../../assets/mapIcon.png');
+const menuIcon = require('../../../assets/menu-icon.png');
 
 const RestaurantLinks = ({
   details,
@@ -47,13 +47,11 @@ const RestaurantLinks = ({
 
             return (
               <View style={[pressedStyle, restaurantDetailStyles.mapBtn]}>
-                <InternetIcon
+                <Image
+                  source={menuIcon}
                   style={restaurantDetailStyles.restaurantLinkIcon}
-                  width={30}
-                  height={30}
-                  fill="white"
                 />
-                <Text style={baseStyles.textSm}>Restaurant Website</Text>
+                <Text style={baseStyles.textSm}>View Menu</Text>
               </View>
             );
           }}
@@ -63,17 +61,9 @@ const RestaurantLinks = ({
   };
 
   return (
-    <View>
-      <View style={baseStyles.centerSection}>
-        <Btn onPress={() => Linking.openURL('https://ckoakland.org')}>
-          <Text>Oakland Restaurant Week Menu</Text>
-        </Btn>
-      </View>
-
-      <View style={[restaurantDetailStyles.restaurantLinkRow]}>
-        {mapBtn()}
-        {restaurantLink()}
-      </View>
+    <View style={[restaurantDetailStyles.restaurantLinkRow]}>
+      {mapBtn()}
+      {restaurantLink()}
     </View>
   );
 };
