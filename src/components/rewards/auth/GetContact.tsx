@@ -139,14 +139,15 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={baseStyles.scrollView}>
-      <ScreenBackground>
+    <ScreenBackground>
+      <ScrollView contentContainerStyle={baseStyles.scrollView}>
         <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={200}>
           {renderContent()}
         </KeyboardAvoidingView>
-      </ScreenBackground>
-    </ScrollView>
+      </ScrollView>
+    </ScreenBackground>
   );
 };
 

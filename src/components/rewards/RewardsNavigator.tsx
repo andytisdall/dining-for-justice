@@ -30,7 +30,7 @@ const RewardsNavigator = () => {
       <RewardsStack.Screen
         name="RewardsHome"
         component={RewardsHome}
-        options={{headerShown: false}}
+        options={{header: StackHeader, headerTitle: 'Rewards'}}
       />
       <RewardsStack.Screen
         name="Upload"

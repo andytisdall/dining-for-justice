@@ -1,4 +1,5 @@
-import {View, Text} from 'react-native';
+import {View, Text, Animated} from 'react-native';
+import {useRef} from 'react';
 
 import useLocation from '../../../hooks/useLocation';
 import {useUserIsWithinRangeOfLocationMutation} from '../../../state/apis/restaurantApi/restaurantApi';
@@ -7,7 +8,6 @@ import baseStyles from '../../styles/baseStyles';
 import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
 import Btn from '../../reusable/Btn';
 import restaurantDetailStyles from './restaurantDetailStyles';
-import Loading from '../../reusable/Loading';
 
 const CheckIn = ({restaurant}: {restaurant: Restaurant}) => {
   const [userIsWithinRange, userIsWithinRangeResult] =
@@ -16,6 +16,8 @@ const CheckIn = ({restaurant}: {restaurant: Restaurant}) => {
   const [, locationPermission] = useLocation();
 
   const [checkIn] = useCheckInMutation();
+
+  const translateValue = useRef(new Animated.Value(0)).current;
 
   const withinRange = () => {
     return (
@@ -32,34 +34,62 @@ const CheckIn = ({restaurant}: {restaurant: Restaurant}) => {
         style={[
           baseStyles.centerSection,
           restaurantDetailStyles.notWithinRange,
+          restaurantDetailStyles.checkInBubble,
         ]}>
         <Text style={baseStyles.inputLabel}>You ain't within range!</Text>
       </View>
     );
   };
 
+  const openAnimation = Animated.timing(translateValue, {
+    toValue: 1,
+    duration: 300,
+    useNativeDriver: true,
+  });
+
+  const holdAnimation = Animated.timing(translateValue, {
+    toValue: 1,
+    duration: 3000,
+    useNativeDriver: true,
+  });
+
+  const closeAnimation = Animated.timing(translateValue, {
+    toValue: 0,
+    duration: 300,
+    useNativeDriver: true,
+  });
+
   const renderCheckIn = () => {
     if (locationPermission && restaurant?.coords) {
-      // 37.791200
-      // -122.203840
+      const homeCoords = {latitude: 37.7912, longitude: -122.20384};
       return (
-        <>
+        <View style={restaurantDetailStyles.checkIn}>
           <Btn
             onPress={() => {
-              userIsWithinRange(restaurant.coords!)
+              userIsWithinRange(homeCoords)
                 .unwrap()
                 .then(result => {
                   if (result) {
                     checkIn({restaurantId: restaurant.id});
                   }
+                  Animated.sequence([
+                    openAnimation,
+                    holdAnimation,
+                    closeAnimation,
+                  ]).start();
                 });
             }}>
             <Text>Check In</Text>
           </Btn>
-          {userIsWithinRangeResult.isLoading && <Loading />}
-          {userIsWithinRangeResult.data !== undefined &&
-            (userIsWithinRangeResult.data ? withinRange() : notWithinRange())}
-        </>
+          <Animated.View
+            style={[
+              restaurantDetailStyles.checkInBubble,
+              {transform: [{scaleX: translateValue}]},
+            ]}>
+            {userIsWithinRangeResult.data !== undefined &&
+              (userIsWithinRangeResult.data ? withinRange() : notWithinRange())}
+          </Animated.View>
+        </View>
       );
     }
     if (!locationPermission) {

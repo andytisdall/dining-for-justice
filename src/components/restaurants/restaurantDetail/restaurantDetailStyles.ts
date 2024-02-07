@@ -67,11 +67,21 @@ export default StyleSheet.create({
   },
   photo: {height: 200, resizeMode: 'contain'},
   withinRange: {
-    padding: 20,
     backgroundColor: 'green',
   },
   notWithinRange: {
-    padding: 20,
     backgroundColor: 'red',
+  },
+  checkIn: {
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
+  },
+  checkInBubble: {
+    alignItems: 'center',
+    padding: 10,
+  },
+  checkInText: {
+    fontSize: 15,
   },
 });

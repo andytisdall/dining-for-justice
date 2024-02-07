@@ -19,7 +19,7 @@ const RestaurantNavigator = () => {
       <RestaurantStack.Screen
         name="RestaurantList"
         component={RestaurantList}
-        options={{headerShown: false}}
+        options={{header: StackHeader, headerTitle: 'Restaurants'}}
       />
       <RestaurantStack.Screen
         name="RestaurantDetail"

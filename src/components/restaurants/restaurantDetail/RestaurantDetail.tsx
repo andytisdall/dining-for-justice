@@ -10,12 +10,12 @@ import {
 import baseStyles from '../../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetailStyles';
 import OpeningHours from './OpeningHours';
-import Loading from '../../reusable/Loading';
 import ScreenBackground from '../../reusable/ScreenBackground';
 import CheckIn from './CheckIn';
 import RestaurantTags from './RestaurantTags';
 import RestaurantLinks from './RestaurantLinks';
 import RestaurantInfo from './RestaurantInfo';
+import AnimatedLoading from '../../reusable/AnimatedLoading';
 
 type RestaurantDetailScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
@@ -61,7 +61,7 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     if (isLoading) {
       return (
         <View style={baseStyles.loadingContainer}>
-          <Loading />
+          <AnimatedLoading />
         </View>
       );
     }

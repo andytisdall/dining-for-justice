@@ -1,20 +1,16 @@
 import {View, Text, FlatList, Pressable, Image} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {useCallback} from 'react';
 
 import restaurantStyles from './restaurantStyles';
 import {RestaurantStackParams} from './RestaurantNavigator';
 import AnimatedLoading from '../reusable/AnimatedLoading';
-import {
-  useGetRestaurantsQuery,
-  Restaurant,
-} from '../../state/apis/restaurantApi/restaurantApi';
+import {useGetRestaurantsQuery} from '../../state/apis/restaurantApi/restaurantApi';
 import baseStyles, {getPressedStyle} from '../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetail/restaurantDetailStyles';
-import Header from '../reusable/Header';
 import useFilter from '../../hooks/useFilter';
 import ScreenBackground from '../reusable/ScreenBackground';
 import Refresh from '../reusable/Refresh';
+import RestaurantListItem from './RestaurantListItem';
 
 type RestaurantsScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
@@ -28,35 +24,9 @@ const RestaurantList = ({navigation}: RestaurantsScreenProps) => {
 
   const [sortedRestaurants, filterComponent] = useFilter(restaurants);
 
-  const renderRestaurantListItem = useCallback(
-    ({item}: {item: Restaurant}) => {
-      return (
-        <Pressable
-          onPress={() => {
-            navigation.navigate('RestaurantDetail', {id: item.id});
-          }}>
-          {({pressed}) => {
-            const pressedStyle = getPressedStyle(pressed);
-            return (
-              <View style={[restaurantStyles.restaurantListItem, pressedStyle]}>
-                <View style={restaurantStyles.restaurantListItemText}>
-                  <Text style={baseStyles.text}>{item.name}</Text>
-                  <Text style={[baseStyles.textSm, restaurantStyles.cuisine]}>
-                    {item.cuisine}
-                  </Text>
-                </View>
-                <Image
-                  source={{uri: item.photo}}
-                  style={restaurantStyles.restaurantListItemImage}
-                />
-              </View>
-            );
-          }}
-        </Pressable>
-      );
-    },
-    [navigation],
-  );
+  const navigate = (id: string) => {
+    navigation.navigate('RestaurantDetail', {id});
+  };
 
   const renderRestaurants = () => {
     if (isLoading) {
@@ -70,7 +40,13 @@ const RestaurantList = ({navigation}: RestaurantsScreenProps) => {
       return (
         <View style={[baseStyles.centerSection, baseStyles.screenSection]}>
           <Text style={baseStyles.textSm}>No Results Found.</Text>
-          {restaurants?.length === 0 && <Refresh refetch={refetch} />}
+          <View style={baseStyles.screenSection}>
+            {!restaurants?.length ? (
+              <Refresh refetch={refetch} />
+            ) : (
+              <Text style={baseStyles.textXSm}>Try Adjusting the Filter</Text>
+            )}
+          </View>
         </View>
       );
     }
@@ -79,14 +55,15 @@ const RestaurantList = ({navigation}: RestaurantsScreenProps) => {
         <FlatList
           style={restaurantStyles.restaurantList}
           data={sortedRestaurants}
-          renderItem={renderRestaurantListItem}
+          renderItem={({item}) => (
+            <RestaurantListItem restaurant={item} navigate={navigate} />
+          )}
           keyExtractor={item => item.id}
         />
       );
     }
   };
 
-  const title = <Header title="Restaurants" />;
   const mapBtn = (
     <Pressable onPress={() => navigation.navigate('RestaurantMap', {id: ''})}>
       {({pressed}) => {
@@ -115,16 +92,12 @@ const RestaurantList = ({navigation}: RestaurantsScreenProps) => {
       {mapBtn}
     </View>
   );
-  const restaurantSection = renderRestaurants() || (
-    <View>
-      <Text>No data</Text>
-    </View>
-  );
+  const restaurantSection = <View>{renderRestaurants()}</View>;
 
   return (
     <ScreenBackground>
       <FlatList
-        data={[title, listHeader, restaurantSection]}
+        data={[listHeader, restaurantSection]}
         renderItem={({item}) => item}
       />
     </ScreenBackground>

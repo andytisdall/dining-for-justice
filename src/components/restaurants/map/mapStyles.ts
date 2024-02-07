@@ -5,6 +5,7 @@ import colors from '../../styles/colors';
 export default StyleSheet.create({
   map: {
     height: Dimensions.get('window').height * 0.6,
+    marginTop: 5,
   },
   callout: {},
   calloutNameContainer: {

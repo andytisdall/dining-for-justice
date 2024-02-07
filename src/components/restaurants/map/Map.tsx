@@ -161,8 +161,8 @@ const Map = ({navigation, route}: MapScreenProps) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={baseStyles.scrollView}>
-      <ScreenBackground>
+    <ScreenBackground>
+      <ScrollView contentContainerStyle={baseStyles.scrollView}>
         {filterComponent}
         <View style={mapStyles.mapBtns}>
           {locationPermission && (
@@ -186,8 +186,8 @@ const Map = ({navigation, route}: MapScreenProps) => {
 
           {renderMarkers()}
         </MapView>
-      </ScreenBackground>
-    </ScrollView>
+      </ScrollView>
+    </ScreenBackground>
   );
 };
 

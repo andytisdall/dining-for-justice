@@ -1,7 +1,7 @@
-import {Text, View, FlatList} from 'react-native';
+import {Text, View, ScrollView} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-import Loading from '../reusable/Loading';
+import AnimatedLoading from '../reusable/AnimatedLoading';
 import {RewardsStackParams} from './RewardsNavigator';
 import Btn from '../reusable/Btn';
 import baseStyles from '../styles/baseStyles';
@@ -11,7 +11,6 @@ import User from './auth/User';
 import rewardsStyles from './rewardsStyles';
 import Points from './Points';
 
-import Header from '../reusable/Header';
 import ScreenBackground from '../reusable/ScreenBackground';
 
 type RewardsScreenProps = NativeStackScreenProps<
@@ -68,7 +67,7 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
   const renderScreen = () => {
     return contactIsLoading ? (
       <View style={baseStyles.loadingContainer}>
-        <Loading />
+        <AnimatedLoading />
       </View>
     ) : !contact ? (
       renderNotSignedIn()
@@ -77,16 +76,11 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
     );
   };
 
-  const screenTitle = () => {
-    return <Header title="Rewards" />;
-  };
-
   return (
     <ScreenBackground>
-      <FlatList
-        data={[screenTitle(), renderScreen()]}
-        renderItem={({item}) => item}
-      />
+      <ScrollView contentContainerStyle={baseStyles.scrollView}>
+        {renderScreen()}
+      </ScrollView>
     </ScreenBackground>
   );
 };

@@ -38,6 +38,7 @@ const comparePosition = (targetCoords: Coordinates): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     Geolocation.getCurrentPosition(
       position => {
+        console.log(position.coords);
         const MAX_DIFFERENCE = 0.0003;
 
         const latDiff = Math.abs(

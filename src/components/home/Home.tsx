@@ -3,12 +3,11 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import ScreenBackground from '../reusable/ScreenBackground';
 import baseStyles from '../styles/baseStyles';
-import Header from '../reusable/Header';
 import homeStyles from './homeStyles';
 import {useGetTotalMealsQuery} from '../../state/apis/impactApi/impactApi';
-import Loading from '../reusable/Loading';
 import Btn from '../reusable/Btn';
 import {RootTabsParams} from '../../../App';
+import AnimatedLoading from '../reusable/AnimatedLoading';
 
 const orwLogo = require('../../assets/orw-logo.png');
 
@@ -24,7 +23,7 @@ const Home = ({navigation}: HomeScreenProps) => {
 
   const renderTotalMeals = () => {
     if (isLoading) {
-      return <Loading />;
+      return <AnimatedLoading />;
     }
     if (totalMeals) {
       return (
@@ -39,9 +38,8 @@ const Home = ({navigation}: HomeScreenProps) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={[baseStyles.scrollView]}>
-      <ScreenBackground>
-        <Header title="Home" />
+    <ScreenBackground>
+      <ScrollView contentContainerStyle={[baseStyles.scrollView]}>
         <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
           <View style={[homeStyles.logoContainer, baseStyles.centerSection]}>
             <Image source={orwLogo} style={homeStyles.logo} />
@@ -66,8 +64,8 @@ const Home = ({navigation}: HomeScreenProps) => {
             <Text style={homeStyles.donateBtnText}>Donate Now</Text>
           </Btn>
         </View>
-      </ScreenBackground>
-    </ScrollView>
+      </ScrollView>
+    </ScreenBackground>
   );
 };
 

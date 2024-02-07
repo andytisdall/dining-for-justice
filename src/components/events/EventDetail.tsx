@@ -77,9 +77,9 @@ const EventDetail = ({route, navigation}: EventDetailProps) => {
   };
 
   return (
-    <ScrollView style={baseStyles.scrollView}>
-      <ScreenBackground>{renderEventInfo()}</ScreenBackground>
-    </ScrollView>
+    <ScreenBackground>
+      <ScrollView style={baseStyles.scrollView}>{renderEventInfo()}</ScrollView>
+    </ScreenBackground>
   );
 };
 
