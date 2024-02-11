@@ -1,5 +1,3 @@
-import Geolocation from 'react-native-geolocation-service';
-
 import {api} from '../../api';
 
 export type Coordinates = {latitude: number; longitude: number};
@@ -34,27 +32,6 @@ export interface Restaurant {
   active: boolean;
 }
 
-const comparePosition = (targetCoords: Coordinates): Promise<boolean> => {
-  return new Promise((resolve, reject) => {
-    Geolocation.getCurrentPosition(
-      position => {
-        console.log(position.coords);
-        const MAX_DIFFERENCE = 0.0003;
-
-        const latDiff = Math.abs(
-          position.coords.latitude - targetCoords.latitude,
-        );
-        const lngDiff = Math.abs(
-          position.coords.longitude - targetCoords.longitude,
-        );
-
-        resolve(latDiff + lngDiff <= MAX_DIFFERENCE);
-      },
-      error => reject(error),
-    );
-  });
-};
-
 export const restaurantApi = api.injectEndpoints({
   endpoints: builder => ({
     getRestaurants: builder.query<Restaurant[], void>({
@@ -66,21 +43,8 @@ export const restaurantApi = api.injectEndpoints({
           ? `/d4j/restaurantDetails/${restaurantId}`
           : '/d4j/restaurantDetails',
     }),
-    userIsWithinRangeOfLocation: builder.mutation<boolean, Coordinates>({
-      queryFn: async targetCoords => {
-        try {
-          const withinRange = await comparePosition(targetCoords);
-          return {data: withinRange};
-        } catch (err) {
-          return {error: {error: `${err}`, status: 'CUSTOM_ERROR'}};
-        }
-      },
-    }),
   }),
 });
 
-export const {
-  useGetRestaurantsQuery,
-  useGetRestaurantDetailsQuery,
-  useUserIsWithinRangeOfLocationMutation,
-} = restaurantApi;
+export const {useGetRestaurantsQuery, useGetRestaurantDetailsQuery} =
+  restaurantApi;

@@ -15,11 +15,15 @@ const RestaurantStack = createNativeStackNavigator<RestaurantStackParams>();
 
 const RestaurantNavigator = () => {
   return (
-    <RestaurantStack.Navigator>
+    <RestaurantStack.Navigator screenOptions={{headerBackVisible: true}}>
       <RestaurantStack.Screen
         name="RestaurantList"
         component={RestaurantList}
-        options={{header: StackHeader, headerTitle: 'Restaurants'}}
+        options={{
+          header: StackHeader,
+          headerTitle: 'Restaurants',
+          headerBackVisible: false,
+        }}
       />
       <RestaurantStack.Screen
         name="RestaurantDetail"
@@ -29,7 +33,10 @@ const RestaurantNavigator = () => {
       <RestaurantStack.Screen
         name="RestaurantMap"
         component={Map}
-        options={{header: StackHeader, headerTitle: 'Restaurant Map'}}
+        options={{
+          header: StackHeader,
+          headerTitle: 'Restaurant Map',
+        }}
       />
     </RestaurantStack.Navigator>
   );

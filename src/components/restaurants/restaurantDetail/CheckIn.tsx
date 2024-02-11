@@ -2,7 +2,7 @@ import {View, Text, Animated} from 'react-native';
 import {useRef} from 'react';
 
 import useLocation from '../../../hooks/useLocation';
-import {useUserIsWithinRangeOfLocationMutation} from '../../../state/apis/restaurantApi/restaurantApi';
+import {useUserIsWithinRangeOfLocationMutation} from '../../../state/apis/rewardsApi/checkInApi';
 import {useCheckInMutation} from '../../../state/apis/rewardsApi/checkInApi';
 import baseStyles from '../../styles/baseStyles';
 import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
@@ -10,12 +10,11 @@ import Btn from '../../reusable/Btn';
 import restaurantDetailStyles from './restaurantDetailStyles';
 
 const CheckIn = ({restaurant}: {restaurant: Restaurant}) => {
-  const [userIsWithinRange, userIsWithinRangeResult] =
-    useUserIsWithinRangeOfLocationMutation();
+  const [userIsWithinRange] = useUserIsWithinRangeOfLocationMutation();
 
   const [, locationPermission] = useLocation();
 
-  const [checkIn] = useCheckInMutation();
+  const [checkIn, checkInResult] = useCheckInMutation();
 
   const translateValue = useRef(new Animated.Value(0)).current;
 
@@ -61,7 +60,8 @@ const CheckIn = ({restaurant}: {restaurant: Restaurant}) => {
 
   const renderCheckIn = () => {
     if (locationPermission && restaurant?.coords) {
-      const homeCoords = {latitude: 37.7912, longitude: -122.20384};
+      // const homeCoords = {latitude: 37.7912, longitude: -122.20384};
+      const homeCoords = {latitude: 37.785834, longitude: -122.406417};
       return (
         <View style={restaurantDetailStyles.checkIn}>
           <Btn
@@ -86,8 +86,8 @@ const CheckIn = ({restaurant}: {restaurant: Restaurant}) => {
               restaurantDetailStyles.checkInBubble,
               {transform: [{scaleX: translateValue}]},
             ]}>
-            {userIsWithinRangeResult.data !== undefined &&
-              (userIsWithinRangeResult.data ? withinRange() : notWithinRange())}
+            {checkInResult.data !== undefined &&
+              (checkInResult.data ? withinRange() : notWithinRange())}
           </Animated.View>
         </View>
       );

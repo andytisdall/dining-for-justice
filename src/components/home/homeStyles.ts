@@ -6,6 +6,7 @@ import {sizeMultiplier} from '../styles/baseStyles';
 export default StyleSheet.create({
   logoContainer: {
     height: 120 * sizeMultiplier,
+    marginVertical: 20,
   },
   logo: {resizeMode: 'contain', height: '100%'},
   totalMeals: {fontSize: 35, color: 'pink', marginTop: 10, fontWeight: '600'},

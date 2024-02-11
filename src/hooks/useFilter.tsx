@@ -50,47 +50,6 @@ const filterIcon = (
   />
 );
 
-const restaurantIsOpen = (hours: string[]) => {
-  const todayText = format(new Date(), 'eeee');
-  const day = hours.find(hour => {
-    const thisDay = hour.split(':')[0];
-
-    if (thisDay === todayText) {
-      return true;
-    }
-  });
-
-  const items = day?.split(':').splice(1);
-  if (!items || items[0] === ' Closed') {
-    return false;
-  }
-  const ranges = items.join(':').split(',');
-
-  const getTime = (time: string) => {
-    const [numbers, letters] = time.trim().split(/\s/);
-    const [hour, minutes] = numbers.split(':');
-    const numberHours =
-      (!letters || letters === 'PM') && parseInt(hour, 10) < 12
-        ? parseInt(hour, 10) + 12
-        : parseInt(hour, 10);
-    const numberMinutes = parseInt(minutes, 10);
-
-    const date = new Date();
-    date.setHours(numberHours);
-    date.setMinutes(numberMinutes);
-    date.setSeconds(0);
-    if (letters === 'AM' && numberHours < 3) {
-      return addDays(date, 1);
-    }
-    return date;
-  };
-
-  return ranges.find(range => {
-    const [startTime, endTime] = range.split(/\u2013|\u2014/);
-    return getTime(startTime) < new Date() && getTime(endTime) > new Date();
-  });
-};
-
 const useFilter: (
   restaurants: Restaurant[] | undefined,
 ) => [Restaurant[] | undefined, JSX.Element] = restaurants => {
@@ -102,6 +61,47 @@ const useFilter: (
 
   const [filterVisible, setFilterVisible] = useState(false);
   const [location, locationPermission] = useLocation();
+
+  const restaurantIsOpen = useCallback((hours: string[]) => {
+    const todayText = format(new Date(), 'eeee');
+    const day = hours.find(hour => {
+      const thisDay = hour.split(':')[0];
+
+      if (thisDay === todayText) {
+        return true;
+      }
+    });
+
+    const items = day?.split(':').splice(1);
+    if (!items || items[0] === ' Closed') {
+      return false;
+    }
+    const ranges = items.join(':').split(',');
+
+    const getTime = (time: string) => {
+      const [numbers, letters] = time.trim().split(/\s/);
+      const [hour, minutes] = numbers.split(':');
+      const numberHours =
+        (!letters || letters === 'PM') && parseInt(hour, 10) < 12
+          ? parseInt(hour, 10) + 12
+          : parseInt(hour, 10);
+      const numberMinutes = parseInt(minutes, 10);
+
+      const date = new Date();
+      date.setHours(numberHours);
+      date.setMinutes(numberMinutes);
+      date.setSeconds(0);
+      if (letters === 'AM' && numberHours < 3) {
+        return addDays(date, 1);
+      }
+      return date;
+    };
+
+    return ranges.find(range => {
+      const [startTime, endTime] = range.split(/\u2013|\u2014/);
+      return getTime(startTime) < new Date() && getTime(endTime) > new Date();
+    });
+  }, []);
 
   const restaurantIsNearMe = useCallback(
     (coords: Coordinates) => {
@@ -171,9 +171,10 @@ const useFilter: (
     vegan,
     restaurantIsNearMe,
     nearMe,
+    restaurantIsOpen,
   ]);
 
-  const component = () => {
+  const component = useMemo(() => {
     if (filterVisible) {
       return (
         <View>
@@ -255,9 +256,17 @@ const useFilter: (
         </View>
       );
     }
-  };
+  }, [
+    femaleOwned,
+    filterVisible,
+    pocOwned,
+    locationPermission,
+    nearMe,
+    openNow,
+    vegan,
+  ]);
 
-  return [sortedRestaurants, component()];
+  return [sortedRestaurants, component];
 };
 
 export default useFilter;

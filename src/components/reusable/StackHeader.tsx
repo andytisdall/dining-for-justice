@@ -18,7 +18,7 @@ const StackHeader = ({navigation, route, options}: NativeStackHeaderProps) => {
       <LinearGradient
         style={styles.header}
         colors={[colors.grey, colors.darkGrey, 'black']}>
-        {!options.headerBackVisible && (
+        {options.headerBackVisible && (
           <Animated.View
             style={[
               {
@@ -41,16 +41,21 @@ const StackHeader = ({navigation, route, options}: NativeStackHeaderProps) => {
                   useNativeDriver: true,
                 }).start()
               }
-              onPress={() => navigation.goBack()}>
+              onPress={() => navigation.goBack()}
+              style={styles.pressable}>
               <Arrow style={[styles.arrow]} />
+              {/* <Text>Back</Text> */}
             </Pressable>
           </Animated.View>
         )}
+        {/* <Btn onPress={() => navigation.goBack()}>
+          <Arrow style={[styles.arrow]} />
+        </Btn> */}
 
         <View style={styles.title}>
           <Text style={styles.titleText}>{title}</Text>
         </View>
-        {!options.headerBackVisible && <View style={styles.sides} />}
+        {options.headerBackVisible && <View style={styles.sides} />}
       </LinearGradient>
     </View>
   );
@@ -98,6 +103,7 @@ export const styles = StyleSheet.create({
     width: 40 * sizeMultiplier,
     position: 'relative',
   },
+  pressable: {width: '100%', height: '100%'},
   sides: {flex: 1},
   arrow: {
     transform: [

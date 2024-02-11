@@ -1,5 +1,6 @@
 import {View, Text, FlatList, Pressable, Image} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useCallback} from 'react';
 
 import restaurantStyles from './restaurantStyles';
 import {RestaurantStackParams} from './RestaurantNavigator';
@@ -24,9 +25,12 @@ const RestaurantList = ({navigation}: RestaurantsScreenProps) => {
 
   const [sortedRestaurants, filterComponent] = useFilter(restaurants);
 
-  const navigate = (id: string) => {
-    navigation.navigate('RestaurantDetail', {id});
-  };
+  const navigate = useCallback(
+    (id: string) => {
+      navigation.navigate('RestaurantDetail', {id});
+    },
+    [navigation],
+  );
 
   const renderRestaurants = () => {
     if (isLoading) {
@@ -93,7 +97,6 @@ const RestaurantList = ({navigation}: RestaurantsScreenProps) => {
     </View>
   );
   const restaurantSection = <View>{renderRestaurants()}</View>;
-
   return (
     <ScreenBackground>
       <FlatList

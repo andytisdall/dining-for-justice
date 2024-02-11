@@ -26,11 +26,15 @@ const RewardsStack = createNativeStackNavigator<RewardsStackParams>();
 
 const RewardsNavigator = () => {
   return (
-    <RewardsStack.Navigator>
+    <RewardsStack.Navigator screenOptions={{headerBackVisible: true}}>
       <RewardsStack.Screen
         name="RewardsHome"
         component={RewardsHome}
-        options={{header: StackHeader, headerTitle: 'Rewards'}}
+        options={{
+          header: StackHeader,
+          headerTitle: 'Rewards',
+          headerBackVisible: false,
+        }}
       />
       <RewardsStack.Screen
         name="Upload"

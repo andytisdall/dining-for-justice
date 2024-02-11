@@ -13,11 +13,15 @@ const EventsStack = createNativeStackNavigator<EventsStackParams>();
 
 const EventsNavigator = () => {
   return (
-    <EventsStack.Navigator>
+    <EventsStack.Navigator screenOptions={{headerBackVisible: true}}>
       <EventsStack.Screen
         name="EventsHome"
         component={EventsHome}
-        options={{header: StackHeader, headerTitle: 'Events'}}
+        options={{
+          header: StackHeader,
+          headerTitle: 'Events',
+          headerBackVisible: false,
+        }}
       />
       <EventsStack.Screen
         name="EventDetail"

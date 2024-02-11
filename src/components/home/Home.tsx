@@ -9,7 +9,7 @@ import Btn from '../reusable/Btn';
 import {RootTabsParams} from '../../../App';
 import AnimatedLoading from '../reusable/AnimatedLoading';
 
-const orwLogo = require('../../assets/orw-logo.png');
+const d4jLogo = require('../../assets/d4j-logo.jpg');
 
 type HomeScreenProps = NativeStackScreenProps<RootTabsParams, 'Home'>;
 
@@ -42,15 +42,13 @@ const Home = ({navigation}: HomeScreenProps) => {
       <ScrollView contentContainerStyle={[baseStyles.scrollView]}>
         <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
           <View style={[homeStyles.logoContainer, baseStyles.centerSection]}>
-            <Image source={orwLogo} style={homeStyles.logo} />
+            <Image source={d4jLogo} style={homeStyles.logo} />
           </View>
+          <Text style={baseStyles.textLg}>Cocktails for a Cause</Text>
           <Text style={[baseStyles.inputLabel, baseStyles.centerText]}>
-            Visit Dining for Justice restaurants during Oakland Restaurant Week
-            for a chance to win prizes
+            Visit participating bars during May 2024 for a chance to win prizes
           </Text>
-          <Text style={[baseStyles.text, baseStyles.centerText]}>
-            3/14 - 3/24
-          </Text>
+
           <Btn onPress={() => navigation.navigate('Rewards')}>
             <Text style={baseStyles.btnText}>More Info</Text>
           </Btn>
