@@ -1,7 +1,6 @@
 import {StyleSheet} from 'react-native';
 
 import colors from '../styles/colors';
-import {sizeMultiplier} from '../styles/baseStyles';
 
 export default StyleSheet.create({
   loading: {height: 500},
@@ -11,20 +10,7 @@ export default StyleSheet.create({
     borderTopWidth: 1,
     marginTop: 10,
   },
-  restaurantListItem: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderBottomColor: colors.grey,
-    borderBottomWidth: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  restaurantListItemText: {width: '60%'},
-  restaurantListItemImage: {
-    width: 60 * sizeMultiplier,
-    marginRight: 10,
-    resizeMode: 'contain',
-  },
+
   listHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',

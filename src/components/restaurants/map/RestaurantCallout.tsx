@@ -1,9 +1,10 @@
-import {View, Text, Image, Platform} from 'react-native';
+import {View, Text, Image, Platform, StyleSheet} from 'react-native';
 import {Svg, Image as ImageSvg} from 'react-native-svg';
 
 import baseStyles from '../../styles/baseStyles';
 import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
 import mapStyles from './mapStyles';
+import colors from '../../styles/colors';
 
 const RestaurantCallout = ({restaurant}: {restaurant: Restaurant}) => {
   const preRenderImage = () => {
@@ -33,19 +34,19 @@ const RestaurantCallout = ({restaurant}: {restaurant: Restaurant}) => {
         );
       }
       return (
-        <View style={mapStyles.imageContainer}>
+        <View style={styles.imageContainer}>
           <Image source={{uri: restaurant.photo}} style={mapStyles.image} />
         </View>
       );
     }
   };
   return (
-    <View style={mapStyles.callout}>
+    <View style={styles.callout}>
       <View style={baseStyles.centerSection}>
-        <View style={mapStyles.calloutNameContainer}>
-          <Text style={mapStyles.calloutName}>{restaurant.name}</Text>
+        <View style={styles.calloutNameContainer}>
+          <Text style={styles.calloutName}>{restaurant.name}</Text>
         </View>
-        <Text style={mapStyles.calloutCuisine}>{restaurant.cuisine}</Text>
+        <Text style={styles.calloutCuisine}>{restaurant.cuisine}</Text>
         {preRenderImage()}
         {renderImage()}
         <Text style={mapStyles.detailsText}>click to see details</Text>
@@ -53,5 +54,25 @@ const RestaurantCallout = ({restaurant}: {restaurant: Restaurant}) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  callout: {},
+  calloutNameContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    width: 120,
+    justifyContent: 'center',
+  },
+  calloutName: {
+    fontWeight: '700',
+    color: colors.darkGrey,
+    textAlign: 'center',
+  },
+  calloutCuisine: {color: colors.darkBlue},
+  imageContainer: {
+    height: 120,
+    width: 120,
+  },
+});
 
 export default RestaurantCallout;

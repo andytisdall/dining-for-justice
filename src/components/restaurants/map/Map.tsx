@@ -5,7 +5,6 @@ import MapView, {
   MapMarker,
   Marker,
   Callout,
-  Circle,
 } from 'react-native-maps';
 import {useRef, useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -22,6 +21,7 @@ import mapStyles from './mapStyles';
 import baseStyles from '../../styles/baseStyles';
 import ScreenBackground from '../../reusable/ScreenBackground';
 import useLocation from '../../../hooks/useLocation';
+import UserMarker from './UserMarker';
 
 type MapScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
@@ -145,14 +145,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
   const renderUserMarker = () => {
     if (locationPermission && location) {
       const {latitude, longitude} = location;
-      return (
-        <Circle
-          center={{latitude, longitude}}
-          radius={50}
-          fillColor="rgba(100,100,250,.5)"
-          strokeColor="black"
-        />
-      );
+      return <UserMarker latitude={latitude} longitude={longitude} />;
     }
   };
 
@@ -183,7 +176,6 @@ const Map = ({navigation, route}: MapScreenProps) => {
           onMapLoaded={onMapLoaded}
           onRegionChangeComplete={syncZoomRef}>
           {renderUserMarker()}
-
           {renderMarkers()}
         </MapView>
       </ScrollView>
