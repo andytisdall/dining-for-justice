@@ -30,6 +30,9 @@ export const rtkQueryErrorLogger: Middleware =
           } else if (data) {
             message = JSON.stringify(data);
           }
+          if (error.status === 'FETCH_ERROR') {
+            message = 'Not connected - Please try again later';
+          }
         } else if (error.message) {
           message = error.message;
         }

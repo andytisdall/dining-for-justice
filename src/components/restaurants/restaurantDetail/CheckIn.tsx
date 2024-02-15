@@ -10,24 +10,29 @@ import Btn from '../../reusable/Btn';
 import restaurantDetailStyles from './restaurantDetailStyles';
 
 const CheckIn = ({restaurant}: {restaurant: Restaurant}) => {
-  const [userIsWithinRange] = useUserIsWithinRangeOfLocationMutation();
+  const [userIsWithinRange, {data: inRange, isLoading: loadingRange}] =
+    useUserIsWithinRangeOfLocationMutation();
 
   const [, locationPermission] = useLocation();
 
-  const [checkIn, checkInResult] = useCheckInMutation();
+  const [checkIn, {data, isError}] = useCheckInMutation();
 
   const translateValue = useRef(new Animated.Value(0)).current;
 
   const withinRange = () => {
     return (
       <View
-        style={[baseStyles.centerSection, restaurantDetailStyles.withinRange]}>
-        <Text style={baseStyles.inputLabel}>You are within range!</Text>
+        style={[
+          baseStyles.centerSection,
+          restaurantDetailStyles.withinRange,
+          restaurantDetailStyles.checkInBubble,
+        ]}>
+        <Text style={baseStyles.textSm}>Check in Successful!</Text>
       </View>
     );
   };
 
-  const notWithinRange = () => {
+  const errorMsg = (message: string) => {
     return (
       <View
         style={[
@@ -35,7 +40,7 @@ const CheckIn = ({restaurant}: {restaurant: Restaurant}) => {
           restaurantDetailStyles.notWithinRange,
           restaurantDetailStyles.checkInBubble,
         ]}>
-        <Text style={baseStyles.inputLabel}>You ain't within range!</Text>
+        <Text style={baseStyles.textSm}>{message}</Text>
       </View>
     );
   };
@@ -58,10 +63,16 @@ const CheckIn = ({restaurant}: {restaurant: Restaurant}) => {
     useNativeDriver: true,
   });
 
+  const animateResult = Animated.sequence([
+    openAnimation,
+    holdAnimation,
+    closeAnimation,
+  ]).start;
+
   const renderCheckIn = () => {
     if (locationPermission && restaurant?.coords) {
       // const homeCoords = {latitude: 37.7912, longitude: -122.20384};
-      const homeCoords = {latitude: 37.785834, longitude: -122.406417};
+      const homeCoords = {latitude: 37.7912, longitude: -122.20384};
       return (
         <View style={restaurantDetailStyles.checkIn}>
           <Btn
@@ -72,11 +83,7 @@ const CheckIn = ({restaurant}: {restaurant: Restaurant}) => {
                   if (result) {
                     checkIn({restaurantId: restaurant.id});
                   }
-                  Animated.sequence([
-                    openAnimation,
-                    holdAnimation,
-                    closeAnimation,
-                  ]).start();
+                  animateResult();
                 });
             }}>
             <Text>Check In</Text>
@@ -86,8 +93,14 @@ const CheckIn = ({restaurant}: {restaurant: Restaurant}) => {
               restaurantDetailStyles.checkInBubble,
               {transform: [{scaleX: translateValue}]},
             ]}>
-            {checkInResult.data !== undefined &&
-              (checkInResult.data ? withinRange() : notWithinRange())}
+            {!loadingRange &&
+              !inRange &&
+              errorMsg('You are out of range of this location')}
+            {isError &&
+              errorMsg(
+                'Failed to check in. Check your internet connection and try again.',
+              )}
+            {data?.result === 'SUCCESS' && withinRange()}
           </Animated.View>
         </View>
       );

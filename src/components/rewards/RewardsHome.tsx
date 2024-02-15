@@ -1,4 +1,4 @@
-import {Text, View, ScrollView} from 'react-native';
+import {Text, View, FlatList} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import AnimatedLoading from '../reusable/AnimatedLoading';
@@ -78,9 +78,11 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
 
   return (
     <ScreenBackground>
-      <ScrollView contentContainerStyle={baseStyles.scrollView}>
-        {renderScreen()}
-      </ScrollView>
+      <FlatList
+        style={baseStyles.scrollView}
+        data={[renderScreen()]}
+        renderItem={({item}) => item}
+      />
     </ScreenBackground>
   );
 };

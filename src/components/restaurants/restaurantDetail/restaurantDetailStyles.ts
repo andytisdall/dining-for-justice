@@ -67,10 +67,12 @@ export default StyleSheet.create({
   },
   photo: {height: 200, resizeMode: 'contain'},
   withinRange: {
-    backgroundColor: 'green',
+    borderColor: colors.blue,
+    borderWidth: 3,
   },
   notWithinRange: {
-    backgroundColor: 'red',
+    borderColor: colors.red,
+    borderWidth: 3,
   },
   checkIn: {
     flexDirection: 'row',
@@ -80,8 +82,6 @@ export default StyleSheet.create({
   checkInBubble: {
     alignItems: 'center',
     padding: 10,
-  },
-  checkInText: {
-    fontSize: 15,
+    flex: 1,
   },
 });

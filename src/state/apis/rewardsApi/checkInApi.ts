@@ -9,6 +9,15 @@ export interface CheckIn {
   restaurant: string;
 }
 
+type CheckInResponse = {
+  result:
+    | 'SUCCESS'
+    | 'DUPLICATE'
+    | 'UNAUTHORIZED'
+    | 'MALFORMED'
+    | 'NETWORK_ERROR';
+};
+
 const comparePosition = (targetCoords: Coordinates): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     Geolocation.getCurrentPosition(
@@ -21,8 +30,9 @@ const comparePosition = (targetCoords: Coordinates): Promise<boolean> => {
         const lngDiff = Math.abs(
           position.coords.longitude - targetCoords.longitude,
         );
-
-        resolve(latDiff + lngDiff <= MAX_DIFFERENCE);
+        setTimeout(() => {
+          resolve(latDiff + lngDiff <= MAX_DIFFERENCE);
+        }, 3000);
       },
       error => reject(error),
     );
@@ -31,7 +41,7 @@ const comparePosition = (targetCoords: Coordinates): Promise<boolean> => {
 
 const checkInApi = api.injectEndpoints({
   endpoints: builder => ({
-    checkIn: builder.mutation<null, {restaurantId: string}>({
+    checkIn: builder.mutation<CheckInResponse, {restaurantId: string}>({
       queryFn: async ({restaurantId}, queryApi, extraOptions, baseQuery) => {
         const SECRET_KEY = 'itisasecret';
         const encodedValue = await sign(
@@ -43,12 +53,22 @@ const checkInApi = api.injectEndpoints({
           {alg: 'HS256'},
         );
         const body = {value: encodedValue};
-        await baseQuery({
-          url: '/d4j/rewards/check-in',
-          body,
-          method: 'POST',
-        });
-        return {data: null};
+        try {
+          const response = (
+            await baseQuery({
+              url: '/d4j/rewards/check-in',
+              body,
+              method: 'POST',
+            })
+          ).data as CheckInResponse;
+          if (!response) {
+            return {data: {result: 'NETWORK_ERROR'}};
+          }
+
+          return {data: response};
+        } catch (err) {
+          return {error: {error: 'Network Error', status: 'FETCH_ERROR'}};
+        }
       },
       invalidatesTags: ['CheckIn'],
     }),
