@@ -1,4 +1,9 @@
-import {Circle} from 'react-native-maps';
+import {Image, View} from 'react-native';
+import {Marker} from 'react-native-maps';
+
+import mapStyles from './mapStyles';
+
+const personIcon = require('../../../assets/person-icon.png');
 
 const UserMarker = ({
   latitude,
@@ -8,12 +13,11 @@ const UserMarker = ({
   longitude: number;
 }) => {
   return (
-    <Circle
-      center={{latitude, longitude}}
-      radius={50}
-      fillColor="rgba(100,100,250,.5)"
-      strokeColor="black"
-    />
+    <Marker coordinate={{latitude, longitude}} icon={personIcon}>
+      <View style={mapStyles.userMarker}>
+        <Image source={personIcon} style={mapStyles.image} />
+      </View>
+    </Marker>
   );
 };
 

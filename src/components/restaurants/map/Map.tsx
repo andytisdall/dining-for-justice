@@ -41,6 +41,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
   const {id} = route.params;
 
   const [selectedRestaurant, setSelectedRestaurant] = useState(id);
+  const [zoom, setZoom] = useState(INITIAL_COORDS.latitudeDelta);
 
   const {data: restaurants} = useGetRestaurantsQuery();
 
@@ -51,9 +52,8 @@ const Map = ({navigation, route}: MapScreenProps) => {
   const markerRef = useRef<MapMarker>(null);
   const mapRef = useRef<MapView>(null);
   const initialLoadRef = useRef(false);
-  const zoomRef = useRef(INITIAL_COORDS.latitudeDelta);
 
-  const VERTICAL_OFFSET = zoomRef.current > 0.035 ? 0.01 : 0;
+  const VERTICAL_OFFSET = zoom > 0.035 ? 0.01 : 0;
 
   const onMapLoaded = () => {
     if (
@@ -84,8 +84,6 @@ const Map = ({navigation, route}: MapScreenProps) => {
         return (
           <Marker
             key={restaurant.id}
-            title={restaurant.name}
-            description={restaurant.cuisine}
             coordinate={{
               latitude: restaurant.coords!.latitude,
               longitude: restaurant.coords!.longitude,
@@ -104,7 +102,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
 
   const centerMarker = (rest: Restaurant) => {
     if (mapRef.current && rest.coords) {
-      if (zoomRef.current > ZOOM_VALUE) {
+      if (zoom > ZOOM_VALUE) {
         mapRef.current.animateToRegion({
           latitude: rest.coords.latitude + VERTICAL_OFFSET,
           longitude: rest.coords.longitude,
@@ -115,8 +113,8 @@ const Map = ({navigation, route}: MapScreenProps) => {
         mapRef.current.animateToRegion({
           latitude: rest.coords.latitude + VERTICAL_OFFSET,
           longitude: rest.coords.longitude,
-          latitudeDelta: zoomRef.current,
-          longitudeDelta: zoomRef.current,
+          latitudeDelta: zoom,
+          longitudeDelta: zoom,
         });
       }
     }
@@ -124,7 +122,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
 
   const zoomToLocation = () => {
     if (mapRef.current && location) {
-      if (zoomRef.current > ZOOM_VALUE) {
+      if (zoom > ZOOM_VALUE) {
         mapRef.current.animateToRegion({
           latitude: location.latitude,
           longitude: location.longitude,
@@ -135,8 +133,8 @@ const Map = ({navigation, route}: MapScreenProps) => {
         mapRef.current.animateToRegion({
           latitude: location.latitude,
           longitude: location.longitude,
-          latitudeDelta: zoomRef.current,
-          longitudeDelta: zoomRef.current,
+          latitudeDelta: zoom,
+          longitudeDelta: zoom,
         });
       }
     }
@@ -150,7 +148,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
   };
 
   const syncZoomRef = (region: Region) => {
-    zoomRef.current = region.latitudeDelta;
+    setZoom(region.latitudeDelta);
   };
 
   return (
