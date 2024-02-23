@@ -2,6 +2,8 @@ import {View, Text, FlatList, Image} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useEffect} from 'react';
 
+import {RootTabsParams} from '../../../../App';
+import Btn from '../../reusable/Btn';
 import {RestaurantStackParams} from '../RestaurantNavigator';
 import {
   useGetRestaurantsQuery,
@@ -16,14 +18,16 @@ import RestaurantTags from './RestaurantTags';
 import RestaurantLinks from './RestaurantLinks';
 import RestaurantInfo from './RestaurantInfo';
 import AnimatedLoading from '../../reusable/AnimatedLoading';
+import {useGetContactQuery} from '../../../state/apis/contact/contactApi';
 
 type RestaurantDetailScreenProps = NativeStackScreenProps<
-  RestaurantStackParams,
+  RestaurantStackParams & RootTabsParams,
   'RestaurantDetail'
 >;
 
 const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
   const {data} = useGetRestaurantsQuery();
+  const {data: user} = useGetContactQuery();
 
   const {id} = route.params;
 
@@ -57,6 +61,19 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     }
   };
 
+  const renderSignIn = () => {
+    return (
+      <View style={baseStyles.centerSection}>
+        <Btn onPress={() => navigation.navigate('Rewards')}>
+          <Text style={baseStyles.btnText}>
+            To check in at this location & earn rewards, enter your email
+            address
+          </Text>
+        </Btn>
+      </View>
+    );
+  };
+
   const renderDetails = () => {
     if (isLoading) {
       return (
@@ -70,7 +87,7 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
         <View style={baseStyles.screenSection}>
           {renderImage()}
           <RestaurantInfo restaurant={restaurant} />
-          <CheckIn restaurant={restaurant} />
+          {!user ? renderSignIn() : <CheckIn restaurant={restaurant} />}
           <RestaurantTags restaurant={restaurant} />
           {!!details && (
             <RestaurantLinks details={details} navigate={navigateToMap} />

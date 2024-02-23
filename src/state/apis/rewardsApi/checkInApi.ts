@@ -23,16 +23,14 @@ const comparePosition = (targetCoords: Coordinates): Promise<boolean> => {
     Geolocation.getCurrentPosition(
       position => {
         const MAX_DIFFERENCE = 0.0003;
-
         const latDiff = Math.abs(
           position.coords.latitude - targetCoords.latitude,
         );
         const lngDiff = Math.abs(
           position.coords.longitude - targetCoords.longitude,
         );
-        setTimeout(() => {
-          resolve(latDiff + lngDiff <= MAX_DIFFERENCE);
-        }, 3000);
+
+        resolve(latDiff + lngDiff <= MAX_DIFFERENCE);
       },
       error => reject(error),
     );

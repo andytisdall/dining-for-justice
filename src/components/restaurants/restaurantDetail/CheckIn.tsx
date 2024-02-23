@@ -1,6 +1,7 @@
 import {View, Text, Animated} from 'react-native';
 import {useRef} from 'react';
 
+import Loading from '../../reusable/Loading';
 import useLocation from '../../../hooks/useLocation';
 import {useUserIsWithinRangeOfLocationMutation} from '../../../state/apis/rewardsApi/checkInApi';
 import {useCheckInMutation} from '../../../state/apis/rewardsApi/checkInApi';
@@ -15,9 +16,12 @@ const CheckIn = ({restaurant}: {restaurant: Restaurant}) => {
 
   const [, locationPermission] = useLocation();
 
-  const [checkIn, {data, isError}] = useCheckInMutation();
+  const [checkIn, {data, isError, isLoading: loadingCheckin, isSuccess}] =
+    useCheckInMutation();
 
   const translateValue = useRef(new Animated.Value(0)).current;
+
+  const loading = loadingCheckin || loadingRange;
 
   const withinRange = () => {
     return (
@@ -72,42 +76,58 @@ const CheckIn = ({restaurant}: {restaurant: Restaurant}) => {
   const renderCheckIn = () => {
     if (locationPermission && restaurant?.coords) {
       // const homeCoords = {latitude: 37.7912, longitude: -122.20384};
-      const homeCoords = {latitude: 37.7912, longitude: -122.20384};
+
+      // const androidCoords = {
+      //   latitude: 37.42342342342342,
+      //   longitude: -122.08395287867832,
+      // };
+
+      // const aburayaCoords = {
+      //   latitude: 37.805969,
+      //   longitude: -122.267601,
+      // };
       return (
         <View style={restaurantDetailStyles.checkIn}>
           <Btn
             onPress={() => {
-              userIsWithinRange(homeCoords)
+              userIsWithinRange(restaurant.coords!)
                 .unwrap()
                 .then(result => {
                   if (result) {
-                    checkIn({restaurantId: restaurant.id});
+                    checkIn({restaurantId: restaurant.id})
+                      .unwrap()
+                      .then(() => animateResult());
+                  } else {
+                    animateResult();
                   }
-                  animateResult();
                 });
-            }}>
+            }}
+            disabled={isSuccess}>
             <Text>Check In</Text>
           </Btn>
-          <Animated.View
-            style={[
-              restaurantDetailStyles.checkInBubble,
-              {transform: [{scaleX: translateValue}]},
-            ]}>
-            {!loadingRange &&
-              !inRange &&
-              errorMsg('You are out of range of this location')}
-            {isError &&
-              errorMsg(
-                'Failed to check in. Check your internet connection and try again.',
-              )}
-            {data?.result === 'SUCCESS' && withinRange()}
-          </Animated.View>
+          {loading && <Loading />}
+          {inRange !== undefined && !loading && (
+            <Animated.View
+              style={[
+                restaurantDetailStyles.checkInBubble,
+                {transform: [{scaleX: translateValue}]},
+              ]}>
+              {!loadingRange &&
+                !inRange &&
+                errorMsg('You are out of range of this location')}
+              {isError &&
+                errorMsg(
+                  'Failed to check in. Check your internet connection and try again.',
+                )}
+              {data?.result === 'SUCCESS' && withinRange()}
+            </Animated.View>
+          )}
         </View>
       );
     }
     if (!locationPermission) {
       return (
-        <View>
+        <View style={restaurantDetailStyles.checkIn}>
           <Text style={baseStyles.textSm}>
             You Must Enable Location Services to Check In
           </Text>

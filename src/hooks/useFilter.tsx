@@ -11,6 +11,8 @@ import {
 } from '../state/apis/restaurantApi/restaurantApi';
 import useLocation from './useLocation';
 
+const NEAR_ME_RANGE = 0.00918;
+
 const styles = StyleSheet.create({
   filterBtnContainer: {
     flexDirection: 'column',
@@ -52,7 +54,11 @@ const filterIcon = (
 
 const useFilter: (
   restaurants: Restaurant[] | undefined,
-) => [Restaurant[] | undefined, JSX.Element] = restaurants => {
+) => [
+  Restaurant[] | undefined,
+  JSX.Element,
+  number | undefined,
+] = restaurants => {
   const [pocOwned, setPocOwned] = useState(false);
   const [femaleOwned, setFemaleOwned] = useState(false);
   const [openNow, setOpenNow] = useState(false);
@@ -106,12 +112,11 @@ const useFilter: (
   const restaurantIsNearMe = useCallback(
     (coords: Coordinates) => {
       // 0.014 is 1 mi
-      const MAX_DIFF = 0.014;
       if (location) {
         const latDiff = Math.abs(location.latitude - coords.latitude);
         const lngDiff = Math.abs(location.longitude - coords.longitude);
 
-        return latDiff + lngDiff < MAX_DIFF;
+        return latDiff + lngDiff < NEAR_ME_RANGE;
       }
     },
     [location],
@@ -183,11 +188,6 @@ const useFilter: (
               style={styles.filterBtn}
               onPress={() => {
                 setFilterVisible(false);
-                setPocOwned(false);
-                setFemaleOwned(false);
-                setVegan(false);
-                setOpenNow(false);
-                setNearMe(false);
               }}>
               {filterIcon}
             </Btn>
@@ -266,7 +266,7 @@ const useFilter: (
     vegan,
   ]);
 
-  return [sortedRestaurants, component];
+  return [sortedRestaurants, component, nearMe ? NEAR_ME_RANGE : undefined];
 };
 
 export default useFilter;

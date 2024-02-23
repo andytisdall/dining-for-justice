@@ -17,9 +17,7 @@ const RestaurantLinks = ({
 }) => {
   const mapBtn = () => {
     return (
-      <Pressable
-        onPress={navigate}
-        style={restaurantDetailStyles.restaurantLink}>
+      <Pressable onPress={navigate}>
         {({pressed}) => {
           const pressedStyle = getPressedStyle(pressed);
           return (
@@ -39,9 +37,7 @@ const RestaurantLinks = ({
   const restaurantLink = () => {
     if (details?.url) {
       return (
-        <Pressable
-          onPress={() => Linking.openURL(details.url)}
-          style={restaurantDetailStyles.restaurantLink}>
+        <Pressable onPress={() => Linking.openURL(details.url)}>
           {({pressed}) => {
             const pressedStyle = getPressedStyle(pressed);
 

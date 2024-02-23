@@ -44,9 +44,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
-  restaurantLink: {
-    marginRight: 30,
-  },
   mapBtn: {padding: 10},
   restaurantLinkIcon: {
     height: 35,
@@ -67,7 +64,7 @@ export default StyleSheet.create({
   },
   photo: {height: 200, resizeMode: 'contain'},
   withinRange: {
-    borderColor: colors.blue,
+    borderColor: colors.yellow,
     borderWidth: 3,
   },
   notWithinRange: {
@@ -81,7 +78,9 @@ export default StyleSheet.create({
   },
   checkInBubble: {
     alignItems: 'center',
-    padding: 10,
+    paddingVertical: 2,
+    paddingHorizontal: 5,
     flex: 1,
+    justifyContent: 'center',
   },
 });

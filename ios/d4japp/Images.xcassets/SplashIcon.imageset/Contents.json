@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "1x.png",
+      "filename" : "d4j_splash1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "2x.png",
+      "filename" : "d4j_splash2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "3x.png",
+      "filename" : "d4j_splash3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

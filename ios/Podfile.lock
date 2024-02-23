@@ -412,14 +412,11 @@ PODS:
     - React-Core
   - react-native-geolocation-service (5.3.1):
     - React
-  - react-native-google-maps (1.9.1):
+  - react-native-google-maps (1.10.3):
     - Google-Maps-iOS-Utils (= 4.2.2)
     - GoogleMaps (= 7.4.0)
     - React-Core
-  - react-native-image-picker (7.1.0):
-    - RCT-Folly (= 2021.07.22.00)
-    - React-Core
-  - react-native-maps (1.9.1):
+  - react-native-maps (1.10.3):
     - React-Core
   - react-native-pure-jwt (3.0.2):
     - JWT (= 3.0.0-beta.12)
@@ -603,7 +600,6 @@ DEPENDENCIES:
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
   - react-native-google-maps (from `../node_modules/react-native-maps`)
-  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-pure-jwt (from `../node_modules/react-native-pure-jwt`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -706,8 +702,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-geolocation-service"
   react-native-google-maps:
     :path: "../node_modules/react-native-maps"
-  react-native-image-picker:
-    :path: "../node_modules/react-native-image-picker"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
   react-native-pure-jwt:
@@ -803,9 +797,8 @@ SPEC CHECKSUMS:
   react-native-config: 86038147314e2e6d10ea9972022aa171e6b1d4d8
   react-native-date-picker: 90d1d60802a20085125657940b944f2bb4e5c113
   react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
-  react-native-google-maps: 5e3af3d3bd16a9936a44be5be47ced7dbd45029b
-  react-native-image-picker: 5e076db26cd81660cfb6db5bcf517cfa12054d45
-  react-native-maps: 4f45622710094c3603b262279c40026750579b1f
+  react-native-google-maps: 1bcc1f9f13f798fcf230db7fe476f3566d0bc0a3
+  react-native-maps: 72a8a903f8a1b53e2c777ba79102078ab502e0bf
   react-native-pure-jwt: c7aabf3e38f688922741774c5b37d1288fc64311
   react-native-safe-area-context: 0ee144a6170530ccc37a0fd9388e28d06f516a89
   React-NativeModulesApple: edb5ace14f73f4969df6e7b1f3e41bef0012740f

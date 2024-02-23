@@ -5,7 +5,7 @@ import {sizeMultiplier} from '../styles/baseStyles';
 
 export default StyleSheet.create({
   logoContainer: {
-    height: 120 * sizeMultiplier,
+    height: 200 * sizeMultiplier,
     marginVertical: 20,
   },
   logo: {resizeMode: 'contain', height: '100%'},
@@ -15,6 +15,8 @@ export default StyleSheet.create({
     marginBottom: 25,
   },
   donateBtnText: {
-    fontSize: 25,
+    color: 'white',
+    fontSize: 20,
+    fontFamily: 'lex',
   },
 });

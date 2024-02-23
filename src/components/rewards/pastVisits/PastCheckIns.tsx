@@ -75,20 +75,8 @@ const PastCheckIns = () => {
           </View>
         </View>
         <View style={pastVisitsStyles.pastVisitsHeader}>
-          <Text
-            style={[
-              pastVisitsStyles.pastVisitHeaderText,
-              pastVisitsStyles.pastVisitItemText,
-            ]}>
-            Date
-          </Text>
-          <Text
-            style={[
-              pastVisitsStyles.pastVisitHeaderText,
-              pastVisitsStyles.pastVisitItemText,
-            ]}>
-            Restaurant
-          </Text>
+          <Text style={[pastVisitsStyles.pastVisitHeaderText]}>Date</Text>
+          <Text style={[pastVisitsStyles.pastVisitHeaderText]}>Restaurant</Text>
         </View>
         <FlatList data={visitsToRender} renderItem={renderVisit} />
         <View style={baseStyles.centerSection}>

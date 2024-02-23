@@ -1,5 +1,6 @@
 import {View, Text, Image, ScrollView, Linking} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useMemo} from 'react';
 
 import ScreenBackground from '../reusable/ScreenBackground';
 import baseStyles from '../styles/baseStyles';
@@ -9,23 +10,26 @@ import Btn from '../reusable/Btn';
 import {RootTabsParams} from '../../../App';
 import AnimatedLoading from '../reusable/AnimatedLoading';
 
-const d4jLogo = require('../../assets/d4j-logo.jpg');
+const d4jLogo = require('../../assets/d4j_logo.png');
 
 type HomeScreenProps = NativeStackScreenProps<RootTabsParams, 'Home'>;
 
 const Home = ({navigation}: HomeScreenProps) => {
   const {data: meals, isLoading} = useGetTotalMealsQuery();
 
-  const totalMeals =
-    meals?.total.toString().slice(0, 3) +
-    ',' +
-    meals?.total.toString().slice(3);
+  const totalMeals = useMemo(() => {
+    return (
+      meals?.total.toString().slice(0, 3) +
+      ',' +
+      meals?.total.toString().slice(3)
+    );
+  }, [meals]);
 
   const renderTotalMeals = () => {
     if (isLoading) {
       return <AnimatedLoading />;
     }
-    if (totalMeals) {
+    if (meals) {
       return (
         <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
           <Text style={[baseStyles.text, baseStyles.centerText]}>

@@ -14,7 +14,7 @@ export default StyleSheet.create({
     backgroundColor: colors.darkGrey,
   },
   screenSection: {
-    padding: 12 * sizeMultiplier,
+    padding: 10 * sizeMultiplier,
   },
   screenBorders: {
     borderTopColor: colors.lightGrey,
@@ -25,26 +25,32 @@ export default StyleSheet.create({
   text: {
     fontSize: 16 * sizeMultiplier,
     color: 'white',
+    fontFamily: 'Lexend Deca',
   },
   textSm: {
     fontSize: 13 * sizeMultiplier,
     color: 'white',
+    fontFamily: 'Lexend Deca',
   },
   textXSm: {
     fontSize: 10 * sizeMultiplier,
     color: 'white',
+    fontFamily: 'Lexend Deca',
   },
   textLg: {
     fontSize: 20 * sizeMultiplier,
     color: 'white',
+    fontFamily: 'Lexend Deca',
   },
   btnText: {
     fontSize: 12 * sizeMultiplier,
     color: colors.grey,
+    fontFamily: 'Lexend Deca',
   },
   btnTextSm: {
     fontSize: 10 * sizeMultiplier,
     color: colors.grey,
+    fontFamily: 'Lexend Deca',
   },
   textBlack: {
     color: 'black',
@@ -72,6 +78,7 @@ export default StyleSheet.create({
     marginRight: 5,
     fontWeight: '600',
     fontSize: 15 * sizeMultiplier,
+    fontFamily: 'lex',
   },
   centerText: {
     textAlign: 'center',

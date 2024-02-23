@@ -19,6 +19,11 @@ export interface CreateContactArgs {
   token?: string;
 }
 
+interface SignInArgs {
+  email: string;
+  token?: string;
+}
+
 const contactApi = api.injectEndpoints({
   endpoints: builder => ({
     getContact: builder.query<Contact | null, void>({
@@ -31,11 +36,11 @@ const contactApi = api.injectEndpoints({
       },
     }),
 
-    signIn: builder.mutation<Contact | null, string>({
-      query: email => ({
+    signIn: builder.mutation<Contact | null, SignInArgs>({
+      query: body => ({
         url: '/d4j/contact/signin',
         method: 'POST',
-        body: {email},
+        body,
       }),
       transformResponse: async (response: SignInResponse | null) => {
         if (response) {

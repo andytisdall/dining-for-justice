@@ -16,8 +16,5 @@ export default StyleSheet.create({
     flexDirection: 'row',
     right: 0,
   },
-  userMarker: {
-    height: 35,
-    width: 35,
-  },
+  userMarker: {zIndex: 1},
 });

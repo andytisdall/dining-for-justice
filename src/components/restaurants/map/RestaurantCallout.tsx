@@ -7,19 +7,6 @@ import mapStyles from './mapStyles';
 import colors from '../../styles/colors';
 
 const RestaurantCallout = ({restaurant}: {restaurant: Restaurant}) => {
-  const preRenderImage = () => {
-    if (restaurant.photo && Platform.OS === 'android') {
-      return (
-        <Svg width={0} height={0}>
-          <ImageSvg
-            width={'100%'}
-            height={'100%'}
-            href={{uri: restaurant.photo}}
-          />
-        </Svg>
-      );
-    }
-  };
   const renderImage = () => {
     if (restaurant.photo) {
       if (Platform.OS === 'android') {
@@ -47,7 +34,6 @@ const RestaurantCallout = ({restaurant}: {restaurant: Restaurant}) => {
           <Text style={styles.calloutName}>{restaurant.name}</Text>
         </View>
         <Text style={styles.calloutCuisine}>{restaurant.cuisine}</Text>
-        {preRenderImage()}
         {renderImage()}
         <Text style={mapStyles.detailsText}>click to see details</Text>
       </View>

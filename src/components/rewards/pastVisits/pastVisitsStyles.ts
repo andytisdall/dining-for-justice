@@ -5,14 +5,11 @@ import {sizeMultiplier} from '../../styles/baseStyles';
 
 export default StyleSheet.create({
   pastVisitsHeader: {
-    backgroundColor: colors.blue,
-
+    backgroundColor: colors.lightGrey,
     paddingBottom: 3,
     paddingTop: 2,
-    width: 'auto',
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 10,
   },
   pastVisitHeaderText: {

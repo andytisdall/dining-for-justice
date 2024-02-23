@@ -1,9 +1,6 @@
-import {Image, View} from 'react-native';
 import {Marker} from 'react-native-maps';
 
 import mapStyles from './mapStyles';
-
-const personIcon = require('../../../assets/person-icon.png');
 
 const UserMarker = ({
   latitude,
@@ -13,11 +10,11 @@ const UserMarker = ({
   longitude: number;
 }) => {
   return (
-    <Marker coordinate={{latitude, longitude}} icon={personIcon}>
-      <View style={mapStyles.userMarker}>
-        <Image source={personIcon} style={mapStyles.image} />
-      </View>
-    </Marker>
+    <Marker
+      coordinate={{latitude, longitude}}
+      style={mapStyles.userMarker}
+      image={require('../../../assets/user_marker.png')}
+    />
   );
 };
 

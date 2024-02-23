@@ -52,32 +52,32 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
-    if (!showNameFields) {
-      if (!validateEmail(email)) {
-        return dispatch(setError('Please enter a valid email address'));
-      }
-      signIn(email)
-        .unwrap()
-        .then(user => {
-          if (!user) {
-            setShowNameFields(true);
-          } else {
-            navigation.navigate(redirectScreen);
-          }
-        });
-    } else {
-      Notifications.init(({token}: {token: string}) => {
+    Notifications.init(({token}: {token: string}) => {
+      if (!showNameFields) {
+        if (!validateEmail(email)) {
+          return dispatch(setError('Please enter a valid email address'));
+        }
+        signIn({email, token})
+          .unwrap()
+          .then(user => {
+            if (!user) {
+              setShowNameFields(true);
+            } else {
+              navigation.navigate(redirectScreen);
+            }
+          });
+      } else {
         createContact({email, firstName, lastName, token})
           .unwrap()
           .then(user =>
-            signIn(user.email)
+            signIn({email: user.email})
               .unwrap()
               .then(() => {
                 navigation.navigate(redirectScreen);
               }),
           );
-      });
-    }
+      }
+    });
   };
 
   const displayEmail = () => {
