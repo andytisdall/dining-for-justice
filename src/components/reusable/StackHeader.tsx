@@ -86,6 +86,7 @@ export const styles = StyleSheet.create({
     width: '70%',
     height: '100%',
     paddingHorizontal: 5,
+    alignItems: 'center',
   },
   titleText: {
     fontSize: 25 * sizeMultiplier,

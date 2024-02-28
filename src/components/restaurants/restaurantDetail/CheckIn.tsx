@@ -10,7 +10,13 @@ import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
 import Btn from '../../reusable/Btn';
 import restaurantDetailStyles from './restaurantDetailStyles';
 
-const CheckIn = ({restaurant}: {restaurant: Restaurant}) => {
+const CheckIn = ({
+  restaurant,
+  openModal,
+}: {
+  restaurant: Restaurant;
+  openModal: () => void;
+}) => {
   const [userIsWithinRange, {data: inRange, isLoading: loadingRange}] =
     useUserIsWithinRangeOfLocationMutation();
 
@@ -74,7 +80,7 @@ const CheckIn = ({restaurant}: {restaurant: Restaurant}) => {
   ]).start;
 
   const renderCheckIn = () => {
-    if (locationPermission && restaurant?.coords) {
+    if (restaurant?.coords) {
       // const homeCoords = {latitude: 37.7912, longitude: -122.20384};
 
       // const androidCoords = {
@@ -90,17 +96,21 @@ const CheckIn = ({restaurant}: {restaurant: Restaurant}) => {
         <View style={restaurantDetailStyles.checkIn}>
           <Btn
             onPress={() => {
-              userIsWithinRange(restaurant.coords!)
-                .unwrap()
-                .then(result => {
-                  if (result) {
-                    checkIn({restaurantId: restaurant.id})
-                      .unwrap()
-                      .then(() => animateResult());
-                  } else {
-                    animateResult();
-                  }
-                });
+              if (locationPermission) {
+                userIsWithinRange(restaurant.coords!)
+                  .unwrap()
+                  .then(result => {
+                    if (result) {
+                      checkIn({restaurantId: restaurant.id})
+                        .unwrap()
+                        .then(() => animateResult());
+                    } else {
+                      animateResult();
+                    }
+                  });
+              } else {
+                openModal();
+              }
             }}
             disabled={isSuccess}>
             <Text>Check In</Text>
@@ -122,15 +132,6 @@ const CheckIn = ({restaurant}: {restaurant: Restaurant}) => {
               {data?.result === 'SUCCESS' && withinRange()}
             </Animated.View>
           )}
-        </View>
-      );
-    }
-    if (!locationPermission) {
-      return (
-        <View style={restaurantDetailStyles.checkIn}>
-          <Text style={baseStyles.textSm}>
-            You Must Enable Location Services to Check In
-          </Text>
         </View>
       );
     }

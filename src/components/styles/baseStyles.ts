@@ -78,7 +78,7 @@ export default StyleSheet.create({
     marginRight: 5,
     fontWeight: '600',
     fontSize: 15 * sizeMultiplier,
-    fontFamily: 'lex',
+    fontFamily: 'Lexend Deca',
   },
   centerText: {
     textAlign: 'center',

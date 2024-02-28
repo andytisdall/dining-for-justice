@@ -23,6 +23,7 @@ import baseStyles from '../../styles/baseStyles';
 import ScreenBackground from '../../reusable/ScreenBackground';
 import useLocation from '../../../hooks/useLocation';
 import UserMarker from './UserMarker';
+import useEnableLocation from '../../../hooks/useEnableLocation';
 
 type MapScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
@@ -53,6 +54,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
   const [sortedRestaurants, filterComponent, range] = useFilter(restaurants);
 
   const [location, locationPermission] = useLocation();
+  const [openEnableLocationModal, enableLocationModal] = useEnableLocation();
 
   const markerRef = useRef<MapMarker>(null);
   const mapRef = useRef<MapView>(null);
@@ -101,14 +103,6 @@ const Map = ({navigation, route}: MapScreenProps) => {
       initialLoadRef.current = true;
     }
   };
-
-  // const getIcon = () => {
-  //   const random = Math.random() * 10;
-  //   if (random > 5) {
-  //     return cocktailIcon;
-  //   }
-  //   return restaurantIcon;
-  // };
 
   const renderRangeCircle = () => {
     if (range && location) {
@@ -213,17 +207,18 @@ const Map = ({navigation, route}: MapScreenProps) => {
     setZoom(region.latitudeDelta);
   };
 
+  const locationLink = locationPermission
+    ? zoomToLocation
+    : openEnableLocationModal;
+
   return (
     <ScreenBackground>
       <ScrollView contentContainerStyle={baseStyles.scrollView}>
         {filterComponent}
         <View style={mapStyles.mapBtns}>
-          {locationPermission && (
-            <Btn onPress={zoomToLocation}>
-              <Text style={baseStyles.btnTextSm}>My Location</Text>
-            </Btn>
-          )}
-
+          <Btn onPress={locationLink}>
+            <Text style={baseStyles.btnTextSm}>My Location</Text>
+          </Btn>
           <Btn onPress={() => mapRef.current?.animateToRegion(INITIAL_COORDS)}>
             <Text style={baseStyles.btnTextSm}>Reset Map</Text>
           </Btn>
@@ -239,6 +234,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
           {markers}
           {renderRangeCircle()}
         </MapView>
+        {enableLocationModal}
       </ScrollView>
     </ScreenBackground>
   );

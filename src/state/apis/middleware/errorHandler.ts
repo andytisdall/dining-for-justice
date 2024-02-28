@@ -23,10 +23,13 @@ export const rtkQueryErrorLogger: Middleware =
 
       let message = '';
       if (error) {
+        console.log(error);
         if ('status' in error) {
           const data = error.data as {error?: string};
           if (data?.error) {
+            // if (typeof data.error === 'string') {
             message = data.error;
+            // }
           } else if (data) {
             message = JSON.stringify(data);
           }
@@ -36,7 +39,13 @@ export const rtkQueryErrorLogger: Middleware =
         } else if (error.message) {
           message = error.message;
         }
-        api.dispatch(setError(message));
+        if (typeof message === 'string') {
+          api.dispatch(setError(message));
+        } else {
+          api.dispatch(
+            setError('Error not handled properly: ' + JSON.stringify(message)),
+          );
+        }
       }
     }
 

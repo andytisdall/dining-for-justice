@@ -2,11 +2,18 @@ import {View, Text} from 'react-native';
 
 import restaurantDetailStyles from './restaurantDetailStyles';
 import baseStyles from '../../styles/baseStyles';
-import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
-import {useGetRestaurantDetailsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
+import {
+  Restaurant,
+  RestaurantDetails,
+} from '../../../state/apis/restaurantApi/restaurantApi';
 
-const RestaurantInfo = ({restaurant}: {restaurant: Restaurant}) => {
-  const {data: details} = useGetRestaurantDetailsQuery(restaurant.googleId);
+const RestaurantInfo = ({
+  restaurant,
+  details,
+}: {
+  restaurant: Restaurant;
+  details?: RestaurantDetails;
+}) => {
   const detail = (detailName: string, detailText: string) => {
     return (
       <View style={restaurantDetailStyles.restaurantDetailItem}>

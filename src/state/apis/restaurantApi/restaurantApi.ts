@@ -37,14 +37,11 @@ export const restaurantApi = api.injectEndpoints({
     getRestaurants: builder.query<Restaurant[], void>({
       query: () => '/d4j/restaurants',
     }),
-    getRestaurantDetails: builder.query<RestaurantDetails, string | undefined>({
-      query: restaurantId =>
-        restaurantId
-          ? `/d4j/restaurantDetails/${restaurantId}`
-          : '/d4j/restaurantDetails',
+    getRestaurantDetails: builder.query<RestaurantDetails, string>({
+      query: restaurantId => `/d4j/restaurantDetails/${restaurantId}`,
     }),
   }),
 });
 
-export const {useGetRestaurantsQuery, useGetRestaurantDetailsQuery} =
+export const {useGetRestaurantsQuery, useLazyGetRestaurantDetailsQuery} =
   restaurantApi;

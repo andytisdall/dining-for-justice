@@ -23,7 +23,7 @@ export default StyleSheet.create({
     paddingTop: 3 * sizeMultiplier,
     width: 'auto',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   pastVisitItemText: {

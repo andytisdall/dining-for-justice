@@ -125,7 +125,6 @@ const useFilter: (
   const sortedRestaurants = useMemo(() => {
     if (restaurants) {
       const sorted = restaurants
-        .filter(rest => rest.active)
         .filter(rest => {
           if (pocOwned) {
             return rest.pocOwned;

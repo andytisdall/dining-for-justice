@@ -3,13 +3,17 @@ import {View, Text} from 'react-native';
 import baseStyles from '../../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetailStyles';
 import {
-  useGetRestaurantDetailsQuery,
   Restaurant,
+  RestaurantDetails,
 } from '../../../state/apis/restaurantApi/restaurantApi';
 
-const RestaurantTags = ({restaurant}: {restaurant: Restaurant}) => {
-  const {data: details} = useGetRestaurantDetailsQuery(restaurant?.googleId);
-
+const RestaurantTags = ({
+  restaurant,
+  details,
+}: {
+  restaurant: Restaurant;
+  details?: RestaurantDetails;
+}) => {
   const servesIcon = (text: string) => {
     return (
       <View

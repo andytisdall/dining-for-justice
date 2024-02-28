@@ -17,6 +17,6 @@ export default StyleSheet.create({
   donateBtnText: {
     color: 'white',
     fontSize: 20,
-    fontFamily: 'lex',
+    fontFamily: 'Lexend Deca',
   },
 });

@@ -7,7 +7,7 @@ import Btn from '../../reusable/Btn';
 import {RestaurantStackParams} from '../RestaurantNavigator';
 import {
   useGetRestaurantsQuery,
-  useGetRestaurantDetailsQuery,
+  useLazyGetRestaurantDetailsQuery,
 } from '../../../state/apis/restaurantApi/restaurantApi';
 import baseStyles from '../../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetailStyles';
@@ -19,6 +19,7 @@ import RestaurantLinks from './RestaurantLinks';
 import RestaurantInfo from './RestaurantInfo';
 import AnimatedLoading from '../../reusable/AnimatedLoading';
 import {useGetContactQuery} from '../../../state/apis/contact/contactApi';
+import useEnableLocation from '../../../hooks/useEnableLocation';
 
 type RestaurantDetailScreenProps = NativeStackScreenProps<
   RestaurantStackParams & RootTabsParams,
@@ -33,14 +34,19 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
 
   const restaurant = data?.find(res => res.id === id);
 
-  const {data: details, isLoading} = useGetRestaurantDetailsQuery(
-    restaurant?.googleId,
-  );
+  const [getRestaurantDetails, {data: details, isLoading}] =
+    useLazyGetRestaurantDetailsQuery();
 
-  useEffect(
-    () => navigation.setOptions({headerTitle: restaurant?.name}),
-    [navigation, restaurant],
-  );
+  const [openModal, enableLocationModal] = useEnableLocation();
+
+  useEffect(() => {
+    if (restaurant) {
+      navigation.setOptions({headerTitle: restaurant.name});
+      if (restaurant.googleId) {
+        getRestaurantDetails(restaurant.googleId);
+      }
+    }
+  }, [navigation, restaurant, getRestaurantDetails]);
 
   const navigateToMap = () => {
     if (restaurant) {
@@ -86,9 +92,14 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
       return (
         <View style={baseStyles.screenSection}>
           {renderImage()}
-          <RestaurantInfo restaurant={restaurant} />
-          {!user ? renderSignIn() : <CheckIn restaurant={restaurant} />}
-          <RestaurantTags restaurant={restaurant} />
+
+          <RestaurantInfo restaurant={restaurant} details={details} />
+          {!user ? (
+            renderSignIn()
+          ) : (
+            <CheckIn restaurant={restaurant} openModal={openModal} />
+          )}
+          <RestaurantTags restaurant={restaurant} details={details} />
           {!!details && (
             <RestaurantLinks details={details} navigate={navigateToMap} />
           )}
@@ -109,6 +120,7 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
   return (
     <ScreenBackground>
       <FlatList data={[renderDetails()]} renderItem={({item}) => item} />
+      {enableLocationModal}
     </ScreenBackground>
   );
 };
