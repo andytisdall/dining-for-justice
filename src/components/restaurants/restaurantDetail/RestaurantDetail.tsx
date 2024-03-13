@@ -99,11 +99,10 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
           ) : (
             <CheckIn restaurant={restaurant} openModal={openModal} />
           )}
-          <RestaurantTags restaurant={restaurant} details={details} />
           {!!details && (
             <RestaurantLinks details={details} navigate={navigateToMap} />
           )}
-
+          <RestaurantTags restaurant={restaurant} details={details} />
           {!!details?.openHours && (
             <OpeningHours openHours={details.openHours} />
           )}

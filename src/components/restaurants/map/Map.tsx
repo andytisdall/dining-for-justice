@@ -1,4 +1,4 @@
-import {View, ScrollView, Text, Platform} from 'react-native';
+import {View, Text, Platform, FlatList} from 'react-native';
 import MapView, {
   PROVIDER_GOOGLE,
   Region,
@@ -10,7 +10,7 @@ import MapView, {
 import {useRef, useState, useEffect, useMemo, useCallback} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-import useFilter from '../../../hooks/useFilter';
+import useFilter from '../../../hooks/useFilter/useFilter';
 import Btn from '../../reusable/Btn';
 import RestaurantCallout from './RestaurantCallout';
 import {RestaurantStackParams} from '../RestaurantNavigator';
@@ -18,19 +18,24 @@ import {
   useGetRestaurantsQuery,
   Restaurant,
 } from '../../../state/apis/restaurantApi/restaurantApi';
+import {
+  useGetLocationQuery,
+  useGetPermissionMutation,
+} from '../../../state/apis/rewardsApi/locationApi';
 import mapStyles from './mapStyles';
 import baseStyles from '../../styles/baseStyles';
 import ScreenBackground from '../../reusable/ScreenBackground';
-import useLocation from '../../../hooks/useLocation';
 import UserMarker from './UserMarker';
 import useEnableLocation from '../../../hooks/useEnableLocation';
+import RestaurantList from '../RestaurantList';
+import Loading from '../../reusable/Loading';
 
 type MapScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
   'RestaurantMap'
 >;
 
-const RANGE_MULTIPLIER = 104200;
+const RANGE_MULTIPLIER = 90000;
 const ZOOM_VALUE = 0.05;
 
 const INITIAL_COORDS: Region = {
@@ -40,8 +45,9 @@ const INITIAL_COORDS: Region = {
   longitudeDelta: 0.1,
 };
 
-const cocktailIcon = require('../../../assets/cocktail_marker.png');
-// const restaurantIcon = require('../../../assets/restaurant_marker.png');
+const COCKTAIL_MARKER = require('../../../assets/cocktail_marker.png');
+
+const RESTAURANT_MARKER = require('../../../assets/restaurant_marker.png');
 
 const Map = ({navigation, route}: MapScreenProps) => {
   const {id} = route.params;
@@ -49,11 +55,13 @@ const Map = ({navigation, route}: MapScreenProps) => {
   const [selectedRestaurant, setSelectedRestaurant] = useState(id);
   const [zoom, setZoom] = useState(INITIAL_COORDS.latitudeDelta);
 
-  const {data: restaurants} = useGetRestaurantsQuery();
+  const {data: restaurants, isLoading} = useGetRestaurantsQuery();
 
   const [sortedRestaurants, filterComponent, range] = useFilter(restaurants);
 
-  const [location, locationPermission] = useLocation();
+  const {data: location} = useGetLocationQuery();
+  const [getPermission, {data: locationPermission}] =
+    useGetPermissionMutation();
   const [openEnableLocationModal, enableLocationModal] = useEnableLocation();
 
   const markerRef = useRef<MapMarker>(null);
@@ -86,10 +94,21 @@ const Map = ({navigation, route}: MapScreenProps) => {
   }, [zoom]);
 
   useEffect(() => {
+    getPermission();
+  }, [getPermission]);
+
+  useEffect(() => {
     if (selectedRestaurant && Platform.OS === 'android' && markerRef.current) {
       markerRef.current.showCallout();
     }
   }, [selectedRestaurant]);
+
+  const navigate = useCallback(
+    (restaurantId: string) => {
+      navigation.navigate('RestaurantDetail', {id: restaurantId});
+    },
+    [navigation],
+  );
 
   const onMapLoaded = () => {
     if (
@@ -151,10 +170,15 @@ const Map = ({navigation, route}: MapScreenProps) => {
           setSelectedRestaurant(restaurant.id);
           centerMarker(restaurant);
         };
-        const navigate = () =>
-          navigation.navigate('RestaurantDetail', {
-            id: restaurant.id,
-          });
+
+        const icon =
+          restaurant.cuisine === 'cocktails'
+            ? COCKTAIL_MARKER
+            : RESTAURANT_MARKER;
+
+        const style = isSelectedRestaurant
+          ? mapStyles.selectedMarker
+          : undefined;
 
         return (
           <Marker
@@ -165,14 +189,15 @@ const Map = ({navigation, route}: MapScreenProps) => {
             }}
             onPress={onPressMarker}
             ref={ref}
-            image={cocktailIcon}>
-            <Callout onPress={navigate}>
+            image={icon}
+            style={[style]}>
+            <Callout onPress={() => navigate(restaurant.id)}>
               <RestaurantCallout restaurant={restaurant} />
             </Callout>
           </Marker>
         );
       });
-  }, [centerMarker, navigation, sortedRestaurants, selectedRestaurant]);
+  }, [centerMarker, sortedRestaurants, selectedRestaurant, navigate]);
 
   const restaurant = sortedRestaurants?.find(r => r.id === selectedRestaurant);
 
@@ -209,33 +234,62 @@ const Map = ({navigation, route}: MapScreenProps) => {
 
   const locationLink = locationPermission
     ? zoomToLocation
-    : openEnableLocationModal;
+    : () => {
+        getPermission()
+          .unwrap()
+          .then(permission => {
+            if (!permission) {
+              openEnableLocationModal();
+            } else {
+              zoomToLocation();
+            }
+          });
+      };
+
+  const mapBtns = (
+    <View style={mapStyles.mapBtns}>
+      <Btn onPress={locationLink}>
+        <Text style={baseStyles.btnTextSm}>My Location</Text>
+      </Btn>
+      <Btn onPress={() => mapRef.current?.animateToRegion(INITIAL_COORDS)}>
+        <Text style={baseStyles.btnTextSm}>Reset Map</Text>
+      </Btn>
+    </View>
+  );
+
+  const map = (
+    <MapView
+      ref={mapRef}
+      provider={PROVIDER_GOOGLE}
+      style={mapStyles.map}
+      initialRegion={INITIAL_COORDS}
+      onMapLoaded={onMapLoaded}
+      onRegionChangeComplete={syncZoomRef}>
+      {renderUserMarker()}
+      {markers}
+      {renderRangeCircle()}
+    </MapView>
+  );
+
+  const restaurantList = isLoading ? (
+    <Loading />
+  ) : (
+    <RestaurantList restaurants={sortedRestaurants} navigate={navigate} />
+  );
+
+  const data = [filterComponent, mapBtns, map, restaurantList];
+
+  if (enableLocationModal) {
+    data.push(enableLocationModal);
+  }
 
   return (
     <ScreenBackground>
-      <ScrollView contentContainerStyle={baseStyles.scrollView}>
-        {filterComponent}
-        <View style={mapStyles.mapBtns}>
-          <Btn onPress={locationLink}>
-            <Text style={baseStyles.btnTextSm}>My Location</Text>
-          </Btn>
-          <Btn onPress={() => mapRef.current?.animateToRegion(INITIAL_COORDS)}>
-            <Text style={baseStyles.btnTextSm}>Reset Map</Text>
-          </Btn>
-        </View>
-        <MapView
-          ref={mapRef}
-          provider={PROVIDER_GOOGLE}
-          style={mapStyles.map}
-          initialRegion={INITIAL_COORDS}
-          onMapLoaded={onMapLoaded}
-          onRegionChangeComplete={syncZoomRef}>
-          {renderUserMarker()}
-          {markers}
-          {renderRangeCircle()}
-        </MapView>
-        {enableLocationModal}
-      </ScrollView>
+      <FlatList
+        style={baseStyles.scrollView}
+        data={data}
+        renderItem={({item}) => item}
+      />
     </ScreenBackground>
   );
 };

@@ -9,7 +9,7 @@ import {useGetContactQuery} from '../../state/apis/contact/contactApi';
 import PastCheckIns from './pastVisits/PastCheckIns';
 import User from './auth/User';
 import rewardsStyles from './rewardsStyles';
-import Points from './Points';
+import Prizes from './prize/Prizes';
 
 import ScreenBackground from '../reusable/ScreenBackground';
 
@@ -38,11 +38,10 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
       <View style={baseStyles.screenSection}>
         {rewardsText}
         <View style={baseStyles.centerSection}>
-          <Btn onPress={() => navigation.navigate('ORWPrize')}>
+          <Btn onPress={() => navigation.navigate('Prizes')}>
             <Text style={baseStyles.btnText}>More Info</Text>
           </Btn>
         </View>
-        <Points />
         <PastCheckIns />
         <User />
       </View>
@@ -51,7 +50,12 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
 
   const renderNotSignedIn = () => {
     return (
-      <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
+      <View
+        style={[
+          rewardsStyles.notSignedIn,
+          baseStyles.centerSection,
+          baseStyles.screenSection,
+        ]}>
         {rewardsText}
         <View style={baseStyles.screenSection}>
           <Btn onPress={() => navigation.navigate('GetContact')}>
@@ -60,6 +64,7 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
             </Text>
           </Btn>
         </View>
+        <Prizes />
       </View>
     );
   };

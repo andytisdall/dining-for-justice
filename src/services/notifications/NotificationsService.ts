@@ -17,16 +17,13 @@ import {checkNotifications, RESULTS} from 'react-native-permissions';
 // but Android's user can still turn off notifications in the system settings
 
 class NotificationService {
-  init = (handleRegister: ({token}: {token: string}) => void) => {
-    this.configure(handleRegister);
-  };
+  public token?: string;
 
   delete = () => {
     PushNotificationIOS.removeEventListener('registrationError');
   };
 
-  async configure(register: ({token}: {token: string}) => void) {
-    const onRegister = register;
+  async configure() {
     if (Platform.OS === 'android') {
       PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
@@ -34,7 +31,7 @@ class NotificationService {
     }
     PushNotification.configure({
       onNotification: this.handleNotification,
-      onRegister,
+      onRegister: ({token}) => (this.token = token),
       // IOS ONLY (optional): default: all - Permissions to register.
       permissions: {
         alert: true,
@@ -45,6 +42,10 @@ class NotificationService {
       popInitialNotification: true,
       requestPermissions: true, // set to true if you want to request iOS notification when the app starts
     });
+    this.getPermissions();
+  }
+
+  getPermissions = async () => {
     this.checkAndGetPermissionIfAlreadyGiven();
     this.initAndroidLocalScheduledNotifications();
     if (Platform.OS === 'ios') {
@@ -55,7 +56,7 @@ class NotificationService {
     }
     await new Promise(resolve => setTimeout(resolve, 1000));
     AppState.addEventListener('change', this.handleAppStateChange);
-  }
+  };
 
   handleAppStateChange = (newState: AppStateStatus) => {
     if (newState === 'active') {

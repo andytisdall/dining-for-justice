@@ -21,19 +21,20 @@ export default StyleSheet.create({
     borderColor: 'white',
     paddingBottom: 4 * sizeMultiplier,
     paddingTop: 3 * sizeMultiplier,
-    width: 'auto',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   pastVisitItemText: {
-    flex: 1,
+    paddingHorizontal: 10,
   },
-  pastVisitItemStatus: {fontSize: 12 * sizeMultiplier, textAlign: 'right'},
   showMoreBtn: {
     justifySelf: 'center',
     marginVertical: 10,
     padding: 5 * sizeMultiplier,
     backgroundColor: colors.lightGrey,
+  },
+  pastVisits: {
+    marginBottom: 50,
   },
 });

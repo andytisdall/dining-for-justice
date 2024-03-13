@@ -21,7 +21,7 @@ export interface Restaurant {
   neighborhood: string;
   cuisine?: string;
   id: string;
-  pocOwned?: string;
+  pocOwned?: boolean;
   underservedNeighborhood: boolean;
   vegan: boolean;
   femaleOwned: boolean;

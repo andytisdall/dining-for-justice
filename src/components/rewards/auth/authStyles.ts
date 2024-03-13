@@ -11,12 +11,12 @@ export default StyleSheet.create({
   signOutBtnText: {
     color: colors.pink,
   },
-
   user: {
     flexDirection: 'row',
     alignItems: 'center',
     flexWrap: 'wrap',
     justifyContent: 'center',
+    marginHorizontal: 10,
   },
   authFieldLabel: {
     color: colors.yellow,

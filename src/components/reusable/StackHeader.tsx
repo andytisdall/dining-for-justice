@@ -44,13 +44,9 @@ const StackHeader = ({navigation, route, options}: NativeStackHeaderProps) => {
               onPress={() => navigation.goBack()}
               style={styles.pressable}>
               <Arrow style={[styles.arrow]} />
-              {/* <Text>Back</Text> */}
             </Pressable>
           </Animated.View>
         )}
-        {/* <Btn onPress={() => navigation.goBack()}>
-          <Arrow style={[styles.arrow]} />
-        </Btn> */}
 
         <View style={styles.title}>
           <Text style={styles.titleText}>{title}</Text>
@@ -92,8 +88,7 @@ export const styles = StyleSheet.create({
     fontSize: 25 * sizeMultiplier,
     color: 'white',
     textAlign: 'center',
-    fontFamily: 'IBM Plex Serif',
-    fontWeight: '500',
+    fontFamily: 'IBMPlexSerif-SemiBold',
   },
   btn: {
     borderWidth: 2,

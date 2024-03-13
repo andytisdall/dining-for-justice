@@ -17,6 +17,7 @@ import EnterName from './EnterName';
 import {
   useSignInMutation,
   useCreateContactMutation,
+  useGetNotificationsPermissionMutation,
 } from '../../../state/apis/contact/contactApi';
 import Btn from '../../reusable/Btn';
 import baseStyles from '../../styles/baseStyles';
@@ -24,7 +25,7 @@ import ThumbsUp from '../../reusable/ThumbsUp';
 import AnimatedLoading from '../../reusable/AnimatedLoading';
 import authStyles from './authStyles';
 import ScreenBackground from '../../reusable/ScreenBackground';
-import Notifications from '../../../notifications/NotificationsService';
+import Notifications from '../../../services/notifications/NotificationsService';
 
 type GetContactScreenProps = NativeStackScreenProps<
   RewardsStackParams,
@@ -46,38 +47,42 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
 
   const [signIn, signInResult] = useSignInMutation();
   const [createContact, createContactResult] = useCreateContactMutation();
+  const [getNotficationsPermission] = useGetNotificationsPermissionMutation();
 
   const redirectScreen = 'RewardsHome';
 
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
-    Notifications.init(({token}: {token: string}) => {
-      if (!showNameFields) {
-        if (!validateEmail(email)) {
-          return dispatch(setError('Please enter a valid email address'));
-        }
-        signIn({email, token})
-          .unwrap()
-          .then(user => {
-            if (!user) {
-              setShowNameFields(true);
-            } else {
-              navigation.navigate(redirectScreen);
-            }
-          });
-      } else {
-        createContact({email, firstName, lastName, token})
-          .unwrap()
-          .then(user =>
-            signIn({email: user.email})
-              .unwrap()
-              .then(() => {
+    getNotficationsPermission()
+      .unwrap()
+      .then(() => {
+        const token = Notifications.token;
+        if (!showNameFields) {
+          if (!validateEmail(email)) {
+            return dispatch(setError('Please enter a valid email address'));
+          }
+          signIn({email, token})
+            .unwrap()
+            .then(user => {
+              if (!user) {
+                setShowNameFields(true);
+              } else {
                 navigation.navigate(redirectScreen);
-              }),
-          );
-      }
-    });
+              }
+            });
+        } else {
+          createContact({email, firstName, lastName, token})
+            .unwrap()
+            .then(user =>
+              signIn({email: user.email})
+                .unwrap()
+                .then(() => {
+                  navigation.navigate(redirectScreen);
+                }),
+            );
+        }
+      });
   };
 
   const displayEmail = () => {

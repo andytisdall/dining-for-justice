@@ -15,6 +15,11 @@ const RestaurantListItem = ({
   restaurant: Restaurant;
   navigate: (id: string) => void;
 }) => {
+  const cuisine =
+    restaurant.cuisine === 'cocktails'
+      ? 'Cocktails for a Cause'
+      : restaurant.cuisine;
+
   return (
     <Pressable
       onPress={() => {
@@ -27,13 +32,15 @@ const RestaurantListItem = ({
             <View style={styles.restaurantListItemText}>
               <Text style={baseStyles.text}>{restaurant.name}</Text>
               <Text style={[baseStyles.textSm, restaurantStyles.cuisine]}>
-                {restaurant.cuisine}
+                {cuisine}
               </Text>
             </View>
-            <Image
-              source={{uri: restaurant.photo}}
-              style={styles.restaurantListItemImage}
-            />
+            {!!restaurant.photo && (
+              <Image
+                source={{uri: restaurant.photo}}
+                style={styles.restaurantListItemImage}
+              />
+            )}
           </View>
         );
       }}

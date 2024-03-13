@@ -2,6 +2,8 @@ import {Marker} from 'react-native-maps';
 
 import mapStyles from './mapStyles';
 
+const USER_MARKER = require('../../../assets/user_marker.png');
+
 const UserMarker = ({
   latitude,
   longitude,
@@ -13,7 +15,7 @@ const UserMarker = ({
     <Marker
       coordinate={{latitude, longitude}}
       style={mapStyles.userMarker}
-      image={require('../../../assets/user_marker.png')}
+      image={USER_MARKER}
     />
   );
 };

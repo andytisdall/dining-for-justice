@@ -13,7 +13,7 @@ const User = () => {
   const {data: contact} = useGetContactQuery();
 
   return (
-    <View style={[authStyles.user, baseStyles.screenBorders]}>
+    <View style={[authStyles.user]}>
       <Text style={baseStyles.textSm}>Signed in as {contact?.email}</Text>
       <Btn onPress={signOut} style={authStyles.signOutBtn}>
         <Text style={authStyles.signOutBtnText}>Sign Out</Text>

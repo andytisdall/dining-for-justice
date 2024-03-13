@@ -1,11 +1,4 @@
-import {
-  Text,
-  View,
-  Pressable,
-  PanResponder,
-  Animated,
-  Dimensions,
-} from 'react-native';
+import {Text, View, PanResponder, Animated, Dimensions} from 'react-native';
 import React, {useCallback, useState, useRef} from 'react';
 import {format, utcToZonedTime} from 'date-fns-tz';
 import {
@@ -17,7 +10,8 @@ import {
   addMonths,
 } from 'date-fns';
 
-import Arrow from '../../../assets/right-arrow.svg';
+import DayNames from './DayNames';
+import CalendarHeader from './CalendarHeader';
 import styles from './styles';
 
 const SCREEN_WIDTH = Dimensions.get('screen').width;
@@ -107,56 +101,6 @@ const Calendar = ({
     });
   }, [month, renderItems]);
 
-  const dayNames = () => {
-    return (
-      <View style={styles.calendarWeekdays}>
-        <View style={styles.calendarWeekday}>
-          <Text style={styles.calendarWeekdayText}>Sun</Text>
-        </View>
-        <View style={styles.calendarWeekday}>
-          <Text style={styles.calendarWeekdayText}>Mon</Text>
-        </View>
-        <View style={styles.calendarWeekday}>
-          <Text style={styles.calendarWeekdayText}>Tue</Text>
-        </View>
-        <View style={styles.calendarWeekday}>
-          <Text style={styles.calendarWeekdayText}>Wed</Text>
-        </View>
-        <View style={styles.calendarWeekday}>
-          <Text style={styles.calendarWeekdayText}>Thu</Text>
-        </View>
-        <View style={styles.calendarWeekday}>
-          <Text style={styles.calendarWeekdayText}>Fri</Text>
-        </View>
-        <View style={styles.calendarWeekday}>
-          <Text style={styles.calendarWeekdayText}>Sat</Text>
-        </View>
-      </View>
-    );
-  };
-
-  const header = () => {
-    return (
-      <View style={styles.monthHeader}>
-        <Pressable
-          onPress={() => {
-            setMonth(subMonths(month, 1));
-          }}
-          style={[styles.arrow, styles.left]}>
-          <Arrow />
-        </Pressable>
-        <Text style={styles.monthTitle}>{format(month, 'MMMM yyyy')}</Text>
-        <Pressable
-          onPress={() => {
-            setMonth(addMonths(month, 1));
-          }}
-          style={styles.arrow}>
-          <Arrow />
-        </Pressable>
-      </View>
-    );
-  };
-
   return (
     <Animated.View
       {...panResponder.panHandlers}
@@ -166,8 +110,8 @@ const Calendar = ({
           transform: [{translateX: translateValue}],
         },
       ]}>
-      {header()}
-      {dayNames()}
+      <CalendarHeader month={month} setMonth={setMonth} />
+      <DayNames />
       <View style={[styles.calendar]}>{getDays()}</View>
     </Animated.View>
   );

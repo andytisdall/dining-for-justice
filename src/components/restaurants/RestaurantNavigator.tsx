@@ -1,13 +1,13 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import RestaurantDetail from './restaurantDetail/RestaurantDetail';
-import RestaurantList from './RestaurantList';
 import Map from './map/Map';
 import StackHeader from '../reusable/StackHeader';
+import RestaurantHome from './RestaurantHome';
 
 export type RestaurantStackParams = {
   RestaurantDetail: {id: string};
-  RestaurantList: undefined;
+  RestaurantHome: undefined;
   RestaurantMap: {id: string};
 };
 
@@ -17,8 +17,8 @@ const RestaurantNavigator = () => {
   return (
     <RestaurantStack.Navigator screenOptions={{headerBackVisible: true}}>
       <RestaurantStack.Screen
-        name="RestaurantList"
-        component={RestaurantList}
+        name="RestaurantHome"
+        component={RestaurantHome}
         options={{
           header: StackHeader,
           headerTitle: 'Restaurants',
@@ -35,7 +35,7 @@ const RestaurantNavigator = () => {
         component={Map}
         options={{
           header: StackHeader,
-          headerTitle: 'Restaurant Map',
+          headerTitle: 'Cocktail Map',
         }}
       />
     </RestaurantStack.Navigator>

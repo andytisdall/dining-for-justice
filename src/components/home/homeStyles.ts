@@ -2,6 +2,7 @@ import {StyleSheet} from 'react-native';
 
 import colors from '../styles/colors';
 import {sizeMultiplier} from '../styles/baseStyles';
+import {font} from '../styles/baseStyles';
 
 export default StyleSheet.create({
   logoContainer: {
@@ -17,6 +18,6 @@ export default StyleSheet.create({
   donateBtnText: {
     color: 'white',
     fontSize: 20,
-    fontFamily: 'Lexend Deca',
+    fontFamily: font,
   },
 });

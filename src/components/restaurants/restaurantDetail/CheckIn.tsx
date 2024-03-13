@@ -2,13 +2,13 @@ import {View, Text, Animated} from 'react-native';
 import {useRef} from 'react';
 
 import Loading from '../../reusable/Loading';
-import useLocation from '../../../hooks/useLocation';
 import {useUserIsWithinRangeOfLocationMutation} from '../../../state/apis/rewardsApi/checkInApi';
 import {useCheckInMutation} from '../../../state/apis/rewardsApi/checkInApi';
 import baseStyles from '../../styles/baseStyles';
 import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
 import Btn from '../../reusable/Btn';
 import restaurantDetailStyles from './restaurantDetailStyles';
+import {useGetPermissionMutation} from '../../../state/apis/rewardsApi/locationApi';
 
 const CheckIn = ({
   restaurant,
@@ -20,7 +20,7 @@ const CheckIn = ({
   const [userIsWithinRange, {data: inRange, isLoading: loadingRange}] =
     useUserIsWithinRangeOfLocationMutation();
 
-  const [, locationPermission] = useLocation();
+  const [getPermission] = useGetPermissionMutation();
 
   const [checkIn, {data, isError, isLoading: loadingCheckin, isSuccess}] =
     useCheckInMutation();
@@ -79,6 +79,30 @@ const CheckIn = ({
     closeAnimation,
   ]).start;
 
+  const renderResult = () => {
+    if (!loadingRange && !inRange) {
+      return errorMsg('You are out of range of this location');
+    }
+    if (isError) {
+      errorMsg(
+        'Failed to check in. Check your internet connection and try again.',
+      );
+    }
+    if (data?.result === 'SUCCESS') {
+      return withinRange();
+    }
+    if (data?.result === 'DUPLICATE') {
+      return errorMsg('You have already checked in to this location today');
+    }
+    if (data?.result === 'MALFORMED') {
+      return errorMsg('Malformed Request');
+    }
+    if (data?.result === 'UNAUTHORIZED') {
+      return errorMsg('No user is signed in');
+    }
+    return errorMsg('An error has occurred. Please try again.');
+  };
+
   const renderCheckIn = () => {
     if (restaurant?.coords) {
       // const homeCoords = {latitude: 37.7912, longitude: -122.20384};
@@ -96,21 +120,25 @@ const CheckIn = ({
         <View style={restaurantDetailStyles.checkIn}>
           <Btn
             onPress={() => {
-              if (locationPermission) {
-                userIsWithinRange(restaurant.coords!)
-                  .unwrap()
-                  .then(result => {
-                    if (result) {
-                      checkIn({restaurantId: restaurant.id})
-                        .unwrap()
-                        .then(() => animateResult());
-                    } else {
-                      animateResult();
-                    }
-                  });
-              } else {
-                openModal();
-              }
+              getPermission()
+                .unwrap()
+                .then(locationPermission => {
+                  if (locationPermission) {
+                    userIsWithinRange(restaurant.coords!)
+                      .unwrap()
+                      .then(result => {
+                        if (result) {
+                          checkIn({restaurantId: restaurant.id})
+                            .unwrap()
+                            .then(() => animateResult());
+                        } else {
+                          animateResult();
+                        }
+                      });
+                  } else {
+                    openModal();
+                  }
+                });
             }}
             disabled={isSuccess}>
             <Text>Check In</Text>
@@ -122,14 +150,7 @@ const CheckIn = ({
                 restaurantDetailStyles.checkInBubble,
                 {transform: [{scaleX: translateValue}]},
               ]}>
-              {!loadingRange &&
-                !inRange &&
-                errorMsg('You are out of range of this location')}
-              {isError &&
-                errorMsg(
-                  'Failed to check in. Check your internet connection and try again.',
-                )}
-              {data?.result === 'SUCCESS' && withinRange()}
+              {renderResult()}
             </Animated.View>
           )}
         </View>

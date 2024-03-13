@@ -17,4 +17,5 @@ export default StyleSheet.create({
     right: 0,
   },
   userMarker: {zIndex: 1},
+  selectedMarker: {zIndex: 1},
 });
