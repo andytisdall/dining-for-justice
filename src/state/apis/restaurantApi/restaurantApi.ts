@@ -29,7 +29,8 @@ export interface Restaurant {
   coords?: Coordinates;
   openHours: string[];
   photo?: string;
-  active: boolean;
+  cocktailName?: string;
+  cocktailDescription?: string;
 }
 
 export const restaurantApi = api.injectEndpoints({

@@ -31,5 +31,5 @@ export const api = createApi({
   reducerPath: 'api',
   baseQuery: baseQueryWithToken,
   endpoints: () => ({}),
-  tagTypes: ['Contact', 'CheckIn', 'Location'],
+  tagTypes: ['Contact', 'CheckIn', 'Location', 'AllCheckIns'],
 });

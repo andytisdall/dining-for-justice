@@ -88,7 +88,7 @@ export const styles = StyleSheet.create({
     fontSize: 25 * sizeMultiplier,
     color: 'white',
     textAlign: 'center',
-    fontFamily: 'IBMPlexSerif-SemiBold',
+    fontFamily: 'SortsMillGoudy',
   },
   btn: {
     borderWidth: 2,

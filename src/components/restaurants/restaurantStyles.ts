@@ -1,27 +1,27 @@
 import {StyleSheet} from 'react-native';
-
 import colors from '../styles/colors';
 
 export default StyleSheet.create({
   loading: {height: 500},
   restaurantList: {
     paddingBottom: 50,
-    borderTopColor: colors.grey,
-    borderTopWidth: 1,
-    marginTop: 10,
   },
-
+  restaurantListCol: {
+    justifyContent: 'space-around',
+  },
   listHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 10,
-    marginTop: 10,
-  },
-  cuisine: {
-    color: colors.blue,
+    paddingBottom: 5,
+    backgroundColor: colors.midnightBlue,
+    borderBottomColor: colors.lightGrey,
+    borderBottomWidth: 2,
   },
   listMap: {
     position: 'absolute',
-    right: 5,
+    flexDirection: 'row',
+    right: 0,
+    width: '70%',
+    justifyContent: 'space-around',
   },
 });

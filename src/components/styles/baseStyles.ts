@@ -1,10 +1,9 @@
-import {StyleSheet, Dimensions, Platform} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
 import colors from './colors';
 
 export const sizeMultiplier = Dimensions.get('screen').width / 300;
-export const font =
-  Platform.OS === 'ios' ? 'Lexend Deca' : 'LexendDeca-VariableFont_wght';
+export const font = 'Manrope';
 
 export default StyleSheet.create({
   app: {flex: 1},

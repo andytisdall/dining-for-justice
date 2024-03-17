@@ -22,12 +22,19 @@ const RestaurantInfo = ({
       </View>
     );
   };
-  return (
-    <View style={baseStyles.screenSection}>
-      {!!restaurant.cuisine && detail('Type of Food', restaurant.cuisine)}
-      {!!details?.address && detail('Address', details.address)}
-    </View>
-  );
+
+  const renderRestaurantInfo = () => {
+    return (
+      <>
+        {restaurant.cuisine &&
+          restaurant.cuisine !== 'cocktails' &&
+          detail('Type of Food', restaurant.cuisine)}
+        {!!details?.address && detail('Address', details.address)}
+      </>
+    );
+  };
+
+  return <View style={baseStyles.screenSection}>{renderRestaurantInfo()}</View>;
 };
 
 export default RestaurantInfo;

@@ -10,7 +10,6 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginBottom: 5,
   },
-
   restaurantInfoItem: {
     borderRadius: 30,
     padding: 10 * sizeMultiplier,
@@ -64,12 +63,14 @@ export default StyleSheet.create({
   },
   photo: {height: 200, resizeMode: 'contain'},
   withinRange: {
-    borderColor: colors.yellow,
+    borderColor: colors.green,
     borderWidth: 3,
+    borderRadius: 25,
   },
   notWithinRange: {
     borderColor: colors.red,
     borderWidth: 3,
+    borderRadius: 25,
   },
   checkIn: {
     flexDirection: 'row',
@@ -82,5 +83,25 @@ export default StyleSheet.create({
     paddingHorizontal: 5,
     flex: 1,
     justifyContent: 'center',
+  },
+  cocktailInfo: {
+    borderWidth: 2,
+    borderColor: colors.green,
+    borderRadius: 25,
+    paddingHorizontal: 10,
+    paddingVertical: 7,
+    marginBottom: 10,
+    width: '50%',
+  },
+  cocktailDescription: {
+    marginTop: 5,
+  },
+  checkInText: {
+    color: colors.green,
+    paddingHorizontal: 10,
+  },
+  checkInErrorText: {
+    color: colors.yellow,
+    paddingHorizontal: 10,
   },
 });

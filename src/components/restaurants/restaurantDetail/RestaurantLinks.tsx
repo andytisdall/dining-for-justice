@@ -47,7 +47,7 @@ const RestaurantLinks = ({
                   source={menuIcon}
                   style={restaurantDetailStyles.restaurantLinkIcon}
                 />
-                <Text style={baseStyles.textSm}>View Menu</Text>
+                <Text style={baseStyles.textSm}>Website</Text>
               </View>
             );
           }}

@@ -72,7 +72,7 @@ const checkInApi = api.injectEndpoints({
     }),
     getPoints: builder.query<CheckIn[], void>({
       query: () => '/d4j/rewards/check-in',
-      providesTags: ['CheckIn'],
+      providesTags: ['CheckIn', 'AllCheckIns'],
     }),
     userIsWithinRangeOfLocation: builder.mutation<boolean, Coordinates>({
       queryFn: async targetCoords => {
@@ -83,6 +83,10 @@ const checkInApi = api.injectEndpoints({
           return {error: {error: `${err}`, status: 'CUSTOM_ERROR'}};
         }
       },
+    }),
+    getTotalCheckIns: builder.query<{checkIns: number}, void>({
+      query: () => '/d4j/rewards/check-in/all',
+      providesTags: ['AllCheckIns'],
     }),
   }),
 });

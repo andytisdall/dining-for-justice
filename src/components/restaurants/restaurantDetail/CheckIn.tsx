@@ -17,8 +17,10 @@ const CheckIn = ({
   restaurant: Restaurant;
   openModal: () => void;
 }) => {
-  const [userIsWithinRange, {data: inRange, isLoading: loadingRange}] =
-    useUserIsWithinRangeOfLocationMutation();
+  const [
+    userIsWithinRange,
+    {data: inRange, isLoading: loadingRange, isUninitialized},
+  ] = useUserIsWithinRangeOfLocationMutation();
 
   const [getPermission] = useGetPermissionMutation();
 
@@ -37,7 +39,9 @@ const CheckIn = ({
           restaurantDetailStyles.withinRange,
           restaurantDetailStyles.checkInBubble,
         ]}>
-        <Text style={baseStyles.textSm}>Check in Successful!</Text>
+        <Text style={[baseStyles.textXSm, restaurantDetailStyles.checkInText]}>
+          Check in Successful!
+        </Text>
       </View>
     );
   };
@@ -50,7 +54,10 @@ const CheckIn = ({
           restaurantDetailStyles.notWithinRange,
           restaurantDetailStyles.checkInBubble,
         ]}>
-        <Text style={baseStyles.textSm}>{message}</Text>
+        <Text
+          style={[baseStyles.textXSm, restaurantDetailStyles.checkInErrorText]}>
+          {message}
+        </Text>
       </View>
     );
   };
@@ -81,7 +88,7 @@ const CheckIn = ({
 
   const renderResult = () => {
     if (!loadingRange && !inRange) {
-      return errorMsg('You are out of range of this location');
+      return errorMsg('To earn a point, you must be present at this location');
     }
     if (isError) {
       errorMsg(
@@ -144,7 +151,7 @@ const CheckIn = ({
             <Text>Check In</Text>
           </Btn>
           {loading && <Loading />}
-          {inRange !== undefined && !loading && (
+          {inRange !== undefined && !loading ? (
             <Animated.View
               style={[
                 restaurantDetailStyles.checkInBubble,
@@ -152,6 +159,17 @@ const CheckIn = ({
               ]}>
               {renderResult()}
             </Animated.View>
+          ) : (
+            isUninitialized && (
+              <Text
+                style={[
+                  baseStyles.centerText,
+                  restaurantDetailStyles.checkInText,
+                  restaurantDetailStyles.checkInBubble,
+                ]}>
+                Check in to this location to earn a chance at winning prizes!
+              </Text>
+            )
           )}
         </View>
       );

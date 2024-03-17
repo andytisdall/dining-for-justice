@@ -18,7 +18,7 @@ const FilterCheckbox = ({
       <BouncyCheckbox
         onPress={(isChecked: boolean) => setValue(isChecked)}
         isChecked={enabled}
-        size={30}
+        size={25}
       />
       <Text style={[baseStyles.textXSm, styles.filterLabel]}>{label}</Text>
     </View>

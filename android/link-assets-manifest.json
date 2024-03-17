@@ -2,64 +2,12 @@
   "migIndex": 1,
   "data": [
     {
-      "path": "src/assets/fonts/IBMPlexSerif-Bold.ttf",
-      "sha1": "0d4b5b24c02c550d49d84b6ef257fcef53f5d25b"
+      "path": "src/assets/fonts/Manrope-VariableFont_wght.ttf",
+      "sha1": "1b4df48059f89147cf4f2e29d2d6a22ce1b6e7fe"
     },
     {
-      "path": "src/assets/fonts/IBMPlexSerif-BoldItalic.ttf",
-      "sha1": "a169b62675d6b174907235afece5210319dca35f"
-    },
-    {
-      "path": "src/assets/fonts/IBMPlexSerif-ExtraLight.ttf",
-      "sha1": "9044a5273464f805a8c410a6107852eb3d7784fe"
-    },
-    {
-      "path": "src/assets/fonts/IBMPlexSerif-ExtraLightItalic.ttf",
-      "sha1": "948014b612506dc8b2fced09b2c6c4fbb6d75438"
-    },
-    {
-      "path": "src/assets/fonts/IBMPlexSerif-Italic.ttf",
-      "sha1": "41ff5d5079cdf3861e50315adf999eacc7fe7db3"
-    },
-    {
-      "path": "src/assets/fonts/IBMPlexSerif-Light.ttf",
-      "sha1": "a44a5679c5da91e8d889cb5c1832bc9865bbc0d7"
-    },
-    {
-      "path": "src/assets/fonts/IBMPlexSerif-LightItalic.ttf",
-      "sha1": "ef91d70a2f972c5010f7b9ce69dabb65a60e9491"
-    },
-    {
-      "path": "src/assets/fonts/IBMPlexSerif-Medium.ttf",
-      "sha1": "1cf27f2db907b431625232d1ff29d1c542c7d841"
-    },
-    {
-      "path": "src/assets/fonts/IBMPlexSerif-MediumItalic.ttf",
-      "sha1": "8188c466c13c2481c77177cf0b3439eb3af4df93"
-    },
-    {
-      "path": "src/assets/fonts/IBMPlexSerif-Regular.ttf",
-      "sha1": "6d704ba16b088c4c15b4647992dc73f448fb29de"
-    },
-    {
-      "path": "src/assets/fonts/IBMPlexSerif-SemiBold.ttf",
-      "sha1": "926ace2a861c35dc82ee8c7066bd2a64e4f622e5"
-    },
-    {
-      "path": "src/assets/fonts/IBMPlexSerif-SemiBoldItalic.ttf",
-      "sha1": "40e60fd23a2b5eef88a29d76055d521f87ebc355"
-    },
-    {
-      "path": "src/assets/fonts/IBMPlexSerif-Thin.ttf",
-      "sha1": "37dc289f8e19673116948a9128df8cec57a27a22"
-    },
-    {
-      "path": "src/assets/fonts/IBMPlexSerif-ThinItalic.ttf",
-      "sha1": "5f1aa2439a7cdbb0fc556bcd29469c0e4b934eea"
-    },
-    {
-      "path": "src/assets/fonts/LexendDeca-VariableFont_wght.ttf",
-      "sha1": "fb53c1a5dacd294c03804798f6a0c785ed48d33a"
+      "path": "src/assets/fonts/SortsMillGoudy-Regular.ttf",
+      "sha1": "c512680d05fee63bd3512f71835914a3a4d1201d"
     }
   ]
 }

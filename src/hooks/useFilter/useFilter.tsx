@@ -27,6 +27,7 @@ const useFilter: (
   Restaurant[] | undefined,
   JSX.Element,
   number | undefined,
+  JSX.Element,
 ] = restaurants => {
   const [sort, orderBySelector] = useOrderBy();
 
@@ -90,7 +91,6 @@ const useFilter: (
             {isOpenCheckbox}
             {veganCheckbox}
             {locationPermission && nearMeCheckbox}
-            {locationPermission && orderBySelector}
           </View>
         </View>
       );
@@ -112,11 +112,10 @@ const useFilter: (
     filterVisible,
     veganCheckbox,
     locationPermission,
-    orderBySelector,
     cocktailsCheckbox,
   ]);
 
-  return [sortedRestaurants, component, range];
+  return [sortedRestaurants, component, range, orderBySelector];
 };
 
 export default useFilter;

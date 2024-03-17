@@ -1,4 +1,4 @@
-import {View, Text, FlatList, Pressable, Image} from 'react-native';
+import {View, Text, Pressable, Image} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useCallback} from 'react';
 
@@ -23,7 +23,8 @@ const mapIcon = require('../../assets/mapIcon.png');
 const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
   const {data: restaurants, isLoading, refetch} = useGetRestaurantsQuery();
 
-  const [sortedRestaurants, filterComponent] = useFilter(restaurants);
+  const [sortedRestaurants, filterComponent, , orderBySelector] =
+    useFilter(restaurants);
 
   const navigate = useCallback(
     (id: string) => {
@@ -37,12 +38,7 @@ const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
       {({pressed}) => {
         const pressedStyle = getPressedStyle(pressed);
         return (
-          <View
-            style={[
-              restaurantDetailStyles.mapBtn,
-              pressedStyle,
-              restaurantStyles.listMap,
-            ]}>
+          <View style={[pressedStyle, restaurantDetailStyles.mapBtn]}>
             <Image
               source={mapIcon}
               style={[restaurantDetailStyles.restaurantLinkIcon]}
@@ -57,7 +53,10 @@ const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
   const listHeader = (
     <View style={restaurantStyles.listHeader}>
       {filterComponent}
-      {mapBtn}
+      <View style={restaurantStyles.listMap}>
+        {orderBySelector}
+        {mapBtn}
+      </View>
     </View>
   );
 
@@ -85,10 +84,8 @@ const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
 
   return (
     <ScreenBackground>
-      <FlatList
-        data={[listHeader, renderRestaurantHome()]}
-        renderItem={({item}) => item}
-      />
+      {listHeader}
+      {renderRestaurantHome()}
     </ScreenBackground>
   );
 };

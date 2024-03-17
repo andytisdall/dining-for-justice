@@ -51,18 +51,24 @@ const useOrderBy = (): [
     return (
       <View style={styles.order}>
         <Text style={baseStyles.textXSm}>Order by</Text>
-        <Pressable
-          style={[styles.orderBtn, abcBtnStyle]}
-          onPress={() => setOrder('abc')}>
-          <Text style={[baseStyles.textXSm, abcTextStyle]}>ABC</Text>
-        </Pressable>
-        <Pressable
-          style={[styles.orderBtn, locBtnStyle]}
-          onPress={() => setOrder('loc')}>
-          <Text style={[baseStyles.textXSm, locTextStyle]}>
-            Distance from Me
-          </Text>
-        </Pressable>
+        <View>
+          <Pressable
+            style={[styles.orderBtn, abcBtnStyle]}
+            onPress={() => setOrder('abc')}>
+            <Text
+              style={[baseStyles.textXSm, abcTextStyle, baseStyles.centerText]}>
+              ABC
+            </Text>
+          </Pressable>
+          <Pressable
+            style={[styles.orderBtn, locBtnStyle]}
+            onPress={() => setOrder('loc')}>
+            <Text
+              style={[baseStyles.textXSm, locTextStyle, baseStyles.centerText]}>
+              Near Me
+            </Text>
+          </Pressable>
+        </View>
       </View>
     );
   }, [order]);

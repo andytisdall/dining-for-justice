@@ -1,6 +1,6 @@
 import {View, Text, FlatList, Image} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {useEffect} from 'react';
+import {useCallback, useEffect, useMemo} from 'react';
 
 import {RootTabsParams} from '../../../../App';
 import Btn from '../../reusable/Btn';
@@ -20,6 +20,7 @@ import RestaurantInfo from './RestaurantInfo';
 import AnimatedLoading from '../../reusable/AnimatedLoading';
 import {useGetContactQuery} from '../../../state/apis/contact/contactApi';
 import useEnableLocation from '../../../hooks/useEnableLocation';
+import CocktailInfo from './CocktailInfo';
 
 type RestaurantDetailScreenProps = NativeStackScreenProps<
   RestaurantStackParams & RootTabsParams,
@@ -48,13 +49,13 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     }
   }, [navigation, restaurant, getRestaurantDetails]);
 
-  const navigateToMap = () => {
+  const navigateToMap = useCallback(() => {
     if (restaurant) {
       navigation.navigate('RestaurantMap', {id: restaurant.id});
     }
-  };
+  }, [navigation, restaurant]);
 
-  const renderImage = () => {
+  const renderImage = useMemo(() => {
     if (restaurant?.photo) {
       return (
         <Image
@@ -65,9 +66,9 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
         />
       );
     }
-  };
+  }, [restaurant]);
 
-  const renderSignIn = () => {
+  const renderSignIn = useMemo(() => {
     return (
       <View style={baseStyles.centerSection}>
         <Btn onPress={() => navigation.navigate('Rewards')}>
@@ -78,9 +79,9 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
         </Btn>
       </View>
     );
-  };
+  }, [navigation]);
 
-  const renderDetails = () => {
+  const renderDetails = useMemo(() => {
     if (isLoading) {
       return (
         <View style={baseStyles.loadingContainer}>
@@ -91,11 +92,14 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     if (restaurant) {
       return (
         <View style={baseStyles.screenSection}>
-          {renderImage()}
+          {restaurant.cuisine === 'cocktails' && (
+            <CocktailInfo restaurant={restaurant} />
+          )}
+          {renderImage}
 
           <RestaurantInfo restaurant={restaurant} details={details} />
           {!user ? (
-            renderSignIn()
+            renderSignIn
           ) : (
             <CheckIn restaurant={restaurant} openModal={openModal} />
           )}
@@ -114,11 +118,20 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
         <Text>No restaurant data could be found.</Text>
       </View>
     );
-  };
+  }, [
+    details,
+    isLoading,
+    navigateToMap,
+    restaurant,
+    user,
+    renderSignIn,
+    openModal,
+    renderImage,
+  ]);
 
   return (
     <ScreenBackground>
-      <FlatList data={[renderDetails()]} renderItem={({item}) => item} />
+      <FlatList data={[renderDetails]} renderItem={({item}) => item} />
       {enableLocationModal}
     </ScreenBackground>
   );

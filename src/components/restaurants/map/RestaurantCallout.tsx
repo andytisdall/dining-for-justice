@@ -1,10 +1,10 @@
-import {View, Text, Image, Platform, StyleSheet} from 'react-native';
+import {View, Text, Image, Platform} from 'react-native';
 import {Svg, Image as ImageSvg} from 'react-native-svg';
 
 import baseStyles from '../../styles/baseStyles';
 import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
 import mapStyles from './mapStyles';
-import colors from '../../styles/colors';
+import restaurantCalloutStyles from './restaurantCalloutStyles';
 
 const RestaurantCallout = ({restaurant}: {restaurant: Restaurant}) => {
   const renderImage = () => {
@@ -21,44 +21,28 @@ const RestaurantCallout = ({restaurant}: {restaurant: Restaurant}) => {
         );
       }
       return (
-        <View style={styles.imageContainer}>
+        <View style={restaurantCalloutStyles.imageContainer}>
           <Image source={{uri: restaurant.photo}} style={mapStyles.image} />
         </View>
       );
     }
   };
   return (
-    <View style={styles.callout}>
+    <View style={restaurantCalloutStyles.callout}>
       <View style={baseStyles.centerSection}>
-        <View style={styles.calloutNameContainer}>
-          <Text style={styles.calloutName}>{restaurant.name}</Text>
+        <View style={restaurantCalloutStyles.calloutNameContainer}>
+          <Text style={restaurantCalloutStyles.calloutName}>
+            {restaurant.name}
+          </Text>
         </View>
-        <Text style={styles.calloutCuisine}>{restaurant.cuisine}</Text>
+        <Text style={restaurantCalloutStyles.calloutCuisine}>
+          {restaurant.cuisine}
+        </Text>
         {renderImage()}
         <Text style={mapStyles.detailsText}>click to see details</Text>
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  callout: {},
-  calloutNameContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    width: 120,
-    justifyContent: 'center',
-  },
-  calloutName: {
-    fontWeight: '700',
-    color: colors.darkGrey,
-    textAlign: 'center',
-  },
-  calloutCuisine: {color: colors.darkBlue},
-  imageContainer: {
-    height: 120,
-    width: 120,
-  },
-});
 
 export default RestaurantCallout;
