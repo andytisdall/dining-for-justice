@@ -20,13 +20,14 @@ export default StyleSheet.create({
   filterCheckboxes: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    margin: 10,
+    justifyContent: 'center',
+    marginTop: 5,
   },
   checkbox: {
-    width: '50%',
+    width: '47%',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 5,
+    padding: 5,
   },
   filterIcon: {width: 20, height: 20},
   filterLabel: {flexWrap: 'wrap', flex: 1},

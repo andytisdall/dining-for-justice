@@ -1,11 +1,11 @@
 import {View, Text} from 'react-native';
 
-import baseStyles from '../../styles/baseStyles';
-import restaurantDetailStyles from './restaurantDetailStyles';
+import baseStyles from '../../../styles/baseStyles';
 import {
   Restaurant,
   RestaurantDetails,
-} from '../../../state/apis/restaurantApi/restaurantApi';
+} from '../../../../state/apis/restaurantApi/restaurantApi';
+import restaurantTagStyles from './restaurantTagStyles';
 
 const RestaurantTags = ({
   restaurant,
@@ -18,12 +18,10 @@ const RestaurantTags = ({
     return (
       <View
         style={[
-          restaurantDetailStyles.restaurantServesItem,
-          restaurantDetailStyles.restaurantInfoItem,
+          restaurantTagStyles.restaurantServesItem,
+          restaurantTagStyles.restaurantInfoItem,
         ]}>
-        <Text style={restaurantDetailStyles.restaurantServesItemText}>
-          {text}
-        </Text>
+        <Text style={restaurantTagStyles.restaurantServesItemText}>{text}</Text>
       </View>
     );
   };
@@ -32,10 +30,10 @@ const RestaurantTags = ({
     return (
       <View
         style={[
-          restaurantDetailStyles.restaurantTagItem,
-          restaurantDetailStyles.restaurantInfoItem,
+          restaurantTagStyles.restaurantTagItem,
+          restaurantTagStyles.restaurantInfoItem,
         ]}>
-        <Text style={restaurantDetailStyles.restaurantTagItemText}>{text}</Text>
+        <Text style={restaurantTagStyles.restaurantTagItemText}>{text}</Text>
       </View>
     );
   };
@@ -76,10 +74,7 @@ const RestaurantTags = ({
   return (
     <View style={baseStyles.centerSection}>
       <View
-        style={[
-          baseStyles.screenSection,
-          restaurantDetailStyles.restaurantIcons,
-        ]}>
+        style={[baseStyles.screenSection, restaurantTagStyles.restaurantIcons]}>
         {renderServesItems()}
         {renderTags()}
       </View>

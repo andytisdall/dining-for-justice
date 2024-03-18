@@ -1,4 +1,4 @@
-import {Platform, FlatList} from 'react-native';
+import {Platform, FlatList, Dimensions, Text} from 'react-native';
 import MapView, {PROVIDER_GOOGLE, Region, MapMarker} from 'react-native-maps';
 import {useRef, useState, useEffect, useMemo, useCallback} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -15,9 +15,9 @@ import baseStyles from '../../styles/baseStyles';
 import ScreenBackground from '../../reusable/ScreenBackground';
 import useEnableLocation from '../../../hooks/useEnableLocation';
 import MapHeader from './MapHeader';
-import CustomMarker from './CustomMarker';
+import CustomMarker from './customMarker/CustomMarker';
 import MapRestaurantList from './MapRestaurantList';
-import RestaurantList from '../RestaurantList';
+import RestaurantList from '../restaurantList/RestaurantList';
 import {
   INITIAL_COORDS,
   renderRangeCircle,
@@ -26,11 +26,15 @@ import {
   renderUserMarker,
   resetMap,
 } from './mapFunctions';
+import useRespondToScroll from '../../../hooks/useRespondToScroll';
+import Btn from '../../reusable/Btn';
 
 type MapScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
   'RestaurantMap'
 >;
+
+const height = Dimensions.get('screen').height;
 
 const Map = ({navigation, route}: MapScreenProps) => {
   const {id} = route.params;
@@ -43,6 +47,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
 
   const [sortedRestaurants, filterComponent, range, orderByComponent] =
     useFilter(restaurants);
+  const [onScroll, PopUp] = useRespondToScroll(height);
 
   const [getPermission, {data: locationPermission}] =
     useGetPermissionMutation();
@@ -51,6 +56,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
   const markerRef = useRef<MapMarker>(null);
   const mapRef = useRef<MapView>(null);
   const initialLoadRef = useRef(false);
+  const listRef = useRef<FlatList>(null);
 
   useEffect(() => {
     getPermission();
@@ -104,6 +110,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
             selectRestaurant={selectRestaurant}
             ref={ref}
             restaurantLink={restaurantLink}
+            key={rest.id}
           />
         );
       });
@@ -167,10 +174,20 @@ const Map = ({navigation, route}: MapScreenProps) => {
   const mapRestaurantList = useMemo(() => {
     return (
       <MapRestaurantList orderByComponent={orderByComponent}>
-        <RestaurantList navigate={navigate} />
+        <RestaurantList navigate={navigate} restaurants={sortedRestaurants} />
       </MapRestaurantList>
     );
-  }, [navigate, orderByComponent]);
+  }, [navigate, orderByComponent, sortedRestaurants]);
+
+  const goToMapBtn = useMemo(() => {
+    return (
+      <PopUp>
+        <Btn onPress={() => listRef.current?.scrollToIndex({index: 0})}>
+          <Text>Go to Map</Text>
+        </Btn>
+      </PopUp>
+    );
+  }, [PopUp]);
 
   const data = [mapHeader, map, mapRestaurantList];
 
@@ -182,10 +199,13 @@ const Map = ({navigation, route}: MapScreenProps) => {
 
   return (
     <ScreenBackground>
+      {goToMapBtn}
       <FlatList
         style={baseStyles.scrollView}
         data={data}
         renderItem={renderItem}
+        onScroll={onScroll}
+        ref={listRef}
       />
     </ScreenBackground>
   );

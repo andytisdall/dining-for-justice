@@ -3,7 +3,6 @@ import {View, Text, Linking, Image, Pressable} from 'react-native';
 import {RestaurantDetails} from '../../../state/apis/restaurantApi/restaurantApi';
 import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetailStyles';
-// import MenuIcon from '../../../assets/menu-icon.svg';
 
 const mapIcon = require('../../../assets/mapIcon.png');
 const menuIcon = require('../../../assets/menu-icon.png');

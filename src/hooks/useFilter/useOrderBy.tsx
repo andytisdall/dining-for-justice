@@ -1,7 +1,7 @@
 import {useState, useMemo} from 'react';
 import {View, Text, Pressable} from 'react-native';
 
-import baseStyles from '../../components/styles/baseStyles';
+import baseStyles, {getPressedStyle} from '../../components/styles/baseStyles';
 import styles from './filterStyles';
 import {
   Restaurant,
@@ -52,21 +52,39 @@ const useOrderBy = (): [
       <View style={styles.order}>
         <Text style={baseStyles.textXSm}>Order by</Text>
         <View>
-          <Pressable
-            style={[styles.orderBtn, abcBtnStyle]}
-            onPress={() => setOrder('abc')}>
-            <Text
-              style={[baseStyles.textXSm, abcTextStyle, baseStyles.centerText]}>
-              ABC
-            </Text>
+          <Pressable onPress={() => setOrder('abc')}>
+            {({pressed}) => {
+              const pressedStyle = getPressedStyle(pressed);
+              return (
+                <View style={[styles.orderBtn, abcBtnStyle, pressedStyle]}>
+                  <Text
+                    style={[
+                      baseStyles.textXSm,
+                      abcTextStyle,
+                      baseStyles.centerText,
+                    ]}>
+                    ABC
+                  </Text>
+                </View>
+              );
+            }}
           </Pressable>
-          <Pressable
-            style={[styles.orderBtn, locBtnStyle]}
-            onPress={() => setOrder('loc')}>
-            <Text
-              style={[baseStyles.textXSm, locTextStyle, baseStyles.centerText]}>
-              Near Me
-            </Text>
+          <Pressable onPress={() => setOrder('loc')}>
+            {({pressed}) => {
+              const pressedStyle = getPressedStyle(pressed);
+              return (
+                <View style={[styles.orderBtn, locBtnStyle, pressedStyle]}>
+                  <Text
+                    style={[
+                      baseStyles.textXSm,
+                      locTextStyle,
+                      baseStyles.centerText,
+                    ]}>
+                    Near Me
+                  </Text>
+                </View>
+              );
+            }}
           </Pressable>
         </View>
       </View>

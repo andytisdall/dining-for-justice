@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
   },
   icon: {
     flex: 1,
-    maxHeight: 40,
     marginTop: 10,
+    maxHeight: 40,
   },
 });
 

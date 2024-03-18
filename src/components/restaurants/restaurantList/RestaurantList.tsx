@@ -2,8 +2,8 @@ import {View, Text, FlatList} from 'react-native';
 import {useCallback, memo} from 'react';
 
 import RestaurantListItem from './RestaurantListItem';
-import {Restaurant} from '../../state/apis/restaurantApi/restaurantApi';
-import baseStyles from '../styles/baseStyles';
+import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
+import baseStyles from '../../styles/baseStyles';
 import restaurantStyles from './restaurantStyles';
 
 const RestaurantList = memo(
@@ -22,6 +22,7 @@ const RestaurantList = memo(
     );
 
     const keyExtractor = (item: Restaurant) => item.id;
+
     if (!restaurants?.length) {
       return (
         <View style={[baseStyles.centerSection, baseStyles.screenSection]}>

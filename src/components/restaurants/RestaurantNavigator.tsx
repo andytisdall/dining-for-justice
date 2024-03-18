@@ -3,7 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import RestaurantDetail from './restaurantDetail/RestaurantDetail';
 import Map from './map/Map';
 import StackHeader from '../reusable/StackHeader';
-import RestaurantHome from './RestaurantHome';
+import RestaurantHome from './restaurantList/RestaurantHome';
 
 export type RestaurantStackParams = {
   RestaurantDetail: {id: string};

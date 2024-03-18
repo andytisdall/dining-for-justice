@@ -2,7 +2,7 @@ import {View, Text} from 'react-native';
 import {PropsWithChildren} from 'react';
 
 import Btn from '../../reusable/Btn';
-import restaurantStyles from '../restaurantStyles';
+import restaurantStyles from '../restaurantList/restaurantStyles';
 import mapStyles from './mapStyles';
 import baseStyles from '../../styles/baseStyles';
 

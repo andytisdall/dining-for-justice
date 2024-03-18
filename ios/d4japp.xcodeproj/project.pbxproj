@@ -15,7 +15,7 @@
 		7699B88040F8A987B510C191 /* libPods-d4japp-d4jappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-d4japp-d4jappTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		C9459A4E7B11427AADE04E3F /* Manrope-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BBC00C0A14364EBD8DD36031 /* Manrope-VariableFont_wght.ttf */; };
-		C99F761A925441DABEE3040C /* SortsMillGoudy-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A19FDC2CA2134C46B2E743F3 /* SortsMillGoudy-Regular.ttf */; };
+		F62700A255C84C8AA20AEAE5 /* SortsMillGoudy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C2C83610BBF43C6981C996C /* SortsMillGoudy.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +48,7 @@
 		8AFF295F2B3CBFA60049A490 /* d4japp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = d4japp.entitlements; path = d4japp/d4japp.entitlements; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		BBC00C0A14364EBD8DD36031 /* Manrope-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "Manrope-VariableFont_wght.ttf"; path = "../src/assets/fonts/Manrope-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		A19FDC2CA2134C46B2E743F3 /* SortsMillGoudy-Regular.ttf */ = {isa = PBXFileReference; name = "SortsMillGoudy-Regular.ttf"; path = "../src/assets/fonts/SortsMillGoudy-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		1C2C83610BBF43C6981C996C /* SortsMillGoudy.ttf */ = {isa = PBXFileReference; name = "SortsMillGoudy.ttf"; path = "../src/assets/fonts/SortsMillGoudy.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,7 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				BBC00C0A14364EBD8DD36031 /* Manrope-VariableFont_wght.ttf */,
-				A19FDC2CA2134C46B2E743F3 /* SortsMillGoudy-Regular.ttf */,
+				1C2C83610BBF43C6981C996C /* SortsMillGoudy.ttf */,
 			);
 			name = Resources;
 			path = "";
@@ -261,7 +261,7 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				C9459A4E7B11427AADE04E3F /* Manrope-VariableFont_wght.ttf in Resources */,
-				C99F761A925441DABEE3040C /* SortsMillGoudy-Regular.ttf in Resources */,
+				F62700A255C84C8AA20AEAE5 /* SortsMillGoudy.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

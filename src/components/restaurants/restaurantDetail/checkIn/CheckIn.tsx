@@ -1,14 +1,19 @@
 import {View, Text, Animated} from 'react-native';
-import {useRef} from 'react';
+import {useRef, useMemo} from 'react';
+import {addDays} from 'date-fns';
 
-import Loading from '../../reusable/Loading';
-import {useUserIsWithinRangeOfLocationMutation} from '../../../state/apis/rewardsApi/checkInApi';
-import {useCheckInMutation} from '../../../state/apis/rewardsApi/checkInApi';
-import baseStyles from '../../styles/baseStyles';
-import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
-import Btn from '../../reusable/Btn';
-import restaurantDetailStyles from './restaurantDetailStyles';
-import {useGetPermissionMutation} from '../../../state/apis/rewardsApi/locationApi';
+import Loading from '../../../reusable/Loading';
+import {useUserIsWithinRangeOfLocationMutation} from '../../../../state/apis/rewardsApi/checkInApi';
+import {
+  useCheckInMutation,
+  useGetPointsQuery,
+  CheckIn as CheckInType,
+} from '../../../../state/apis/rewardsApi/checkInApi';
+import baseStyles from '../../../styles/baseStyles';
+import {Restaurant} from '../../../../state/apis/restaurantApi/restaurantApi';
+import Btn from '../../../reusable/Btn';
+import {useGetPermissionMutation} from '../../../../state/apis/rewardsApi/locationApi';
+import checkInStyles from './checkInStyles';
 
 const CheckIn = ({
   restaurant,
@@ -21,6 +26,7 @@ const CheckIn = ({
     userIsWithinRange,
     {data: inRange, isLoading: loadingRange, isUninitialized},
   ] = useUserIsWithinRangeOfLocationMutation();
+  const {data: checkIns} = useGetPointsQuery();
 
   const [getPermission] = useGetPermissionMutation();
 
@@ -31,15 +37,30 @@ const CheckIn = ({
 
   const loading = loadingCheckin || loadingRange;
 
+  const today = useMemo(() => {
+    const t = new Date();
+    t.setHours(0);
+    t.setMinutes(0);
+    return t;
+  }, []);
+
+  const existingCheckIn = checkIns?.find((ch: CheckInType) => {
+    const checkInDate = new Date(ch.date);
+    const lowerBound = today;
+    const upperBound = addDays(today, 1);
+
+    return checkInDate >= lowerBound && checkInDate < upperBound;
+  });
+
   const withinRange = () => {
     return (
       <View
         style={[
           baseStyles.centerSection,
-          restaurantDetailStyles.withinRange,
-          restaurantDetailStyles.checkInBubble,
+          checkInStyles.withinRange,
+          checkInStyles.checkInBubble,
         ]}>
-        <Text style={[baseStyles.textXSm, restaurantDetailStyles.checkInText]}>
+        <Text style={[baseStyles.textXSm, checkInStyles.checkInText]}>
           Check in Successful!
         </Text>
       </View>
@@ -51,14 +72,38 @@ const CheckIn = ({
       <View
         style={[
           baseStyles.centerSection,
-          restaurantDetailStyles.notWithinRange,
-          restaurantDetailStyles.checkInBubble,
+          checkInStyles.notWithinRange,
+          checkInStyles.checkInBubble,
         ]}>
-        <Text
-          style={[baseStyles.textXSm, restaurantDetailStyles.checkInErrorText]}>
+        <Text style={[baseStyles.textXSm, checkInStyles.checkInErrorText]}>
           {message}
         </Text>
       </View>
+    );
+  };
+
+  const renderUninitializedText = () => {
+    if (existingCheckIn) {
+      return (
+        <Text
+          style={[
+            baseStyles.centerText,
+            checkInStyles.checkInText,
+            checkInStyles.checkInBubble,
+          ]}>
+          You have already checked in to this location today
+        </Text>
+      );
+    }
+    return (
+      <Text
+        style={[
+          baseStyles.centerText,
+          checkInStyles.checkInText,
+          checkInStyles.checkInBubble,
+        ]}>
+        Check in to this location to earn a chance at winning prizes!
+      </Text>
     );
   };
 
@@ -88,7 +133,7 @@ const CheckIn = ({
 
   const renderResult = () => {
     if (!loadingRange && !inRange) {
-      return errorMsg('To earn a point, you must be present at this location');
+      return errorMsg('To earn points, you must be present at this location');
     }
     if (isError) {
       errorMsg(
@@ -124,7 +169,7 @@ const CheckIn = ({
       //   longitude: -122.267601,
       // };
       return (
-        <View style={restaurantDetailStyles.checkIn}>
+        <View style={checkInStyles.checkIn}>
           <Btn
             onPress={() => {
               getPermission()
@@ -154,22 +199,13 @@ const CheckIn = ({
           {inRange !== undefined && !loading ? (
             <Animated.View
               style={[
-                restaurantDetailStyles.checkInBubble,
+                checkInStyles.checkInBubble,
                 {transform: [{scaleX: translateValue}]},
               ]}>
               {renderResult()}
             </Animated.View>
           ) : (
-            isUninitialized && (
-              <Text
-                style={[
-                  baseStyles.centerText,
-                  restaurantDetailStyles.checkInText,
-                  restaurantDetailStyles.checkInBubble,
-                ]}>
-                Check in to this location to earn a chance at winning prizes!
-              </Text>
-            )
+            isUninitialized && renderUninitializedText()
           )}
         </View>
       );

@@ -5,6 +5,7 @@ import {
   Restaurant,
 } from '../../../state/apis/restaurantApi/restaurantApi';
 import UserMarker from './UserMarker';
+import {sizeMultiplier} from '../../styles/baseStyles';
 
 export const RANGE_MULTIPLIER = 90000;
 export const ZOOM_VALUE = 0.05;
@@ -16,6 +17,10 @@ export const INITIAL_COORDS: Region = {
 };
 
 export const getVerticalOffset = (zoom: number) => {
+  return getZoomMultiplier(zoom) * sizeMultiplier * 2;
+};
+
+const getZoomMultiplier = (zoom: number) => {
   if (zoom > 0.035) {
     return 0.01;
   }

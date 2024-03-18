@@ -1,4 +1,4 @@
-import {format, utcToZonedTime} from 'date-fns-tz';
+import {format} from 'date-fns-tz';
 import {Text, View, FlatList, Pressable} from 'react-native';
 import {useState} from 'react';
 
@@ -26,10 +26,7 @@ const PastCheckIns = () => {
     return (
       <View style={pastVisitsStyles.pastVisitItem}>
         <Text style={[baseStyles.textSm, pastVisitsStyles.pastVisitItemText]}>
-          {format(
-            utcToZonedTime(item.date, 'America/Los_Angeles'),
-            'M/d/yy h:mm a',
-          )}
+          {format(new Date(item.date), 'M/d/yy')}
         </Text>
         <Text style={[baseStyles.textSm, pastVisitsStyles.pastVisitItemText]}>
           {rest?.name}

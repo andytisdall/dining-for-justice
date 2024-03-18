@@ -3,22 +3,22 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useCallback} from 'react';
 
 import restaurantStyles from './restaurantStyles';
-import {RestaurantStackParams} from './RestaurantNavigator';
-import AnimatedLoading from '../reusable/AnimatedLoading';
-import {useGetRestaurantsQuery} from '../../state/apis/restaurantApi/restaurantApi';
-import baseStyles, {getPressedStyle} from '../styles/baseStyles';
-import restaurantDetailStyles from './restaurantDetail/restaurantDetailStyles';
-import useFilter from '../../hooks/useFilter/useFilter';
-import ScreenBackground from '../reusable/ScreenBackground';
+import {RestaurantStackParams} from './../RestaurantNavigator';
+import AnimatedLoading from '../../reusable/AnimatedLoading';
+import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
+import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
+import restaurantDetailStyles from '../restaurantDetail/restaurantDetailStyles';
+import useFilter from '../../../hooks/useFilter/useFilter';
+import ScreenBackground from '../../reusable/ScreenBackground';
 import RestaurantList from './RestaurantList';
-import Refresh from '../reusable/Refresh';
+import Refresh from '../../reusable/Refresh';
 
 type RestaurantsScreenProps = NativeStackScreenProps<
   RestaurantStackParams,
   'RestaurantHome'
 >;
 
-const mapIcon = require('../../assets/mapIcon.png');
+const mapIcon = require('../../../assets/mapIcon.png');
 
 const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
   const {data: restaurants, isLoading, refetch} = useGetRestaurantsQuery();
@@ -70,7 +70,7 @@ const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
     }
     if (!restaurants) {
       return (
-        <View>
+        <View style={restaurantStyles.refetch}>
           <Text style={baseStyles.textSm}>No Results</Text>
           <Refresh refetch={refetch} />
           <Text style={baseStyles.textSm}>Try Again</Text>

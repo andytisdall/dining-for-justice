@@ -1,17 +1,17 @@
 import {View, Text, Image, Platform} from 'react-native';
 import {Svg, Image as ImageSvg} from 'react-native-svg';
 
-import baseStyles from '../../styles/baseStyles';
-import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
-import mapStyles from './mapStyles';
-import restaurantCalloutStyles from './restaurantCalloutStyles';
+import baseStyles from '../../../styles/baseStyles';
+import {Restaurant} from '../../../../state/apis/restaurantApi/restaurantApi';
+import mapStyles from '../mapStyles';
+import restaurantCalloutStyles, {imageSize} from './restaurantCalloutStyles';
 
 const RestaurantCallout = ({restaurant}: {restaurant: Restaurant}) => {
   const renderImage = () => {
     if (restaurant.photo) {
       if (Platform.OS === 'android') {
         return (
-          <Svg width={120} height={100}>
+          <Svg width={imageSize} height={imageSize}>
             <ImageSvg
               width={'100%'}
               height={'100%'}
@@ -35,11 +35,15 @@ const RestaurantCallout = ({restaurant}: {restaurant: Restaurant}) => {
             {restaurant.name}
           </Text>
         </View>
-        <Text style={restaurantCalloutStyles.calloutCuisine}>
-          {restaurant.cuisine}
+        <Text style={restaurantCalloutStyles.detailsText}>
+          {restaurant.cuisine === 'cocktails'
+            ? 'Cocktails for a Cause'
+            : restaurant.cuisine}
         </Text>
         {renderImage()}
-        <Text style={mapStyles.detailsText}>click to see details</Text>
+        <Text style={restaurantCalloutStyles.detailsText}>
+          click to see details
+        </Text>
       </View>
     </View>
   );

@@ -1,36 +1,36 @@
 import {Pressable, View, Text} from 'react-native';
-import {memo, useMemo} from 'react';
+import {useMemo} from 'react';
 import FastImage from 'react-native-fast-image';
 
-import {Restaurant} from '../../state/apis/restaurantApi/restaurantApi';
-import baseStyles, {getPressedStyle} from '../styles/baseStyles';
+import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
+import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
 import restaurantListItemStyles from './restaurantListItemStyles';
 
-const RestaurantListItem = memo(
-  ({
-    restaurant,
-    navigate,
-  }: {
-    restaurant: Restaurant;
-    navigate: (id: string) => void;
-  }) => {
-    const cuisine =
-      restaurant.cuisine === 'cocktails'
-        ? 'Cocktails for a Cause'
-        : restaurant.cuisine;
+const RestaurantListItem = ({
+  restaurant,
+  navigate,
+}: {
+  restaurant: Restaurant;
+  navigate: (id: string) => void;
+}) => {
+  const cuisine =
+    restaurant.cuisine === 'cocktails'
+      ? 'Cocktails for a Cause'
+      : restaurant.cuisine;
 
-    const image = useMemo(() => {
-      return restaurant.photo ? (
-        <FastImage
-          source={{uri: restaurant.photo}}
-          style={restaurantListItemStyles.image}
-          resizeMode="contain"
-        />
-      ) : (
-        <View style={restaurantListItemStyles.image} />
-      );
-    }, [restaurant]);
+  const image = useMemo(() => {
+    return restaurant.photo ? (
+      <FastImage
+        source={{uri: restaurant.photo}}
+        style={restaurantListItemStyles.image}
+        resizeMode="cover"
+      />
+    ) : (
+      <View style={restaurantListItemStyles.image} />
+    );
+  }, [restaurant]);
 
+  const listItem = useMemo(() => {
     return (
       <Pressable
         onPress={() => {
@@ -66,7 +66,9 @@ const RestaurantListItem = memo(
         }}
       </Pressable>
     );
-  },
-);
+  }, [cuisine, image, navigate, restaurant]);
+
+  return listItem;
+};
 
 export default RestaurantListItem;

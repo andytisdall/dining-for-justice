@@ -58,7 +58,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Manrope-VariableFont_wght.ttf</string>
-		<string>SortsMillGoudy-Regular.ttf</string>
+		<string>SortsMillGoudy.ttf</string>
 	</array>
 </dict>
 </plist>

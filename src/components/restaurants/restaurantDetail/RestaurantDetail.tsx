@@ -13,14 +13,15 @@ import baseStyles from '../../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetailStyles';
 import OpeningHours from './OpeningHours';
 import ScreenBackground from '../../reusable/ScreenBackground';
-import CheckIn from './CheckIn';
-import RestaurantTags from './RestaurantTags';
+import CheckIn from './checkIn/CheckIn';
+import RestaurantTags from './restaurantTags/RestaurantTags';
 import RestaurantLinks from './RestaurantLinks';
 import RestaurantInfo from './RestaurantInfo';
 import AnimatedLoading from '../../reusable/AnimatedLoading';
 import {useGetContactQuery} from '../../../state/apis/contact/contactApi';
 import useEnableLocation from '../../../hooks/useEnableLocation';
 import CocktailInfo from './CocktailInfo';
+import Refresh from '../../reusable/Refresh';
 
 type RestaurantDetailScreenProps = NativeStackScreenProps<
   RestaurantStackParams & RootTabsParams,
@@ -28,7 +29,7 @@ type RestaurantDetailScreenProps = NativeStackScreenProps<
 >;
 
 const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
-  const {data} = useGetRestaurantsQuery();
+  const {data, refetch} = useGetRestaurantsQuery();
   const {data: user} = useGetContactQuery();
 
   const {id} = route.params;
@@ -115,7 +116,10 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     }
     return (
       <View style={baseStyles.screenSection}>
-        <Text>No restaurant data could be found.</Text>
+        <Text style={[baseStyles.centerText, baseStyles.text]}>
+          No restaurant data could be found.
+        </Text>
+        <Refresh refetch={refetch} />
       </View>
     );
   }, [
@@ -127,6 +131,7 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     renderSignIn,
     openModal,
     renderImage,
+    refetch,
   ]);
 
   return (

@@ -1,9 +1,9 @@
 import {StyleSheet, Dimensions} from 'react-native';
 
-import colors from '../styles/colors';
+import colors from '../../styles/colors';
 
 const width = Dimensions.get('screen').width;
-const boxSize = width / 2.55;
+const boxSize = width / 2.6;
 
 export default StyleSheet.create({
   restaurantListItem: {
@@ -20,9 +20,9 @@ export default StyleSheet.create({
     borderColor: colors.yellow,
   },
   image: {
+    marginVertical: 5,
     width: boxSize,
     height: boxSize,
-    marginVertical: 10,
   },
   cuisine: {
     color: colors.blue,

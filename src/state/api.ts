@@ -6,7 +6,7 @@ import type {
 } from '@reduxjs/toolkit/query/react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// let url = 'http://192.168.0.102:3001/api';
+// let url = 'http://192.168.1.218:3001/api';
 let url = 'https://portal.ckoakland.org/api';
 
 const baseQueryWithToken: BaseQueryFn<
