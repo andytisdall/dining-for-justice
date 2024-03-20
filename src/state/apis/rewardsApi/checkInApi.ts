@@ -1,5 +1,6 @@
 import {sign} from 'react-native-pure-jwt';
 import Geolocation from 'react-native-geolocation-service';
+import Config from 'react-native-config';
 
 import {Coordinates} from '../restaurantApi/restaurantApi';
 import {api} from '../../api';
@@ -22,15 +23,24 @@ const comparePosition = (targetCoords: Coordinates): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     Geolocation.getCurrentPosition(
       position => {
-        const MAX_DIFFERENCE = 0.0003;
-        const latDiff = Math.abs(
-          position.coords.latitude - targetCoords.latitude,
-        );
-        const lngDiff = Math.abs(
-          position.coords.longitude - targetCoords.longitude,
-        );
+        const IGNORE_LOCATION = true;
 
-        resolve(latDiff + lngDiff <= MAX_DIFFERENCE);
+        if (IGNORE_LOCATION) {
+          resolve(true);
+        } else {
+          const MAX_DIFFERENCE = 0.0003;
+          const latDiff = Math.abs(
+            position.coords.latitude - targetCoords.latitude,
+          );
+          const lngDiff = Math.abs(
+            position.coords.longitude - targetCoords.longitude,
+          );
+
+          resolve(
+            Math.pow(latDiff, 2) + Math.pow(lngDiff, 2) <=
+              Math.pow(MAX_DIFFERENCE, 2),
+          );
+        }
       },
       error => reject(error),
     );
@@ -41,7 +51,15 @@ const checkInApi = api.injectEndpoints({
   endpoints: builder => ({
     checkIn: builder.mutation<CheckInResponse, {restaurantId: string}>({
       queryFn: async ({restaurantId}, queryApi, extraOptions, baseQuery) => {
-        const SECRET_KEY = 'itisasecret';
+        const SECRET_KEY = Config.CHECK_IN_KEY;
+        if (!SECRET_KEY) {
+          return {
+            error: {
+              error: 'Could not encrypt request to server',
+              status: 'CUSTOM_ERROR',
+            },
+          };
+        }
         const encodedValue = await sign(
           {
             restaurantId,
@@ -95,4 +113,5 @@ export const {
   useCheckInMutation,
   useGetPointsQuery,
   useUserIsWithinRangeOfLocationMutation,
+  useGetTotalCheckInsQuery,
 } = checkInApi;

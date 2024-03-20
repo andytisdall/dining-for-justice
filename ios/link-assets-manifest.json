@@ -2,12 +2,12 @@
   "migIndex": 1,
   "data": [
     {
-      "path": "src/assets/fonts/Manrope-VariableFont_wght.ttf",
-      "sha1": "1b4df48059f89147cf4f2e29d2d6a22ce1b6e7fe"
+      "path": "src/assets/fonts/Manrope.ttf",
+      "sha1": "d62e1b2498f65ea5bc20fc5e365d19239527b419"
     },
     {
-      "path": "src/assets/fonts/SortsMillGoudy.ttf",
-      "sha1": "c512680d05fee63bd3512f71835914a3a4d1201d"
+      "path": "src/assets/fonts/Rhodium Libre.ttf",
+      "sha1": "347e3f6e85e885bd68c67b9b7d7c7c580e488842"
     }
   ]
 }

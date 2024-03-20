@@ -8,6 +8,8 @@ import Arrow from '../../assets/arrow.svg';
 import colors from '../styles/colors';
 import {sizeMultiplier} from '../styles/baseStyles';
 
+const font = 'Rhodium Libre';
+
 const StackHeader = ({navigation, route, options}: NativeStackHeaderProps) => {
   const translateValue = useRef(new Animated.Value(0)).current;
 
@@ -17,7 +19,7 @@ const StackHeader = ({navigation, route, options}: NativeStackHeaderProps) => {
     <View style={styles.headerContainer}>
       <LinearGradient
         style={styles.header}
-        colors={[colors.grey, colors.darkGrey, 'black']}>
+        colors={['rgb(60,60,120)', 'rgb(30,40,70)']}>
         {options.headerBackVisible && (
           <Animated.View
             style={[
@@ -51,7 +53,6 @@ const StackHeader = ({navigation, route, options}: NativeStackHeaderProps) => {
         <View style={styles.title}>
           <Text style={styles.titleText}>{title}</Text>
         </View>
-        {options.headerBackVisible && <View style={styles.sides} />}
       </LinearGradient>
     </View>
   );
@@ -78,29 +79,31 @@ export const styles = StyleSheet.create({
     height: '100%',
   },
   title: {
-    width: '80%',
+    width: '75%',
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 10,
   },
   titleText: {
-    fontSize: 26 * sizeMultiplier,
+    fontSize: 24 * sizeMultiplier,
     color: 'white',
-    fontFamily: 'Sorts Mill Goudy',
+    fontFamily: font,
     textAlign: 'center',
+    lineHeight: 50,
+    paddingTop: 8,
   },
   btn: {
     borderWidth: 2,
     borderRadius: 50,
-    backgroundColor: colors.blue,
+    backgroundColor: colors.lightGrey,
     borderColor: 'white',
     marginLeft: 10,
     height: 40 * sizeMultiplier,
     width: 40 * sizeMultiplier,
-    position: 'relative',
+    position: 'absolute',
+    left: 5,
   },
   pressable: {width: '100%', height: '100%'},
-  sides: {flex: 1},
   arrow: {
     transform: [
       {rotate: '180deg'},

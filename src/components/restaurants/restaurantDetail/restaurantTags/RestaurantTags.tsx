@@ -16,11 +16,7 @@ const RestaurantTags = ({
 }) => {
   const servesIcon = (text: string) => {
     return (
-      <View
-        style={[
-          restaurantTagStyles.restaurantServesItem,
-          restaurantTagStyles.restaurantInfoItem,
-        ]}>
+      <View style={[restaurantTagStyles.restaurantInfoItem]}>
         <Text style={restaurantTagStyles.restaurantServesItemText}>{text}</Text>
       </View>
     );
@@ -28,11 +24,7 @@ const RestaurantTags = ({
 
   const tagIcon = (text: string) => {
     return (
-      <View
-        style={[
-          restaurantTagStyles.restaurantTagItem,
-          restaurantTagStyles.restaurantInfoItem,
-        ]}>
+      <View style={[restaurantTagStyles.restaurantInfoItem]}>
         <Text style={restaurantTagStyles.restaurantTagItemText}>{text}</Text>
       </View>
     );

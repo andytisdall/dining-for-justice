@@ -7,9 +7,10 @@ import {font} from '../styles/baseStyles';
 export default StyleSheet.create({
   logoContainer: {
     height: 200 * sizeMultiplier,
-    marginVertical: 20,
+    width: 200 * sizeMultiplier,
+    marginVertical: 10,
   },
-  logo: {resizeMode: 'contain', height: '100%'},
+  logo: {resizeMode: 'contain', height: '100%', width: '100%'},
   totalMeals: {fontSize: 35, color: 'pink', marginTop: 10, fontWeight: '600'},
   donateBtn: {
     backgroundColor: colors.red,

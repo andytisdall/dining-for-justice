@@ -41,6 +41,11 @@
 	<string>Check in at a D4J Restaurant</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Placeholder</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Manrope.ttf</string>
+		<string>Rhodium Libre.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen.storyboard</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -55,10 +60,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Manrope-VariableFont_wght.ttf</string>
-		<string>SortsMillGoudy.ttf</string>
-	</array>
 </dict>
 </plist>

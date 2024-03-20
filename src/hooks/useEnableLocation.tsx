@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Pressable,
 } from 'react-native';
-import {useState, PropsWithChildren} from 'react';
+import {useState, PropsWithChildren, useMemo, useCallback} from 'react';
 
 import Btn from '../components/reusable/Btn';
 import baseStyles from '../components/styles/baseStyles';
@@ -33,7 +33,7 @@ const useEnableLocation = (): [() => void, JSX.Element | undefined] => {
 
   const isIos = Platform.OS === 'ios';
   const isAndroid = Platform.OS === 'android';
-  const openSettings = () => {
+  const openSettings = useCallback(() => {
     if (isIos) {
       Linking.openURL('app-settings:');
     }
@@ -41,9 +41,9 @@ const useEnableLocation = (): [() => void, JSX.Element | undefined] => {
       Linking.openSettings();
     }
     setModalOpen(false);
-  };
+  }, [isAndroid, isIos]);
 
-  const renderButtons = () => {
+  const buttons = useMemo(() => {
     if (isIos || isAndroid) {
       return (
         <View style={styles.btns}>
@@ -56,21 +56,19 @@ const useEnableLocation = (): [() => void, JSX.Element | undefined] => {
         </View>
       );
     }
-  };
+  }, [isAndroid, isIos, openSettings]);
 
-  const modal = () => {
+  const modal = useMemo(() => {
     if (modalOpen) {
-      return (
-        <Modal onPress={() => setModalOpen(false)}>{renderButtons()}</Modal>
-      );
+      return <Modal onPress={() => setModalOpen(false)}>{buttons}</Modal>;
     }
-  };
+  }, [buttons, modalOpen]);
 
   const openModal = () => {
     setModalOpen(true);
   };
 
-  return [openModal, modal()];
+  return [openModal, modal];
 };
 
 const styles = StyleSheet.create({

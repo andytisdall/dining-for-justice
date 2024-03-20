@@ -5,22 +5,15 @@ import {sizeMultiplier} from '../../../styles/baseStyles';
 
 export default StyleSheet.create({
   restaurantInfoItem: {
-    borderRadius: 30,
-    padding: 10 * sizeMultiplier,
+    padding: 5 * sizeMultiplier,
     marginBottom: 10,
-    marginHorizontal: 5,
-  },
-  restaurantServesItem: {
-    borderColor: colors.yellow,
-    borderWidth: 1,
+    marginHorizontal: 15,
+    borderColor: colors.blue,
+    borderBottomWidth: 1,
   },
   restaurantServesItemText: {
-    color: colors.yellow,
+    color: colors.green,
     fontSize: 12 * sizeMultiplier,
-  },
-  restaurantTagItem: {
-    borderColor: colors.pink,
-    borderWidth: 1,
   },
   restaurantTagItemText: {
     color: colors.pink,

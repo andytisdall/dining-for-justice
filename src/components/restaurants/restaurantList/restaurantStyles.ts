@@ -23,7 +23,7 @@ export default StyleSheet.create({
     position: 'absolute',
     flexDirection: 'row',
     right: 0,
-    width: '70%',
+    width: '65%',
     justifyContent: 'space-around',
   },
   refetch: {

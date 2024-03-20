@@ -1,11 +1,13 @@
 import MapView, {Region, Circle} from 'react-native-maps';
+import {Dimensions} from 'react-native';
 
 import {
   Coordinates,
   Restaurant,
 } from '../../../state/apis/restaurantApi/restaurantApi';
 import UserMarker from './UserMarker';
-import {sizeMultiplier} from '../../styles/baseStyles';
+
+const height = Dimensions.get('screen').height;
 
 export const RANGE_MULTIPLIER = 90000;
 export const ZOOM_VALUE = 0.05;
@@ -17,7 +19,7 @@ export const INITIAL_COORDS: Region = {
 };
 
 export const getVerticalOffset = (zoom: number) => {
-  return getZoomMultiplier(zoom) * sizeMultiplier * 2;
+  return (getZoomMultiplier(zoom) * height) / 450;
 };
 
 const getZoomMultiplier = (zoom: number) => {

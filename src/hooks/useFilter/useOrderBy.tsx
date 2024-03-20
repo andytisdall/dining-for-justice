@@ -1,4 +1,4 @@
-import {useState, useMemo} from 'react';
+import {useState, useMemo, useCallback} from 'react';
 import {View, Text, Pressable} from 'react-native';
 
 import baseStyles, {getPressedStyle} from '../../components/styles/baseStyles';
@@ -17,23 +17,37 @@ const useOrderBy = (): [
 
   const {data: location} = useGetLocationQuery();
 
-  const sortByAbc = (a: Restaurant, b: Restaurant) =>
-    a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;
+  const sortByAbc = useCallback(
+    (a: Restaurant, b: Restaurant) =>
+      a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1,
+    [],
+  );
 
-  const getRestaurantDistance = (coords: Coordinates | undefined) => {
-    if (location && coords) {
-      const latDiff = Math.abs(location.latitude - coords.latitude);
-      const lngDiff = Math.abs(location.longitude - coords.longitude);
+  const getRestaurantDistance = useCallback(
+    (coords: Coordinates | undefined) => {
+      if (location && coords) {
+        const latDiff = Math.abs(location.latitude - coords.latitude);
+        const lngDiff = Math.abs(location.longitude - coords.longitude);
 
-      return latDiff + lngDiff;
-    }
-    return 1;
-  };
+        return Math.sqrt(Math.pow(latDiff, 2) + Math.pow(lngDiff, 2));
+      }
+      return 1;
+    },
+    [location],
+  );
 
-  const sortByLocation = (a: Restaurant, b: Restaurant) =>
-    getRestaurantDistance(a.coords) > getRestaurantDistance(b.coords) ? 1 : -1;
+  const sortByLocation = useCallback(
+    (a: Restaurant, b: Restaurant) =>
+      getRestaurantDistance(a.coords) > getRestaurantDistance(b.coords)
+        ? 1
+        : -1,
+    [getRestaurantDistance],
+  );
 
-  const sortingFunc = order === 'abc' ? sortByAbc : sortByLocation;
+  const sortingFunc = useMemo(
+    () => (order === 'abc' ? sortByAbc : sortByLocation),
+    [order, sortByLocation, sortByAbc],
+  );
 
   const component = useMemo(() => {
     const abcSelected = order === 'abc';

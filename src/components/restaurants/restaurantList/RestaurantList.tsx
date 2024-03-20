@@ -6,6 +6,17 @@ import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
 import baseStyles from '../../styles/baseStyles';
 import restaurantStyles from './restaurantStyles';
 
+// const MockItem = ({
+//   restaurant,
+//   navigate,
+// }: {
+//   restaurant: Restaurant;
+//   navigate: (id: string) => void;
+// }) => {
+//   console.log(restaurant.name);
+//   return <View></View>;
+// };
+
 const RestaurantList = memo(
   ({
     restaurants,
@@ -17,11 +28,12 @@ const RestaurantList = memo(
     const renderItem = useCallback(
       ({item}: {item: Restaurant}) => (
         <RestaurantListItem restaurant={item} navigate={navigate} />
+        // <MockItem restaurant={item} navigate={navigate} />
       ),
       [navigate],
     );
 
-    const keyExtractor = (item: Restaurant) => item.id;
+    const keyExtractor = useCallback((item: Restaurant) => item.id, []);
 
     if (!restaurants?.length) {
       return (
@@ -40,7 +52,9 @@ const RestaurantList = memo(
           numColumns={2}
           columnWrapperStyle={restaurantStyles.restaurantListCol}
           removeClippedSubviews={true}
-          maxToRenderPerBatch={6}
+          initialNumToRender={3}
+          maxToRenderPerBatch={4}
+          windowSize={3}
           data={restaurants}
           renderItem={renderItem}
           keyExtractor={keyExtractor}

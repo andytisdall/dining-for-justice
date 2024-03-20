@@ -8,7 +8,7 @@ import Btn from '../../reusable/Btn';
 const MapRestaurantList = ({
   children,
   orderByComponent,
-}: PropsWithChildren & {orderByComponent: JSX.Element}) => {
+}: PropsWithChildren & {orderByComponent: JSX.Element | undefined}) => {
   const [showList, setShowList] = useState(false);
 
   const renderShowRestaurantListBtn = () => {

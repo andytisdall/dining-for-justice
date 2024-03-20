@@ -1,5 +1,6 @@
 import {View, Text} from 'react-native';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import {memo} from 'react';
 
 import styles from './filterStyles';
 import baseStyles from '../../components/styles/baseStyles';
@@ -25,4 +26,4 @@ const FilterCheckbox = ({
   );
 };
 
-export default FilterCheckbox;
+export default memo(FilterCheckbox);

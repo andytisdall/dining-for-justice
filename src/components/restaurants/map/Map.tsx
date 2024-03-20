@@ -58,6 +58,8 @@ const Map = ({navigation, route}: MapScreenProps) => {
   const initialLoadRef = useRef(false);
   const listRef = useRef<FlatList>(null);
 
+  console.log('map');
+
   useEffect(() => {
     getPermission();
   }, [getPermission]);
@@ -191,15 +193,12 @@ const Map = ({navigation, route}: MapScreenProps) => {
 
   const data = [mapHeader, map, mapRestaurantList];
 
-  if (enableLocationModal) {
-    data.push(enableLocationModal);
-  }
-
   const renderItem = ({item}: {item: JSX.Element}) => item;
 
   return (
     <ScreenBackground>
       {goToMapBtn}
+      {enableLocationModal}
       <FlatList
         style={baseStyles.scrollView}
         data={data}

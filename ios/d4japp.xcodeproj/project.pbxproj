@@ -14,8 +14,9 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-d4japp-d4jappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-d4japp-d4jappTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		C9459A4E7B11427AADE04E3F /* Manrope-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BBC00C0A14364EBD8DD36031 /* Manrope-VariableFont_wght.ttf */; };
-		F62700A255C84C8AA20AEAE5 /* SortsMillGoudy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C2C83610BBF43C6981C996C /* SortsMillGoudy.ttf */; };
+		8A1F19082BA94AB50048CF61 /* Manrope.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8A1F19062BA94AB50048CF61 /* Manrope.ttf */; };
+		8AECDBBF2BAA4C2B00031B3D /* Rhodium Libre.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8AECDBBE2BAA4C2B00031B3D /* Rhodium Libre.ttf */; };
+		CFCBDB7C8DFA4ADEA2D8F8D1 /* Rhodium Libre.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 084114C0B49B47CEB7BEBBA7 /* Rhodium Libre.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,10 +46,11 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-d4japp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-d4japp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = d4japp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-d4japp-d4jappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-d4japp-d4jappTests.release.xcconfig"; path = "Target Support Files/Pods-d4japp-d4jappTests/Pods-d4japp-d4jappTests.release.xcconfig"; sourceTree = "<group>"; };
+		8A1F19062BA94AB50048CF61 /* Manrope.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Manrope.ttf; path = ../../src/assets/fonts/Manrope.ttf; sourceTree = "<group>"; };
+		8AECDBBE2BAA4C2B00031B3D /* Rhodium Libre.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Rhodium Libre.ttf"; path = "../../src/assets/fonts/Rhodium Libre.ttf"; sourceTree = "<group>"; };
 		8AFF295F2B3CBFA60049A490 /* d4japp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = d4japp.entitlements; path = d4japp/d4japp.entitlements; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		BBC00C0A14364EBD8DD36031 /* Manrope-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "Manrope-VariableFont_wght.ttf"; path = "../src/assets/fonts/Manrope-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		1C2C83610BBF43C6981C996C /* SortsMillGoudy.ttf */ = {isa = PBXFileReference; name = "SortsMillGoudy.ttf"; path = "../src/assets/fonts/SortsMillGoudy.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		084114C0B49B47CEB7BEBBA7 /* Rhodium Libre.ttf */ = {isa = PBXFileReference; name = "Rhodium Libre.ttf"; path = "../src/assets/fonts/Rhodium Libre.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,13 +124,14 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				8A1F19042BA94A970048CF61 /* Fonts */,
 				13B07FAE1A68108700A75B9A /* d4japp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* d4jappTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
-				C3D93EF412A546758039FCBA /* Resources */,
+				534D1F29ACA647ECA85F2A70 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -144,6 +147,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		8A1F19042BA94A970048CF61 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				8AECDBBE2BAA4C2B00031B3D /* Rhodium Libre.ttf */,
+				8A1F19062BA94AB50048CF61 /* Manrope.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,15 +167,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		C3D93EF412A546758039FCBA /* Resources */ = {
-			isa = PBXGroup;
+		534D1F29ACA647ECA85F2A70 /* Resources */ = {
+			isa = "PBXGroup";
 			children = (
-				BBC00C0A14364EBD8DD36031 /* Manrope-VariableFont_wght.ttf */,
-				1C2C83610BBF43C6981C996C /* SortsMillGoudy.ttf */,
+				084114C0B49B47CEB7BEBBA7 /* Rhodium Libre.ttf */,
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -258,10 +269,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A1F19082BA94AB50048CF61 /* Manrope.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				C9459A4E7B11427AADE04E3F /* Manrope-VariableFont_wght.ttf in Resources */,
-				F62700A255C84C8AA20AEAE5 /* SortsMillGoudy.ttf in Resources */,
+				8AECDBBF2BAA4C2B00031B3D /* Rhodium Libre.ttf in Resources */,
+				CFCBDB7C8DFA4ADEA2D8F8D1 /* Rhodium Libre.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,10 +630,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_CFLAGS = "$(inherited)  ";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
@@ -686,10 +695,7 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_CFLAGS = "$(inherited)  ";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",

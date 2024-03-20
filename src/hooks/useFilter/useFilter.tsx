@@ -27,7 +27,7 @@ const useFilter: (
   Restaurant[] | undefined,
   JSX.Element,
   number | undefined,
-  JSX.Element,
+  JSX.Element | undefined,
 ] = restaurants => {
   const [sort, orderBySelector] = useOrderBy();
 
@@ -49,12 +49,22 @@ const useFilter: (
   const sortedRestaurants = useMemo(() => {
     if (restaurants) {
       const sorted = restaurants
-        .filter(femaleFilter)
-        .filter(isOpenFilter)
-        .filter(pocFilter)
-        .filter(nearMeFilter)
-        .filter(veganFilter)
-        .filter(cocktailsFilter);
+        // .filter(femaleFilter)
+        // .filter(isOpenFilter)
+        // .filter(pocFilter)
+        // .filter(nearMeFilter)
+        // .filter(veganFilter)
+        // .filter(cocktailsFilter);
+        .filter(
+          rest =>
+            femaleFilter(rest) &&
+            isOpenFilter(rest) &&
+            pocFilter(rest) &&
+            nearMeFilter(rest) &&
+            nearMeFilter(rest) &&
+            veganFilter(rest) &&
+            cocktailsFilter(rest),
+        );
 
       return sorted?.sort(sort);
     }
@@ -107,15 +117,20 @@ const useFilter: (
   }, [
     femaleCheckbox,
     pocCheckbox,
-    nearMeCheckbox,
     isOpenCheckbox,
     filterVisible,
     veganCheckbox,
-    locationPermission,
     cocktailsCheckbox,
+    locationPermission,
+    nearMeCheckbox,
   ]);
 
-  return [sortedRestaurants, component, range, orderBySelector];
+  return [
+    sortedRestaurants,
+    component,
+    range,
+    locationPermission ? orderBySelector : undefined,
+  ];
 };
 
 export default useFilter;

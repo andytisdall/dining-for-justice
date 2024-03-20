@@ -1,4 +1,4 @@
-import {useState, useCallback} from 'react';
+import {useState, useCallback, useMemo} from 'react';
 
 import {
   Restaurant,
@@ -8,7 +8,6 @@ import FilterCheckbox from './FilterCheckbox';
 import {useGetLocationQuery} from '../../state/apis/rewardsApi/locationApi';
 
 const NEAR_ME_RANGE = 0.00918;
-// const NEAR_ME_RANGE = 0.0081;
 
 const useNearMeFilter = (): [
   (rest: Restaurant) => boolean,
@@ -36,16 +35,22 @@ const useNearMeFilter = (): [
     [location],
   );
 
-  const filter = (rest: Restaurant) => {
-    if (nearMe && rest.coords) {
-      return restaurantIsNearMe(rest.coords);
-    } else {
-      return true;
-    }
-  };
+  const filter = useCallback(
+    (rest: Restaurant) => {
+      if (nearMe && rest.coords && location) {
+        return restaurantIsNearMe(rest.coords);
+      } else {
+        return true;
+      }
+    },
+    [location, nearMe, restaurantIsNearMe],
+  );
 
-  const component = (
-    <FilterCheckbox enabled={nearMe} setValue={setNearMe} label="Near Me" />
+  const component = useMemo(
+    () => (
+      <FilterCheckbox enabled={nearMe} setValue={setNearMe} label="Near Me" />
+    ),
+    [nearMe],
   );
 
   return [filter, component, nearMe ? NEAR_ME_RANGE : undefined];

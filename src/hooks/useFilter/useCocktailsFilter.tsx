@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useCallback, useState, useMemo} from 'react';
 
 import {Restaurant} from '../../state/apis/restaurantApi/restaurantApi';
 import FilterCheckbox from './FilterCheckbox';
@@ -6,20 +6,26 @@ import FilterCheckbox from './FilterCheckbox';
 const useCocktailsFilter = (): [(rest: Restaurant) => boolean, JSX.Element] => {
   const [cocktails, setCocktails] = useState(false);
 
-  const filter = (rest: Restaurant) => {
-    if (cocktails) {
-      return rest.cuisine === 'cocktails';
-    } else {
-      return true;
-    }
-  };
+  const filter = useCallback(
+    (rest: Restaurant) => {
+      if (cocktails) {
+        return rest.cuisine === 'cocktails';
+      } else {
+        return true;
+      }
+    },
+    [cocktails],
+  );
 
-  const component = (
-    <FilterCheckbox
-      enabled={cocktails}
-      setValue={setCocktails}
-      label="Cocktails for a Cause"
-    />
+  const component = useMemo(
+    () => (
+      <FilterCheckbox
+        enabled={cocktails}
+        setValue={setCocktails}
+        label="Cocktails for a Cause"
+      />
+    ),
+    [cocktails],
   );
 
   return [filter, component];
