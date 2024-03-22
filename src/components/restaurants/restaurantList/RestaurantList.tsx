@@ -5,6 +5,7 @@ import RestaurantListItem from './RestaurantListItem';
 import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
 import baseStyles from '../../styles/baseStyles';
 import restaurantStyles from './restaurantStyles';
+import {boxHeight, marginVertical} from './restaurantListItemStyles';
 
 // const MockItem = ({
 //   restaurant,
@@ -20,20 +21,30 @@ import restaurantStyles from './restaurantStyles';
 const RestaurantList = memo(
   ({
     restaurants,
-    navigate,
+    onRestaurantPress,
   }: {
     restaurants?: Restaurant[];
-    navigate: (id: string) => void;
+    onRestaurantPress: (id: string) => void;
   }) => {
     const renderItem = useCallback(
       ({item}: {item: Restaurant}) => (
-        <RestaurantListItem restaurant={item} navigate={navigate} />
-        // <MockItem restaurant={item} navigate={navigate} />
+        <RestaurantListItem restaurant={item} onPress={onRestaurantPress} />
       ),
-      [navigate],
+      [onRestaurantPress],
     );
 
     const keyExtractor = useCallback((item: Restaurant) => item.id, []);
+
+    const getItemLayout = (
+      data: ArrayLike<Restaurant> | undefined | null,
+      index: number,
+    ) => {
+      return {
+        length: boxHeight + marginVertical * 2,
+        offset: (boxHeight + marginVertical * 2) * index,
+        index,
+      };
+    };
 
     if (!restaurants?.length) {
       return (
@@ -52,12 +63,13 @@ const RestaurantList = memo(
           numColumns={2}
           columnWrapperStyle={restaurantStyles.restaurantListCol}
           removeClippedSubviews={true}
-          initialNumToRender={3}
+          initialNumToRender={4}
           maxToRenderPerBatch={4}
           windowSize={3}
           data={restaurants}
           renderItem={renderItem}
           keyExtractor={keyExtractor}
+          getItemLayout={getItemLayout}
         />
       );
     }

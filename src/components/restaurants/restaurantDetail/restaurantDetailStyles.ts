@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 import colors from '../../styles/colors';
+import {sizeMultiplier} from '../../styles/baseStyles';
 
 export default StyleSheet.create({
   restaurantDetailItem: {
@@ -33,15 +34,30 @@ export default StyleSheet.create({
   },
   photo: {height: 200, resizeMode: 'contain'},
   cocktailInfo: {
+    backgroundColor: colors.green,
     borderWidth: 2,
     borderColor: colors.green,
     borderRadius: 25,
-    paddingHorizontal: 10,
-    paddingVertical: 7,
+    paddingHorizontal: 15 * sizeMultiplier,
+    paddingVertical: 7 * sizeMultiplier,
     marginBottom: 10,
-    width: '50%',
+    maxWidth: '70%',
+  },
+  cocktailName: {
+    color: 'black',
+    fontSize: 25,
   },
   cocktailDescription: {
+    color: 'black',
     marginTop: 5,
+  },
+  cocktailsHeader: {
+    backgroundColor: colors.yellow,
+  },
+  cocktailsTitle: {
+    color: colors.yellow,
+    fontFamily: 'Rhodium Libre',
+    fontSize: 18,
+    marginBottom: 5,
   },
 });

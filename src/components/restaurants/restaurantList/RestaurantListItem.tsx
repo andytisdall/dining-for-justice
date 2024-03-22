@@ -9,10 +9,10 @@ import restaurantListItemStyles from './restaurantListItemStyles';
 const RestaurantListItem = memo(
   ({
     restaurant,
-    navigate,
+    onPress,
   }: {
     restaurant: Restaurant;
-    navigate: (id: string) => void;
+    onPress: (id: string) => void;
   }) => {
     const cuisine =
       restaurant.cuisine === 'cocktails'
@@ -34,7 +34,7 @@ const RestaurantListItem = memo(
     return (
       <Pressable
         onPress={() => {
-          navigate(restaurant.id);
+          onPress(restaurant.id);
         }}>
         {({pressed}) => {
           const pressedStyle = getPressedStyle(pressed);

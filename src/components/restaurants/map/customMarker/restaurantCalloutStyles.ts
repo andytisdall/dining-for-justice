@@ -3,7 +3,7 @@ import {StyleSheet, Dimensions} from 'react-native';
 import colors from '../../../styles/colors';
 
 const height = Dimensions.get('screen').height;
-export const imageSize = height / 6;
+export const imageSize = height / 7;
 
 export default StyleSheet.create({
   callout: {},
@@ -30,4 +30,5 @@ export default StyleSheet.create({
     height: imageSize,
     width: imageSize,
   },
+  image: {width: '100%', height: '100%'},
 });

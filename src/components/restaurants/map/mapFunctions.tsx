@@ -1,10 +1,7 @@
 import MapView, {Region, Circle} from 'react-native-maps';
 import {Dimensions} from 'react-native';
 
-import {
-  Coordinates,
-  Restaurant,
-} from '../../../state/apis/restaurantApi/restaurantApi';
+import {Coordinates} from '../../../state/apis/restaurantApi/restaurantApi';
 import UserMarker from './UserMarker';
 
 const height = Dimensions.get('screen').height;
@@ -18,8 +15,8 @@ export const INITIAL_COORDS: Region = {
   longitudeDelta: 0.1,
 };
 
-export const getVerticalOffset = (zoom: number) => {
-  return (getZoomMultiplier(zoom) * height) / 450;
+const getVerticalOffset = (zoom: number) => {
+  return (getZoomMultiplier(zoom) * height) / 500;
 };
 
 const getZoomMultiplier = (zoom: number) => {
@@ -47,48 +44,54 @@ const getZoomMultiplier = (zoom: number) => {
   return 0.00005;
 };
 
-export const centerMarker = (rest: Restaurant, zoom: number, map?: MapView) => {
-  const VERTICAL_OFFSET = getVerticalOffset(zoom);
-  if (map && rest.coords) {
-    if (zoom > ZOOM_VALUE) {
-      map.animateToRegion({
-        latitude: rest.coords.latitude + VERTICAL_OFFSET,
-        longitude: rest.coords.longitude,
-        latitudeDelta: ZOOM_VALUE,
-        longitudeDelta: ZOOM_VALUE,
-      });
-    } else {
-      map.animateToRegion({
-        latitude: rest.coords.latitude + VERTICAL_OFFSET,
-        longitude: rest.coords.longitude,
-        latitudeDelta: zoom,
-        longitudeDelta: zoom,
-      });
-    }
-  }
-};
+// export const centerMarker = (rest: Restaurant, zoom: number, map?: MapView) => {
+//   const VERTICAL_OFFSET = getVerticalOffset(zoom);
+//   if (map && rest.coords) {
+//     if (zoom > ZOOM_VALUE) {
+//       map.animateToRegion({
+//         latitude: rest.coords.latitude + VERTICAL_OFFSET,
+//         longitude: rest.coords.longitude,
+//         latitudeDelta: ZOOM_VALUE,
+//         longitudeDelta: ZOOM_VALUE,
+//       });
+//     } else {
+//       map.animateToRegion({
+//         latitude: rest.coords.latitude + VERTICAL_OFFSET,
+//         longitude: rest.coords.longitude,
+//         latitudeDelta: zoom,
+//         longitudeDelta: zoom,
+//       });
+//     }
+//   }
+// };
 
-export const zoomToLocation = (
-  zoom: number,
-  map?: MapView | null,
-  location?: Coordinates | null,
-) => {
-  if (map && location) {
-    if (zoom > ZOOM_VALUE) {
-      map.animateToRegion({
-        latitude: location.latitude,
-        longitude: location.longitude,
-        latitudeDelta: ZOOM_VALUE,
-        longitudeDelta: ZOOM_VALUE,
-      });
-    } else {
-      map.animateToRegion({
-        latitude: location.latitude,
-        longitude: location.longitude,
-        latitudeDelta: zoom,
-        longitudeDelta: zoom,
-      });
-    }
+export const zoomToLocation = ({
+  zoom,
+  map,
+  coordinates,
+  offset,
+}: {
+  zoom: number;
+  map: MapView;
+  coordinates: Coordinates;
+  offset?: boolean;
+}) => {
+  const verticalOffset = offset ? getVerticalOffset(zoom) : 0;
+
+  if (zoom > ZOOM_VALUE) {
+    map.animateToRegion({
+      latitude: coordinates.latitude + verticalOffset,
+      longitude: coordinates.longitude,
+      latitudeDelta: ZOOM_VALUE,
+      longitudeDelta: ZOOM_VALUE,
+    });
+  } else {
+    map.animateToRegion({
+      latitude: coordinates.latitude + verticalOffset,
+      longitude: coordinates.longitude,
+      latitudeDelta: zoom,
+      longitudeDelta: zoom,
+    });
   }
 };
 

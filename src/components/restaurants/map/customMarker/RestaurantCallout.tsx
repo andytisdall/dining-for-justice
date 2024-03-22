@@ -1,9 +1,9 @@
-import {View, Text, Image, Platform} from 'react-native';
+import {View, Text, Platform} from 'react-native';
 import {Svg, Image as ImageSvg} from 'react-native-svg';
+import FastImage from 'react-native-fast-image';
 
 import baseStyles from '../../../styles/baseStyles';
 import {Restaurant} from '../../../../state/apis/restaurantApi/restaurantApi';
-import mapStyles from '../mapStyles';
 import restaurantCalloutStyles, {imageSize} from './restaurantCalloutStyles';
 
 const RestaurantCallout = ({restaurant}: {restaurant: Restaurant}) => {
@@ -22,7 +22,11 @@ const RestaurantCallout = ({restaurant}: {restaurant: Restaurant}) => {
       }
       return (
         <View style={restaurantCalloutStyles.imageContainer}>
-          <Image source={{uri: restaurant.photo}} style={mapStyles.image} />
+          <FastImage
+            source={{uri: restaurant.photo}}
+            style={restaurantCalloutStyles.image}
+            resizeMode="cover"
+          />
         </View>
       );
     }

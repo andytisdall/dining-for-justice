@@ -6,9 +6,9 @@ import {Restaurant} from '../../../../state/apis/restaurantApi/restaurantApi';
 import mapStyles from '../mapStyles';
 import {forwardRef} from 'react';
 
-const COCKTAIL_MARKER = require('../../../../assets/cocktail_marker.png');
+const COCKTAIL_MARKER = require('../../../../assets/cocktail_marker_ios.png');
 
-const RESTAURANT_MARKER = require('../../../../assets/restaurant_marker.png');
+const RESTAURANT_MARKER = require('../../../../assets/restaurant_marker_ios.png');
 
 const CustomMarker = forwardRef(
   (

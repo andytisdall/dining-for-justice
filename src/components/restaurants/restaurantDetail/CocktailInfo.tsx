@@ -7,10 +7,19 @@ import restaurantDetailStyles from './restaurantDetailStyles';
 const CocktailInfo = ({restaurant}: {restaurant: Restaurant}) => {
   return (
     <View style={[baseStyles.centerSection]}>
+      <Text style={restaurantDetailStyles.cocktailsTitle}>
+        Cocktails for a Cause
+      </Text>
       <View style={restaurantDetailStyles.cocktailInfo}>
         <View style={baseStyles.centerSection}>
-          <Text style={baseStyles.textSm}>Featured Cocktail:</Text>
-          <Text style={baseStyles.inputLabel}>{restaurant.cocktailName}</Text>
+          <Text>Featured Cocktail:</Text>
+          <Text
+            style={[
+              restaurantDetailStyles.cocktailName,
+              baseStyles.centerText,
+            ]}>
+            {restaurant.cocktailName}
+          </Text>
         </View>
         <Text
           style={[

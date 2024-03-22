@@ -53,36 +53,37 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
 
   const dispatch = useDispatch();
 
-  const handleSubmit = () => {
-    getNotficationsPermission()
-      .unwrap()
-      .then(() => {
-        const token = Notifications.token;
-        if (!showNameFields) {
-          if (!validateEmail(email)) {
-            return dispatch(setError('Please enter a valid email address'));
-          }
-          signIn({email, token})
-            .unwrap()
-            .then(user => {
-              if (!user) {
-                setShowNameFields(true);
-              } else {
-                navigation.navigate(redirectScreen);
-              }
-            });
-        } else {
-          createContact({email, firstName, lastName, token})
-            .unwrap()
-            .then(user =>
-              signIn({email: user.email})
-                .unwrap()
-                .then(() => {
-                  navigation.navigate(redirectScreen);
-                }),
-            );
-        }
-      });
+  const handleSubmit = async () => {
+    await getNotficationsPermission();
+    const token = Notifications.token;
+
+    // if it's just the email entry, see if contact exists and sign them in if so
+    // if not, show the name fields so user can create a contact
+    // then sign in the user that was created
+
+    if (!showNameFields) {
+      if (!validateEmail(email)) {
+        return dispatch(setError('Please enter a valid email address'));
+      }
+
+      const user = await signIn({email, token}).unwrap();
+
+      if (!user) {
+        setShowNameFields(true);
+      } else {
+        navigation.navigate(redirectScreen);
+      }
+    } else {
+      const user = await createContact({
+        email,
+        firstName,
+        lastName,
+        token,
+      }).unwrap();
+
+      await signIn({email: user.email});
+      navigation.navigate(redirectScreen);
+    }
   };
 
   const displayEmail = () => {

@@ -3,7 +3,9 @@ import {StyleSheet, Dimensions} from 'react-native';
 import colors from '../../styles/colors';
 
 const width = Dimensions.get('screen').width;
-const boxSize = width / 2.6;
+export const boxWidth = width / 2.2;
+export const boxHeight = width / 1.8;
+export const marginVertical = 10;
 
 export default StyleSheet.create({
   restaurantListItem: {
@@ -11,18 +13,19 @@ export default StyleSheet.create({
     borderWidth: 2,
     padding: 10,
     borderRadius: 15,
-    marginVertical: 10,
+    marginVertical,
     marginHorizontal: 5,
     flex: 1,
     justifyContent: 'space-between',
+    width: boxWidth,
+    height: boxHeight,
   },
   cocktailsListItem: {
     borderColor: colors.yellow,
   },
   image: {
     marginVertical: 5,
-    width: boxSize,
-    height: boxSize,
+    flex: 1,
   },
   cuisine: {
     color: colors.blue,
@@ -32,6 +35,5 @@ export default StyleSheet.create({
   },
   title: {
     flexWrap: 'wrap',
-    maxWidth: boxSize,
   },
 });

@@ -32,12 +32,16 @@ const locationApi = api.injectEndpoints({
         try {
           const location: Coordinates | null = await new Promise(
             (resolve, reject) => {
-              Geolocation.getCurrentPosition(position => {
-                resolve({
-                  latitude: position.coords.latitude,
-                  longitude: position.coords.longitude,
-                });
-              }, reject);
+              Geolocation.getCurrentPosition(
+                position => {
+                  resolve({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                  });
+                },
+                reject,
+                {maximumAge: 10000, timeout: 15000},
+              );
             },
           );
           return {data: location};

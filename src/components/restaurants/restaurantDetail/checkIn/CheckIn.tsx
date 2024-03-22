@@ -84,33 +84,26 @@ const CheckIn = ({
     return <CheckInError message="An error has occurred. Please try again." />;
   };
 
+  const checkInAction = async () => {
+    const locationPermission = await getPermission().unwrap();
+    if (locationPermission) {
+      const withinRange = await userIsWithinRange(restaurant.coords!).unwrap();
+      if (withinRange) {
+        await checkIn({restaurantId: restaurant.id});
+        animateResult();
+      } else {
+        animateResult();
+      }
+    } else {
+      openModal();
+    }
+  };
+
   const renderCheckIn = () => {
     if (restaurant?.coords) {
       return (
         <View style={checkInStyles.checkIn}>
-          <Btn
-            onPress={() => {
-              getPermission()
-                .unwrap()
-                .then(locationPermission => {
-                  if (locationPermission) {
-                    userIsWithinRange(restaurant.coords!)
-                      .unwrap()
-                      .then(result => {
-                        if (result) {
-                          checkIn({restaurantId: restaurant.id})
-                            .unwrap()
-                            .then(() => animateResult());
-                        } else {
-                          animateResult();
-                        }
-                      });
-                  } else {
-                    openModal();
-                  }
-                });
-            }}
-            disabled={isSuccess}>
+          <Btn onPress={checkInAction} disabled={isSuccess}>
             <Text>Check In</Text>
           </Btn>
           {loading && <Loading />}

@@ -23,7 +23,7 @@ const comparePosition = (targetCoords: Coordinates): Promise<boolean> => {
   return new Promise((resolve, reject) => {
     Geolocation.getCurrentPosition(
       position => {
-        const IGNORE_LOCATION = true;
+        const IGNORE_LOCATION = false;
 
         if (IGNORE_LOCATION) {
           resolve(true);
@@ -86,11 +86,11 @@ const checkInApi = api.injectEndpoints({
           return {error: {error: 'Network Error', status: 'FETCH_ERROR'}};
         }
       },
-      invalidatesTags: ['CheckIn'],
+      invalidatesTags: ['CheckIn', 'AllCheckIns'],
     }),
     getPoints: builder.query<CheckIn[], void>({
       query: () => '/d4j/rewards/check-in',
-      providesTags: ['CheckIn', 'AllCheckIns'],
+      providesTags: ['CheckIn'],
     }),
     userIsWithinRangeOfLocation: builder.mutation<boolean, Coordinates>({
       queryFn: async targetCoords => {

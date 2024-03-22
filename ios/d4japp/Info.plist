@@ -35,12 +35,12 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSCameraUsageDescription</key>
-	<string>Placeholder</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Check in at a D4J Restaurant</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Placeholder</string>
+	<key>NSUserNotificationsUsageDescription</key>
+	<string>Find out about new D4J restaurants &amp; prizes</string>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Manrope.ttf</string>

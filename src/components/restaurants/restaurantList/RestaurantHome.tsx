@@ -78,7 +78,10 @@ const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
       );
     }
     return (
-      <RestaurantList restaurants={sortedRestaurants} navigate={navigate} />
+      <RestaurantList
+        restaurants={sortedRestaurants}
+        onRestaurantPress={navigate}
+      />
     );
   };
 

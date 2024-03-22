@@ -79,7 +79,7 @@ export const styles = StyleSheet.create({
     height: '100%',
   },
   title: {
-    width: '75%',
+    width: '70%',
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 10,
