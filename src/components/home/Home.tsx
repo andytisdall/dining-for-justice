@@ -90,6 +90,7 @@ const Home = ({navigation}: HomeScreenProps) => {
             <Text style={baseStyles.btnText}>Learn More About CK</Text>
           </Btn>
         </View>
+        <View style={baseStyles.screenSection} />
       </ScrollView>
     </ScreenBackground>
   );

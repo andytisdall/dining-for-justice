@@ -32,7 +32,7 @@ export default StyleSheet.create({
   hoursItemRight: {
     alignItems: 'flex-end',
   },
-  photo: {height: 200, resizeMode: 'contain'},
+  photo: {height: 200},
   cocktailInfo: {
     backgroundColor: colors.green,
     borderWidth: 2,

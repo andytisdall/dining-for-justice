@@ -1,6 +1,7 @@
-import {View, Text, FlatList, Image} from 'react-native';
+import {View, Text, FlatList} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useCallback, useEffect, useMemo} from 'react';
+import FastImage from 'react-native-fast-image';
 
 import {RootTabsParams} from '../../../../App';
 import Btn from '../../reusable/Btn';
@@ -59,11 +60,12 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
   const renderImage = useMemo(() => {
     if (restaurant?.photo) {
       return (
-        <Image
+        <FastImage
           source={{
             uri: restaurant.photo,
           }}
           style={restaurantDetailStyles.photo}
+          resizeMode="contain"
         />
       );
     }

@@ -1,7 +1,8 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {View, Text, ScrollView, Linking, Image} from 'react-native';
+import {View, Text, ScrollView, Linking} from 'react-native';
 import {format, zonedTimeToUtc} from 'date-fns-tz';
 import {useEffect} from 'react';
+import FastImage from 'react-native-fast-image';
 
 import Btn from '../reusable/Btn';
 import {useGetEventsQuery} from '../../state/apis/eventsApi/eventsApi';
@@ -33,7 +34,11 @@ const EventDetail = ({route, navigation}: EventDetailProps) => {
       return (
         <View style={baseStyles.screenSection}>
           {!!event.photo && (
-            <Image source={{uri: event.photo}} style={eventStyles.photo} />
+            <FastImage
+              source={{uri: event.photo}}
+              style={eventStyles.photo}
+              resizeMode="contain"
+            />
           )}
           <View style={eventStyles.eventDetailsLine}>
             <Text style={baseStyles.inputLabel}>Date: </Text>

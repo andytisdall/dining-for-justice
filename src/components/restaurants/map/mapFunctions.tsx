@@ -2,7 +2,7 @@ import MapView, {Region, Circle} from 'react-native-maps';
 import {Dimensions} from 'react-native';
 
 import {Coordinates} from '../../../state/apis/restaurantApi/restaurantApi';
-import UserMarker from './UserMarker';
+import UserMarker from './customMarker/UserMarker';
 
 const height = Dimensions.get('screen').height;
 
@@ -16,33 +16,46 @@ export const INITIAL_COORDS: Region = {
 };
 
 const getVerticalOffset = (zoom: number) => {
-  return (getZoomMultiplier(zoom) * height) / 500;
+  return zoom * (height / 3000);
 };
 
-const getZoomMultiplier = (zoom: number) => {
-  if (zoom > 0.035) {
-    return 0.01;
-  }
-  if (zoom > 0.02) {
-    return 0.005;
-  }
-  if (zoom > 0.006) {
-    return 0.002;
-  }
-  if (zoom > 0.003) {
-    return 0.001;
-  }
-  if (zoom > 0.0015) {
-    return 0.0005;
-  }
-  if (zoom > 0.001) {
-    return 0.0003;
-  }
-  if (zoom > 0.0006) {
-    return 0.0001;
-  }
-  return 0.00005;
-};
+// const getZoomMultiplier = (zoom: number) => {
+//   console.log(zoom);
+//   if (zoom > 0.05) {
+//     return 0.01;
+//   }
+//   if (zoom > 0.035) {
+//     return 0.01;
+//   }
+//   if (zoom > 0.02) {
+//     return 0.005;
+//   }
+//   if (zoom > 0.01) {
+//     return 0.003;
+//   }
+//   if (zoom > 0.006) {
+//     return 0.002;
+//   }
+//   if (zoom > 0.0045) {
+//     return 0.0015;
+//   }
+//   if (zoom > 0.003) {
+//     return 0.001;
+//   }
+//   if (zoom > 0.002) {
+//     return 0.00075;
+//   }
+//   if (zoom > 0.0015) {
+//     return 0.0005;
+//   }
+//   if (zoom > 0.001) {
+//     return 0.0003;
+//   }
+//   if (zoom > 0.0006) {
+//     return 0.0001;
+//   }
+//   return 0.00005;
+// };
 
 // export const centerMarker = (rest: Restaurant, zoom: number, map?: MapView) => {
 //   const VERTICAL_OFFSET = getVerticalOffset(zoom);
@@ -76,9 +89,9 @@ export const zoomToLocation = ({
   coordinates: Coordinates;
   offset?: boolean;
 }) => {
-  const verticalOffset = offset ? getVerticalOffset(zoom) : 0;
-
   if (zoom > ZOOM_VALUE) {
+    const verticalOffset = offset ? getVerticalOffset(ZOOM_VALUE) : 0;
+
     map.animateToRegion({
       latitude: coordinates.latitude + verticalOffset,
       longitude: coordinates.longitude,
@@ -86,6 +99,8 @@ export const zoomToLocation = ({
       longitudeDelta: ZOOM_VALUE,
     });
   } else {
+    const verticalOffset = offset ? getVerticalOffset(zoom) : 0;
+
     map.animateToRegion({
       latitude: coordinates.latitude + verticalOffset,
       longitude: coordinates.longitude,

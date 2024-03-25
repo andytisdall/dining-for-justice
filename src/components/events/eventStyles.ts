@@ -20,7 +20,6 @@ export default StyleSheet.create({
   },
   photo: {
     height: 200,
-    resizeMode: 'contain',
     marginBottom: 10,
   },
   eventDetailsLine: {
