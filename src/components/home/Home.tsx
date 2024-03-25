@@ -86,7 +86,9 @@ const Home = ({navigation}: HomeScreenProps) => {
             <Image source={ckLogo} style={homeStyles.logo} />
           </View>
           <Btn
-            onPress={() => Linking.openURL('https://www.ckoakland.org/about')}>
+            onPress={() =>
+              Linking.openURL('https://www.ckoakland.org/about-us')
+            }>
             <Text style={baseStyles.btnText}>Learn More About CK</Text>
           </Btn>
         </View>

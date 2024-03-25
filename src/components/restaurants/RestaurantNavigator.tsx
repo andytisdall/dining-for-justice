@@ -35,7 +35,7 @@ const RestaurantNavigator = () => {
         component={Map}
         options={{
           header: StackHeader,
-          headerTitle: 'Cocktail Map',
+          headerTitle: 'D4J Map',
         }}
       />
     </RestaurantStack.Navigator>

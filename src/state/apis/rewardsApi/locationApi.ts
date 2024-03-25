@@ -7,7 +7,7 @@ import {api} from '../../api';
 
 const LOCATION_PERMISSION =
   Platform.OS === 'android'
-    ? PERMISSIONS.ANDROID.ACCESS_COARSE_LOCATION
+    ? PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
     : PERMISSIONS.IOS.LOCATION_WHEN_IN_USE;
 
 const locationApi = api.injectEndpoints({

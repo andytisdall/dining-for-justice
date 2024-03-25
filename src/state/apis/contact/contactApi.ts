@@ -56,7 +56,7 @@ const contactApi = api.injectEndpoints({
         }
         return null;
       },
-      invalidatesTags: ['Contact'],
+      invalidatesTags: ['Contact', 'CheckIn'],
     }),
 
     createContact: builder.mutation<Contact, CreateContactArgs>({
@@ -77,7 +77,7 @@ const contactApi = api.injectEndpoints({
         api.util.resetApiState();
         return {data: null};
       },
-      invalidatesTags: ['Contact', 'CheckIn'],
+      invalidatesTags: ['Contact'],
     }),
   }),
 });

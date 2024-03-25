@@ -56,7 +56,6 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
   const handleSubmit = async () => {
     await getNotficationsPermission();
     const token = Notifications.token;
-
     // if it's just the email entry, see if contact exists and sign them in if so
     // if not, show the name fields so user can create a contact
     // then sign in the user that was created
