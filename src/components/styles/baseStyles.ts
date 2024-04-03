@@ -18,8 +18,8 @@ export default StyleSheet.create({
   screenBorders: {
     borderTopColor: colors.lightGrey,
     borderTopWidth: 2,
-    marginVertical: 10,
-    paddingTop: 10,
+    marginVertical: 10 * sizeMultiplier,
+    paddingTop: 10 * sizeMultiplier,
   },
   text: {
     fontSize: 16 * sizeMultiplier,
@@ -65,7 +65,7 @@ export default StyleSheet.create({
   },
 
   loadingContainer: {
-    height: 300,
+    height: 300 * sizeMultiplier,
     width: '100%',
   },
   row: {
@@ -81,6 +81,11 @@ export default StyleSheet.create({
   },
   centerText: {
     textAlign: 'center',
+  },
+  tabBarItem: {
+    justifyContent: 'space-around',
+    flexDirection: 'column',
+    marginBottom: 5,
   },
 });
 

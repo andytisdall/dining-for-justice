@@ -1,11 +1,7 @@
 import {useMemo, useState, useEffect} from 'react';
-import {View, Text, Image} from 'react-native';
 
-import Btn from '../../components/reusable/Btn';
-import baseStyles from '../../components/styles/baseStyles';
 import {Restaurant} from '../../state/apis/restaurantApi/restaurantApi';
 import {useGetPermissionMutation} from '../../state/apis/rewardsApi/locationApi';
-import styles from './filterStyles';
 import useFemaleFilter from './useFemaleFilter';
 import usePocFilter from './usePocFilter';
 import useNearMeFilter from './useNearMeFilter';
@@ -13,13 +9,7 @@ import useVeganFilter from './useVeganFilter';
 import useIsOpenFilter from './useIsOpenFilter';
 import useOrderBy from './useOrderBy';
 import useCocktailsFilter from './useCocktailsFilter';
-
-const filterIcon = (
-  <Image
-    source={require('../../assets/filterIcon.png')}
-    style={styles.filterIcon}
-  />
-);
+import Filter from './Filter';
 
 const useFilter: (
   restaurants: Restaurant[] | undefined,
@@ -28,43 +18,50 @@ const useFilter: (
   JSX.Element,
   number | undefined,
   JSX.Element | undefined,
+  () => void,
 ] = restaurants => {
   const [sort, orderBySelector] = useOrderBy();
 
   const [filterVisible, setFilterVisible] = useState(false);
+  const [filterKey, setFilterKey] = useState('filter-key');
+
   const [getPermission, {data: locationPermission}] =
     useGetPermissionMutation();
 
-  const [femaleFilter, femaleCheckbox] = useFemaleFilter();
-  const [veganFilter, veganCheckbox] = useVeganFilter();
-  const [pocFilter, pocCheckbox] = usePocFilter();
-  const [nearMeFilter, nearMeCheckbox, range] = useNearMeFilter();
-  const [isOpenFilter, isOpenCheckbox] = useIsOpenFilter();
-  const [cocktailsFilter, cocktailsCheckbox] = useCocktailsFilter();
+  const [femaleFilter, femaleCheckbox, resetFemale] = useFemaleFilter();
+  const [veganFilter, veganCheckbox, resetVegan] = useVeganFilter();
+  const [pocFilter, pocCheckbox, resetPoc] = usePocFilter();
+  const [nearMeFilter, nearMeCheckbox, range, resetNearMe] = useNearMeFilter();
+  const [isOpenFilter, isOpenCheckbox, resetIsOpen] = useIsOpenFilter();
+  const [cocktailsFilter, cocktailsCheckbox, resetCocktails] =
+    useCocktailsFilter();
 
   useEffect(() => {
     getPermission();
   }, [getPermission]);
 
+  const resetFilter = () => {
+    resetCocktails();
+    resetFemale();
+    resetIsOpen();
+    resetNearMe();
+    resetPoc();
+    resetVegan();
+    setFilterKey(filterKey + 'a');
+  };
+
   const sortedRestaurants = useMemo(() => {
     if (restaurants) {
-      const sorted = restaurants
-        // .filter(femaleFilter)
-        // .filter(isOpenFilter)
-        // .filter(pocFilter)
-        // .filter(nearMeFilter)
-        // .filter(veganFilter)
-        // .filter(cocktailsFilter);
-        .filter(
-          rest =>
-            femaleFilter(rest) &&
-            isOpenFilter(rest) &&
-            pocFilter(rest) &&
-            nearMeFilter(rest) &&
-            nearMeFilter(rest) &&
-            veganFilter(rest) &&
-            cocktailsFilter(rest),
-        );
+      const sorted = restaurants.filter(
+        rest =>
+          femaleFilter(rest) &&
+          isOpenFilter(rest) &&
+          pocFilter(rest) &&
+          nearMeFilter(rest) &&
+          nearMeFilter(rest) &&
+          veganFilter(rest) &&
+          cocktailsFilter(rest),
+      );
 
       return sorted?.sort(sort);
     }
@@ -79,57 +76,38 @@ const useFilter: (
     cocktailsFilter,
   ]);
 
-  const component = useMemo(() => {
-    if (filterVisible) {
-      return (
-        <View>
-          <View style={styles.filterBtnContainer}>
-            <Btn
-              style={styles.filterBtn}
-              onPress={() => {
-                setFilterVisible(false);
-              }}>
-              {filterIcon}
-            </Btn>
-            <Text style={baseStyles.textSm}>Hide Filters</Text>
-          </View>
-
-          <View style={styles.filterCheckboxes}>
-            {cocktailsCheckbox}
-            {pocCheckbox}
-            {femaleCheckbox}
-            {isOpenCheckbox}
-            {veganCheckbox}
-            {locationPermission && nearMeCheckbox}
-          </View>
-        </View>
-      );
-    } else {
-      return (
-        <View style={styles.filterBtnContainer}>
-          <Btn onPress={() => setFilterVisible(true)} style={styles.filterBtn}>
-            {filterIcon}
-          </Btn>
-          <Text style={baseStyles.textSm}>Show Filters</Text>
-        </View>
-      );
-    }
+  const filterComponent = useMemo(() => {
+    return (
+      <Filter
+        filterVisible={filterVisible}
+        setFilterVisible={setFilterVisible}
+        key={filterKey}>
+        {cocktailsCheckbox}
+        {pocCheckbox}
+        {femaleCheckbox}
+        {isOpenCheckbox}
+        {veganCheckbox}
+        {locationPermission && nearMeCheckbox}
+      </Filter>
+    );
   }, [
-    femaleCheckbox,
-    pocCheckbox,
-    isOpenCheckbox,
-    filterVisible,
-    veganCheckbox,
     cocktailsCheckbox,
+    veganCheckbox,
     locationPermission,
     nearMeCheckbox,
+    pocCheckbox,
+    femaleCheckbox,
+    isOpenCheckbox,
+    filterVisible,
+    filterKey,
   ]);
 
   return [
     sortedRestaurants,
-    component,
+    filterComponent,
     range,
     locationPermission ? orderBySelector : undefined,
+    resetFilter,
   ];
 };
 

@@ -4,6 +4,7 @@ import {useState} from 'react';
 import mapStyles from './mapStyles';
 import {PropsWithChildren} from 'react';
 import Btn from '../../reusable/Btn';
+import baseStyles from '../../styles/baseStyles';
 
 const MapRestaurantList = ({
   children,
@@ -16,7 +17,7 @@ const MapRestaurantList = ({
     return (
       <View>
         <Btn onPress={() => setShowList(!showList)}>
-          <Text>{btnText}</Text>
+          <Text style={baseStyles.btnText}>{btnText}</Text>
         </Btn>
       </View>
     );

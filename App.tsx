@@ -37,7 +37,11 @@ const RootComponent = () => {
       <NavigationContainer>
         <Provider store={store}>
           <RootTabs.Navigator
-            screenOptions={{tabBarHideOnKeyboard: true, headerShown: false}}>
+            screenOptions={{
+              tabBarHideOnKeyboard: true,
+              headerShown: false,
+              tabBarItemStyle: baseStyles.tabBarItem,
+            }}>
             <RootTabs.Screen
               name="Home"
               component={Home}

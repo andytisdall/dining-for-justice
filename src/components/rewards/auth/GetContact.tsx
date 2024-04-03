@@ -54,6 +54,10 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
   const dispatch = useDispatch();
 
   const handleSubmit = async () => {
+    if (!validateEmail(email) && !showNameFields) {
+      return dispatch(setError('Please enter a valid email address'));
+    }
+
     await getNotficationsPermission();
     const token = Notifications.token;
     // if it's just the email entry, see if contact exists and sign them in if so
@@ -61,10 +65,6 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
     // then sign in the user that was created
 
     if (!showNameFields) {
-      if (!validateEmail(email)) {
-        return dispatch(setError('Please enter a valid email address'));
-      }
-
       const user = await signIn({email, token}).unwrap();
 
       if (!user) {

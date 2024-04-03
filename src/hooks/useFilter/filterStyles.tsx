@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 import colors from '../../components/styles/colors';
+import {sizeMultiplier} from '../../components/styles/baseStyles';
 
 export default StyleSheet.create({
   filterBtnContainer: {
@@ -8,11 +9,11 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginLeft: 5,
     alignSelf: 'flex-start',
-    width: 120,
+    width: 120 * sizeMultiplier,
   },
   filterBtn: {
-    height: 35,
-    width: 35,
+    height: 35 * sizeMultiplier,
+    width: 35 * sizeMultiplier,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 1,
@@ -29,17 +30,17 @@ export default StyleSheet.create({
     alignItems: 'center',
     padding: 5,
   },
-  filterIcon: {width: 20, height: 20},
+  filterIcon: {width: 20 * sizeMultiplier, height: 20 * sizeMultiplier},
   filterLabel: {flexWrap: 'wrap', flex: 1},
   order: {flexDirection: 'row', alignItems: 'center'},
   orderBtn: {
     borderWidth: 1,
-    marginHorizontal: 10,
+    marginHorizontal: 10 * sizeMultiplier,
     paddingVertical: 2,
-    paddingHorizontal: 6,
+    paddingHorizontal: 6 * sizeMultiplier,
     borderColor: 'white',
     borderRadius: 25,
-    marginBottom: 3,
+    marginBottom: 3 * sizeMultiplier,
   },
   orderBtnSelected: {
     backgroundColor: colors.lightGrey,

@@ -1,7 +1,7 @@
 import {View, Text, Pressable, StyleSheet} from 'react-native';
 
 import RefreshIcon from '../../assets/refresh.svg';
-import baseStyles from '../styles/baseStyles';
+import baseStyles, {sizeMultiplier} from '../styles/baseStyles';
 
 const Refresh = ({refetch}: {refetch: () => void}) => {
   return (
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   icon: {
     flex: 1,
     marginTop: 10,
-    maxHeight: 40,
+    maxHeight: 40 * sizeMultiplier,
   },
 });
 

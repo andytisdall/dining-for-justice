@@ -17,8 +17,8 @@ export default StyleSheet.create({
   },
   mapBtn: {padding: 10},
   restaurantLinkIcon: {
-    height: 35,
-    width: 35,
+    height: 35 * sizeMultiplier,
+    width: 35 * sizeMultiplier,
     alignSelf: 'center',
     marginBottom: 2,
   },
@@ -32,7 +32,7 @@ export default StyleSheet.create({
   hoursItemRight: {
     alignItems: 'flex-end',
   },
-  photo: {height: 200},
+  photo: {height: 200 * sizeMultiplier},
   cocktailInfo: {
     backgroundColor: colors.green,
     borderWidth: 2,
@@ -45,7 +45,7 @@ export default StyleSheet.create({
   },
   cocktailName: {
     color: 'black',
-    fontSize: 25,
+    fontSize: 25 * sizeMultiplier,
   },
   cocktailDescription: {
     color: 'black',
@@ -57,7 +57,7 @@ export default StyleSheet.create({
   cocktailsTitle: {
     color: colors.yellow,
     fontFamily: 'Rhodium Libre',
-    fontSize: 18,
+    fontSize: 18 * sizeMultiplier,
     marginBottom: 5,
   },
 });

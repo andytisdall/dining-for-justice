@@ -2,6 +2,7 @@ import {StyleSheet, Animated} from 'react-native';
 import {useRef} from 'react';
 
 import Thumb from '../../assets/thumb.svg';
+import {sizeMultiplier} from '../styles/baseStyles';
 
 const ThumbsUp = () => {
   const translateValue = useRef(new Animated.Value(0)).current;
@@ -15,7 +16,7 @@ const ThumbsUp = () => {
   return (
     <Animated.View
       style={[styles.container, {transform: [{scale: translateValue}]}]}>
-      <Thumb height={60} width={60} />
+      <Thumb height={60 * sizeMultiplier} width={60 * sizeMultiplier} />
     </Animated.View>
   );
 };

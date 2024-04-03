@@ -6,6 +6,7 @@ import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
 import baseStyles from '../../styles/baseStyles';
 import restaurantStyles from './restaurantStyles';
 import {boxHeight, marginVertical} from './restaurantListItemStyles';
+import Btn from '../../reusable/Btn';
 
 // const MockItem = ({
 //   restaurant,
@@ -22,9 +23,11 @@ const RestaurantList = memo(
   ({
     restaurants,
     onRestaurantPress,
+    resetFilterState,
   }: {
     restaurants?: Restaurant[];
     onRestaurantPress: (id: string) => void;
+    resetFilterState: () => void;
   }) => {
     const renderItem = useCallback(
       ({item}: {item: Restaurant}) => (
@@ -50,8 +53,11 @@ const RestaurantList = memo(
       return (
         <View style={[baseStyles.centerSection, baseStyles.screenSection]}>
           <Text style={baseStyles.textSm}>No Results Found.</Text>
-          <View style={baseStyles.screenSection}>
+          <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
             <Text style={baseStyles.textXSm}>Try Adjusting the Filter</Text>
+            <Btn onPress={resetFilterState}>
+              <Text style={baseStyles.btnText}>Remove All Filters</Text>
+            </Btn>
           </View>
         </View>
       );

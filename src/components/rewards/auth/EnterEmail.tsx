@@ -16,6 +16,7 @@ const EnterEmail = ({
     <View>
       <Text style={[baseStyles.textSm, authStyles.authFieldLabel]}>Email:</Text>
       <TextInput
+        style={authStyles.input}
         value={email}
         onChangeText={setEmail}
         autoCapitalize="none"

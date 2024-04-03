@@ -3,7 +3,11 @@ import {useCallback, useState, useMemo} from 'react';
 import {Restaurant} from '../../state/apis/restaurantApi/restaurantApi';
 import FilterCheckbox from './FilterCheckbox';
 
-const useCocktailsFilter = (): [(rest: Restaurant) => boolean, JSX.Element] => {
+const useCocktailsFilter = (): [
+  (rest: Restaurant) => boolean,
+  JSX.Element,
+  () => void,
+] => {
   const [cocktails, setCocktails] = useState(false);
 
   const filter = useCallback(
@@ -28,7 +32,7 @@ const useCocktailsFilter = (): [(rest: Restaurant) => boolean, JSX.Element] => {
     [cocktails],
   );
 
-  return [filter, component];
+  return [filter, component, () => setCocktails(false)];
 };
 
 export default useCocktailsFilter;

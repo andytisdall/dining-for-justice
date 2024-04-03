@@ -1,9 +1,14 @@
 import {TextInput} from 'react-native-paper';
-import {Text, View, TextInput as TextInputType} from 'react-native';
+import {
+  Text,
+  View,
+  TextInput as TextInputType,
+  KeyboardAvoidingView,
+} from 'react-native';
 import {useRef} from 'react';
 
 import baseStyles from '../../styles/baseStyles';
-import rewardsStyles from '../rewardsStyles';
+import authStyles from './authStyles';
 
 const EnterName = ({
   firstName,
@@ -21,7 +26,7 @@ const EnterName = ({
   const lastNameRef = useRef<TextInputType>(null);
 
   return (
-    <View style={baseStyles.screenSection}>
+    <KeyboardAvoidingView style={baseStyles.screenSection}>
       <Text style={baseStyles.textSm}>
         Please enter your name for our records (in the future you'll only need
         to enter your email):
@@ -34,6 +39,9 @@ const EnterName = ({
           onChangeText={setFirstName}
           onSubmitEditing={() => lastNameRef.current?.focus()}
           blurOnSubmit
+          style={authStyles.input}
+          autoCorrect={false}
+          autoCapitalize="words"
         />
       </View>
       <View style={baseStyles.screenSection}>
@@ -43,12 +51,14 @@ const EnterName = ({
           onChangeText={setLastName}
           onSubmitEditing={next}
           returnKeyType="next"
-          style={rewardsStyles.textInput}
+          style={authStyles.input}
           ref={lastNameRef}
           blurOnSubmit
+          autoCorrect={false}
+          autoCapitalize="words"
         />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

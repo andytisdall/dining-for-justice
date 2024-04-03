@@ -15,8 +15,8 @@
 		7699B88040F8A987B510C191 /* libPods-d4japp-d4jappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-d4japp-d4jappTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8A1F19082BA94AB50048CF61 /* Manrope.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8A1F19062BA94AB50048CF61 /* Manrope.ttf */; };
+		8AD19F532BBE0A1E00575CAB /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8AD19F522BBE0A1E00575CAB /* PrivacyInfo.xcprivacy */; };
 		8AECDBBF2BAA4C2B00031B3D /* Rhodium Libre.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8AECDBBE2BAA4C2B00031B3D /* Rhodium Libre.ttf */; };
-		CFCBDB7C8DFA4ADEA2D8F8D1 /* Rhodium Libre.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 084114C0B49B47CEB7BEBBA7 /* Rhodium Libre.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,7 +33,6 @@
 		00E356EE1AD99517003FC87E /* d4jappTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = d4jappTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* d4jappTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = d4jappTests.m; sourceTree = "<group>"; };
-		084114C0B49B47CEB7BEBBA7 /* Rhodium Libre.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Rhodium Libre.ttf"; path = "../src/assets/fonts/Rhodium Libre.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* d4japp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = d4japp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = d4japp/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = d4japp/AppDelegate.mm; sourceTree = "<group>"; };
@@ -48,6 +47,7 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = d4japp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-d4japp-d4jappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-d4japp-d4jappTests.release.xcconfig"; path = "Target Support Files/Pods-d4japp-d4jappTests/Pods-d4japp-d4jappTests.release.xcconfig"; sourceTree = "<group>"; };
 		8A1F19062BA94AB50048CF61 /* Manrope.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Manrope.ttf; path = ../../src/assets/fonts/Manrope.ttf; sourceTree = "<group>"; };
+		8AD19F522BBE0A1E00575CAB /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		8AECDBBE2BAA4C2B00031B3D /* Rhodium Libre.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Rhodium Libre.ttf"; path = "../../src/assets/fonts/Rhodium Libre.ttf"; sourceTree = "<group>"; };
 		8AFF295F2B3CBFA60049A490 /* d4japp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = d4japp.entitlements; path = d4japp/d4japp.entitlements; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -114,14 +114,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		534D1F29ACA647ECA85F2A70 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				084114C0B49B47CEB7BEBBA7 /* Rhodium Libre.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +124,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				8AD19F522BBE0A1E00575CAB /* PrivacyInfo.xcprivacy */,
 				8A1F19042BA94A970048CF61 /* Fonts */,
 				13B07FAE1A68108700A75B9A /* d4japp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -139,7 +132,6 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
-				534D1F29ACA647ECA85F2A70 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -271,8 +263,8 @@
 				8A1F19082BA94AB50048CF61 /* Manrope.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				8AD19F532BBE0A1E00575CAB /* PrivacyInfo.xcprivacy in Resources */,
 				8AECDBBF2BAA4C2B00031B3D /* Rhodium Libre.ttf in Resources */,
-				CFCBDB7C8DFA4ADEA2D8F8D1 /* Rhodium Libre.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,10 +623,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_CFLAGS = "$(inherited)  ";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
@@ -699,10 +688,7 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_CFLAGS = "$(inherited)  ";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
@@ -725,7 +711,7 @@
 				00E356F71AD99517003FC87E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "d4japp" */ = {
 			isa = XCConfigurationList;
@@ -734,7 +720,7 @@
 				13B07F951A680F5B00A75B9A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "d4japp" */ = {
 			isa = XCConfigurationList;
@@ -743,7 +729,7 @@
 				83CBBA211A601CBA00E9B192 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

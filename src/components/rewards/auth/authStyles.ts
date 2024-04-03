@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 import colors from '../../styles/colors';
+import {sizeMultiplier} from '../../styles/baseStyles';
 
 export default StyleSheet.create({
   signOutBtn: {
@@ -10,11 +11,11 @@ export default StyleSheet.create({
   },
   signOutBtnText: {
     color: colors.pink,
+    fontSize: 15 * sizeMultiplier,
   },
   user: {
-    flexDirection: 'row',
+    width: '100%',
     alignItems: 'center',
-    flexWrap: 'wrap',
     justifyContent: 'center',
     marginHorizontal: 10,
   },
@@ -26,6 +27,12 @@ export default StyleSheet.create({
     textAlign: 'center',
     borderBottomColor: colors.lightGrey,
     borderBottomWidth: 1,
-    marginHorizontal: 20,
+    marginHorizontal: 20 * sizeMultiplier,
+  },
+  input: {
+    fontSize: sizeMultiplier * 15,
+    height: sizeMultiplier * 25,
+    marginVertical: 5 * sizeMultiplier,
+    padding: 5 * sizeMultiplier,
   },
 });

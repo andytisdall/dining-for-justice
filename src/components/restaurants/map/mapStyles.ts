@@ -1,13 +1,18 @@
 import {StyleSheet, Dimensions} from 'react-native';
+import {sizeMultiplier} from '../../styles/baseStyles';
+
+export const height = Dimensions.get('screen').height;
 
 export default StyleSheet.create({
   map: {
-    height: Dimensions.get('window').height * 0.5,
+    height: height * 0.5,
   },
   mapBtns: {
     position: 'absolute',
     flexDirection: 'row',
     right: 0,
+    paddingTop: 5 * sizeMultiplier,
+    paddingHorizontal: 5 * sizeMultiplier,
   },
   userMarker: {zIndex: 1},
   selectedMarker: {zIndex: 1},

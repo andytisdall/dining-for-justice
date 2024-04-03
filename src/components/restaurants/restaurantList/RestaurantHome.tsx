@@ -23,7 +23,7 @@ const mapIcon = require('../../../assets/mapIcon.png');
 const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
   const {data: restaurants, isLoading, refetch} = useGetRestaurantsQuery();
 
-  const [sortedRestaurants, filterComponent, , orderBySelector] =
+  const [sortedRestaurants, filterComponent, , orderBySelector, resetFilter] =
     useFilter(restaurants);
 
   const navigate = useCallback(
@@ -81,6 +81,7 @@ const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
       <RestaurantList
         restaurants={sortedRestaurants}
         onRestaurantPress={navigate}
+        resetFilterState={resetFilter}
       />
     );
   };

@@ -3,7 +3,11 @@ import {useState, useMemo, useCallback} from 'react';
 import {Restaurant} from '../../state/apis/restaurantApi/restaurantApi';
 import FilterCheckbox from './FilterCheckbox';
 
-const useVeganFilter = (): [(rest: Restaurant) => boolean, JSX.Element] => {
+const useVeganFilter = (): [
+  (rest: Restaurant) => boolean,
+  JSX.Element,
+  () => void,
+] => {
   const [vegan, setVegan] = useState(false);
 
   const filter = useCallback(
@@ -22,7 +26,7 @@ const useVeganFilter = (): [(rest: Restaurant) => boolean, JSX.Element] => {
     [vegan],
   );
 
-  return [filter, component];
+  return [filter, component, () => setVegan(false)];
 };
 
 export default useVeganFilter;

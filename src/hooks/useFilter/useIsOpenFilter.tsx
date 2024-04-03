@@ -4,7 +4,11 @@ import {format, addDays} from 'date-fns';
 import {Restaurant} from '../../state/apis/restaurantApi/restaurantApi';
 import FilterCheckbox from './FilterCheckbox';
 
-const useIsOpenFilter = (): [(rest: Restaurant) => boolean, JSX.Element] => {
+const useIsOpenFilter = (): [
+  (rest: Restaurant) => boolean,
+  JSX.Element,
+  () => void,
+] => {
   const [openNow, setOpenNow] = useState(false);
 
   const getTime = useCallback((time: string) => {
@@ -78,7 +82,7 @@ const useIsOpenFilter = (): [(rest: Restaurant) => boolean, JSX.Element] => {
     [openNow],
   );
 
-  return [filter, component];
+  return [filter, component, () => setOpenNow(false)];
 };
 
 export default useIsOpenFilter;

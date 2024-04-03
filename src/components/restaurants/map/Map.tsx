@@ -1,4 +1,4 @@
-import {FlatList, Dimensions, Text} from 'react-native';
+import {FlatList, Dimensions, Text, Platform} from 'react-native';
 import MapView, {PROVIDER_GOOGLE, Region, MapMarker} from 'react-native-maps';
 import {useRef, useState, useEffect, useMemo, useCallback} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -46,8 +46,13 @@ const Map = ({navigation, route}: MapScreenProps) => {
   const {data: restaurants} = useGetRestaurantsQuery();
   const {data: location} = useGetLocationQuery();
 
-  const [sortedRestaurants, filterComponent, range, orderByComponent] =
-    useFilter(restaurants);
+  const [
+    sortedRestaurants,
+    filterComponent,
+    range,
+    orderByComponent,
+    resetFilter,
+  ] = useFilter(restaurants);
   const [onScroll, PopUp] = useRespondToScroll(height);
 
   const [getPermission, {data: locationPermission}] =
@@ -68,8 +73,11 @@ const Map = ({navigation, route}: MapScreenProps) => {
   const restaurant = sortedRestaurants?.find(r => r.id === selectedRestaurant);
 
   useEffect(() => {
-    if (restaurant) {
-      markerRef.current?.showCallout();
+    if (restaurant && markerRef.current) {
+      markerRef.current.showCallout();
+      if (Platform.OS === 'android') {
+        markerRef.current.showCallout();
+      }
     }
   }, [restaurant]);
 
@@ -94,9 +102,9 @@ const Map = ({navigation, route}: MapScreenProps) => {
   const onPressRestaurantListItem = useCallback(
     (restaurantId: string) => {
       const rest = sortedRestaurants?.find(r => r.id === restaurantId);
-      if (mapRef.current && rest?.coords) {
-        scrollToTop();
+      if (rest?.coords) {
         centerRestaurant(rest);
+        scrollToTop();
       }
       restaurantRef.current = restaurantId;
     },
@@ -210,10 +218,16 @@ const Map = ({navigation, route}: MapScreenProps) => {
         <RestaurantList
           onRestaurantPress={onPressRestaurantListItem}
           restaurants={sortedRestaurants}
+          resetFilterState={resetFilter}
         />
       </MapRestaurantList>
     );
-  }, [orderByComponent, sortedRestaurants, onPressRestaurantListItem]);
+  }, [
+    orderByComponent,
+    sortedRestaurants,
+    onPressRestaurantListItem,
+    resetFilter,
+  ]);
 
   const scrollToTop = () => {
     listRef.current?.scrollToIndex({index: 0});
@@ -223,7 +237,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
     return (
       <PopUp>
         <Btn onPress={scrollToTop}>
-          <Text>Go to Map</Text>
+          <Text style={baseStyles.btnText}>Go to Map</Text>
         </Btn>
       </PopUp>
     );

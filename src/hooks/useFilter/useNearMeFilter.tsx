@@ -13,6 +13,7 @@ const useNearMeFilter = (): [
   (rest: Restaurant) => boolean,
   JSX.Element,
   number | undefined,
+  () => void,
 ] => {
   const [nearMe, setNearMe] = useState(false);
 
@@ -53,7 +54,12 @@ const useNearMeFilter = (): [
     [nearMe],
   );
 
-  return [filter, component, nearMe ? NEAR_ME_RANGE : undefined];
+  return [
+    filter,
+    component,
+    nearMe ? NEAR_ME_RANGE : undefined,
+    () => setNearMe(false),
+  ];
 };
 
 export default useNearMeFilter;

@@ -1,5 +1,6 @@
 import {StyleSheet, Animated, Image, View, Easing} from 'react-native';
 import {useRef} from 'react';
+import {sizeMultiplier} from '../styles/baseStyles';
 
 const AnimatedLoading = () => {
   const translateValue1 = useRef(new Animated.Value(0)).current;
@@ -111,8 +112,8 @@ const AnimatedLoading = () => {
 };
 
 const styles = StyleSheet.create({
-  pizza: {height: 100, width: 100},
-  chicken: {height: 80, width: 80},
+  pizza: {height: 100 * sizeMultiplier, width: 100 * sizeMultiplier},
+  chicken: {height: 80 * sizeMultiplier, width: 80 * sizeMultiplier},
   container: {
     flexDirection: 'row',
     alignItems: 'flex-start',

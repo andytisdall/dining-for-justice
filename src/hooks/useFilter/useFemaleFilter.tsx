@@ -3,7 +3,11 @@ import {useState, useCallback, useMemo} from 'react';
 import {Restaurant} from '../../state/apis/restaurantApi/restaurantApi';
 import FilterCheckbox from './FilterCheckbox';
 
-const useFemaleFilter = (): [(rest: Restaurant) => boolean, JSX.Element] => {
+const useFemaleFilter = (): [
+  (rest: Restaurant) => boolean,
+  JSX.Element,
+  () => void,
+] => {
   const [femaleOwned, setFemaleOwned] = useState(false);
 
   const filter = useCallback(
@@ -28,7 +32,7 @@ const useFemaleFilter = (): [(rest: Restaurant) => boolean, JSX.Element] => {
     [femaleOwned],
   );
 
-  return [filter, component];
+  return [filter, component, () => setFemaleOwned(false)];
 };
 
 export default useFemaleFilter;

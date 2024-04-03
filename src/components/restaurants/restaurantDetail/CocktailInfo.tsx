@@ -12,7 +12,7 @@ const CocktailInfo = ({restaurant}: {restaurant: Restaurant}) => {
       </Text>
       <View style={restaurantDetailStyles.cocktailInfo}>
         <View style={baseStyles.centerSection}>
-          <Text>Featured Cocktail:</Text>
+          <Text style={baseStyles.btnText}>Featured Cocktail:</Text>
           <Text
             style={[
               restaurantDetailStyles.cocktailName,

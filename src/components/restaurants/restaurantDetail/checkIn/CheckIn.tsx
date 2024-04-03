@@ -104,7 +104,7 @@ const CheckIn = ({
       return (
         <View style={checkInStyles.checkIn}>
           <Btn onPress={checkInAction} disabled={isSuccess}>
-            <Text>Check In</Text>
+            <Text style={baseStyles.btnText}>Check In</Text>
           </Btn>
           {loading && <Loading />}
           {inRange !== undefined && !loading ? (

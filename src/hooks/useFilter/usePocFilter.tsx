@@ -3,7 +3,11 @@ import {useState, useCallback, useMemo} from 'react';
 import {Restaurant} from '../../state/apis/restaurantApi/restaurantApi';
 import FilterCheckbox from './FilterCheckbox';
 
-const usePocFilter = (): [(rest: Restaurant) => boolean, JSX.Element] => {
+const usePocFilter = (): [
+  (rest: Restaurant) => boolean,
+  JSX.Element,
+  () => void,
+] => {
   const [pocOwned, setPocOwned] = useState(false);
 
   const filter = useCallback(
@@ -28,7 +32,7 @@ const usePocFilter = (): [(rest: Restaurant) => boolean, JSX.Element] => {
     [pocOwned],
   );
 
-  return [filter, component];
+  return [filter, component, () => setPocOwned(false)];
 };
 
 export default usePocFilter;
