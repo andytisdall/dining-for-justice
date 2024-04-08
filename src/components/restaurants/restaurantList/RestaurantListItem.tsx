@@ -5,6 +5,7 @@ import FastImage from 'react-native-fast-image';
 import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
 import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
 import restaurantListItemStyles from './restaurantListItemStyles';
+import RNReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 const RestaurantListItem = memo(
   ({
@@ -34,6 +35,7 @@ const RestaurantListItem = memo(
     return (
       <Pressable
         onPress={() => {
+          RNReactNativeHapticFeedback.trigger('impactLight');
           onPress(restaurant.id);
         }}>
         {({pressed}) => {

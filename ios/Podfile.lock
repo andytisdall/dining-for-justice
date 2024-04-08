@@ -495,6 +495,8 @@ PODS:
     - SDWebImageWebPCoder (~> 0.8.4)
   - RNPermissions (4.0.3):
     - React-Core
+  - RNReactNativeHapticFeedback (2.2.0):
+    - React-Core
   - RNScreens (3.29.0):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
@@ -562,6 +564,7 @@ DEPENDENCIES:
   - "RNCPushNotificationIOS (from `../node_modules/@react-native-community/push-notification-ios`)"
   - RNFastImage (from `../node_modules/react-native-fast-image`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
+  - RNReactNativeHapticFeedback (from `../node_modules/react-native-haptic-feedback`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -681,6 +684,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-fast-image"
   RNPermissions:
     :path: "../node_modules/react-native-permissions"
+  RNReactNativeHapticFeedback:
+    :path: "../node_modules/react-native-haptic-feedback"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   RNSVG:
@@ -746,6 +751,7 @@ SPEC CHECKSUMS:
   RNCPushNotificationIOS: 64218f3c776c03d7408284a819b2abfda1834bc8
   RNFastImage: 5c9c9fed9c076e521b3f509fe79e790418a544e8
   RNPermissions: 036b717750b0c3bab67755ff3a5a5be38c31bebb
+  RNReactNativeHapticFeedback: ec56a5f81c3941206fd85625fa669ffc7b4545f9
   RNScreens: 3c5b9f4a9dcde752466854b6109b79c0e205dad3
   RNSVG: ba3e7232f45e34b7b47e74472386cf4e1a676d0a
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d

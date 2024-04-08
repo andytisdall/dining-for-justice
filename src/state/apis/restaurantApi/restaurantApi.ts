@@ -38,11 +38,25 @@ export const restaurantApi = api.injectEndpoints({
     getRestaurants: builder.query<Restaurant[], void>({
       query: () => '/d4j/restaurants',
     }),
-    getRestaurantDetails: builder.query<RestaurantDetails, string>({
-      query: restaurantId => `/d4j/restaurantDetails/${restaurantId}`,
+    getRestaurantDetails: builder.query<
+      RestaurantDetails | null,
+      string | undefined
+    >({
+      queryFn: async (restaurantId, queryApi, extraOption, baseQuery) => {
+        if (restaurantId) {
+          const {data}: {data?: RestaurantDetails} = (await baseQuery({
+            url: `/d4j/restaurantDetails/${restaurantId}`,
+          })) as {data?: RestaurantDetails};
+          if (data) {
+            return {data};
+          }
+          return {error: {error: 'Network Error', status: 'FETCH_ERROR'}};
+        }
+        return {data: null};
+      },
     }),
   }),
 });
 
-export const {useGetRestaurantsQuery, useLazyGetRestaurantDetailsQuery} =
+export const {useGetRestaurantsQuery, useGetRestaurantDetailsQuery} =
   restaurantApi;

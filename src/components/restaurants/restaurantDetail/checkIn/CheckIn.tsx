@@ -1,5 +1,6 @@
 import {View, Text, Animated} from 'react-native';
 import {useRef} from 'react';
+import RNReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 import Loading from '../../../reusable/Loading';
 import {useUserIsWithinRangeOfLocationMutation} from '../../../../state/apis/rewardsApi/checkInApi';
@@ -85,6 +86,7 @@ const CheckIn = ({
   };
 
   const checkInAction = async () => {
+    RNReactNativeHapticFeedback.trigger('notificationSuccess');
     const locationPermission = await getPermission().unwrap();
     if (locationPermission) {
       const withinRange = await userIsWithinRange(restaurant.coords!).unwrap();

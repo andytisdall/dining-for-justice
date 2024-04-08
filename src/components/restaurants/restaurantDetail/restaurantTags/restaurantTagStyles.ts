@@ -12,13 +12,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderRadius: 25,
     paddingHorizontal: 8 * sizeMultiplier,
-  },
-  restaurantServesItemText: {
-    color: colors.green,
-    fontSize: 12 * sizeMultiplier,
-  },
-  restaurantTagItemText: {
-    color: colors.pink,
+    backgroundColor: colors.lightGrey,
     fontSize: 12 * sizeMultiplier,
   },
   restaurantIcons: {
@@ -26,5 +20,14 @@ export default StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
+    width: '100%',
+  },
+  tagHeader: {
+    backgroundColor: colors.grey,
+    paddingVertical: 5,
+    paddingHorizontal: 8,
+    fontSize: 15 * sizeMultiplier,
+    color: colors.green,
+    marginHorizontal: 10 * sizeMultiplier,
   },
 });

@@ -3,60 +3,28 @@ import {View, Text} from 'react-native';
 import baseStyles from '../../../styles/baseStyles';
 import {
   Restaurant,
-  RestaurantDetails,
+  useGetRestaurantDetailsQuery,
 } from '../../../../state/apis/restaurantApi/restaurantApi';
 import restaurantTagStyles from './restaurantTagStyles';
+import TagIcon from './TagIcon';
 
-const RestaurantTags = ({
-  restaurant,
-  details,
-}: {
-  restaurant: Restaurant;
-  details?: RestaurantDetails;
-}) => {
-  const servesIcon = (text: string) => {
-    return (
-      <View style={[restaurantTagStyles.restaurantInfoItem]}>
-        <Text style={restaurantTagStyles.restaurantServesItemText}>{text}</Text>
-      </View>
-    );
-  };
+const RestaurantTags = ({restaurant}: {restaurant: Restaurant}) => {
+  const {data: details} = useGetRestaurantDetailsQuery(restaurant.googleId);
+  const {femaleOwned, pocOwned, vegan} = restaurant;
 
-  const tagIcon = (text: string) => {
-    return (
-      <View style={[restaurantTagStyles.restaurantInfoItem]}>
-        <Text style={restaurantTagStyles.restaurantTagItemText}>{text}</Text>
-      </View>
-    );
-  };
-  const renderServesItems = () => {
+  const renderDetailTags = () => {
     if (details) {
+      const {openNow} = details;
       const {beer, wine, cocktails, breakfast} = details.serves;
 
-      if (beer || wine || cocktails || breakfast) {
-        return (
-          <>
-            {beer && servesIcon('Beer')}
-            {wine && servesIcon('Wine')}
-            {cocktails && servesIcon('Cocktails')}
-            {breakfast && servesIcon('Breakfast')}
-          </>
-        );
-      }
-    }
-  };
-
-  const renderTags = () => {
-    if (details && restaurant) {
-      const {openNow} = details;
-      const {femaleOwned, pocOwned, vegan} = restaurant;
       if (openNow || femaleOwned || pocOwned || vegan) {
         return (
           <>
-            {femaleOwned && tagIcon('Woman Owned')}
-            {pocOwned && tagIcon('P.O.C. Owned')}
-            {vegan && tagIcon('Vegan')}
-            {openNow && tagIcon('Open Now')}
+            {openNow && <TagIcon text="Open Now" />}
+            {beer && <TagIcon text="Beer" />}
+            {wine && <TagIcon text="Wine" />}
+            {cocktails && <TagIcon text="Cocktails" />}
+            {breakfast && <TagIcon text="Breakfast" />}
           </>
         );
       }
@@ -64,11 +32,16 @@ const RestaurantTags = ({
   };
 
   return (
-    <View style={baseStyles.centerSection}>
+    <View style={[baseStyles.screenBorders]}>
       <View
-        style={[baseStyles.screenSection, restaurantTagStyles.restaurantIcons]}>
-        {renderServesItems()}
-        {renderTags()}
+        style={[baseStyles.centerSection, restaurantTagStyles.restaurantIcons]}>
+        <Text style={[baseStyles.btnText, restaurantTagStyles.tagHeader]}>
+          Tags:
+        </Text>
+        {renderDetailTags()}
+        {femaleOwned && <TagIcon text="Woman Owned" />}
+        {pocOwned && <TagIcon text="P.O.C. Owned" />}
+        {vegan && <TagIcon text="Vegan" />}
       </View>
     </View>
   );

@@ -1,7 +1,11 @@
 import {Text, View} from 'react-native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
 
+import {RewardsStackParams} from '../RewardsNavigator';
 import baseStyles from '../../styles/baseStyles';
 import PrizeCard from './PrizeCard';
+import Btn from '../../reusable/Btn';
 
 const WARRIORS_IMG =
   'https://images.squarespace-cdn.com/content/v1/61760bdeb9da1d30a3f0c301/9fcc6e36-fa0a-458b-a142-36fa4606bd4c/steph.jpeg?format=2500w';
@@ -16,6 +20,9 @@ const SPICE_IMG =
   'https://goodeggs4.imgix.net/4c86488e-8095-426c-9aea-4e53bcfda14d.jpg?w=840&h=525&fm=jpg&q=80&fit=crop';
 
 const Prizes = () => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RewardsStackParams>>();
+
   return (
     <View style={baseStyles.screenSection}>
       <Text style={[baseStyles.textLg, baseStyles.centerText]}>
@@ -45,6 +52,11 @@ const Prizes = () => {
         description="Oakland Spice Shop spice kit"
         photo={SPICE_IMG}
       />
+      <View style={[baseStyles.centerSection, baseStyles.screenSection]}>
+        <Btn onPress={() => navigation.navigate('Rules')}>
+          <Text style={baseStyles.btnText}>Contest Rules</Text>
+        </Btn>
+      </View>
     </View>
   );
 };

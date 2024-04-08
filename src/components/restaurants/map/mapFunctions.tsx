@@ -14,7 +14,7 @@ export const INITIAL_COORDS: Region = {
 };
 
 const getVerticalOffset = (zoom: number) => {
-  return zoom * (height / 2000);
+  return zoom * (height / 2500);
 };
 
 export const zoomToLocation = ({

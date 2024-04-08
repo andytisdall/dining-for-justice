@@ -13,7 +13,8 @@ export default StyleSheet.create({
   restaurantLinkRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
+    marginTop: 8 * sizeMultiplier,
   },
   mapBtn: {padding: 10},
   restaurantLinkIcon: {
@@ -34,9 +35,9 @@ export default StyleSheet.create({
   },
   photo: {height: 200 * sizeMultiplier},
   cocktailInfo: {
-    backgroundColor: colors.green,
+    backgroundColor: colors.lightGrey,
     borderWidth: 2,
-    borderColor: colors.green,
+    borderColor: 'white',
     borderRadius: 25,
     paddingHorizontal: 15 * sizeMultiplier,
     paddingVertical: 7 * sizeMultiplier,

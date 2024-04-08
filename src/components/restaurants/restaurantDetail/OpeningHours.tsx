@@ -23,19 +23,12 @@ const OpeningHours = ({openHours}: {openHours: string[]}) => {
   };
 
   return (
-    <>
+    <View style={baseStyles.screenBorders}>
       <View style={baseStyles.centerSection}>
-        <Text
-          style={[
-            baseStyles.text,
-            restaurantDetailStyles.restaurantIcons,
-            baseStyles.screenSection,
-          ]}>
-          Hours:
-        </Text>
+        <Text style={[baseStyles.text, baseStyles.screenSection]}>Hours:</Text>
       </View>
       <FlatList data={openHours} renderItem={renderHourItem} />
-    </>
+    </View>
   );
 };
 export default OpeningHours;

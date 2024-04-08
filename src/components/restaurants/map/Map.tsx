@@ -2,6 +2,7 @@ import {FlatList, Dimensions, Text, Platform} from 'react-native';
 import MapView, {PROVIDER_GOOGLE, Region, MapMarker} from 'react-native-maps';
 import {useRef, useState, useEffect, useMemo, useCallback} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import RNReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 import useFilter from '../../../hooks/useFilter/useFilter';
 import {RestaurantStackParams} from '../RestaurantNavigator';
@@ -101,6 +102,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
 
   const onPressRestaurantListItem = useCallback(
     (restaurantId: string) => {
+      RNReactNativeHapticFeedback.trigger('impactLight');
       const rest = sortedRestaurants?.find(r => r.id === restaurantId);
       if (rest?.coords) {
         centerRestaurant(rest);
@@ -134,7 +136,10 @@ const Map = ({navigation, route}: MapScreenProps) => {
           centerRestaurant(rest);
           restaurantRef.current = rest.id;
         };
-        const restaurantLink = () => navigateToRestaurant(rest.id);
+        const restaurantLink = () => {
+          RNReactNativeHapticFeedback.trigger('impactLight');
+          navigateToRestaurant(rest.id);
+        };
 
         return (
           <CustomMarker
@@ -159,11 +164,10 @@ const Map = ({navigation, route}: MapScreenProps) => {
   }, []);
 
   const zoomToUserLocation = useCallback(async () => {
-    if (!locationPermission) {
-      const permission = await getPermission().unwrap();
-      if (!permission) {
-        return openEnableLocationModal();
-      }
+    RNReactNativeHapticFeedback.trigger('impactLight');
+    const permission = await getPermission().unwrap();
+    if (!permission) {
+      return openEnableLocationModal();
     }
     if (location && mapRef.current) {
       zoomToLocation({
@@ -173,7 +177,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
       });
       restaurantRef.current = '';
     }
-  }, [getPermission, location, locationPermission, openEnableLocationModal]);
+  }, [getPermission, location, openEnableLocationModal]);
 
   const mapHeader = useMemo(() => {
     return (
