@@ -8,7 +8,18 @@ import Arrow from '../../assets/arrow.svg';
 import colors from '../styles/colors';
 import {sizeMultiplier} from '../styles/baseStyles';
 
-const font = 'Rhodium Libre';
+export const TITLE_FONT = 'Alice';
+
+const gradientColors = [
+  colors.bloodRed,
+  colors.darkPurple,
+  colors.midnightBlue,
+  'black',
+  colors.darkGrey,
+];
+
+const start = {x: -0.2, y: -0.2};
+const end = {x: 0.5, y: 5};
 
 const StackHeader = ({navigation, route, options}: NativeStackHeaderProps) => {
   const translateValue = useRef(new Animated.Value(0)).current;
@@ -19,7 +30,9 @@ const StackHeader = ({navigation, route, options}: NativeStackHeaderProps) => {
     <View style={styles.headerContainer}>
       <LinearGradient
         style={styles.header}
-        colors={['rgb(60,60,120)', 'rgb(30,40,70)']}>
+        colors={gradientColors}
+        start={start}
+        end={end}>
         {options.headerBackVisible && (
           <Animated.View
             style={[
@@ -60,18 +73,17 @@ const StackHeader = ({navigation, route, options}: NativeStackHeaderProps) => {
 
 export const styles = StyleSheet.create({
   headerContainer: {
-    padding: 1 * sizeMultiplier,
-    backgroundColor: colors.lightGrey,
+    borderBottomWidth: 1,
+    borderColor: colors.grey,
   },
   header: {
     width: '100%',
-    backgroundColor: colors.grey,
     paddingHorizontal: 10,
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 5,
     justifyContent: 'center',
-    borderWidth: 2,
+    borderBottomWidth: 2,
     borderColor: colors.darkGrey,
   },
   image: {
@@ -87,10 +99,10 @@ export const styles = StyleSheet.create({
   titleText: {
     fontSize: 24 * sizeMultiplier,
     color: 'white',
-    fontFamily: font,
+    fontFamily: TITLE_FONT,
     textAlign: 'center',
-    lineHeight: 35 * sizeMultiplier,
-    paddingTop: 8,
+    lineHeight: 30 * sizeMultiplier,
+    paddingVertical: 5,
   },
   btn: {
     borderWidth: 2,
@@ -98,8 +110,8 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.lightGrey,
     borderColor: 'white',
     marginLeft: 10,
-    height: 40 * sizeMultiplier,
-    width: 40 * sizeMultiplier,
+    height: 35 * sizeMultiplier,
+    width: 35 * sizeMultiplier,
     position: 'absolute',
     left: 5 * sizeMultiplier,
   },
@@ -107,11 +119,11 @@ export const styles = StyleSheet.create({
   arrow: {
     transform: [
       {rotate: '180deg'},
-      {translateX: 12.5 * sizeMultiplier},
+      {translateX: 10.5 * sizeMultiplier},
       {translateY: -6.5 * sizeMultiplier},
     ],
-    maxHeight: 25 * sizeMultiplier,
-    maxWidth: 23 * sizeMultiplier,
+    maxHeight: 20 * sizeMultiplier,
+    maxWidth: 20 * sizeMultiplier,
     position: 'absolute',
     left: '50%',
   },

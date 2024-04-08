@@ -11,7 +11,7 @@ export default StyleSheet.create({
     position: 'absolute',
     flexDirection: 'row',
     right: 0,
-    paddingTop: 5 * sizeMultiplier,
+    paddingTop: 3 * sizeMultiplier,
     paddingHorizontal: 5 * sizeMultiplier,
   },
   userMarker: {zIndex: 1},

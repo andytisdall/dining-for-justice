@@ -15,17 +15,20 @@ export default StyleSheet.create({
   listHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 5 * sizeMultiplier,
     backgroundColor: colors.midnightBlue,
     borderBottomColor: colors.lightGrey,
     borderBottomWidth: 2,
+    paddingVertical: 4 * sizeMultiplier,
   },
+  mapBtn: {padding: 4 * sizeMultiplier},
   listMap: {
     position: 'absolute',
     flexDirection: 'row',
     right: 0,
-    width: '65%',
+    width: '63%',
     justifyContent: 'space-around',
+    alignItems: 'flex-start',
+    marginRight: 10 * sizeMultiplier,
   },
   refetch: {
     alignItems: 'center',

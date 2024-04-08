@@ -12,4 +12,6 @@ export default {
   red: '#bf1d28',
   darkRed: 'rgb(150,0,30)',
   purple: 'rgb(50,0,50)',
+  darkPurple: 'rgb(40,0,30)',
+  bloodRed: 'rgb(70,0,30)',
 };

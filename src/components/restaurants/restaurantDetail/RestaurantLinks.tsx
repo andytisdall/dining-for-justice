@@ -9,6 +9,7 @@ import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetailStyles';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RestaurantStackParams} from '../RestaurantNavigator';
+import restaurantStyles from '../restaurantList/restaurantStyles';
 
 const mapIcon = require('../../../assets/mapIcon.png');
 const menuIcon = require('../../../assets/menu-icon.png');
@@ -26,7 +27,7 @@ const RestaurantLinks = ({restaurant}: {restaurant: Restaurant}) => {
         {({pressed}) => {
           const pressedStyle = getPressedStyle(pressed);
           return (
-            <View style={[pressedStyle, restaurantDetailStyles.mapBtn]}>
+            <View style={[pressedStyle, restaurantStyles.mapBtn]}>
               <Image
                 source={mapIcon}
                 style={[restaurantDetailStyles.restaurantLinkIcon]}
@@ -47,7 +48,7 @@ const RestaurantLinks = ({restaurant}: {restaurant: Restaurant}) => {
             const pressedStyle = getPressedStyle(pressed);
 
             return (
-              <View style={[pressedStyle, restaurantDetailStyles.mapBtn]}>
+              <View style={[pressedStyle, restaurantStyles.mapBtn]}>
                 <Image
                   source={menuIcon}
                   style={restaurantDetailStyles.restaurantLinkIcon}

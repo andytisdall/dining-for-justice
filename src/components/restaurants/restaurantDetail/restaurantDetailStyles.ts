@@ -2,6 +2,7 @@ import {StyleSheet} from 'react-native';
 
 import colors from '../../styles/colors';
 import {sizeMultiplier} from '../../styles/baseStyles';
+import {TITLE_FONT} from '../../reusable/StackHeader';
 
 export default StyleSheet.create({
   restaurantDetailItem: {
@@ -16,12 +17,10 @@ export default StyleSheet.create({
     justifyContent: 'space-around',
     marginTop: 8 * sizeMultiplier,
   },
-  mapBtn: {padding: 10},
   restaurantLinkIcon: {
-    height: 35 * sizeMultiplier,
-    width: 35 * sizeMultiplier,
+    height: 30 * sizeMultiplier,
+    width: 30 * sizeMultiplier,
     alignSelf: 'center',
-    marginBottom: 2,
   },
   hoursItem: {
     flexDirection: 'row',
@@ -57,7 +56,7 @@ export default StyleSheet.create({
   },
   cocktailsTitle: {
     color: colors.yellow,
-    fontFamily: 'Rhodium Libre',
+    fontFamily: TITLE_FONT,
     fontSize: 18 * sizeMultiplier,
     marginBottom: 5,
   },

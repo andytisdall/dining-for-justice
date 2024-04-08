@@ -38,7 +38,7 @@ const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
       {({pressed}) => {
         const pressedStyle = getPressedStyle(pressed);
         return (
-          <View style={[pressedStyle, restaurantDetailStyles.mapBtn]}>
+          <View style={[pressedStyle, restaurantStyles.mapBtn]}>
             <Image
               source={mapIcon}
               style={[restaurantDetailStyles.restaurantLinkIcon]}

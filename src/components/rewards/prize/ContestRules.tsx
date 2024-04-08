@@ -8,8 +8,6 @@ import Loading from '../../reusable/Loading';
 const ContestRules = () => {
   const {data: contestRules, isLoading} = useGetContestRulesQuery();
 
-  console.log(contestRules);
-
   const renderRules = () => {
     return (
       <View style={baseStyles.screenSection}>
