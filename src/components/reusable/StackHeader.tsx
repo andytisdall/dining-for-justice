@@ -10,16 +10,10 @@ import {sizeMultiplier} from '../styles/baseStyles';
 
 export const TITLE_FONT = 'Alice';
 
-const gradientColors = [
-  colors.bloodRed,
-  colors.darkPurple,
-  colors.midnightBlue,
-  'black',
-  colors.darkGrey,
-];
+const gradientColors = ['black', colors.darkPurple, colors.darkGrey];
 
-const start = {x: -0.2, y: -0.2};
-const end = {x: 0.5, y: 5};
+const start = {x: 0, y: 0};
+const end = {x: 0, y: 1.2};
 
 const StackHeader = ({navigation, route, options}: NativeStackHeaderProps) => {
   const translateValue = useRef(new Animated.Value(0)).current;
@@ -73,7 +67,7 @@ const StackHeader = ({navigation, route, options}: NativeStackHeaderProps) => {
 
 export const styles = StyleSheet.create({
   headerContainer: {
-    borderBottomWidth: 1,
+    borderBottomWidth: 3,
     borderColor: colors.grey,
   },
   header: {
@@ -81,9 +75,9 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 5,
+    paddingVertical: 6,
     justifyContent: 'center',
-    borderBottomWidth: 2,
+    borderBottomWidth: 3,
     borderColor: colors.darkGrey,
   },
   image: {
@@ -97,7 +91,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   titleText: {
-    fontSize: 24 * sizeMultiplier,
+    fontSize: 28 * sizeMultiplier,
     color: 'white',
     fontFamily: TITLE_FONT,
     textAlign: 'center',

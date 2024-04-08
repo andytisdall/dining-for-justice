@@ -15,8 +15,8 @@
 		7699B88040F8A987B510C191 /* libPods-d4japp-d4jappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-d4japp-d4jappTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8A1F19082BA94AB50048CF61 /* Manrope.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8A1F19062BA94AB50048CF61 /* Manrope.ttf */; };
+		8A3DEB772BC48432005CA4E1 /* Alice.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8A3DEB762BC48432005CA4E1 /* Alice.ttf */; };
 		8AD19F532BBE0A1E00575CAB /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8AD19F522BBE0A1E00575CAB /* PrivacyInfo.xcprivacy */; };
-		8AECDBBF2BAA4C2B00031B3D /* Rhodium Libre.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8AECDBBE2BAA4C2B00031B3D /* Rhodium Libre.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,9 +47,9 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = d4japp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-d4japp-d4jappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-d4japp-d4jappTests.release.xcconfig"; path = "Target Support Files/Pods-d4japp-d4jappTests/Pods-d4japp-d4jappTests.release.xcconfig"; sourceTree = "<group>"; };
 		8A1F19062BA94AB50048CF61 /* Manrope.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Manrope.ttf; path = ../../src/assets/fonts/Manrope.ttf; sourceTree = "<group>"; };
+		8A3DEB762BC48432005CA4E1 /* Alice.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Alice.ttf; path = ../../src/assets/fonts/Alice.ttf; sourceTree = "<group>"; };
 		8AC4281E2BC3355E0081CF6A /* hermes.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = hermes.xcframework; path = "Pods/hermes-engine/destroot/Library/Frameworks/universal/hermes.xcframework"; sourceTree = "<group>"; };
 		8AD19F522BBE0A1E00575CAB /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		8AECDBBE2BAA4C2B00031B3D /* Rhodium Libre.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Rhodium Libre.ttf"; path = "../../src/assets/fonts/Rhodium Libre.ttf"; sourceTree = "<group>"; };
 		8AFF295F2B3CBFA60049A490 /* d4japp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = d4japp.entitlements; path = d4japp/d4japp.entitlements; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -152,7 +152,7 @@
 		8A1F19042BA94A970048CF61 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				8AECDBBE2BAA4C2B00031B3D /* Rhodium Libre.ttf */,
+				8A3DEB762BC48432005CA4E1 /* Alice.ttf */,
 				8A1F19062BA94AB50048CF61 /* Manrope.ttf */,
 			);
 			path = Fonts;
@@ -265,8 +265,8 @@
 				8A1F19082BA94AB50048CF61 /* Manrope.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				8A3DEB772BC48432005CA4E1 /* Alice.ttf in Resources */,
 				8AD19F532BBE0A1E00575CAB /* PrivacyInfo.xcprivacy in Resources */,
-				8AECDBBF2BAA4C2B00031B3D /* Rhodium Libre.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -625,10 +625,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_CFLAGS = "$(inherited)  ";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
@@ -693,10 +690,7 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_CFLAGS = "$(inherited)  ";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",

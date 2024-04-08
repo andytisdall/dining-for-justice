@@ -31,16 +31,16 @@
 		<key>NSExceptionDomains</key>
 		<dict/>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Check in at a D4J location to earn rewards</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Check in at a D4J location to earn rewards</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Check in at a D4J location to earn rewards</string>
 	<key>NSUserNotificationsUsageDescription</key>
 	<string>Find out about new D4J restaurants &amp; prizes</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Manrope.ttf</string>
-		<string>Rhodium Libre.ttf</string>
+		<string>Alice.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen.storyboard</string>
