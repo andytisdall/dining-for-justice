@@ -1,5 +1,6 @@
 import {View, Text, Linking, Image, Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 import {
   Restaurant,
@@ -7,7 +8,6 @@ import {
 } from '../../../state/apis/restaurantApi/restaurantApi';
 import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetailStyles';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RestaurantStackParams} from '../RestaurantNavigator';
 import restaurantStyles from '../restaurantList/restaurantStyles';
 

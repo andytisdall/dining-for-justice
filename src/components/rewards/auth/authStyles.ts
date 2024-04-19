@@ -35,4 +35,9 @@ export default StyleSheet.create({
     marginVertical: 5 * sizeMultiplier,
     padding: 5 * sizeMultiplier,
   },
+  deleteAccountBtn: {
+    backgroundColor: 'transparent',
+    borderColor: 'white',
+    padding: 0,
+  },
 });

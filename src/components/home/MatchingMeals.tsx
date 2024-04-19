@@ -5,7 +5,6 @@ import {useGetTotalCheckInsQuery} from '../../state/apis/rewardsApi/checkInApi';
 import baseStyles from '../styles/baseStyles';
 import homeStyles from './homeStyles';
 
-const anthemLogo = require('../../assets/anthem-logo.jpeg');
 const rootsLogo = require('../../assets/roots-logo.png');
 
 const MatchingMeals = () => {
@@ -14,26 +13,26 @@ const MatchingMeals = () => {
   if (totalCheckins) {
     return (
       <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
-        <View style={homeStyles.sponsors}>
-          <View style={homeStyles.anthemLogoContainer}>
-            <FastImage
-              source={anthemLogo}
-              resizeMode="contain"
-              style={homeStyles.logo}
-            />
-          </View>
-          <View style={homeStyles.rootsLogoContainer}>
-            <FastImage source={rootsLogo} style={homeStyles.logo} />
-          </View>
+        <Text
+          style={[
+            baseStyles.inputLabel,
+            baseStyles.screenSection,
+            baseStyles.centerText,
+          ]}>
+          A free community meal is donated by our sponsors for the first 2000
+          check-ins!
+        </Text>
+        {/* <View style={homeStyles.sponsors}> */}
+        <View style={homeStyles.rootsLogoContainer}>
+          <FastImage source={rootsLogo} style={homeStyles.logo} />
         </View>
+        {/* </View> */}
 
         <Text style={[baseStyles.textLg, baseStyles.centerText]}>
           Meals Donated by our Sponsors:
         </Text>
-        <View style={homeStyles.matchingNumberContainer}>
-          <Text style={homeStyles.matchingNumber}>
-            {totalCheckins.checkIns}
-          </Text>
+        <View>
+          <Text style={homeStyles.totalMeals}>{totalCheckins.checkIns}</Text>
         </View>
         <View style={baseStyles.screenSection} />
       </View>

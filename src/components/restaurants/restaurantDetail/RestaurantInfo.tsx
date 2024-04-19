@@ -6,9 +6,12 @@ import {
   Restaurant,
   useGetRestaurantDetailsQuery,
 } from '../../../state/apis/restaurantApi/restaurantApi';
+import AnimatedLoading from '../../reusable/AnimatedLoading';
 
 const RestaurantInfo = ({restaurant}: {restaurant: Restaurant}) => {
-  const {data: details} = useGetRestaurantDetailsQuery(restaurant.googleId);
+  const {data: details, isLoading} = useGetRestaurantDetailsQuery(
+    restaurant.googleId,
+  );
   const detail = (detailName: string, detailText: string) => {
     return (
       <View style={restaurantDetailStyles.restaurantDetailItem}>
@@ -28,6 +31,14 @@ const RestaurantInfo = ({restaurant}: {restaurant: Restaurant}) => {
       </>
     );
   };
+
+  if (isLoading) {
+    return (
+      <View style={baseStyles.loadingContainer}>
+        <AnimatedLoading />
+      </View>
+    );
+  }
 
   return <View style={baseStyles.screenSection}>{renderRestaurantInfo()}</View>;
 };

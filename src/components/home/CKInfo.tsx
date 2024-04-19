@@ -37,7 +37,10 @@ const CKInfo = () => {
   };
   return (
     <View style={homeStyles.ckInfo}>
-      <View style={baseStyles.screenSection}>
+      <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
+        <View style={[homeStyles.logoContainer]}>
+          <Image source={ckLogo} style={homeStyles.logo} />
+        </View>
         <View style={[baseStyles.screenBorders, baseStyles.centerSection]}>
           {renderTotalMeals()}
           <Btn
@@ -46,16 +49,6 @@ const CKInfo = () => {
             <Text style={homeStyles.donateBtnText}>Donate Now</Text>
           </Btn>
         </View>
-      </View>
-
-      <View style={[baseStyles.centerSection]}>
-        <View style={homeStyles.logoContainer}>
-          <Image source={ckLogo} style={homeStyles.logo} />
-        </View>
-        <Btn
-          onPress={() => Linking.openURL('https://www.ckoakland.org/about-us')}>
-          <Text style={baseStyles.btnText}>Learn More About CK</Text>
-        </Btn>
       </View>
       <View style={baseStyles.screenSection} />
     </View>

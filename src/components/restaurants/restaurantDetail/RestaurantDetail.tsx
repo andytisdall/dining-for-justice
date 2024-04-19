@@ -1,15 +1,12 @@
 import {View, Text, FlatList} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {useEffect, useMemo} from 'react';
+import {useEffect, useMemo, useCallback} from 'react';
 import FastImage from 'react-native-fast-image';
 
 import {RootTabsParams} from '../../../../App';
 import Btn from '../../reusable/Btn';
 import {RestaurantStackParams} from '../RestaurantNavigator';
-import {
-  useGetRestaurantsQuery,
-  useGetRestaurantDetailsQuery,
-} from '../../../state/apis/restaurantApi/restaurantApi';
+import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
 import baseStyles from '../../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetailStyles';
 import OpeningHours from './OpeningHours';
@@ -18,7 +15,6 @@ import CheckIn from './checkIn/CheckIn';
 import RestaurantTags from './restaurantTags/RestaurantTags';
 import RestaurantLinks from './RestaurantLinks';
 import RestaurantInfo from './RestaurantInfo';
-import AnimatedLoading from '../../reusable/AnimatedLoading';
 import {useGetContactQuery} from '../../../state/apis/contact/contactApi';
 import useEnableLocation from '../../../hooks/useEnableLocation';
 import CocktailInfo from './CocktailInfo';
@@ -36,10 +32,6 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
   const {id} = route.params;
 
   const restaurant = data?.find(res => res.id === id);
-
-  const {data: details, isLoading} = useGetRestaurantDetailsQuery(
-    restaurant?.googleId,
-  );
 
   const [openModal, enableLocationModal] = useEnableLocation();
 
@@ -63,7 +55,7 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     }
   }, [restaurant]);
 
-  const renderSignIn = useMemo(() => {
+  const renderSignIn = useCallback(() => {
     return (
       <View style={baseStyles.centerSection}>
         <Btn onPress={() => navigation.navigate('Rewards')}>
@@ -77,13 +69,6 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
   }, [navigation]);
 
   const renderDetails = useMemo(() => {
-    if (isLoading) {
-      return (
-        <View style={baseStyles.loadingContainer}>
-          <AnimatedLoading />
-        </View>
-      );
-    }
     if (restaurant) {
       return (
         <View style={baseStyles.screenSection}>
@@ -94,19 +79,18 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
           )}
 
           <RestaurantInfo restaurant={restaurant} />
+
           {!user ? (
-            renderSignIn
+            renderSignIn()
           ) : (
             <CheckIn restaurant={restaurant} openModal={openModal} />
           )}
 
           <RestaurantTags restaurant={restaurant} />
 
-          {<RestaurantLinks restaurant={restaurant} />}
+          <RestaurantLinks restaurant={restaurant} />
 
-          {!!details?.openHours && (
-            <OpeningHours openHours={details.openHours} />
-          )}
+          <OpeningHours restaurant={restaurant} />
         </View>
       );
     }
@@ -118,20 +102,13 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
         <Refresh refetch={refetch} />
       </View>
     );
-  }, [
-    isLoading,
-    restaurant,
-    user,
-    renderSignIn,
-    openModal,
-    renderImage,
-    refetch,
-    details,
-  ]);
+  }, [refetch, renderImage, openModal, renderSignIn, restaurant, user]);
+
+  const renderItem = ({item}: {item: JSX.Element}) => item;
 
   return (
     <ScreenBackground>
-      <FlatList data={[renderDetails]} renderItem={({item}) => item} />
+      <FlatList data={[renderDetails]} renderItem={renderItem} />
       {enableLocationModal}
     </ScreenBackground>
   );

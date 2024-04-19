@@ -1,4 +1,4 @@
-import {ScrollView} from 'react-native';
+import {FlatList} from 'react-native';
 
 import ScreenBackground from '../../reusable/ScreenBackground';
 import Points from '../pastVisits/Points';
@@ -8,10 +8,11 @@ import baseStyles from '../../styles/baseStyles';
 const PrizeInfo = () => {
   return (
     <ScreenBackground>
-      <ScrollView contentContainerStyle={baseStyles.scrollView}>
-        <Points />
-        <Prizes />
-      </ScrollView>
+      <FlatList
+        data={[<Points />, <Prizes />]}
+        renderItem={({item}) => item}
+        contentContainerStyle={baseStyles.scrollView}
+      />
     </ScreenBackground>
   );
 };

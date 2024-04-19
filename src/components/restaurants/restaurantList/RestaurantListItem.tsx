@@ -32,6 +32,16 @@ const RestaurantListItem = memo(
       );
     }, [restaurant.photo]);
 
+    const cocktailsListItemStyle =
+      restaurant.cuisine === 'cocktails'
+        ? restaurantListItemStyles.cocktailsListItem
+        : undefined;
+
+    const cocktailsTitleStyle =
+      restaurant.cuisine === 'cocktails'
+        ? restaurantListItemStyles.cocktailsTitle
+        : undefined;
+
     return (
       <Pressable
         onPress={() => {
@@ -45,6 +55,7 @@ const RestaurantListItem = memo(
               style={[
                 restaurantListItemStyles.restaurantListItem,
                 pressedStyle,
+                cocktailsListItemStyle,
               ]}>
               <Text
                 style={[
@@ -60,6 +71,7 @@ const RestaurantListItem = memo(
                   baseStyles.textXSm,
                   restaurantListItemStyles.cuisine,
                   baseStyles.centerText,
+                  cocktailsTitleStyle,
                 ]}>
                 {cuisine}
               </Text>

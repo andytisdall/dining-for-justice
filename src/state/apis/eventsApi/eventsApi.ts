@@ -3,15 +3,17 @@ import {format, zonedTimeToUtc} from 'date-fns-tz';
 import {api} from '../../api';
 import {addDays} from 'date-fns';
 
-interface Event {
-  name: string;
-  description: string;
+export interface Event {
   id: string;
+  name: string;
   startDate: string;
   endDate?: string;
-  photo?: string;
+  venue?: string;
+  description?: string;
+  address?: string;
+  city?: string;
   url?: string;
-  time?: string;
+  photo?: string;
 }
 
 type EventsState = Record<string, Event>;
@@ -23,7 +25,7 @@ const eventsApi = api.injectEndpoints({
       transformResponse: (res: Event[]) => {
         const state: EventsState = {};
         res.forEach(event => {
-          const dates = [event.startDate];
+          const dates = [];
           if (event.endDate) {
             for (
               let i = zonedTimeToUtc(event.startDate, 'America/Los_Angeles');

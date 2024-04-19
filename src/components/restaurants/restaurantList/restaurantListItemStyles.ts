@@ -9,7 +9,7 @@ export const marginVertical = 10;
 
 export default StyleSheet.create({
   restaurantListItem: {
-    borderColor: colors.blue,
+    borderColor: colors.lightGrey,
     borderWidth: 2,
     padding: 10,
     borderRadius: 15,

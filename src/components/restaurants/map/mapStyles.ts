@@ -15,7 +15,7 @@ export default StyleSheet.create({
     paddingHorizontal: 5 * sizeMultiplier,
   },
   userMarker: {zIndex: 1},
-  selectedMarker: {zIndex: 1},
+  selectedMarker: {zIndex: 2},
   listBtns: {
     flexDirection: 'row',
     justifyContent: 'space-between',

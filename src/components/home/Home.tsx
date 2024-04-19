@@ -24,13 +24,17 @@ const Home = ({navigation}: HomeScreenProps) => {
             <Image source={d4jLogo} style={homeStyles.logo} />
           </View>
 
-          <Text style={baseStyles.title}>Cocktails for a Cause</Text>
+          <Text style={baseStyles.title}>Eat, Drink, Support Community</Text>
           <Text style={[baseStyles.inputLabel, baseStyles.centerText]}>
-            Visit participating bars during May 2024 for a chance to win prizes
+            Be sure to support community when you dine out in Oakland. Explore
+            our list of restaurants and bars where you can eat and drink with
+            purpose
           </Text>
 
-          <Btn onPress={() => navigation.navigate('Rewards')}>
-            <Text style={baseStyles.btnText}>More Info</Text>
+          <Btn
+            onPress={() => navigation.navigate('Rewards')}
+            style={homeStyles.moreInfoBtn}>
+            <Text style={baseStyles.text}>More Info</Text>
           </Btn>
 
           <MatchingMeals />

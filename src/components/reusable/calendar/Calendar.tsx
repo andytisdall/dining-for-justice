@@ -30,31 +30,50 @@ const Calendar = ({
     useNativeDriver: true,
   });
 
+  const monthTransition = (action: 'add' | 'sub' | 'today') => {
+    if (action === 'add') {
+      Animated.timing(translateValue, {
+        toValue: -SCREEN_WIDTH,
+        useNativeDriver: true,
+        duration: 100,
+      }).start(() => {
+        translateValue.setValue(200);
+        setMonth(current => addMonths(current, 1));
+        springBack.start();
+      });
+    } else if (action === 'sub') {
+      Animated.timing(translateValue, {
+        toValue: SCREEN_WIDTH,
+        useNativeDriver: true,
+        duration: 100,
+      }).start(() => {
+        translateValue.setValue(-200);
+        setMonth(current => subMonths(current, 1));
+        springBack.start();
+      });
+    } else {
+      if (format(month, 'M') === format(new Date(), 'M')) {
+        return;
+      }
+      if (month > new Date()) {
+        monthTransition('sub');
+      }
+
+      if (month < new Date()) {
+        monthTransition('add');
+      }
+    }
+  };
+
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponder: () => true,
       onPanResponderEnd: (event, gesture) => {
         if (gesture.dx < -150) {
-          Animated.timing(translateValue, {
-            toValue: -SCREEN_WIDTH,
-            useNativeDriver: true,
-            duration: 100,
-          }).start(() => {
-            translateValue.setValue(200);
-            setMonth(current => addMonths(current, 1));
-            springBack.start();
-          });
+          monthTransition('add');
         } else if (gesture.dx > 150) {
-          Animated.timing(translateValue, {
-            toValue: SCREEN_WIDTH,
-            useNativeDriver: true,
-            duration: 10,
-          }).start(() => {
-            translateValue.setValue(-200);
-            setMonth(current => subMonths(current, 1));
-            springBack.start();
-          });
+          monthTransition('sub');
         } else {
           springBack.start();
         }
@@ -110,7 +129,7 @@ const Calendar = ({
           transform: [{translateX: translateValue}],
         },
       ]}>
-      <CalendarHeader month={month} setMonth={setMonth} />
+      <CalendarHeader month={month} changeMonth={monthTransition} />
       <DayNames />
       <View style={[styles.calendar]}>{getDays()}</View>
     </Animated.View>

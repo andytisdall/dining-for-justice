@@ -23,6 +23,7 @@ const baseQueryWithToken: BaseQueryFn<
       }
       return headers;
     },
+    timeout: 10000,
   });
   return baseQuery(args, baseQueryApi, extraOptions);
 };

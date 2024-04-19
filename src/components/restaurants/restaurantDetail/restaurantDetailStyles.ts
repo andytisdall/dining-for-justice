@@ -24,19 +24,19 @@ export default StyleSheet.create({
   },
   hoursItem: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
     paddingBottom: 5,
     flexWrap: 'wrap',
-    alignItems: 'center',
   },
   hoursItemRight: {
-    alignItems: 'flex-end',
+    paddingTop: 2 * sizeMultiplier,
   },
   photo: {height: 200 * sizeMultiplier},
   cocktailInfo: {
     backgroundColor: colors.lightGrey,
     borderWidth: 2,
-    borderColor: 'white',
+    borderColor: colors.yellow,
     borderRadius: 25,
     paddingHorizontal: 15 * sizeMultiplier,
     paddingVertical: 7 * sizeMultiplier,

@@ -55,7 +55,7 @@ const RootComponent = () => {
               component={RestaurantNavigator}
               options={{
                 tabBarIcon: createTabIcon('restaurants'),
-                tabBarLabel: createTabLabel('Restaurants'),
+                tabBarLabel: createTabLabel('Explore'),
               }}
             />
             <RootTabs.Screen

@@ -28,7 +28,7 @@ const CheckIn = ({
 
   const [getPermission] = useGetPermissionMutation();
 
-  const [checkIn, {data, isError, isLoading: loadingCheckin, isSuccess}] =
+  const [checkIn, {data, isError, isLoading: loadingCheckin}] =
     useCheckInMutation();
 
   const translateValue = useRef(new Animated.Value(0)).current;
@@ -65,12 +65,15 @@ const CheckIn = ({
         <CheckInError message="To earn points, you must be present at this location" />
       );
     }
+
     if (isError) {
       <CheckInError message="Failed to check in. Check your internet connection and try again." />;
     }
+
     if (data?.result === 'SUCCESS') {
       return <CheckInSuccess />;
     }
+
     if (data?.result === 'DUPLICATE') {
       return (
         <CheckInError message="You have already checked in to this location today" />
@@ -105,7 +108,7 @@ const CheckIn = ({
     if (restaurant?.coords) {
       return (
         <View style={checkInStyles.checkIn}>
-          <Btn onPress={checkInAction} disabled={isSuccess}>
+          <Btn onPress={checkInAction} disabled={data?.result === 'SUCCESS'}>
             <Text style={baseStyles.btnText}>Check In</Text>
           </Btn>
           {loading && <Loading />}

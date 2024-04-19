@@ -6,7 +6,7 @@ import StackHeader from '../reusable/StackHeader';
 
 export type EventsStackParams = {
   EventsHome: undefined;
-  EventDetail: {date: string};
+  EventDetail: {id: string};
 };
 
 const EventsStack = createNativeStackNavigator<EventsStackParams>();

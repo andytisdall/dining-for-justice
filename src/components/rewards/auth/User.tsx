@@ -1,4 +1,4 @@
-import {Text, View} from 'react-native';
+import {Text, View, Linking} from 'react-native';
 
 import {
   useSignOutMutation,
@@ -17,6 +17,15 @@ const User = () => {
       <Text style={baseStyles.textSm}>Signed in as {contact?.email}</Text>
       <Btn onPress={signOut} style={authStyles.signOutBtn}>
         <Text style={authStyles.signOutBtnText}>Sign Out</Text>
+      </Btn>
+      <Btn
+        style={authStyles.deleteAccountBtn}
+        onPress={() =>
+          Linking.openURL(
+            'https://portal.ckoakland.org/delete-data/' + contact?.email,
+          )
+        }>
+        <Text style={baseStyles.textXSm}>Delete My Account</Text>
       </Btn>
     </View>
   );

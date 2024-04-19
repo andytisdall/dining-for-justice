@@ -17,11 +17,13 @@ type EventDetailProps = NativeStackScreenProps<
 >;
 
 const EventDetail = ({route, navigation}: EventDetailProps) => {
-  const {date} = route.params;
+  const {id} = route.params;
 
   const {data: events} = useGetEventsQuery();
 
-  const event = events ? events[date] : undefined;
+  const event = events ? Object.values(events).find(e => e.id === id) : null;
+
+  console.log(event?.url);
 
   useEffect(() => {
     if (event) {
@@ -41,6 +43,12 @@ const EventDetail = ({route, navigation}: EventDetailProps) => {
             />
           )}
           <View style={eventStyles.eventDetailsLine}>
+            <Text style={baseStyles.inputLabel}>Location: </Text>
+            <View style={baseStyles.screenSection}>
+              <Text style={baseStyles.text}>{event.venue}</Text>
+            </View>
+          </View>
+          <View style={eventStyles.eventDetailsLine}>
             <Text style={baseStyles.inputLabel}>Date: </Text>
             <View style={baseStyles.screenSection}>
               <Text style={baseStyles.textSm}>
@@ -57,18 +65,18 @@ const EventDetail = ({route, navigation}: EventDetailProps) => {
             </View>
           </View>
 
-          {!!event.time && (
-            <View style={eventStyles.eventDetailsLine}>
-              <Text style={baseStyles.inputLabel}>Time:</Text>
-              <View style={baseStyles.screenSection}>
-                <Text style={baseStyles.textSm}>{event.time}</Text>
-              </View>
+          <View style={eventStyles.eventDetailsLine}>
+            <Text style={baseStyles.inputLabel}>Time:</Text>
+            <View style={baseStyles.screenSection}>
+              <Text style={baseStyles.textSm}>
+                {format(new Date(event.startDate), 'h:mm a')}
+              </Text>
             </View>
-          )}
+          </View>
 
           {!!event.url && (
             <View style={baseStyles.centerSection}>
-              <Btn onPress={() => Linking.openURL(event.photo!)}>
+              <Btn onPress={() => Linking.openURL(event.url!)}>
                 <Text style={baseStyles.btnText}>Event Website</Text>
               </Btn>
             </View>

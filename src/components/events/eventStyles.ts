@@ -16,7 +16,7 @@ export default StyleSheet.create({
   eventText: {
     textAlign: 'center',
     fontWeight: '600',
-    fontSize: 10 * sizeMultiplier,
+    fontSize: 8 * sizeMultiplier,
   },
   photo: {
     height: 200,
@@ -24,5 +24,19 @@ export default StyleSheet.create({
   },
   eventDetailsLine: {
     marginBottom: 5,
+  },
+  eventsList: {
+    borderTopWidth: 3,
+    borderTopColor: 'white',
+    backgroundColor: colors.midnightBlue,
+  },
+  eventsListItem: {
+    borderBottomWidth: 1,
+    borderBottomColor: 'white',
+    padding: 10,
+  },
+  eventsListHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

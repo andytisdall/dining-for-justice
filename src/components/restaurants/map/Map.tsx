@@ -95,7 +95,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
 
   const navigateToRestaurant = useCallback(
     (restaurantId: string) => {
-      navigation.navigate('RestaurantDetail', {id: restaurantId});
+      navigation.push('RestaurantDetail', {id: restaurantId});
     },
     [navigation],
   );

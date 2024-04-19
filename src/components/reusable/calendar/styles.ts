@@ -1,6 +1,9 @@
 import {StyleSheet, Dimensions} from 'react-native';
 
-const dateHeight = Dimensions.get('screen').height / 11;
+import colors from '../../styles/colors';
+import {sizeMultiplier} from '../../styles/baseStyles';
+
+const dateHeight = Dimensions.get('screen').height / 12;
 
 export default StyleSheet.create({
   calendar: {
@@ -49,12 +52,18 @@ export default StyleSheet.create({
   arrowHighlight: {
     backgroundColor: 'rgba(250,250,250,.5)',
   },
-  header: {alignItems: 'center'},
+  header: {
+    justifyContent: 'center',
+    minHeight: sizeMultiplier * 40,
+  },
   monthHeader: {
+    position: 'absolute',
+    right: Dimensions.get('screen').width / 4,
     flexDirection: 'row',
     justifyContent: 'center',
     marginBottom: 20,
     alignItems: 'center',
+    width: Dimensions.get('screen').width / 2,
   },
   btn: {backgroundColor: 'blue'},
   left: {
@@ -71,6 +80,16 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   calendarScreen: {
-    marginTop: 15,
+    minHeight: dateHeight * 7,
+  },
+  resetBtn: {
+    position: 'absolute',
+    right: 10,
+    top: -15 * sizeMultiplier,
+    backgroundColor: colors.lightGrey,
+    margin: 0,
+  },
+  resetBtnText: {
+    fontSize: 12,
   },
 });

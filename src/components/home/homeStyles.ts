@@ -35,29 +35,20 @@ export default StyleSheet.create({
   rootsLogoContainer: {
     width: 100 * sizeMultiplier,
     height: 100 * sizeMultiplier,
+    marginBottom: 20,
   },
-  sponsors: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    width: '100%',
-    marginBottom: 15 * sizeMultiplier,
-  },
-
+  // sponsors: {
+  //   flexDirection: 'row',
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   width: '100%',
+  //   marginBottom: 15 * sizeMultiplier,
+  //   borderColor: 'white',
+  //   borderWidth: 1,
+  // },
   ckInfo: {
     backgroundColor: colors.darkGrey,
   },
   sponsorText: {maxWidth: '50%'},
-  matchingNumberContainer: {
-    backgroundColor: colors.yellow,
-    margin: 5 * sizeMultiplier,
-    borderRadius: 100 * sizeMultiplier,
-    justifyContent: 'center',
-    padding: 10 * sizeMultiplier,
-    minWidth: 50 * sizeMultiplier,
-  },
-  matchingNumber: {
-    fontSize: 25 * sizeMultiplier,
-    textAlign: 'center',
-  },
+  moreInfoBtn: {backgroundColor: colors.red},
 });

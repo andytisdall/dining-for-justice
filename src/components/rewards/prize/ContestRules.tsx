@@ -1,7 +1,7 @@
 import {View, Text, ScrollView} from 'react-native';
 
 import ScreenBackground from '../../reusable/ScreenBackground';
-import {useGetContestRulesQuery} from '../../../state/apis/rewardsApi/contestRulesApi';
+import {useGetContestRulesQuery} from '../../../state/apis/rewardsApi/contestApi';
 import baseStyles from '../../styles/baseStyles';
 import Loading from '../../reusable/Loading';
 
@@ -17,7 +17,7 @@ const ContestRules = () => {
             baseStyles.centerText,
             baseStyles.screenSection,
           ]}>
-          Cocktails for a Cause contest rules
+          Community Kitchens Contest Rules
         </Text>
         <View style={baseStyles.screenBorders}>
           <Text style={baseStyles.textSm}>{contestRules?.rules}</Text>
