@@ -9,9 +9,12 @@ const tabImages = {
   restaurants: require('../../../assets/restaurantIcon.png'),
   rewards: require('../../../assets/dollarIcon.webp'),
   events: require('../../../assets/cal.jpg'),
+  contest: require('../../../assets/cocktailIcon.png'),
 };
 
-const createTabIcon = (icon: 'home' | 'restaurants' | 'rewards' | 'events') => {
+const createTabIcon = (
+  icon: 'home' | 'restaurants' | 'rewards' | 'events' | 'contest',
+) => {
   const TabIcon = ({size, focused}: TabIconProps) => {
     const style: any[] = [styles.tabIconContainer, {height: size, width: size}];
     if (focused) {

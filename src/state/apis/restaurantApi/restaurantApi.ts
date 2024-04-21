@@ -31,6 +31,7 @@ export interface Restaurant {
   photo?: string;
   cocktailName?: string;
   cocktailDescription?: string;
+  status: 'Active' | 'Former' | 'Paused';
 }
 
 export const restaurantApi = api.injectEndpoints({

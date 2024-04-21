@@ -37,8 +37,10 @@ const useFilter: (
     useCocktailsFilter();
 
   useEffect(() => {
-    getPermission();
-  }, [getPermission]);
+    if (filterVisible) {
+      getPermission();
+    }
+  }, [getPermission, filterVisible]);
 
   const resetFilter = () => {
     resetCocktails();
@@ -50,10 +52,15 @@ const useFilter: (
     setFilterKey(filterKey + 'a');
   };
 
+  const isActive = (rest: Restaurant) => {
+    return rest.status === 'Active';
+  };
+
   const sortedRestaurants = useMemo(() => {
     if (restaurants) {
       const sorted = restaurants.filter(
         rest =>
+          isActive(rest) &&
           femaleFilter(rest) &&
           isOpenFilter(rest) &&
           pocFilter(rest) &&
