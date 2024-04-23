@@ -10,6 +10,7 @@ const createTabLabel = (name: string) => {
   if (labelSize.fontSize > 15) {
     labelSize = {fontSize: 15};
   }
+
   const TabLabel = ({focused, color}: TabLabelProps) => {
     const style: any[] = [styles.tabLabel, {color}, labelSize];
     if (focused) {

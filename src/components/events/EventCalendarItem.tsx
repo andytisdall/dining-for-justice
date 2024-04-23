@@ -6,10 +6,13 @@ import {EventsStackParams} from './EventsNavigator';
 import eventStyles from './eventStyles';
 import {Event} from '../../state/apis/eventsApi/eventsApi';
 
-const MAX_CAMPAIGN_NAME_LENGTH = 24;
+const MAX_CAMPAIGN_NAME_LENGTH = 30;
 
 const abridgeCampaignName = (name: string) => {
-  return name.slice(0, MAX_CAMPAIGN_NAME_LENGTH) + '...';
+  if (name.length > MAX_CAMPAIGN_NAME_LENGTH + 3) {
+    return name.slice(0, MAX_CAMPAIGN_NAME_LENGTH) + '...';
+  }
+  return name;
 };
 
 const EventCalendarItem = ({event}: {event: Event}) => {

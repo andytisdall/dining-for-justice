@@ -1,38 +1,54 @@
-import {View, FlatList} from 'react-native';
+import {View} from 'react-native';
 import {useCallback, useMemo} from 'react';
+import {addDays} from 'date-fns';
+import {format, zonedTimeToUtc} from 'date-fns-tz';
 
 import Calendar from '../reusable/calendar/Calendar';
-import eventStyles from './eventStyles';
 import {useGetEventsQuery, Event} from '../../state/apis/eventsApi/eventsApi';
 import ScreenBackground from '../reusable/ScreenBackground';
 import AnimatedLoading from '../reusable/AnimatedLoading';
-import baseStyles from '../styles/baseStyles';
-import EventsListItem from './EventsListItem';
 import EventCalendarItem from './EventCalendarItem';
+import EventsList from './EventsList';
+import baseStyles from '../styles/baseStyles';
+
+type EventsState = Record<string, Event>;
 
 const EventsHome = () => {
   const {data: events, isLoading} = useGetEventsQuery();
+
+  const eventsObject = useMemo(() => {
+    if (events) {
+      const state: EventsState = {};
+      events.forEach(event => {
+        const dates = [];
+        if (event.endDate) {
+          for (
+            let i = zonedTimeToUtc(event.startDate, 'America/Los_Angeles');
+            i <= zonedTimeToUtc(event.endDate, 'America/Los_Angeles');
+            i = addDays(i, 1)
+          ) {
+            dates.push(format(i, 'yyyy-MM-dd'));
+          }
+        }
+        dates.forEach(date => {
+          state[date] = event;
+        });
+      });
+      return state;
+    }
+    return null;
+  }, [events]);
+
   const renderEvent = useCallback(
     (day: string) => {
-      const event = events ? events[day] : undefined;
+      const event = eventsObject ? eventsObject[day] : undefined;
       if (event) {
         return <EventCalendarItem event={event} />;
       } else {
         return <View />;
       }
     },
-    [events],
-  );
-
-  const eventsList = useMemo(() => {
-    if (events) {
-      return Object.values(events);
-    }
-    return [];
-  }, [events]);
-
-  const renderEventsListItem = ({item}: {item: Event}) => (
-    <EventsListItem event={item} />
+    [eventsObject],
   );
 
   const renderEventsHome = () => {
@@ -40,17 +56,10 @@ const EventsHome = () => {
       return <AnimatedLoading />;
     }
     return (
-      <>
+      <View style={[baseStyles.scrollView]}>
         <Calendar renderItems={renderEvent} />
-        <View style={eventStyles.eventsList}>
-          <FlatList
-            data={eventsList}
-            renderItem={renderEventsListItem}
-            contentContainerStyle={[baseStyles.scrollView]}
-            keyExtractor={item => item.id}
-          />
-        </View>
-      </>
+        {events && <EventsList events={events} />}
+      </View>
     );
   };
 

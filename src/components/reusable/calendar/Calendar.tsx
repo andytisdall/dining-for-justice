@@ -30,38 +30,41 @@ const Calendar = ({
     useNativeDriver: true,
   });
 
-  const monthTransition = (action: 'add' | 'sub' | 'today') => {
-    if (action === 'add') {
+  const monthTransition = (date: Date) => {
+    if (date > month) {
       Animated.timing(translateValue, {
         toValue: -SCREEN_WIDTH,
         useNativeDriver: true,
         duration: 100,
       }).start(() => {
+        setMonth(date);
         translateValue.setValue(200);
-        setMonth(current => addMonths(current, 1));
         springBack.start();
       });
-    } else if (action === 'sub') {
+    } else {
       Animated.timing(translateValue, {
         toValue: SCREEN_WIDTH,
         useNativeDriver: true,
         duration: 100,
       }).start(() => {
+        setMonth(date);
         translateValue.setValue(-200);
-        setMonth(current => subMonths(current, 1));
         springBack.start();
       });
+    }
+  };
+
+  const changeMonth = (action: 'add' | 'sub' | 'today') => {
+    if (action === 'add') {
+      return monthTransition(addMonths(month, 1));
+    } else if (action === 'sub') {
+      return monthTransition(subMonths(month, 1));
     } else {
       if (format(month, 'M') === format(new Date(), 'M')) {
         return;
       }
-      if (month > new Date()) {
-        monthTransition('sub');
-      }
-
-      if (month < new Date()) {
-        monthTransition('add');
-      }
+      const today = new Date();
+      monthTransition(today);
     }
   };
 
@@ -71,9 +74,9 @@ const Calendar = ({
       onMoveShouldSetPanResponder: () => true,
       onPanResponderEnd: (event, gesture) => {
         if (gesture.dx < -150) {
-          monthTransition('add');
+          changeMonth('sub');
         } else if (gesture.dx > 150) {
-          monthTransition('sub');
+          changeMonth('add');
         } else {
           springBack.start();
         }
@@ -124,12 +127,11 @@ const Calendar = ({
     <Animated.View
       {...panResponder.panHandlers}
       style={[
-        styles.calendarScreen,
         {
           transform: [{translateX: translateValue}],
         },
       ]}>
-      <CalendarHeader month={month} changeMonth={monthTransition} />
+      <CalendarHeader month={month} changeMonth={changeMonth} />
       <DayNames />
       <View style={[styles.calendar]}>{getDays()}</View>
     </Animated.View>

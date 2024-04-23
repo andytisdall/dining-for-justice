@@ -1,7 +1,9 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
 
 import colors from '../styles/colors';
 import {sizeMultiplier} from '../styles/baseStyles';
+
+const height = Dimensions.get('screen').height;
 
 export default StyleSheet.create({
   eventContainer: {
@@ -26,17 +28,34 @@ export default StyleSheet.create({
     marginBottom: 5,
   },
   eventsList: {
-    borderTopWidth: 3,
-    borderTopColor: 'white',
+    width: '100%',
+    position: 'absolute',
+    bottom: -height / 1.45,
     backgroundColor: colors.midnightBlue,
-  },
-  eventsListItem: {
-    borderBottomWidth: 1,
-    borderBottomColor: 'white',
-    padding: 10,
+    borderColor: 'white',
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+    borderWidth: 2,
+    borderBottomWidth: 0,
+    height: '100%',
   },
   eventsListHeader: {
+    alignItems: 'center',
+    padding: 10,
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+  },
+  eventsListItem: {
+    padding: 5 * sizeMultiplier,
+    borderBottomColor: 'white',
+    borderBottomWidth: 1,
+  },
+  eventsListItemHeader: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  eventListItems: {
+    // flex: 1,
+    minHeight: '100%',
   },
 });

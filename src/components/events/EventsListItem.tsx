@@ -23,7 +23,7 @@ const EventsListItem = ({event}: {event: Event}) => {
         const pressedStyle = getPressedStyle(pressed);
         return (
           <View style={[pressedStyle, eventStyles.eventsListItem]}>
-            <View style={eventStyles.eventsListHeader}>
+            <View style={eventStyles.eventsListItemHeader}>
               <Text style={baseStyles.inputLabel}>
                 {format(new Date(event.startDate), 'M/d/yy')}
               </Text>

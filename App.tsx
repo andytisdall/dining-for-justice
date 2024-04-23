@@ -19,7 +19,6 @@ import Home from './src/components/home/Home';
 import createTabIcon from './src/components/reusable/tabs/TabIcon';
 import createTabLabel from './src/components/reusable/tabs/TabLabel';
 import EventsNavigator from './src/components/events/EventsNavigator';
-import ContestNavigator from './src/components/contest/ContestNavigator';
 
 enableLatestRenderer();
 
@@ -74,14 +73,6 @@ const RootComponent = () => {
               options={{
                 tabBarIcon: createTabIcon('rewards'),
                 tabBarLabel: createTabLabel('Rewards'),
-              }}
-            />
-            <RootTabs.Screen
-              name="Contest"
-              component={ContestNavigator}
-              options={{
-                tabBarIcon: createTabIcon('contest'),
-                tabBarLabel: createTabLabel('Cocktail Contest'),
               }}
             />
           </RootTabs.Navigator>

@@ -23,8 +23,6 @@ const EventDetail = ({route, navigation}: EventDetailProps) => {
 
   const event = events ? Object.values(events).find(e => e.id === id) : null;
 
-  console.log(event?.url);
-
   useEffect(() => {
     if (event) {
       navigation.setOptions({headerTitle: event.name});
@@ -46,6 +44,12 @@ const EventDetail = ({route, navigation}: EventDetailProps) => {
             <Text style={baseStyles.inputLabel}>Location: </Text>
             <View style={baseStyles.screenSection}>
               <Text style={baseStyles.text}>{event.venue}</Text>
+              {!!event.address && (
+                <Text style={baseStyles.textSm}>{event.address}</Text>
+              )}
+              {!!event.city && (
+                <Text style={baseStyles.textSm}>{event.city}</Text>
+              )}
             </View>
           </View>
           <View style={eventStyles.eventDetailsLine}>
@@ -70,6 +74,11 @@ const EventDetail = ({route, navigation}: EventDetailProps) => {
             <View style={baseStyles.screenSection}>
               <Text style={baseStyles.textSm}>
                 {format(new Date(event.startDate), 'h:mm a')}
+                {!!event.endDate &&
+                  ` - ${format(
+                    zonedTimeToUtc(event.endDate, 'America/Los_Angeles'),
+                    'h:mm a',
+                  )}`}
               </Text>
             </View>
           </View>
