@@ -37,16 +37,6 @@ export default StyleSheet.create({
     height: 100 * sizeMultiplier,
     marginBottom: 20,
   },
-  // sponsors: {
-  //   flexDirection: 'row',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   width: '100%',
-  //   marginBottom: 15 * sizeMultiplier,
-  //   borderColor: 'white',
-  //   borderWidth: 1,
-  // },
-
   sponsorText: {maxWidth: '50%'},
   moreInfoBtn: {backgroundColor: colors.red},
 });

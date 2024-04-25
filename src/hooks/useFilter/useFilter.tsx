@@ -37,6 +37,10 @@ const useFilter: (
     useCocktailsFilter();
 
   useEffect(() => {
+    getPermission();
+  }, [getPermission]);
+
+  useEffect(() => {
     if (filterVisible) {
       getPermission();
     }

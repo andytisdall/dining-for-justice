@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1210"
+   LastUpgradeVersion = "1530"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -60,6 +60,7 @@
             ReferencedContainer = "container:d4japp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+<<<<<<< Updated upstream
       <EnvironmentVariables>
          <EnvironmentVariable
             key = ""
@@ -72,6 +73,8 @@
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
+=======
+>>>>>>> Stashed changes
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
