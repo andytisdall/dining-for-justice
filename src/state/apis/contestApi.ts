@@ -1,13 +1,13 @@
 import {api} from '../api';
 
-interface Cocktail {
+export interface Cocktail {
   name: string;
-  ingredients: string;
+  description: string;
   photo: string;
   bar: string; // salesforce ID of bar/restaurant
 }
 
-interface ContestVote {
+export interface ContestVote {
   user: string;
   bar: string;
 }

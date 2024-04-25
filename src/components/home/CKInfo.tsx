@@ -36,7 +36,7 @@ const CKInfo = () => {
     }
   };
   return (
-    <View style={homeStyles.ckInfo}>
+    <View>
       <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
         <View style={[homeStyles.logoContainer]}>
           <Image source={ckLogo} style={homeStyles.logo} />

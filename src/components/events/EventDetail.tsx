@@ -10,11 +10,14 @@ import {EventsStackParams} from './EventsNavigator';
 import baseStyles from '../styles/baseStyles';
 import eventStyles from './eventStyles';
 import ScreenBackground from '../reusable/ScreenBackground';
+import ContestHome from './contest/ContestHome';
 
 type EventDetailProps = NativeStackScreenProps<
   EventsStackParams,
   'EventDetail'
 >;
+
+const ST_GEORGE_ID = '701UP000006WOmvYAG';
 
 const EventDetail = ({route, navigation}: EventDetailProps) => {
   const {id} = route.params;
@@ -97,6 +100,10 @@ const EventDetail = ({route, navigation}: EventDetailProps) => {
       );
     }
   };
+
+  if (id === ST_GEORGE_ID) {
+    return <ContestHome />;
+  }
 
   return (
     <ScreenBackground>

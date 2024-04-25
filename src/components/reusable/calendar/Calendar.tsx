@@ -10,6 +10,7 @@ import {
   addMonths,
 } from 'date-fns';
 
+import {sizeMultiplier} from '../../styles/baseStyles';
 import DayNames from './DayNames';
 import CalendarHeader from './CalendarHeader';
 import styles from './styles';
@@ -28,57 +29,76 @@ const Calendar = ({
   const springBack = Animated.spring(translateValue, {
     toValue: 0,
     useNativeDriver: true,
-  });
+  }).start;
 
-  const monthTransition = (date: Date) => {
-    if (date > month) {
-      Animated.timing(translateValue, {
-        toValue: -SCREEN_WIDTH,
-        useNativeDriver: true,
-        duration: 100,
-      }).start(() => {
-        setMonth(date);
-        translateValue.setValue(200);
-        springBack.start();
-      });
-    } else {
-      Animated.timing(translateValue, {
-        toValue: SCREEN_WIDTH,
-        useNativeDriver: true,
-        duration: 100,
-      }).start(() => {
-        setMonth(date);
-        translateValue.setValue(-200);
-        springBack.start();
-      });
-    }
-  };
+  const springRight = Animated.timing(translateValue, {
+    toValue: SCREEN_WIDTH,
+    useNativeDriver: true,
+    duration: 100,
+  }).start;
 
-  const changeMonth = (action: 'add' | 'sub' | 'today') => {
-    if (action === 'add') {
-      return monthTransition(addMonths(month, 1));
-    } else if (action === 'sub') {
-      return monthTransition(subMonths(month, 1));
-    } else {
-      if (format(month, 'M') === format(new Date(), 'M')) {
-        return;
+  const springLeft = Animated.timing(translateValue, {
+    toValue: -SCREEN_WIDTH,
+    useNativeDriver: true,
+    duration: 100,
+  }).start;
+
+  const changeMonth = useCallback(
+    (action: 'add' | 'sub' | 'reset') => {
+      switch (action) {
+        case 'add':
+          springLeft(() => {
+            setMonth(currentMonth => addMonths(currentMonth, 1));
+            translateValue.setValue(200);
+            springBack();
+          });
+          break;
+        case 'sub':
+          springRight(() => {
+            setMonth(currentMonth => subMonths(currentMonth, 1));
+            translateValue.setValue(-200);
+            springBack();
+          });
+
+          break;
+        case 'reset':
+          setMonth(currentMonth => {
+            const today = new Date();
+            if (format(currentMonth, 'M') === format(today, 'M')) {
+              return today;
+            }
+            if (today < month) {
+              springRight(() => {
+                translateValue.setValue(-200);
+                springBack();
+              });
+            } else {
+              springLeft(() => {
+                translateValue.setValue(200);
+                springBack();
+              });
+            }
+            return today;
+          });
+          break;
+        default:
+          break;
       }
-      const today = new Date();
-      monthTransition(today);
-    }
-  };
+    },
+    [month, springBack, translateValue, springLeft, springRight],
+  );
 
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponder: () => true,
       onPanResponderEnd: (event, gesture) => {
-        if (gesture.dx < -150) {
-          changeMonth('sub');
-        } else if (gesture.dx > 150) {
+        if (gesture.dx < -150 * sizeMultiplier) {
           changeMonth('add');
+        } else if (gesture.dx > 150 * sizeMultiplier) {
+          changeMonth('sub');
         } else {
-          springBack.start();
+          springBack();
         }
       },
       onPanResponderMove: (event, gesture) => {

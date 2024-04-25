@@ -16,9 +16,7 @@ type HomeScreenProps = NativeStackScreenProps<RootTabsParams, 'Home'>;
 const Home = ({navigation}: HomeScreenProps) => {
   return (
     <ScreenBackground>
-      <ScrollView
-        contentContainerStyle={[baseStyles.scrollView]}
-        bounces={false}>
+      <ScrollView contentContainerStyle={[baseStyles.scrollView]}>
         <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
           <View style={[homeStyles.logoContainer, baseStyles.centerSection]}>
             <Image source={d4jLogo} style={homeStyles.logo} />

@@ -46,9 +46,7 @@ export default StyleSheet.create({
   //   borderColor: 'white',
   //   borderWidth: 1,
   // },
-  ckInfo: {
-    backgroundColor: colors.darkGrey,
-  },
+
   sponsorText: {maxWidth: '50%'},
   moreInfoBtn: {backgroundColor: colors.red},
 });

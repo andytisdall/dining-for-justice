@@ -10,11 +10,11 @@ const CalendarHeader = ({
   changeMonth,
 }: {
   month: Date;
-  changeMonth: (side: 'add' | 'sub' | 'today') => void;
+  changeMonth: (side: 'add' | 'sub' | 'reset') => void;
 }) => {
   return (
     <View style={styles.header}>
-      <Btn onPress={() => changeMonth('today')} style={styles.resetBtn}>
+      <Btn onPress={() => changeMonth('reset')} style={styles.resetBtn}>
         <Text style={styles.resetBtnText}>Reset</Text>
       </Btn>
       <View style={styles.monthHeader}>
