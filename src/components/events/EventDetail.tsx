@@ -17,7 +17,7 @@ type EventDetailProps = NativeStackScreenProps<
   'EventDetail'
 >;
 
-const ST_GEORGE_ID = '701UP000006WOmvYAG';
+export const ST_GEORGE_ID = '701UP000006WOmvYAG';
 
 const EventDetail = ({route, navigation}: EventDetailProps) => {
   const {id} = route.params;

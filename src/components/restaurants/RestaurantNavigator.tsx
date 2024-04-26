@@ -4,12 +4,7 @@ import RestaurantDetail from './restaurantDetail/RestaurantDetail';
 import Map from './map/Map';
 import StackHeader from '../reusable/StackHeader';
 import RestaurantHome from './restaurantList/RestaurantHome';
-
-export type RestaurantStackParams = {
-  RestaurantDetail: {id: string};
-  RestaurantHome: undefined;
-  RestaurantMap: {id: string};
-};
+import {RestaurantStackParams} from '../../navigation/types';
 
 const RestaurantStack = createNativeStackNavigator<RestaurantStackParams>();
 

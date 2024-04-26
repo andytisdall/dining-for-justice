@@ -93,9 +93,9 @@ const Calendar = ({
       onStartShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponder: () => true,
       onPanResponderEnd: (event, gesture) => {
-        if (gesture.dx < -150 * sizeMultiplier) {
+        if (gesture.dx < -100 * sizeMultiplier) {
           changeMonth('add');
-        } else if (gesture.dx > 150 * sizeMultiplier) {
+        } else if (gesture.dx > 100 * sizeMultiplier) {
           changeMonth('sub');
         } else {
           springBack();

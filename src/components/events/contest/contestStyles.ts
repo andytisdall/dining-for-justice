@@ -6,6 +6,6 @@ export default StyleSheet.create({
   cocktail: {
     borderColor: colors.yellow,
   },
-
-  photo: {flex: 1, marginVertical: 5},
+  photoContainer: {height: 200, width: 200},
+  photo: {flex: 1},
 });

@@ -3,7 +3,6 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {useCallback} from 'react';
 
-import {RewardsStackParams} from '../RewardsNavigator';
 import baseStyles from '../../styles/baseStyles';
 import PrizeCard from './PrizeCard';
 import Btn from '../../reusable/Btn';
@@ -16,8 +15,7 @@ import Loading from '../../reusable/Loading';
 const Prizes = () => {
   const {data: prizes, isLoading} = useGetPrizesQuery();
 
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RewardsStackParams>>();
+  const navigation = useNavigation();
 
   const renderItem = useCallback(({item}: {item: Prize}) => {
     return (

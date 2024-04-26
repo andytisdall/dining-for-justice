@@ -4,12 +4,8 @@ import EventsHome from './EventsHome';
 import EventDetail from './EventDetail';
 import StackHeader from '../reusable/StackHeader';
 import ContestHome from './contest/ContestHome';
-
-export type EventsStackParams = {
-  EventsHome: undefined;
-  EventDetail: {id: string};
-  ContestHome: undefined;
-};
+import ContestCocktailDetail from './contest/ContestCocktailDetail';
+import {EventsStackParams} from '../../navigation/types';
 
 const EventsStack = createNativeStackNavigator<EventsStackParams>();
 
@@ -38,6 +34,11 @@ const EventsNavigator = () => {
           headerTitle: 'Cocktail Contest',
           headerBackVisible: false,
         }}
+      />
+      <EventsStack.Screen
+        name="ContestDetail"
+        component={ContestCocktailDetail}
+        options={{header: StackHeader}}
       />
     </EventsStack.Navigator>
   );

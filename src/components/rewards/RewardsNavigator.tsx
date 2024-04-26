@@ -7,13 +7,7 @@ import GetContact from '../rewards/auth/GetContact';
 import StackHeader from '../reusable/StackHeader';
 import PrizeInfo from './prize/PrizeInfo';
 import ContestRules from './prize/ContestRules';
-
-export type RewardsStackParams = {
-  RewardsHome: undefined;
-  GetContact: undefined;
-  Prizes: undefined;
-  Rules: undefined;
-};
+import {RewardsStackParams} from '../../navigation/types';
 
 const RewardsStack = createNativeStackNavigator<RewardsStackParams>();
 

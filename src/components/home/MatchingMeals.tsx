@@ -5,7 +5,7 @@ import {useGetTotalCheckInsQuery} from '../../state/apis/rewardsApi/checkInApi';
 import baseStyles from '../styles/baseStyles';
 import homeStyles from './homeStyles';
 
-const rootsLogo = require('../../assets/roots-logo.png');
+const blockLogo = require('../../assets/block-logo.png');
 
 const MatchingMeals = () => {
   const {data: totalCheckins} = useGetTotalCheckInsQuery();
@@ -19,22 +19,21 @@ const MatchingMeals = () => {
             baseStyles.screenSection,
             baseStyles.centerText,
           ]}>
-          A free community meal is donated by our sponsors for the first 2000
+          A free community meal is donated by Block for the first 2000
           check-ins!
         </Text>
-        {/* <View style={homeStyles.sponsors}> */}
-        <View style={homeStyles.rootsLogoContainer}>
-          <FastImage source={rootsLogo} style={homeStyles.logo} />
+        <View style={homeStyles.logoContainer}>
+          <FastImage source={blockLogo} style={homeStyles.logo} />
         </View>
-        {/* </View> */}
-
-        <Text style={[baseStyles.textLg, baseStyles.centerText]}>
-          Meals Donated by our Sponsors:
-        </Text>
-        <View>
-          <Text style={homeStyles.totalMeals}>{totalCheckins.checkIns}</Text>
+        <View style={baseStyles.screenBorders}>
+          <Text style={[baseStyles.text, baseStyles.centerText]}>
+            Meals Donated by our Sponsors:
+          </Text>
+          <Text style={[homeStyles.totalMeals, baseStyles.centerText]}>
+            {totalCheckins.checkIns}
+          </Text>
+          <View style={baseStyles.screenSection} />
         </View>
-        <View style={baseStyles.screenSection} />
       </View>
     );
   }

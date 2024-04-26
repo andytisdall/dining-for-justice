@@ -1,8 +1,7 @@
 import {Pressable, View, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-import {EventsStackParams} from './EventsNavigator';
+import {EventStackNavigationProp} from '../../navigation/types';
 import eventStyles from './eventStyles';
 import {Event} from '../../state/apis/eventsApi/eventsApi';
 
@@ -16,8 +15,7 @@ const abridgeCampaignName = (name: string) => {
 };
 
 const EventCalendarItem = ({event}: {event: Event}) => {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<EventsStackParams>>();
+  const navigation = useNavigation<EventStackNavigationProp>();
 
   return (
     <Pressable

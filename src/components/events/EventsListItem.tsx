@@ -1,16 +1,14 @@
 import {View, Text, Pressable} from 'react-native';
 import {format} from 'date-fns';
 import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-import {EventsStackParams} from './EventsNavigator';
+import {EventStackNavigationProp} from '../../navigation/types';
 import baseStyles, {getPressedStyle} from '../styles/baseStyles';
 import eventStyles from './eventStyles';
 import {Event} from '../../state/apis/eventsApi/eventsApi';
 
 const EventsListItem = ({event}: {event: Event}) => {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<EventsStackParams>>();
+  const navigation = useNavigation<EventStackNavigationProp>();
 
   return (
     <Pressable

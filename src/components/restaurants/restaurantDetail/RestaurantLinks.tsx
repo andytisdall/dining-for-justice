@@ -1,6 +1,5 @@
 import {View, Text, Linking, Image, Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 import {
   Restaurant,
@@ -8,7 +7,7 @@ import {
 } from '../../../state/apis/restaurantApi/restaurantApi';
 import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetailStyles';
-import {RestaurantStackParams} from '../RestaurantNavigator';
+import {RestaurantStackNavigationProp} from '../../../navigation/types';
 import restaurantStyles from '../restaurantList/restaurantStyles';
 
 const mapIcon = require('../../../assets/mapIcon.png');
@@ -17,8 +16,7 @@ const menuIcon = require('../../../assets/menu-icon.png');
 const RestaurantLinks = ({restaurant}: {restaurant: Restaurant}) => {
   const {data: details} = useGetRestaurantDetailsQuery(restaurant.googleId);
 
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RestaurantStackParams>>();
+  const navigation = useNavigation<RestaurantStackNavigationProp>();
 
   const mapBtn = () => {
     return (

@@ -1,15 +1,20 @@
-import {View, Text, FlatList} from 'react-native';
+import {View, FlatList} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
+import {EventStackNavigationProp} from '../../../navigation/types';
 import ScreenBackground from '../../reusable/ScreenBackground';
-import Loading from '../../reusable/Loading';
-import baseStyles from '../../styles/baseStyles';
-import ContestCocktailDetail from './ContestCocktailDetail';
+import ContestCocktailListItem from './ContestCocktailListItem';
 import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
 import restaurantStyles from '../../restaurants/restaurantList/restaurantStyles';
+import ContestHeader from './ContestHeader';
+import baseStyles from '../../styles/baseStyles';
+import AnimatedLoading from '../../reusable/AnimatedLoading';
 
 const ContestHome = () => {
   // const {data: cocktails, isLoading} = useGetCocktailsQuery();
   const {data: restaurants, isLoading} = useGetRestaurantsQuery();
+
+  const navigation = useNavigation<EventStackNavigationProp>();
 
   const cocktails = restaurants
     ?.filter(
@@ -29,16 +34,24 @@ const ContestHome = () => {
 
   const renderCocktails = () => {
     if (isLoading) {
-      return <Loading />;
+      return <AnimatedLoading />;
     }
     if (cocktails) {
       return (
         <FlatList
           data={cocktails}
-          renderItem={({item}) => <ContestCocktailDetail cocktail={item} />}
+          renderItem={({item}) => (
+            <ContestCocktailListItem
+              cocktail={item}
+              onPress={() =>
+                navigation.navigate('ContestDetail', {cocktail: item})
+              }
+            />
+          )}
           numColumns={2}
           columnWrapperStyle={restaurantStyles.restaurantListCol}
           style={restaurantStyles.restaurantList}
+          ListHeaderComponent={ContestHeader}
         />
       );
     }
@@ -46,12 +59,7 @@ const ContestHome = () => {
 
   return (
     <ScreenBackground>
-      <View style={baseStyles.screenSection}>
-        <Text style={[baseStyles.textLg, baseStyles.centerText]}>
-          Vote for your fav cocktail here!
-        </Text>
-      </View>
-      <View style={restaurantStyles.restaurantList}>{renderCocktails()}</View>
+      <View style={baseStyles.scrollView}>{renderCocktails()}</View>
     </ScreenBackground>
   );
 };

@@ -50,7 +50,6 @@ const CKInfo = () => {
           </Btn>
         </View>
       </View>
-      <View style={baseStyles.screenSection} />
     </View>
   );
 };

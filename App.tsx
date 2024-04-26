@@ -6,37 +6,30 @@
  */
 import {SafeAreaView} from 'react-native';
 import {Provider} from 'react-redux';
-import {store} from './src/state/store';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
+import {enableLatestRenderer} from 'react-native-maps';
 
+import {store} from './src/state/store';
 import Error from './src/components/reusable/ErrorMessage';
 import RestaurantNavigator from './src/components/restaurants/RestaurantNavigator';
 import RewardsNavigator from './src/components/rewards/RewardsNavigator';
 import baseStyles from './src/components/styles/baseStyles';
-import {enableLatestRenderer} from 'react-native-maps';
 import Home from './src/components/home/Home';
 import createTabIcon from './src/components/reusable/tabs/TabIcon';
 import createTabLabel from './src/components/reusable/tabs/TabLabel';
 import EventsNavigator from './src/components/events/EventsNavigator';
+import {RootTabsParams} from './src/navigation/types';
 
 enableLatestRenderer();
 
-export type RootTabsParams = {
-  Rewards: undefined;
-  Restaurants: undefined;
-  Home: undefined;
-  Events: undefined;
-  Contest: undefined;
-};
-
 const RootTabs = createBottomTabNavigator<RootTabsParams>();
 
-const RootComponent = () => {
+const App = () => {
   return (
-    <SafeAreaView style={baseStyles.app}>
-      <NavigationContainer>
-        <Provider store={store}>
+    <Provider store={store}>
+      <SafeAreaView style={baseStyles.app}>
+        <NavigationContainer>
           <RootTabs.Navigator
             screenOptions={{
               tabBarHideOnKeyboard: true,
@@ -77,18 +70,10 @@ const RootComponent = () => {
             />
           </RootTabs.Navigator>
           <Error />
-        </Provider>
-      </NavigationContainer>
-    </SafeAreaView>
-  );
-};
-
-function App(): JSX.Element {
-  return (
-    <Provider store={store}>
-      <RootComponent />
+        </NavigationContainer>
+      </SafeAreaView>
     </Provider>
   );
-}
+};
 
 export default App;

@@ -1,11 +1,8 @@
 import {View, Text, FlatList} from 'react-native';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useEffect, useMemo, useCallback} from 'react';
 import FastImage from 'react-native-fast-image';
 
-import {RootTabsParams} from '../../../../App';
 import Btn from '../../reusable/Btn';
-import {RestaurantStackParams} from '../RestaurantNavigator';
 import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
 import baseStyles from '../../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetailStyles';
@@ -19,11 +16,7 @@ import {useGetContactQuery} from '../../../state/apis/contact/contactApi';
 import useEnableLocation from '../../../hooks/useEnableLocation';
 import CocktailInfo from './CocktailInfo';
 import Refresh from '../../reusable/Refresh';
-
-type RestaurantDetailScreenProps = NativeStackScreenProps<
-  RestaurantStackParams & RootTabsParams,
-  'RestaurantDetail'
->;
+import {RestaurantDetailScreenProps} from '../../../navigation/types';
 
 const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
   const {data, refetch} = useGetRestaurantsQuery();
@@ -58,7 +51,10 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
   const renderSignIn = useCallback(() => {
     return (
       <View style={baseStyles.centerSection}>
-        <Btn onPress={() => navigation.navigate('Rewards')}>
+        <Btn
+          onPress={() =>
+            navigation.navigate('Rewards', {screen: 'GetContact'})
+          }>
           <Text style={baseStyles.btnText}>
             To check in at this location & earn rewards, enter your email
             address

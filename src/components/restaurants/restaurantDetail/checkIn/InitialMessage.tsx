@@ -47,7 +47,8 @@ const InitialMessage = ({restaurantId}: {restaurantId: string}) => {
         checkInStyles.checkInText,
         checkInStyles.checkInBubble,
       ]}>
-      Check in to this location to earn a chance at winning prizes!
+      Check in and Block will donate a free meal & you will get a chance to win
+      a prize!
     </Text>
   );
 };

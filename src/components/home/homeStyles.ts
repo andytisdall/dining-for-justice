@@ -8,7 +8,7 @@ export default StyleSheet.create({
   logoContainer: {
     height: 200 * sizeMultiplier,
     width: 200 * sizeMultiplier,
-    marginVertical: 10,
+    marginVertical: 5 * sizeMultiplier,
   },
   logo: {resizeMode: 'contain', height: '100%', width: '100%'},
   totalMeals: {
@@ -26,17 +26,14 @@ export default StyleSheet.create({
     fontSize: 20 * sizeMultiplier,
     fontFamily: font,
   },
-  anthemLogoContainer: {
-    width: 150 * sizeMultiplier,
-    height: 50 * sizeMultiplier,
-    padding: 5,
-    backgroundColor: 'white',
-  },
-  rootsLogoContainer: {
-    width: 100 * sizeMultiplier,
-    height: 100 * sizeMultiplier,
-    marginBottom: 20,
-  },
-  sponsorText: {maxWidth: '50%'},
   moreInfoBtn: {backgroundColor: colors.red},
+  stGeorge: {
+    paddingVertical: 20 * sizeMultiplier,
+    backgroundColor: colors.purple,
+  },
+  stGeorgeLogoContainer: {
+    height: 90 * sizeMultiplier,
+    width: 250 * sizeMultiplier,
+    marginVertical: 10 * sizeMultiplier,
+  },
 });
