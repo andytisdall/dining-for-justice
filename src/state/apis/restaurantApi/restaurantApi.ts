@@ -56,8 +56,18 @@ export const restaurantApi = api.injectEndpoints({
         return {data: null};
       },
     }),
+    updateRestaurant: builder.mutation<null, string>({
+      query: restaurantId => ({
+        url: '/d4j/restaurants',
+        method: 'PATCH',
+        body: {restaurantId},
+      }),
+    }),
   }),
 });
 
-export const {useGetRestaurantsQuery, useGetRestaurantDetailsQuery} =
-  restaurantApi;
+export const {
+  useGetRestaurantsQuery,
+  useGetRestaurantDetailsQuery,
+  useUpdateRestaurantMutation,
+} = restaurantApi;

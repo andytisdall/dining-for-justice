@@ -43,6 +43,11 @@ export type RestaurantDetailScreenProps = NativeStackScreenProps<
   'RestaurantDetail'
 >;
 
+export type MapScreenProps = NativeStackScreenProps<
+  RestaurantStackParams,
+  'RestaurantMap'
+>;
+
 //
 
 export type EventsStackParams = {

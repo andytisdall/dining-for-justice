@@ -3,7 +3,7 @@ import {StyleSheet, Dimensions} from 'react-native';
 import colors from '../../styles/colors';
 import {sizeMultiplier} from '../../styles/baseStyles';
 
-const dateHeight = Dimensions.get('screen').height / 10;
+const dateHeight = Dimensions.get('screen').height / 11;
 
 export default StyleSheet.create({
   calendar: {

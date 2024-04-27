@@ -1,11 +1,9 @@
 import {FlatList, Dimensions, Text, Platform} from 'react-native';
 import MapView, {PROVIDER_GOOGLE, Region, MapMarker} from 'react-native-maps';
 import {useRef, useState, useEffect, useMemo, useCallback} from 'react';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import RNReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 import useFilter from '../../../hooks/useFilter/useFilter';
-import {RestaurantStackParams} from '../RestaurantNavigator';
 import {
   Restaurant,
   useGetRestaurantsQuery,
@@ -31,11 +29,7 @@ import {
 } from './mapFunctions';
 import useRespondToScroll from '../../../hooks/useRespondToScroll';
 import Btn from '../../reusable/Btn';
-
-type MapScreenProps = NativeStackScreenProps<
-  RestaurantStackParams,
-  'RestaurantMap'
->;
+import {MapScreenProps} from '../../../navigation/types';
 
 const height = Dimensions.get('screen').height;
 
@@ -123,6 +117,9 @@ const Map = ({navigation, route}: MapScreenProps) => {
       markerRef.current.showCallout();
       centerRestaurant(restaurant);
       initialLoadRef.current = true;
+      if (Platform.OS === 'android') {
+        markerRef.current.showCallout();
+      }
     }
   }, [restaurant, centerRestaurant]);
 
