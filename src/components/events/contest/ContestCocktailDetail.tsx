@@ -125,7 +125,7 @@ const ContestCocktailDetail = ({
               <FastImage
                 source={{uri: cocktail.photo}}
                 style={contestStyles.photo}
-                resizeMode="contain"
+                resizeMode="cover"
               />
             </View>
             <Text style={baseStyles.inputLabel}>{cocktail.name}</Text>

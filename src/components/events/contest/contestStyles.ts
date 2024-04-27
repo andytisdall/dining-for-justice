@@ -10,6 +10,8 @@ export default StyleSheet.create({
     height: 200,
     width: 200,
     marginVertical: 15,
+    borderRadius: 100,
+    overflow: 'hidden',
   },
   circularPhoto: {
     height: 100,
