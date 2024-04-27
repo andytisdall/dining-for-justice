@@ -3,7 +3,7 @@ import {Text, View, Linking} from 'react-native';
 import {
   useSignOutMutation,
   useGetContactQuery,
-} from '../../../state/apis/contact/contactApi';
+} from '../../../state/apis/contactApi/contactApi';
 import baseStyles from '../../styles/baseStyles';
 import Btn from '../../reusable/Btn';
 import authStyles from './authStyles';

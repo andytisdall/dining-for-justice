@@ -5,7 +5,7 @@ import AnimatedLoading from '../reusable/AnimatedLoading';
 import {RewardsStackParams} from './RewardsNavigator';
 import Btn from '../reusable/Btn';
 import baseStyles from '../styles/baseStyles';
-import {useGetContactQuery} from '../../state/apis/contact/contactApi';
+import {useGetContactQuery} from '../../state/apis/contactApi/contactApi';
 import PastCheckIns from './pastVisits/PastCheckIns';
 import User from './auth/User';
 import rewardsStyles from './rewardsStyles';

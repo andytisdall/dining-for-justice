@@ -19,23 +19,25 @@ const RestaurantLinks = ({restaurant}: {restaurant: Restaurant}) => {
   const navigation = useNavigation<RestaurantStackNavigationProp>();
 
   const mapBtn = () => {
-    return (
-      <Pressable
-        onPress={() => navigation.push('RestaurantMap', {id: restaurant.id})}>
-        {({pressed}) => {
-          const pressedStyle = getPressedStyle(pressed);
-          return (
-            <View style={[pressedStyle, restaurantStyles.mapBtn]}>
-              <Image
-                source={mapIcon}
-                style={[restaurantDetailStyles.restaurantLinkIcon]}
-              />
-              <Text style={baseStyles.textSm}>View on Map</Text>
-            </View>
-          );
-        }}
-      </Pressable>
-    );
+    if (restaurant.coords) {
+      return (
+        <Pressable
+          onPress={() => navigation.push('RestaurantMap', {id: restaurant.id})}>
+          {({pressed}) => {
+            const pressedStyle = getPressedStyle(pressed);
+            return (
+              <View style={[pressedStyle, restaurantStyles.mapBtn]}>
+                <Image
+                  source={mapIcon}
+                  style={[restaurantDetailStyles.restaurantLinkIcon]}
+                />
+                <Text style={baseStyles.textSm}>View on Map</Text>
+              </View>
+            );
+          }}
+        </Pressable>
+      );
+    }
   };
 
   const restaurantLink = () => {

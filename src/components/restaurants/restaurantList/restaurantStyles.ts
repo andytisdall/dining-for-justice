@@ -23,10 +23,10 @@ export default StyleSheet.create({
   mapBtn: {padding: 4 * sizeMultiplier},
   listMap: {
     position: 'absolute',
-    flexDirection: 'row',
+    flexDirection: 'row-reverse',
     right: 0,
     width: '63%',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'flex-start',
     marginRight: 10 * sizeMultiplier,
   },

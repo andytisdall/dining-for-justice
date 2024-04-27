@@ -3,10 +3,7 @@ import {
   NativeStackScreenProps,
   NativeStackNavigationProp,
 } from '@react-navigation/native-stack';
-import {
-  BottomTabScreenProps,
-  BottomTabNavigationProp,
-} from '@react-navigation/bottom-tabs';
+import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {CompositeNavigationProp} from '@react-navigation/native';
 
 import {Cocktail} from '../state/apis/contestApi';
@@ -19,8 +16,6 @@ export type RootTabsParams = {
 };
 
 //
-
-export type HomeScreenProps = BottomTabScreenProps<RootTabsParams, 'Home'>;
 
 export type HomeNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<RootTabsParams, 'Home'>,
@@ -38,6 +33,11 @@ export type RestaurantStackParams = {
 export type RestaurantStackNavigationProp =
   NativeStackNavigationProp<RestaurantStackParams>;
 
+export type RestaurantsScreenProps = NativeStackScreenProps<
+  RestaurantStackParams,
+  'RestaurantHome'
+>;
+
 export type RestaurantDetailScreenProps = NativeStackScreenProps<
   RestaurantStackParams & RootTabsParams,
   'RestaurantDetail'
@@ -51,6 +51,11 @@ export type EventsStackParams = {
   ContestHome: undefined;
   ContestDetail: {cocktail: Cocktail};
 };
+
+export type EventDetailScreenProps = NativeStackScreenProps<
+  EventsStackParams,
+  'EventDetail'
+>;
 
 export type ContestDetailScreenProps = NativeStackScreenProps<
   EventsStackParams & RootTabsParams,

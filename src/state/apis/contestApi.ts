@@ -23,19 +23,20 @@ const contestApi = api.injectEndpoints({
         url: '/d4j/contest/vote',
         body: {barId},
       }),
+      invalidatesTags: ['Vote'],
     }),
-    getVote: builder.query<ContestVote[], void>({
-      query: () => '/d4j/contest/vote',
-    }),
+
     editVote: builder.mutation<null, string>({
       query: barId => ({
         method: 'PATCH',
         url: '/d4j/contest/vote',
         body: {barId},
       }),
+      invalidatesTags: ['Vote'],
     }),
     getAllVotes: builder.query<ContestVote[], void>({
       query: () => '/d4j/contest/votes',
+      providesTags: ['Vote'],
     }),
   }),
 });
@@ -43,7 +44,6 @@ const contestApi = api.injectEndpoints({
 export const {
   useGetCocktailsQuery,
   useVoteMutation,
-  useGetVoteQuery,
   useEditVoteMutation,
   useGetAllVotesQuery,
 } = contestApi;

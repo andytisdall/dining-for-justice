@@ -1,9 +1,7 @@
 import {View, Text, Pressable, Image} from 'react-native';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useCallback} from 'react';
 
 import restaurantStyles from './restaurantStyles';
-import {RestaurantStackParams} from './../RestaurantNavigator';
 import AnimatedLoading from '../../reusable/AnimatedLoading';
 import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
 import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
@@ -12,11 +10,7 @@ import useFilter from '../../../hooks/useFilter/useFilter';
 import ScreenBackground from '../../reusable/ScreenBackground';
 import RestaurantList from './RestaurantList';
 import Refresh from '../../reusable/Refresh';
-
-type RestaurantsScreenProps = NativeStackScreenProps<
-  RestaurantStackParams,
-  'RestaurantHome'
->;
+import {RestaurantsScreenProps} from '../../../navigation/types';
 
 const mapIcon = require('../../../assets/mapIcon.png');
 
@@ -54,8 +48,8 @@ const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
     <View style={restaurantStyles.listHeader}>
       {filterComponent}
       <View style={restaurantStyles.listMap}>
-        {orderBySelector}
         {mapBtn}
+        {orderBySelector}
       </View>
     </View>
   );

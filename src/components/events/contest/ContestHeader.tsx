@@ -4,9 +4,12 @@ import baseStyles from '../../styles/baseStyles';
 
 const ContestHeader = () => {
   return (
-    <View style={baseStyles.screenSection}>
-      <Text style={[baseStyles.textLg, baseStyles.centerText]}>
-        Vote for your fav cocktail here!
+    <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
+      <Text style={baseStyles.title}>
+        Vote for your favorite cocktail here!
+      </Text>
+      <Text style={baseStyles.inputLabel}>
+        Brought to you by St. George Spirits
       </Text>
     </View>
   );

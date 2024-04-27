@@ -7,11 +7,11 @@ import Btn from '../reusable/Btn';
 import MatchingMeals from './MatchingMeals';
 import CKInfo from './CKInfo';
 import StGeorge from './StGeorge';
-import {HomeScreenProps} from '../../navigation/types';
+import {HomeNavigationProp} from '../../navigation/types';
 
 const d4jLogo = require('../../assets/d4j_logo.png');
 
-const Home = ({navigation}: HomeScreenProps) => {
+const Home = ({navigation}: {navigation: HomeNavigationProp}) => {
   return (
     <ScreenBackground>
       <ScrollView contentContainerStyle={[baseStyles.scrollView]}>
@@ -28,7 +28,9 @@ const Home = ({navigation}: HomeScreenProps) => {
           </Text>
 
           <Btn
-            onPress={() => navigation.navigate('Restaurants')}
+            onPress={() =>
+              navigation.navigate('Restaurants', {screen: 'RestaurantHome'})
+            }
             style={homeStyles.moreInfoBtn}>
             <Text style={baseStyles.text}>More Info</Text>
           </Btn>

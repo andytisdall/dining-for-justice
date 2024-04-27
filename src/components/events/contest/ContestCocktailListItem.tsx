@@ -6,6 +6,8 @@ import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
 import contestStyles from './contestStyles';
 import restaurantListItemStyles from '../../restaurants/restaurantList/restaurantListItemStyles';
 import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
+import {useGetAllVotesQuery} from '../../../state/apis/contestApi';
+import {useGetContactQuery} from '../../../state/apis/contactApi/contactApi';
 
 const ContestCocktailListItem = ({
   cocktail,
@@ -15,25 +17,39 @@ const ContestCocktailListItem = ({
   onPress: () => void;
 }) => {
   const {data: bars} = useGetRestaurantsQuery();
+  const {data: votes} = useGetAllVotesQuery();
+  const {data: user} = useGetContactQuery();
+
+  const existingVote = votes?.find(v => v.user === user?.id);
 
   const bar = bars?.find(b => b.id === cocktail.bar);
+
+  const getVotedStyle = () => {
+    if (existingVote?.bar === cocktail.bar) {
+      return contestStyles.votedListItem;
+    }
+  };
   return (
     <Pressable onPress={onPress}>
       {({pressed}) => {
         const pressedStyle = getPressedStyle(pressed);
         return (
           <View
-            style={[pressedStyle, restaurantListItemStyles.restaurantListItem]}>
+            style={[
+              getVotedStyle(),
+              restaurantListItemStyles.restaurantListItem,
+              pressedStyle,
+            ]}>
             <Text style={[baseStyles.centerText, baseStyles.text]}>
               {bar?.name}
             </Text>
-
-            <FastImage
-              source={{uri: cocktail.photo}}
-              resizeMode="cover"
-              style={contestStyles.photo}
-            />
-
+            <View style={baseStyles.centerSection}>
+              <FastImage
+                source={{uri: cocktail.photo}}
+                resizeMode="cover"
+                style={contestStyles.circularPhoto}
+              />
+            </View>
             <Text style={[baseStyles.inputLabel, baseStyles.centerText]}>
               {cocktail.name}
             </Text>

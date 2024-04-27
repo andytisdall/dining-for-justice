@@ -16,10 +16,12 @@ import InitialMessage from './InitialMessage';
 
 const CheckIn = ({
   restaurant,
-  openModal,
+  openLocationModal,
+  openSuccessModal,
 }: {
   restaurant: Restaurant;
-  openModal: () => void;
+  openLocationModal: () => void;
+  openSuccessModal: () => void;
 }) => {
   const [
     userIsWithinRange,
@@ -94,13 +96,18 @@ const CheckIn = ({
     if (locationPermission) {
       const withinRange = await userIsWithinRange(restaurant.coords!).unwrap();
       if (withinRange) {
-        await checkIn({restaurantId: restaurant.id});
+        const checkInSuccess = await checkIn({
+          restaurantId: restaurant.id,
+        }).unwrap();
+        if (checkInSuccess.result === 'SUCCESS') {
+          setTimeout(openSuccessModal, 800);
+        }
         animateResult();
       } else {
         animateResult();
       }
     } else {
-      openModal();
+      openLocationModal();
     }
   };
 

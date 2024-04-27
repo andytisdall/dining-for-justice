@@ -8,7 +8,7 @@ export default StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     alignSelf: 'flex-start',
-    width: 110 * sizeMultiplier,
+    width: 100 * sizeMultiplier,
     justifyContent: 'flex-start',
     paddingTop: 2 * sizeMultiplier,
   },

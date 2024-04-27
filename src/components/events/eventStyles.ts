@@ -30,7 +30,7 @@ export default StyleSheet.create({
   eventsList: {
     width: '100%',
     position: 'absolute',
-    bottom: -height / 1.45,
+    bottom: -height / 1.43,
     backgroundColor: colors.midnightBlue,
     borderColor: 'white',
     borderTopLeftRadius: 25,
@@ -44,6 +44,7 @@ export default StyleSheet.create({
     padding: 10,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
+    height: height / 16,
   },
   eventsListItem: {
     padding: 5 * sizeMultiplier,
@@ -53,9 +54,9 @@ export default StyleSheet.create({
   eventsListItemHeader: {
     flexDirection: 'row',
     alignItems: 'center',
+    maxWidth: '80%',
   },
   eventListItems: {
-    // flex: 1,
     minHeight: '100%',
   },
 });

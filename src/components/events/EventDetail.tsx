@@ -1,4 +1,3 @@
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {View, Text, ScrollView, Linking} from 'react-native';
 import {format, zonedTimeToUtc} from 'date-fns-tz';
 import {useEffect} from 'react';
@@ -6,20 +5,15 @@ import FastImage from 'react-native-fast-image';
 
 import Btn from '../reusable/Btn';
 import {useGetEventsQuery} from '../../state/apis/eventsApi/eventsApi';
-import {EventsStackParams} from './EventsNavigator';
 import baseStyles from '../styles/baseStyles';
 import eventStyles from './eventStyles';
 import ScreenBackground from '../reusable/ScreenBackground';
 import ContestHome from './contest/ContestHome';
-
-type EventDetailProps = NativeStackScreenProps<
-  EventsStackParams,
-  'EventDetail'
->;
+import {EventDetailScreenProps} from '../../navigation/types';
 
 export const ST_GEORGE_ID = '701UP000006WOmvYAG';
 
-const EventDetail = ({route, navigation}: EventDetailProps) => {
+const EventDetail = ({route, navigation}: EventDetailScreenProps) => {
   const {id} = route.params;
 
   const {data: events} = useGetEventsQuery();

@@ -18,7 +18,7 @@ import {
   useSignInMutation,
   useCreateContactMutation,
   useGetNotificationsPermissionMutation,
-} from '../../../state/apis/contact/contactApi';
+} from '../../../state/apis/contactApi/contactApi';
 import Btn from '../../reusable/Btn';
 import baseStyles from '../../styles/baseStyles';
 import ThumbsUp from '../../reusable/ThumbsUp';

@@ -1,5 +1,5 @@
 import {View, Text, FlatList} from 'react-native';
-import {useEffect, useMemo, useCallback} from 'react';
+import {useEffect, useMemo, useCallback, useState} from 'react';
 import FastImage from 'react-native-fast-image';
 
 import Btn from '../../reusable/Btn';
@@ -12,15 +12,18 @@ import CheckIn from './checkIn/CheckIn';
 import RestaurantTags from './restaurantTags/RestaurantTags';
 import RestaurantLinks from './RestaurantLinks';
 import RestaurantInfo from './RestaurantInfo';
-import {useGetContactQuery} from '../../../state/apis/contact/contactApi';
+import {useGetContactQuery} from '../../../state/apis/contactApi/contactApi';
 import useEnableLocation from '../../../hooks/useEnableLocation';
 import CocktailInfo from './CocktailInfo';
 import Refresh from '../../reusable/Refresh';
 import {RestaurantDetailScreenProps} from '../../../navigation/types';
+import SuccessModal from './checkIn/SuccessModal';
 
 const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
   const {data, refetch} = useGetRestaurantsQuery();
   const {data: user} = useGetContactQuery();
+
+  const [successModalOpen, setSuccessModalOpen] = useState(false);
 
   const {id} = route.params;
 
@@ -53,7 +56,10 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
       <View style={baseStyles.centerSection}>
         <Btn
           onPress={() =>
-            navigation.navigate('Rewards', {screen: 'GetContact'})
+            navigation.navigate('Rewards', {
+              screen: 'GetContact',
+              initial: false,
+            })
           }>
           <Text style={baseStyles.btnText}>
             To check in at this location & earn rewards, enter your email
@@ -79,7 +85,11 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
           {!user ? (
             renderSignIn()
           ) : (
-            <CheckIn restaurant={restaurant} openModal={openModal} />
+            <CheckIn
+              restaurant={restaurant}
+              openLocationModal={openModal}
+              openSuccessModal={() => setSuccessModalOpen(true)}
+            />
           )}
 
           <RestaurantTags restaurant={restaurant} />
@@ -106,6 +116,9 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     <ScreenBackground>
       <FlatList data={[renderDetails]} renderItem={renderItem} />
       {enableLocationModal}
+      {successModalOpen && (
+        <SuccessModal onPress={() => setSuccessModalOpen(false)} />
+      )}
     </ScreenBackground>
   );
 };

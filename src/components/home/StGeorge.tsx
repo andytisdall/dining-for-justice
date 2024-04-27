@@ -30,6 +30,7 @@ const StGeorge = () => {
           navigation.navigate('Events', {
             screen: 'EventDetail',
             params: {id: ST_GEORGE_ID},
+            initial: false,
           })
         }>
         <Text>Event Info</Text>
