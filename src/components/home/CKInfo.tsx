@@ -7,7 +7,7 @@ import AnimatedLoading from '../reusable/AnimatedLoading';
 import {useGetTotalMealsQuery} from '../../state/apis/impactApi/impactApi';
 import Btn from '../reusable/Btn';
 
-const ckLogo = require('../../assets/ck_logo.png');
+const ckLogo = require('../../assets/logos/ck_logo.png');
 
 const CKInfo = () => {
   const {data: meals, isLoading} = useGetTotalMealsQuery();

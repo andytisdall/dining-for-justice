@@ -8,12 +8,12 @@ import baseStyles from '../styles/baseStyles';
 import homeStyles from './homeStyles';
 import {ST_GEORGE_ID} from '../events/EventDetail';
 
-const stGeorgeLogo = require('../../assets/st-george-logo.png');
+const stGeorgeLogo = require('../../assets/logos/st-george-logo.png');
 
 const StGeorge = () => {
   const navigation = useNavigation<HomeNavigationProp>();
   return (
-    <View style={[homeStyles.stGeorge, baseStyles.centerSection]}>
+    <View style={[baseStyles.centerSection]}>
       <Text style={baseStyles.title}>Featured Event</Text>
       <View style={homeStyles.stGeorgeLogoContainer}>
         <FastImage

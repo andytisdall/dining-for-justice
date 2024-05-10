@@ -10,7 +10,7 @@ export default StyleSheet.create({
     width: 200 * sizeMultiplier,
     marginVertical: 5 * sizeMultiplier,
   },
-  logo: {resizeMode: 'contain', height: '100%', width: '100%'},
+  logo: {height: '100%', width: '100%'},
   totalMeals: {
     fontSize: 35 * sizeMultiplier,
     color: 'pink',
@@ -27,13 +27,22 @@ export default StyleSheet.create({
     fontFamily: font,
   },
   moreInfoBtn: {backgroundColor: colors.red},
-  stGeorge: {
+  sponsors: {
     paddingVertical: 20 * sizeMultiplier,
     backgroundColor: colors.purple,
   },
   stGeorgeLogoContainer: {
-    height: 90 * sizeMultiplier,
-    width: 250 * sizeMultiplier,
+    height: 50 * sizeMultiplier,
+    width: 200 * sizeMultiplier,
+    marginVertical: 15 * sizeMultiplier,
+  },
+  sponsorLogoRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  sponsorLogoContainer: {
+    height: 100 * sizeMultiplier,
+    width: 100 * sizeMultiplier,
     marginVertical: 10 * sizeMultiplier,
   },
 });

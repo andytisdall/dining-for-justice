@@ -42,13 +42,15 @@ const useNearMeFilter = (): [
 
   const filter = useCallback(
     (rest: Restaurant) => {
-      if (nearMe && rest.coords && location) {
+      if (nearMe && rest.coords) {
         return restaurantIsNearMe(rest.coords);
+      } else if (nearMe) {
+        return false;
       } else {
         return true;
       }
     },
-    [location, nearMe, restaurantIsNearMe],
+    [nearMe, restaurantIsNearMe],
   );
 
   const component = useMemo(

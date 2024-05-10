@@ -1,4 +1,4 @@
-import {View, Text, Image, ScrollView} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 
 import ScreenBackground from '../reusable/ScreenBackground';
 import baseStyles from '../styles/baseStyles';
@@ -6,10 +6,11 @@ import homeStyles from './homeStyles';
 import Btn from '../reusable/Btn';
 import MatchingMeals from './MatchingMeals';
 import CKInfo from './CKInfo';
-import StGeorge from './StGeorge';
 import {HomeNavigationProp} from '../../navigation/types';
+import Sponsors from './Sponsors';
+import FastImage from 'react-native-fast-image';
 
-const d4jLogo = require('../../assets/d4j_logo.png');
+const d4jLogo = require('../../assets/logos/d4j_logo.png');
 
 const Home = ({navigation}: {navigation: HomeNavigationProp}) => {
   return (
@@ -17,7 +18,11 @@ const Home = ({navigation}: {navigation: HomeNavigationProp}) => {
       <ScrollView contentContainerStyle={[baseStyles.scrollView]}>
         <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
           <View style={[homeStyles.logoContainer, baseStyles.centerSection]}>
-            <Image source={d4jLogo} style={homeStyles.logo} />
+            <FastImage
+              source={d4jLogo}
+              style={homeStyles.logo}
+              resizeMode="contain"
+            />
           </View>
 
           <Text style={baseStyles.title}>Eat, Drink, Support Community</Text>
@@ -39,7 +44,7 @@ const Home = ({navigation}: {navigation: HomeNavigationProp}) => {
         </View>
 
         <CKInfo />
-        <StGeorge />
+        <Sponsors />
       </ScrollView>
     </ScreenBackground>
   );

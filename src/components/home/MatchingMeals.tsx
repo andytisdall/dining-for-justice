@@ -5,7 +5,7 @@ import {useGetTotalCheckInsQuery} from '../../state/apis/rewardsApi/checkInApi';
 import baseStyles from '../styles/baseStyles';
 import homeStyles from './homeStyles';
 
-const blockLogo = require('../../assets/block-logo.png');
+const blockLogo = require('../../assets/logos/block-logo.png');
 
 const MatchingMeals = () => {
   const {data: totalCheckins} = useGetTotalCheckInsQuery();
@@ -23,7 +23,11 @@ const MatchingMeals = () => {
           check-ins!
         </Text>
         <View style={homeStyles.logoContainer}>
-          <FastImage source={blockLogo} style={homeStyles.logo} />
+          <FastImage
+            source={blockLogo}
+            style={homeStyles.logo}
+            resizeMode="contain"
+          />
         </View>
         <View style={baseStyles.screenBorders}>
           <Text style={[baseStyles.text, baseStyles.centerText]}>
