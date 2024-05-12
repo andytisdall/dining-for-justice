@@ -38,14 +38,14 @@ export default StyleSheet.create({
     borderWidth: 2,
     borderColor: colors.yellow,
     borderRadius: 25,
-    paddingHorizontal: 15 * sizeMultiplier,
-    paddingVertical: 7 * sizeMultiplier,
     marginBottom: 10,
     maxWidth: '70%',
+    marginTop: 10 * sizeMultiplier,
   },
   cocktailName: {
     color: 'black',
-    fontSize: 25 * sizeMultiplier,
+    fontSize: 20 * sizeMultiplier,
+    fontWeight: '600',
   },
   cocktailDescription: {
     color: 'black',
@@ -55,9 +55,16 @@ export default StyleSheet.create({
     backgroundColor: colors.yellow,
   },
   cocktailsTitle: {
+    marginBottom: 5,
+    backgroundColor: colors.darkGrey,
+    paddingVertical: 5 * sizeMultiplier,
+    paddingHorizontal: 10 * sizeMultiplier,
+    borderTopLeftRadius: 25,
+    borderTopRightRadius: 25,
+  },
+  cocktailsTitleText: {
     color: colors.yellow,
     fontFamily: TITLE_FONT,
     fontSize: 18 * sizeMultiplier,
-    marginBottom: 5,
   },
 });

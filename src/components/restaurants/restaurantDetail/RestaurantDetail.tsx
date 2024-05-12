@@ -75,7 +75,6 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
       return (
         <View style={baseStyles.screenSection}>
           {renderImage}
-
           {restaurant.cuisine === 'cocktails' && (
             <CocktailInfo restaurant={restaurant} />
           )}

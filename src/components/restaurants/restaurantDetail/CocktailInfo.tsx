@@ -7,10 +7,12 @@ import restaurantDetailStyles from './restaurantDetailStyles';
 const CocktailInfo = ({restaurant}: {restaurant: Restaurant}) => {
   return (
     <View style={[baseStyles.centerSection]}>
-      <Text style={restaurantDetailStyles.cocktailsTitle}>
-        Cocktails for a Cause
-      </Text>
       <View style={restaurantDetailStyles.cocktailInfo}>
+        <View style={restaurantDetailStyles.cocktailsTitle}>
+          <Text style={restaurantDetailStyles.cocktailsTitleText}>
+            Cocktails for a Cause
+          </Text>
+        </View>
         <View style={baseStyles.centerSection}>
           <Text style={baseStyles.btnText}>Featured Cocktail:</Text>
           <Text
@@ -18,7 +20,7 @@ const CocktailInfo = ({restaurant}: {restaurant: Restaurant}) => {
               restaurantDetailStyles.cocktailName,
               baseStyles.centerText,
             ]}>
-            {restaurant.cocktailName}
+            {restaurant.cocktailName || 'Coming Soon'}
           </Text>
         </View>
         <Text
