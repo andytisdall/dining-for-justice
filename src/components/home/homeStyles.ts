@@ -44,5 +44,7 @@ export default StyleSheet.create({
     height: 100 * sizeMultiplier,
     width: 100 * sizeMultiplier,
     marginVertical: 10 * sizeMultiplier,
+    backgroundColor: 'white',
+    padding: 5,
   },
 });

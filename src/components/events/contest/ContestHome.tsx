@@ -1,5 +1,6 @@
-import {View, FlatList} from 'react-native';
+import {View, FlatList, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import FastImage from 'react-native-fast-image';
 
 import {EventStackNavigationProp} from '../../../navigation/types';
 import ScreenBackground from '../../reusable/ScreenBackground';
@@ -9,6 +10,10 @@ import restaurantStyles from '../../restaurants/restaurantList/restaurantStyles'
 import ContestHeader from './ContestHeader';
 import baseStyles from '../../styles/baseStyles';
 import AnimatedLoading from '../../reusable/AnimatedLoading';
+import homeStyles from '../../home/homeStyles';
+
+const CONTEST_MEMBERS: string[] = [];
+const stGeorgeLogo = require('../../../assets/logos/st-george-logo.png');
 
 const ContestHome = () => {
   // const {data: cocktails, isLoading} = useGetCocktailsQuery();
@@ -16,11 +21,22 @@ const ContestHome = () => {
 
   const navigation = useNavigation<EventStackNavigationProp>();
 
+  // const cocktails = restaurants
+  // ?.filter(
+  //   rest => rest.cocktailDescription && rest.cocktailName && rest.photo,
+  // )
+  // .slice(0, 5)
+  // .map(rest => {
+  //   return {
+  //     name: rest.cocktailName!,
+  //     description: rest.cocktailDescription!,
+  //     bar: rest.id,
+  //     photo: rest.photo!,
+  //   };
+  // });
+
   const cocktails = restaurants
-    ?.filter(
-      rest => rest.cocktailDescription && rest.cocktailName && rest.photo,
-    )
-    .slice(0, 5)
+    ?.filter(rest => CONTEST_MEMBERS.includes(rest.id))
     .map(rest => {
       return {
         name: rest.cocktailName!,
@@ -30,13 +46,11 @@ const ContestHome = () => {
       };
     });
 
-  // modal for cocktail detail / voting?
-
   const renderCocktails = () => {
     if (isLoading) {
       return <AnimatedLoading />;
     }
-    if (cocktails) {
+    if (cocktails?.length) {
       return (
         <FlatList
           data={cocktails}
@@ -55,6 +69,20 @@ const ContestHome = () => {
         />
       );
     }
+    return (
+      <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
+        <View style={homeStyles.stGeorgeLogoContainer}>
+          <FastImage
+            source={stGeorgeLogo}
+            style={homeStyles.logo}
+            resizeMode="contain"
+          />
+        </View>
+        <Text style={[baseStyles.centerText, baseStyles.inputLabel]}>
+          Cocktail Competition Details Coming Soon!
+        </Text>
+      </View>
+    );
   };
 
   return (

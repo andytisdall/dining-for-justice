@@ -50,6 +50,8 @@ export default StyleSheet.create({
   cocktailDescription: {
     color: 'black',
     marginTop: 5,
+    paddingHorizontal: 5 * sizeMultiplier,
+    paddingBottom: 5 * sizeMultiplier,
   },
   cocktailsHeader: {
     backgroundColor: colors.yellow,

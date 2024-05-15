@@ -5,9 +5,9 @@ import homeStyles from './homeStyles';
 import StGeorge from './StGeorge';
 import baseStyles from '../styles/baseStyles';
 
-const titosLogo = require('../../assets/logos/titos-logo.jpeg');
+const titosLogo = require('../../assets/logos/titos-logo.png');
 const evanLogo = require('../../assets/logos/evan-logo.png');
-const maestroLogo = require('../../assets/logos/maestro-logo.jpeg');
+const maestroLogo = require('../../assets/logos/maestro-logo.jpg');
 const conejosLogo = require('../../assets/logos/conejos-logo.png');
 
 const Sponsors = () => {

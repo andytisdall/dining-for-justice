@@ -5,7 +5,7 @@ import {EventStackNavigationProp} from '../../navigation/types';
 import eventStyles from './eventStyles';
 import {Event} from '../../state/apis/eventsApi/eventsApi';
 
-const MAX_CAMPAIGN_NAME_LENGTH = 30;
+const MAX_CAMPAIGN_NAME_LENGTH = 25;
 
 const abridgeCampaignName = (name: string) => {
   if (name.length > MAX_CAMPAIGN_NAME_LENGTH + 3) {
