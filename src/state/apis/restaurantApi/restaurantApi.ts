@@ -31,6 +31,8 @@ export interface Restaurant {
   photo?: string;
   cocktailName?: string;
   cocktailDescription?: string;
+  cocktail2Name?: string;
+  cocktail2Description?: string;
   status: 'Active' | 'Former' | 'Paused';
 }
 

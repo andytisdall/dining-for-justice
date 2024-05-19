@@ -39,19 +39,21 @@ export default StyleSheet.create({
     borderColor: colors.yellow,
     borderRadius: 25,
     marginBottom: 10,
-    maxWidth: '70%',
+    maxWidth: '75%',
     marginTop: 10 * sizeMultiplier,
   },
   cocktailName: {
     color: 'black',
     fontSize: 20 * sizeMultiplier,
     fontWeight: '600',
+    paddingHorizontal: 7 * sizeMultiplier,
   },
   cocktailDescription: {
     color: 'black',
     marginTop: 5,
-    paddingHorizontal: 5 * sizeMultiplier,
+    paddingHorizontal: 7 * sizeMultiplier,
     paddingBottom: 5 * sizeMultiplier,
+    fontSize: 11 * sizeMultiplier,
   },
   cocktailsHeader: {
     backgroundColor: colors.yellow,
@@ -68,5 +70,6 @@ export default StyleSheet.create({
     color: colors.yellow,
     fontFamily: TITLE_FONT,
     fontSize: 18 * sizeMultiplier,
+    textAlign: 'center',
   },
 });

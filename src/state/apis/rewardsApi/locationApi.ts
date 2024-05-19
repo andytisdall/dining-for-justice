@@ -40,7 +40,7 @@ const locationApi = api.injectEndpoints({
                   });
                 },
                 reject,
-                {maximumAge: 10000, timeout: 15000},
+                {maximumAge: 10000, timeout: 15000, enableHighAccuracy: true},
               );
             },
           );

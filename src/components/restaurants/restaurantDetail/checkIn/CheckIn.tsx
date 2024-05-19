@@ -1,18 +1,34 @@
 import {View, Text, Animated} from 'react-native';
-import {useRef} from 'react';
+import {useRef, useState} from 'react';
 import RNReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 import Loading from '../../../reusable/Loading';
-import {useUserIsWithinRangeOfLocationMutation} from '../../../../state/apis/rewardsApi/checkInApi';
+import {useGetLocationQuery} from '../../../../state/apis/rewardsApi/locationApi';
 import {useCheckInMutation} from '../../../../state/apis/rewardsApi/checkInApi';
 import baseStyles from '../../../styles/baseStyles';
-import {Restaurant} from '../../../../state/apis/restaurantApi/restaurantApi';
+import {
+  Restaurant,
+  Coordinates,
+} from '../../../../state/apis/restaurantApi/restaurantApi';
 import Btn from '../../../reusable/Btn';
 import {useGetPermissionMutation} from '../../../../state/apis/rewardsApi/locationApi';
 import checkInStyles from './checkInStyles';
 import CheckInSuccess from './CheckInSuccess';
 import CheckInError from './CheckInError';
 import InitialMessage from './InitialMessage';
+
+const userIsWithinRange = (
+  targetCoords: Coordinates,
+  location: Coordinates,
+) => {
+  const MAX_DIFFERENCE = 0.0003;
+  const latDiff = Math.abs(location.latitude - targetCoords.latitude);
+  const lngDiff = Math.abs(location.longitude - targetCoords.longitude);
+
+  return (
+    Math.pow(latDiff, 2) + Math.pow(lngDiff, 2) <= Math.pow(MAX_DIFFERENCE, 2)
+  );
+};
 
 const CheckIn = ({
   restaurant,
@@ -23,10 +39,9 @@ const CheckIn = ({
   openLocationModal: () => void;
   openSuccessModal: () => void;
 }) => {
-  const [
-    userIsWithinRange,
-    {data: inRange, isLoading: loadingRange, isUninitialized},
-  ] = useUserIsWithinRangeOfLocationMutation();
+  const [inRange, setInRange] = useState<boolean>();
+
+  const {data: location, isLoading: loadingLocation} = useGetLocationQuery();
 
   const [getPermission] = useGetPermissionMutation();
 
@@ -35,7 +50,7 @@ const CheckIn = ({
 
   const translateValue = useRef(new Animated.Value(0)).current;
 
-  const loading = loadingCheckin || loadingRange;
+  const loading = loadingCheckin || loadingLocation;
 
   const openAnimation = Animated.timing(translateValue, {
     toValue: 1,
@@ -62,7 +77,7 @@ const CheckIn = ({
   ]).start;
 
   const renderResult = () => {
-    if (!loadingRange && !inRange) {
+    if (!loadingLocation && !inRange) {
       return (
         <CheckInError message="To earn points, you must be present at this location" />
       );
@@ -93,8 +108,14 @@ const CheckIn = ({
   const checkInAction = async () => {
     RNReactNativeHapticFeedback.trigger('notificationSuccess');
     const locationPermission = await getPermission().unwrap();
-    if (locationPermission) {
-      const withinRange = await userIsWithinRange(restaurant.coords!).unwrap();
+
+    if (locationPermission && location) {
+      const locationCoords = {
+        latitude: location.latitude,
+        longitude: location.longitude,
+      };
+      const withinRange = userIsWithinRange(restaurant.coords!, locationCoords);
+      setInRange(withinRange);
       if (withinRange) {
         const checkInSuccess = await checkIn({
           restaurantId: restaurant.id,
@@ -128,7 +149,9 @@ const CheckIn = ({
               {renderResult()}
             </Animated.View>
           ) : (
-            isUninitialized && <InitialMessage restaurantId={restaurant.id} />
+            inRange === undefined && (
+              <InitialMessage restaurantId={restaurant.id} />
+            )
           )}
         </View>
       );

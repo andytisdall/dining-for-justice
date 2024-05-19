@@ -14,8 +14,10 @@ const useIsOpenFilter = (): [
   const getTime = useCallback((time: string) => {
     const [numbers, letters] = time.trim().split(/\s/);
     const [hour, minutes] = numbers.split(':');
+
     const numberHours =
-      (!letters || letters === 'PM') && parseInt(hour, 10) < 12
+      (hour === '12' && letters === 'AM') ||
+      ((!letters || letters === 'PM') && parseInt(hour, 10) < 12)
         ? parseInt(hour, 10) + 12
         : parseInt(hour, 10);
     const numberMinutes = parseInt(minutes, 10);

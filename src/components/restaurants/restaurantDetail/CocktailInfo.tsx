@@ -5,6 +5,39 @@ import baseStyles from '../../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetailStyles';
 
 const CocktailInfo = ({restaurant}: {restaurant: Restaurant}) => {
+  const cocktailInfo = (name?: string, description?: string) => {
+    if (name && description) {
+      return (
+        <>
+          <View style={baseStyles.centerSection}>
+            <Text
+              style={[
+                restaurantDetailStyles.cocktailName,
+                baseStyles.centerText,
+              ]}>
+              {name}
+            </Text>
+          </View>
+          <Text
+            style={[
+              baseStyles.textXSm,
+              baseStyles.centerText,
+              restaurantDetailStyles.cocktailDescription,
+            ]}>
+            {description}
+          </Text>
+        </>
+      );
+    }
+  };
+
+  const header = () => {
+    if (restaurant.cocktail2Name && restaurant.cocktail2Description) {
+      return 'Featured Cocktails:';
+    }
+    return 'Featured Cocktail:';
+  };
+
   return (
     <View style={[baseStyles.centerSection]}>
       <View style={restaurantDetailStyles.cocktailInfo}>
@@ -14,23 +47,25 @@ const CocktailInfo = ({restaurant}: {restaurant: Restaurant}) => {
           </Text>
         </View>
         <View style={baseStyles.centerSection}>
-          <Text style={baseStyles.btnText}>Featured Cocktail:</Text>
-          <Text
-            style={[
-              restaurantDetailStyles.cocktailName,
-              baseStyles.centerText,
-            ]}>
-            {restaurant.cocktailName || 'Coming Soon'}
-          </Text>
+          <Text style={baseStyles.btnText}>{header()}</Text>
+          {!restaurant.cocktailName && (
+            <Text
+              style={[
+                restaurantDetailStyles.cocktailDescription,
+                baseStyles.centerText,
+              ]}>
+              Coming Soon
+            </Text>
+          )}
+          {cocktailInfo(
+            restaurant.cocktailName,
+            restaurant.cocktailDescription,
+          )}
+          {cocktailInfo(
+            restaurant.cocktail2Name,
+            restaurant.cocktail2Description,
+          )}
         </View>
-        <Text
-          style={[
-            baseStyles.textXSm,
-            baseStyles.centerText,
-            restaurantDetailStyles.cocktailDescription,
-          ]}>
-          {restaurant.cocktailDescription}
-        </Text>
       </View>
     </View>
   );
