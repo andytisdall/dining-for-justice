@@ -22,8 +22,13 @@ const StGeorge = () => {
           resizeMode="contain"
         />
       </View>
-      <Text style={[baseStyles.inputLabel, baseStyles.centerText]}>
-        St George's Cocktail Competition at 5 Oakland bars
+      <Text
+        style={[
+          baseStyles.inputLabel,
+          baseStyles.centerText,
+          baseStyles.screenSection,
+        ]}>
+        St. George Spirits' Cocktail Competition at 5 Oakland bars
       </Text>
       <Btn
         onPress={() =>

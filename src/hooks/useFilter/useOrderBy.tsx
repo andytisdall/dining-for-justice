@@ -21,11 +21,19 @@ const useOrderBy = (): [
   const {data: location} = useGetLocationQuery();
   const [getPermission] = useGetPermissionMutation();
 
-  const sortByAbc = useCallback(
-    (a: Restaurant, b: Restaurant) =>
-      a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1,
-    [],
-  );
+  const sortByAbc = useCallback((a: Restaurant, b: Restaurant) => {
+    const aWords = a.name.split(' ');
+    const bWords = b.name.split(' ');
+    if (aWords[0] === 'The') {
+      aWords.shift();
+    }
+    if (bWords[0] === 'The') {
+      bWords.shift();
+    }
+    const aName = aWords.join(' ');
+    const bName = bWords.join(' ');
+    return aName.toLowerCase() > bName.toLowerCase() ? 1 : -1;
+  }, []);
 
   const getRestaurantDistance = useCallback(
     (coords: Coordinates | undefined) => {

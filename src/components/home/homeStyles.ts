@@ -32,9 +32,9 @@ export default StyleSheet.create({
     backgroundColor: colors.purple,
   },
   stGeorgeLogoContainer: {
-    height: 50 * sizeMultiplier,
-    width: 200 * sizeMultiplier,
-    marginVertical: 15 * sizeMultiplier,
+    height: 70 * sizeMultiplier,
+    width: 275 * sizeMultiplier,
+    marginVertical: 10 * sizeMultiplier,
   },
   sponsorLogoRow: {
     flexDirection: 'row',

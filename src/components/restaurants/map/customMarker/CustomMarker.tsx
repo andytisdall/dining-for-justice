@@ -18,7 +18,7 @@ const CustomMarker = forwardRef(
     }: {
       restaurant: Restaurant;
       restaurantLink: () => void;
-      selectRestaurant: () => void;
+      selectRestaurant: (rest: Restaurant) => void;
     },
     ref: React.ForwardedRef<MapMarker>,
   ) => {
@@ -33,7 +33,7 @@ const CustomMarker = forwardRef(
           latitude: restaurant.coords!.latitude,
           longitude: restaurant.coords!.longitude,
         }}
-        onPress={selectRestaurant}
+        onPress={() => selectRestaurant(restaurant)}
         ref={ref}
         image={icon}
         style={[style]}>

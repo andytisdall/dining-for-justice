@@ -123,16 +123,21 @@ const Map = ({navigation, route}: MapScreenProps) => {
     }
   }, [restaurant, centerRestaurant]);
 
+  const selectRestaurantMarker = useCallback(
+    (rest: Restaurant) => {
+      centerRestaurant(rest);
+      restaurantRef.current = rest.id;
+    },
+    [centerRestaurant],
+  );
+
   const markers = useMemo(() => {
     return sortedRestaurants
       ?.filter(r => r.coords)
       .map(rest => {
         const isSelectedRestaurant = rest.id === selectedRestaurant;
         const ref = isSelectedRestaurant ? markerRef : undefined;
-        const selectRestaurant = () => {
-          centerRestaurant(rest);
-          restaurantRef.current = rest.id;
-        };
+
         const restaurantLink = () => {
           RNReactNativeHapticFeedback.trigger('impactLight');
           navigateToRestaurant(rest.id);
@@ -141,7 +146,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
         return (
           <CustomMarker
             restaurant={rest}
-            selectRestaurant={selectRestaurant}
+            selectRestaurant={selectRestaurantMarker}
             ref={ref}
             restaurantLink={restaurantLink}
             key={rest.id}
@@ -152,7 +157,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
     sortedRestaurants,
     navigateToRestaurant,
     selectedRestaurant,
-    centerRestaurant,
+    selectRestaurantMarker,
   ]);
 
   const syncStateToMap = useCallback((region: Region) => {
