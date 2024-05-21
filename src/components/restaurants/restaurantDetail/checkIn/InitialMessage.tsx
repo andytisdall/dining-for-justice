@@ -9,7 +9,13 @@ import {
 import baseStyles from '../../../styles/baseStyles';
 import checkInStyles from './checkInStyles';
 
-const InitialMessage = ({restaurantId}: {restaurantId: string}) => {
+const InitialMessage = ({
+  restaurantId,
+  disabled,
+}: {
+  restaurantId: string;
+  disabled: boolean;
+}) => {
   const {data: checkIns} = useGetPointsQuery();
 
   const existingCheckIn = useMemo(() => {
@@ -26,6 +32,19 @@ const InitialMessage = ({restaurantId}: {restaurantId: string}) => {
       return ch.restaurant === restaurantId && dateIsValid;
     });
   }, [checkIns, restaurantId]);
+
+  if (disabled) {
+    return (
+      <Text
+        style={[
+          baseStyles.centerText,
+          checkInStyles.checkInText,
+          checkInStyles.checkInBubble,
+        ]}>
+        Check in to this location to earn prizes starting June 1st!
+      </Text>
+    );
+  }
 
   if (existingCheckIn) {
     return (

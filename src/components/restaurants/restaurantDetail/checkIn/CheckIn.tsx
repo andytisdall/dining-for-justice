@@ -1,6 +1,7 @@
 import {View, Text, Animated} from 'react-native';
 import {useRef, useState} from 'react';
 import RNReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import {utcToZonedTime} from 'date-fns-tz';
 
 import Loading from '../../../reusable/Loading';
 import {useGetLocationQuery} from '../../../../state/apis/rewardsApi/locationApi';
@@ -16,6 +17,11 @@ import checkInStyles from './checkInStyles';
 import CheckInSuccess from './CheckInSuccess';
 import CheckInError from './CheckInError';
 import InitialMessage from './InitialMessage';
+
+const START_DATE = utcToZonedTime('2024-05-23', 'America/Los_Angeles');
+const END_DATE = utcToZonedTime('2024-06-01', 'America/Los_Angeles');
+
+const CHECK_INS_DISABLED = new Date() >= START_DATE && new Date() < END_DATE;
 
 const userIsWithinRange = (
   targetCoords: Coordinates,
@@ -136,7 +142,9 @@ const CheckIn = ({
     if (restaurant?.coords) {
       return (
         <View style={checkInStyles.checkIn}>
-          <Btn onPress={checkInAction} disabled={data?.result === 'SUCCESS'}>
+          <Btn
+            onPress={checkInAction}
+            disabled={data?.result === 'SUCCESS' || CHECK_INS_DISABLED}>
             <Text style={baseStyles.btnText}>Check In</Text>
           </Btn>
           {loading && <Loading />}
@@ -150,7 +158,10 @@ const CheckIn = ({
             </Animated.View>
           ) : (
             inRange === undefined && (
-              <InitialMessage restaurantId={restaurant.id} />
+              <InitialMessage
+                restaurantId={restaurant.id}
+                disabled={CHECK_INS_DISABLED}
+              />
             )
           )}
         </View>
