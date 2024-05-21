@@ -38,9 +38,17 @@ const EventDetail = ({route, navigation}: EventDetailScreenProps) => {
             />
           )}
           <View style={eventStyles.eventDetailsLine}>
-            <Text style={baseStyles.inputLabel}>Location: </Text>
-            <View style={baseStyles.screenSection}>
-              <Text style={baseStyles.text}>{event.venue}</Text>
+            <Text
+              style={[
+                baseStyles.inputLabel,
+                eventStyles.eventDetailsLineHeader,
+              ]}>
+              Location:
+            </Text>
+            <View>
+              {!!event.venue && (
+                <Text style={baseStyles.text}>{event.venue}</Text>
+              )}
               {!!event.address && (
                 <Text style={baseStyles.textSm}>{event.address}</Text>
               )}
@@ -51,7 +59,7 @@ const EventDetail = ({route, navigation}: EventDetailScreenProps) => {
           </View>
           <View style={eventStyles.eventDetailsLine}>
             <Text style={baseStyles.inputLabel}>Date: </Text>
-            <View style={baseStyles.screenSection}>
+            <View>
               <Text style={baseStyles.textSm}>
                 {format(
                   zonedTimeToUtc(event.startDate, 'America/Los_Angeles'),
@@ -68,7 +76,7 @@ const EventDetail = ({route, navigation}: EventDetailScreenProps) => {
 
           <View style={eventStyles.eventDetailsLine}>
             <Text style={baseStyles.inputLabel}>Time:</Text>
-            <View style={baseStyles.screenSection}>
+            <View>
               <Text style={baseStyles.textSm}>
                 {format(new Date(event.startDate), 'h:mm a')}
                 {!!event.endDate &&

@@ -6,26 +6,15 @@ import {sizeMultiplier} from '../styles/baseStyles';
 const height = Dimensions.get('screen').height;
 
 export default StyleSheet.create({
-  eventContainer: {
-    backgroundColor: colors.green,
-    zIndex: -1,
-    paddingTop: '35%',
-    flex: 1,
-  },
-  event: {
-    paddingHorizontal: 2,
-  },
-  eventText: {
-    textAlign: 'center',
-    fontWeight: '600',
-    fontSize: 8 * sizeMultiplier,
-  },
   photo: {
     height: 200,
     marginBottom: 10,
   },
   eventDetailsLine: {
     marginBottom: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 5 * sizeMultiplier,
   },
   eventsList: {
     width: '100%',
@@ -62,5 +51,8 @@ export default StyleSheet.create({
   },
   eventListItems: {
     minHeight: '100%',
+  },
+  eventDetailsLineHeader: {
+    alignSelf: 'flex-start',
   },
 });

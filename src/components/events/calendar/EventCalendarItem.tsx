@@ -1,9 +1,9 @@
-import {Pressable, View, Text} from 'react-native';
+import {Pressable, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
-import {EventStackNavigationProp} from '../../navigation/types';
-import eventStyles from './eventStyles';
-import {Event} from '../../state/apis/eventsApi/eventsApi';
+import {EventStackNavigationProp} from '../../../navigation/types';
+import {Event} from '../../../state/apis/eventsApi/eventsApi';
+import styles from './styles';
 
 const MAX_CAMPAIGN_NAME_LENGTH = 25;
 
@@ -19,17 +19,13 @@ const EventCalendarItem = ({event}: {event: Event}) => {
 
   return (
     <Pressable
-      style={eventStyles.eventContainer}
       onPress={() =>
         navigation.push('EventDetail', {
           id: event.id,
         })
-      }>
-      <View style={eventStyles.event}>
-        <Text style={eventStyles.eventText}>
-          {abridgeCampaignName(event.name)}
-        </Text>
-      </View>
+      }
+      style={styles.eventContainer}>
+      <Text style={styles.eventText}>{abridgeCampaignName(event.name)}</Text>
     </Pressable>
   );
 };

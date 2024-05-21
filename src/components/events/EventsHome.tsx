@@ -7,7 +7,7 @@ import Calendar from './calendar/Calendar';
 import {useGetEventsQuery, Event} from '../../state/apis/eventsApi/eventsApi';
 import ScreenBackground from '../reusable/ScreenBackground';
 import AnimatedLoading from '../reusable/AnimatedLoading';
-import EventCalendarItem from './EventCalendarItem';
+import EventCalendarItem from './calendar/EventCalendarItem';
 import EventsList from './EventsList';
 import baseStyles from '../styles/baseStyles';
 

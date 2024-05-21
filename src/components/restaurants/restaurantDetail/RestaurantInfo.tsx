@@ -1,5 +1,6 @@
-import {View, Text} from 'react-native';
+import {View, Text, Pressable} from 'react-native';
 import {useEffect} from 'react';
+import {showLocation} from 'react-native-map-link';
 
 import restaurantDetailStyles from './restaurantDetailStyles';
 import baseStyles from '../../styles/baseStyles';
@@ -31,22 +32,27 @@ const RestaurantInfo = ({restaurant}: {restaurant: Restaurant}) => {
     }
   }, [details, restaurant, updateRestaurant]);
 
-  const detail = (detailName: string, detailText: string) => {
-    return (
-      <View style={restaurantDetailStyles.restaurantDetailItem}>
-        <Text style={baseStyles.inputLabel}>{detailName}: </Text>
-        <Text style={baseStyles.textSm}>{detailText}</Text>
-      </View>
-    );
-  };
-
   const renderRestaurantInfo = () => {
     return (
       <>
-        {restaurant.cuisine &&
-          restaurant.cuisine !== 'cocktails' &&
-          detail('Type of Food', restaurant.cuisine)}
-        {!!details?.address && detail('Address', details.address)}
+        {restaurant.cuisine && restaurant.cuisine !== 'cocktails' && (
+          <View style={restaurantDetailStyles.restaurantDetailItem}>
+            <Text style={baseStyles.inputLabel}>Type of Food: </Text>
+            <Text style={baseStyles.textSm}>{restaurant.cuisine}</Text>
+          </View>
+        )}
+        {!!details?.address && (
+          <Pressable
+            style={restaurantDetailStyles.restaurantDetailItem}
+            onPress={() =>
+              showLocation({address: `${details.address} Oakland, CA`})
+            }>
+            <Text style={baseStyles.inputLabel}>Address: </Text>
+            <Text style={[baseStyles.textSm, restaurantDetailStyles.address]}>
+              {details.address}
+            </Text>
+          </Pressable>
+        )}
       </>
     );
   };

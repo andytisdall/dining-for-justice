@@ -72,4 +72,7 @@ export default StyleSheet.create({
     fontSize: 18 * sizeMultiplier,
     textAlign: 'center',
   },
+  address: {
+    textDecorationLine: 'underline',
+  },
 });

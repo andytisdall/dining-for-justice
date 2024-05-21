@@ -89,4 +89,16 @@ export default StyleSheet.create({
   resetBtnText: {
     fontSize: 12,
   },
+  eventContainer: {
+    backgroundColor: colors.green,
+    zIndex: -1,
+    paddingTop: '35%',
+    flex: 1,
+    paddingHorizontal: 2,
+  },
+  eventText: {
+    textAlign: 'center',
+    fontWeight: '600',
+    fontSize: 8 * sizeMultiplier,
+  },
 });
