@@ -2,7 +2,10 @@ import {FlatList, Text, Pressable, Animated, View} from 'react-native';
 import {useState, useRef} from 'react';
 
 import EventsListItem from './EventsListItem';
-import baseStyles, {getPressedStyle} from '../styles/baseStyles';
+import baseStyles, {
+  getPressedStyle,
+  sizeMultiplier,
+} from '../styles/baseStyles';
 import eventStyles from './eventStyles';
 import {Event} from '../../state/apis/eventsApi/eventsApi';
 
@@ -21,7 +24,7 @@ const EventsList = ({events}: {events: Event[]}) => {
     } else {
       setEventsListExpanded(true);
       Animated.timing(translateValue, {
-        toValue: -400,
+        toValue: -300 * sizeMultiplier,
         duration: 300,
         useNativeDriver: true,
       }).start();

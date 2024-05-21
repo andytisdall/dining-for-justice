@@ -1,7 +1,7 @@
 import {View, Text, Pressable} from 'react-native';
 import {format} from 'date-fns';
 
-import Btn from '../Btn';
+import Btn from '../../reusable/Btn';
 import styles from './styles';
 import Arrow from '../../../assets/right-arrow.svg';
 

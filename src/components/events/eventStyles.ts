@@ -30,7 +30,7 @@ export default StyleSheet.create({
   eventsList: {
     width: '100%',
     position: 'absolute',
-    bottom: -height / 1.5,
+    bottom: -height / 1.48,
     backgroundColor: colors.midnightBlue,
     borderColor: 'white',
     borderTopLeftRadius: 25,
@@ -41,20 +41,24 @@ export default StyleSheet.create({
   },
   eventsListHeader: {
     alignItems: 'center',
-    padding: 10,
+    padding: 8 * sizeMultiplier,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
-    height: height / 14,
+    height: height / 12,
   },
   eventsListItem: {
     padding: 5 * sizeMultiplier,
     borderBottomColor: 'white',
     borderBottomWidth: 1,
+    flexDirection: 'row',
   },
   eventsListItemHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    maxWidth: '80%',
+  },
+  eventsListItemBody: {
+    maxWidth: '75%',
+    marginLeft: 5 * sizeMultiplier,
   },
   eventListItems: {
     minHeight: '100%',

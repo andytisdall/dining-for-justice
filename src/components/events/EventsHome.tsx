@@ -3,7 +3,7 @@ import {useCallback, useMemo} from 'react';
 import {addDays} from 'date-fns';
 import {format, zonedTimeToUtc} from 'date-fns-tz';
 
-import Calendar from '../reusable/calendar/Calendar';
+import Calendar from './calendar/Calendar';
 import {useGetEventsQuery, Event} from '../../state/apis/eventsApi/eventsApi';
 import ScreenBackground from '../reusable/ScreenBackground';
 import AnimatedLoading from '../reusable/AnimatedLoading';
@@ -29,6 +29,13 @@ const EventsHome = () => {
           ) {
             dates.push(format(i, 'yyyy-MM-dd'));
           }
+        } else {
+          dates.push(
+            format(
+              zonedTimeToUtc(event.startDate, 'America/Los_Angeles'),
+              'yyyy-MM-dd',
+            ),
+          );
         }
         dates.forEach(date => {
           state[date] = event;

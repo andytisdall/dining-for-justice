@@ -45,7 +45,7 @@ const EventDetail = ({route, navigation}: EventDetailScreenProps) => {
                 <Text style={baseStyles.textSm}>{event.address}</Text>
               )}
               {!!event.city && (
-                <Text style={baseStyles.textSm}>{event.city}</Text>
+                <Text style={baseStyles.textSm}>{event.city}, CA</Text>
               )}
             </View>
           </View>

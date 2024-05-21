@@ -26,11 +26,13 @@ const EventsListItem = ({event}: {event: Event}) => {
                 {format(new Date(event.startDate), 'M/d/yy')}
               </Text>
               <Text style={baseStyles.text}>- </Text>
-              <Text style={baseStyles.text}>{event.venue || event.name}</Text>
             </View>
-            {!!event.venue && (
-              <Text style={baseStyles.textSm}>{event.name}</Text>
-            )}
+            <View style={eventStyles.eventsListItemBody}>
+              <Text style={baseStyles.text}>{event.venue || event.name}</Text>
+              {!!event.venue && (
+                <Text style={baseStyles.textSm}>{event.name}</Text>
+              )}
+            </View>
           </View>
         );
       }}
