@@ -16,7 +16,7 @@ const RestaurantNavigator = () => {
         component={RestaurantHome}
         options={{
           header: StackHeader,
-          headerTitle: 'Restaurants',
+          headerTitle: 'Explore',
           headerBackVisible: false,
         }}
       />

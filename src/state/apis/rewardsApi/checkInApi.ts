@@ -33,7 +33,7 @@ const checkInApi = api.injectEndpoints({
         const encodedValue = await sign(
           {
             restaurantId,
-            date: new Date().toString(),
+            date: new Date().toUTCString(),
           },
           SECRET_KEY,
           {alg: 'HS256'},

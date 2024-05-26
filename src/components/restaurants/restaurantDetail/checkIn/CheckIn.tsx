@@ -1,7 +1,7 @@
 import {View, Text, Animated} from 'react-native';
 import {useRef, useState} from 'react';
 import RNReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import {utcToZonedTime} from 'date-fns-tz';
+// import {utcToZonedTime} from 'date-fns-tz';
 
 import Loading from '../../../reusable/Loading';
 import {useGetLocationQuery} from '../../../../state/apis/rewardsApi/locationApi';
@@ -18,16 +18,17 @@ import CheckInSuccess from './CheckInSuccess';
 import CheckInError from './CheckInError';
 import InitialMessage from './InitialMessage';
 
-const START_DATE = utcToZonedTime('2024-05-23', 'America/Los_Angeles');
-const END_DATE = utcToZonedTime('2024-06-01', 'America/Los_Angeles');
+// const START_DATE = utcToZonedTime('2024-05-23', 'America/Los_Angeles');
+// const END_DATE = utcToZonedTime('2024-06-01', 'America/Los_Angeles');
 
-const CHECK_INS_DISABLED = new Date() >= START_DATE && new Date() < END_DATE;
+// const CHECK_INS_DISABLED = new Date() >= START_DATE && new Date() < END_DATE;
+const CHECK_INS_DISABLED = false;
 
-const userIsWithinRange = (
+export const userIsWithinRange = (
   targetCoords: Coordinates,
   location: Coordinates,
 ) => {
-  const MAX_DIFFERENCE = 0.0003;
+  const MAX_DIFFERENCE = 0.0005;
   const latDiff = Math.abs(location.latitude - targetCoords.latitude);
   const lngDiff = Math.abs(location.longitude - targetCoords.longitude);
 

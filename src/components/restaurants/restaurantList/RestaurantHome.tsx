@@ -11,6 +11,7 @@ import ScreenBackground from '../../reusable/ScreenBackground';
 import RestaurantList from './RestaurantList';
 import Refresh from '../../reusable/Refresh';
 import {RestaurantsScreenProps} from '../../../navigation/types';
+import RestaurantDetector from './RestaurantDetector';
 
 const mapIcon = require('../../../assets/mapIcon.png');
 
@@ -83,6 +84,7 @@ const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
   return (
     <ScreenBackground>
       {listHeader}
+      {!!restaurants && <RestaurantDetector restaurants={restaurants} />}
       {renderRestaurantHome()}
     </ScreenBackground>
   );

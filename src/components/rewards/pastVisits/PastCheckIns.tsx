@@ -26,7 +26,7 @@ const PastCheckIns = () => {
     return (
       <View style={pastVisitsStyles.pastVisitItem}>
         <Text style={[baseStyles.textSm, pastVisitsStyles.pastVisitItemText]}>
-          {format(new Date(item.date), 'M/d/yy')}
+          {format(new Date(item.date), 'M/d/yy h:mm a')}
         </Text>
         <Text style={[baseStyles.textSm, pastVisitsStyles.pastVisitItemText]}>
           {rest?.name}

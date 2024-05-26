@@ -34,4 +34,20 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
   },
+  restaurantDetectorHidden: {
+    display: 'none',
+  },
+  restaurantDetectorVisible: {
+    display: 'flex',
+    borderColor: colors.green,
+    borderWidth: 1,
+    marginTop: 5 * sizeMultiplier,
+    marginHorizontal: 5 * sizeMultiplier,
+    borderRadius: 25,
+    paddingHorizontal: 5 * sizeMultiplier,
+    backgroundColor: colors.midnightBlue,
+  },
+  restaurantDetectorItem: {
+    backgroundColor: colors.yellow,
+  },
 });
