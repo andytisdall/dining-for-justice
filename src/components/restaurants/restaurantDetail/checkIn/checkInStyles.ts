@@ -15,17 +15,14 @@ export default StyleSheet.create({
     borderRadius: 25,
   },
   checkIn: {
-    flexDirection: 'row',
-    width: '100%',
     alignItems: 'center',
+    width: '100%',
     marginBottom: 5 * sizeMultiplier,
-    height: sizeMultiplier * 60,
   },
   checkInBubble: {
     alignItems: 'center',
-    paddingVertical: 2 * sizeMultiplier,
+    paddingVertical: 3 * sizeMultiplier,
     paddingHorizontal: 5 * sizeMultiplier,
-    flex: 1,
     justifyContent: 'center',
   },
   checkInText: {
@@ -48,7 +45,7 @@ export default StyleSheet.create({
   },
   content: {
     width: 200 * sizeMultiplier,
-    height: 200 * sizeMultiplier,
+    // height: 200 * sizeMultiplier,
     justifyContent: 'center',
     backgroundColor: colors.yellow,
     alignItems: 'center',

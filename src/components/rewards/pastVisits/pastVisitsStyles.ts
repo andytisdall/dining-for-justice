@@ -27,6 +27,8 @@ export default StyleSheet.create({
   },
   pastVisitItemText: {
     paddingHorizontal: 10,
+    maxWidth: '70%',
+    textAlign: 'right',
   },
   showMoreBtn: {
     justifySelf: 'center',

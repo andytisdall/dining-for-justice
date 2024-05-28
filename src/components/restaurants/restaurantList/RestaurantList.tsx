@@ -33,7 +33,7 @@ const RestaurantList = memo(
     resetFilterState: () => void;
   }) => {
     const [zoom, setZoom] = useState(2);
-    const startDist = useRef<number>();
+    const [, setStartDist] = useState(0);
 
     const calcDistance = useCallback((coords1: number[], coords2: number[]) => {
       let dx = Math.abs(coords1[0] - coords2[0]);
@@ -49,29 +49,33 @@ const RestaurantList = memo(
           const touches = event.nativeEvent.touches;
 
           if (touches.length >= 2) {
-            startDist.current = calcDistance(
-              [touches[0].pageX, touches[0].pageY],
-              [touches[1].pageX, touches[1].pageY],
+            setStartDist(
+              calcDistance(
+                [touches[0].pageX, touches[0].pageY],
+                [touches[1].pageX, touches[1].pageY],
+              ),
             );
           }
         },
         onPanResponderMove: event => {
           const touches = event.nativeEvent.touches;
-
-          if (startDist.current && touches.length >= 2) {
-            const distance = calcDistance(
-              [touches[0].pageX, touches[0].pageY],
-              [touches[1].pageX, touches[1].pageY],
-            );
-            if (distance - startDist.current > ZOOM_THRESHOLD) {
-              setZoom(current => (current < 3 ? current + 1 : current));
-              startDist.current = distance;
+          setStartDist(currentDist => {
+            if (touches.length >= 2) {
+              const distance = calcDistance(
+                [touches[0].pageX, touches[0].pageY],
+                [touches[1].pageX, touches[1].pageY],
+              );
+              if (distance - currentDist > ZOOM_THRESHOLD) {
+                setZoom(current => (current < 3 ? current + 1 : current));
+                return distance;
+              }
+              if (distance - currentDist < -ZOOM_THRESHOLD) {
+                setZoom(current => (current > 1 ? current - 1 : current));
+                return distance;
+              }
             }
-            if (distance - startDist.current < -ZOOM_THRESHOLD) {
-              setZoom(current => (current > 1 ? current - 1 : current));
-              startDist.current = distance;
-            }
-          }
+            return currentDist;
+          });
         },
       }),
     ).current;

@@ -1,5 +1,4 @@
 import {Text, View, FlatList} from 'react-native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {useCallback} from 'react';
 
@@ -11,11 +10,12 @@ import {
   Prize,
 } from '../../../state/apis/rewardsApi/contestApi';
 import Loading from '../../reusable/Loading';
+import {RewardsStackNavigationProp} from '../../../navigation/types';
 
 const Prizes = () => {
   const {data: prizes, isLoading} = useGetPrizesQuery();
 
-  const navigation = useNavigation();
+  const navigation = useNavigation<RewardsStackNavigationProp>();
 
   const renderItem = useCallback(({item}: {item: Prize}) => {
     return (
@@ -36,6 +36,10 @@ const Prizes = () => {
         <Btn onPress={() => navigation.navigate('Rules')}>
           <Text style={baseStyles.btnText}>Contest Rules</Text>
         </Btn>
+        <Text style={[baseStyles.centerText, baseStyles.textSm]}>
+          To check in when you're at a bar or restaurant, go to the "Explore"
+          tab at the bottom of your screen, and find your location.
+        </Text>
       </View>
       {isLoading && <Loading />}
       {prizes && <FlatList data={prizes} renderItem={renderItem} />}

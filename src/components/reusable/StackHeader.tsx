@@ -85,17 +85,17 @@ export const styles = StyleSheet.create({
     height: '100%',
   },
   title: {
-    width: '70%',
+    width: '75%',
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 10,
   },
   titleText: {
-    fontSize: 28 * sizeMultiplier,
+    fontSize: 25 * sizeMultiplier,
     color: 'white',
     fontFamily: TITLE_FONT,
     textAlign: 'center',
-    lineHeight: 30 * sizeMultiplier,
+    lineHeight: 28 * sizeMultiplier,
     paddingVertical: 5,
   },
   btn: {

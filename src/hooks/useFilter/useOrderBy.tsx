@@ -77,7 +77,7 @@ const useOrderBy = (): [
     return (
       <View style={styles.order}>
         <Text style={baseStyles.textXSm}>Order by</Text>
-        <View>
+        <View style={styles.orderBtns}>
           <Pressable onPress={() => setOrder('abc')}>
             {({pressed}) => {
               const pressedStyle = getPressedStyle(pressed);
@@ -109,8 +109,9 @@ const useOrderBy = (): [
                       baseStyles.textXSm,
                       locTextStyle,
                       baseStyles.centerText,
+                      styles.distanceText,
                     ]}>
-                    Near Me
+                    Distance
                   </Text>
                 </View>
               );

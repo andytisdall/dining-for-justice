@@ -28,18 +28,16 @@ export default StyleSheet.create({
   filterLabel: {flexWrap: 'wrap', flex: 1},
   filterTitle: {width: 90 * sizeMultiplier},
   order: {
-    flexDirection: 'row',
     alignItems: 'center',
     marginTop: 7 * sizeMultiplier,
   },
   orderBtn: {
     borderWidth: 1,
-    marginHorizontal: 10 * sizeMultiplier,
     paddingVertical: 2,
     paddingHorizontal: 6 * sizeMultiplier,
     borderColor: 'white',
     borderRadius: 25,
-    marginBottom: 3 * sizeMultiplier,
+    marginHorizontal: 3 * sizeMultiplier,
   },
   orderBtnSelected: {
     backgroundColor: colors.lightGrey,
@@ -47,4 +45,10 @@ export default StyleSheet.create({
   orderTextSelected: {
     color: colors.purple,
   },
+  orderBtns: {
+    flexDirection: 'row',
+    marginTop: 2 * sizeMultiplier,
+    alignItems: 'center',
+  },
+  distanceText: {fontSize: 8 * sizeMultiplier},
 });
