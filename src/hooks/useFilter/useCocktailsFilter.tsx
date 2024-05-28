@@ -7,6 +7,7 @@ const useCocktailsFilter = (): [
   (rest: Restaurant) => boolean,
   JSX.Element,
   () => void,
+  boolean,
 ] => {
   const [cocktails, setCocktails] = useState(false);
 
@@ -32,7 +33,7 @@ const useCocktailsFilter = (): [
     [cocktails],
   );
 
-  return [filter, component, () => setCocktails(false)];
+  return [filter, component, () => setCocktails(false), cocktails];
 };
 
 export default useCocktailsFilter;

@@ -7,8 +7,6 @@ export default StyleSheet.create({
   filterBtnContainer: {
     flexDirection: 'column',
     alignItems: 'center',
-    alignSelf: 'flex-start',
-    width: 100 * sizeMultiplier,
     justifyContent: 'flex-start',
     paddingTop: 2 * sizeMultiplier,
   },
@@ -19,12 +17,7 @@ export default StyleSheet.create({
     justifyContent: 'center',
     margin: 0,
   },
-  filterCheckboxes: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    marginTop: 5,
-  },
+  checkboxes: {width: '100%', flexDirection: 'row', flexWrap: 'wrap'},
   checkbox: {
     width: '47%',
     flexDirection: 'row',
@@ -33,6 +26,7 @@ export default StyleSheet.create({
   },
   filterIcon: {width: 18 * sizeMultiplier, height: 18 * sizeMultiplier},
   filterLabel: {flexWrap: 'wrap', flex: 1},
+  filterTitle: {width: 90 * sizeMultiplier},
   order: {
     flexDirection: 'row',
     alignItems: 'center',

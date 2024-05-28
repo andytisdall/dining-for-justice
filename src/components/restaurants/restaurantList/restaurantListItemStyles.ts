@@ -1,6 +1,7 @@
 import {StyleSheet, Dimensions} from 'react-native';
 
 import colors from '../../styles/colors';
+import {sizeMultiplier} from '../../styles/baseStyles';
 
 const width = Dimensions.get('screen').width;
 export const boxWidth = width / 2.2;
@@ -17,15 +18,22 @@ export default StyleSheet.create({
     marginHorizontal: 5,
     flex: 1,
     justifyContent: 'space-between',
-    width: boxWidth,
-    height: boxHeight,
+    // width: boxWidth,
+    // minHeight: boxHeight,
+    // height: '100%',
   },
   cocktailsListItem: {
     borderColor: colors.yellow,
   },
-  image: {
+  image1: {
     marginVertical: 5,
     flex: 1,
+    minHeight: width / 3,
+  },
+  image2: {
+    marginVertical: 5,
+    flex: 1,
+    minHeight: width / 5,
   },
   cuisine: {
     color: colors.blue,
@@ -33,7 +41,13 @@ export default StyleSheet.create({
   cocktailsTitle: {
     color: colors.yellow,
   },
-  title: {
-    flexWrap: 'wrap',
+  title1: {
+    fontSize: 20 * sizeMultiplier,
+  },
+  title2: {
+    fontSize: 15 * sizeMultiplier,
+  },
+  title3: {
+    fontSize: 8 * sizeMultiplier,
   },
 });

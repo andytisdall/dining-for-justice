@@ -52,7 +52,7 @@ export default StyleSheet.create({
     color: 'black',
     marginTop: 5,
     paddingHorizontal: 7 * sizeMultiplier,
-    paddingBottom: 5 * sizeMultiplier,
+    paddingBottom: 10 * sizeMultiplier,
     fontSize: 11 * sizeMultiplier,
   },
   cocktailsHeader: {

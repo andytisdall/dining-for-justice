@@ -44,6 +44,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
   const [
     sortedRestaurants,
     filterComponent,
+    checkboxComponent,
     range,
     orderByComponent,
     resetFilter,
@@ -191,9 +192,10 @@ const Map = ({navigation, route}: MapScreenProps) => {
         }}
         onLocationPress={zoomToUserLocation}>
         {filterComponent}
+        {checkboxComponent}
       </MapHeader>
     );
-  }, [filterComponent, zoomToUserLocation]);
+  }, [filterComponent, zoomToUserLocation, checkboxComponent]);
 
   const map = useMemo(() => {
     return (
@@ -249,7 +251,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
     );
   }, [PopUp]);
 
-  const data = [mapHeader, map, mapRestaurantList];
+  const data = [map, mapHeader, mapRestaurantList];
 
   const renderItem = ({item}: {item: JSX.Element}) => item;
 

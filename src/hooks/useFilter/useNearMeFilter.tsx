@@ -17,6 +17,7 @@ const useNearMeFilter = (): [
   JSX.Element,
   number | undefined,
   () => void,
+  boolean,
 ] => {
   const [nearMe, setNearMe] = useState(false);
 
@@ -72,6 +73,7 @@ const useNearMeFilter = (): [
     component,
     nearMe ? NEAR_ME_RANGE : undefined,
     () => setNearMe(false),
+    nearMe,
   ];
 };
 

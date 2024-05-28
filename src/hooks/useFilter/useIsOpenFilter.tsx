@@ -8,6 +8,7 @@ const useIsOpenFilter = (): [
   (rest: Restaurant) => boolean,
   JSX.Element,
   () => void,
+  boolean,
 ] => {
   const [openNow, setOpenNow] = useState(false);
 
@@ -84,7 +85,7 @@ const useIsOpenFilter = (): [
     [openNow],
   );
 
-  return [filter, component, () => setOpenNow(false)];
+  return [filter, component, () => setOpenNow(false), openNow];
 };
 
 export default useIsOpenFilter;

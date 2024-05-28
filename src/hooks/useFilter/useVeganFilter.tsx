@@ -7,6 +7,7 @@ const useVeganFilter = (): [
   (rest: Restaurant) => boolean,
   JSX.Element,
   () => void,
+  boolean,
 ] => {
   const [vegan, setVegan] = useState(false);
 
@@ -26,7 +27,7 @@ const useVeganFilter = (): [
     [vegan],
   );
 
-  return [filter, component, () => setVegan(false)];
+  return [filter, component, () => setVegan(false), vegan];
 };
 
 export default useVeganFilter;

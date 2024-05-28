@@ -11,9 +11,11 @@ const RestaurantListItem = memo(
   ({
     restaurant,
     onPress,
+    zoom,
   }: {
     restaurant: Restaurant;
     onPress: (id: string) => void;
+    zoom: number;
   }) => {
     const cuisine =
       restaurant.cuisine === 'cocktails'
@@ -21,16 +23,20 @@ const RestaurantListItem = memo(
         : restaurant.cuisine;
 
     const image = useMemo(() => {
+      const style =
+        zoom === 1
+          ? restaurantListItemStyles.image1
+          : restaurantListItemStyles.image2;
       return restaurant.photo ? (
         <FastImage
           source={{uri: restaurant.photo}}
-          style={restaurantListItemStyles.image}
+          style={style}
           resizeMode="cover"
         />
       ) : (
-        <View style={restaurantListItemStyles.image} />
+        <View style={style} />
       );
-    }, [restaurant.photo]);
+    }, [restaurant.photo, zoom]);
 
     const cocktailsListItemStyle =
       restaurant.cuisine === 'cocktails'
@@ -41,6 +47,18 @@ const RestaurantListItem = memo(
       restaurant.cuisine === 'cocktails'
         ? restaurantListItemStyles.cocktailsTitle
         : undefined;
+
+    const titleStyle = useMemo(() => {
+      if (zoom === 1) {
+        return restaurantListItemStyles.title1;
+      }
+      if (zoom === 2) {
+        return restaurantListItemStyles.title2;
+      }
+      if (zoom === 3) {
+        return restaurantListItemStyles.title3;
+      }
+    }, [zoom]);
 
     return (
       <Pressable
@@ -58,11 +76,7 @@ const RestaurantListItem = memo(
                 cocktailsListItemStyle,
               ]}>
               <Text
-                style={[
-                  baseStyles.text,
-                  baseStyles.centerText,
-                  restaurantListItemStyles.title,
-                ]}>
+                style={[baseStyles.text, baseStyles.centerText, titleStyle]}>
                 {restaurant.name}
               </Text>
               {image}
@@ -73,7 +87,7 @@ const RestaurantListItem = memo(
                   baseStyles.centerText,
                   cocktailsTitleStyle,
                 ]}>
-                {cuisine}
+                {zoom < 3 && cuisine}
               </Text>
             </View>
           );

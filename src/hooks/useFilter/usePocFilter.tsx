@@ -7,6 +7,7 @@ const usePocFilter = (): [
   (rest: Restaurant) => boolean,
   JSX.Element,
   () => void,
+  boolean,
 ] => {
   const [pocOwned, setPocOwned] = useState(false);
 
@@ -32,7 +33,7 @@ const usePocFilter = (): [
     [pocOwned],
   );
 
-  return [filter, component, () => setPocOwned(false)];
+  return [filter, component, () => setPocOwned(false), pocOwned];
 };
 
 export default usePocFilter;

@@ -4,6 +4,7 @@ import {PropsWithChildren} from 'react';
 import styles from './filterStyles';
 import Btn from '../../components/reusable/Btn';
 import baseStyles from '../../components/styles/baseStyles';
+import filterStyles from './filterStyles';
 
 const filterIcon = (
   <Image
@@ -14,39 +15,26 @@ const filterIcon = (
 
 const Filter = ({
   filterVisible,
-  setFilterVisible,
-  children,
+  onPress,
+  activeFilters,
 }: {
   filterVisible: boolean;
-  setFilterVisible: (visible: boolean) => void;
+  onPress: () => void;
+  activeFilters: number;
 } & PropsWithChildren) => {
-  if (filterVisible) {
-    return (
-      <View>
-        <View style={styles.filterBtnContainer}>
-          <Btn
-            style={styles.filterBtn}
-            onPress={() => {
-              setFilterVisible(false);
-            }}>
-            {filterIcon}
-          </Btn>
-          <Text style={baseStyles.textSm}>Hide Filters</Text>
-        </View>
-
-        <View style={styles.filterCheckboxes}>{children}</View>
+  const action = filterVisible ? 'Hide' : activeFilters;
+  return (
+    <View style={styles.filterBtnContainer}>
+      <Btn style={styles.filterBtn} onPress={onPress}>
+        {filterIcon}
+      </Btn>
+      <View style={filterStyles.filterTitle}>
+        <Text style={[baseStyles.textSm, baseStyles.centerText]}>
+          {action} Filters
+        </Text>
       </View>
-    );
-  } else {
-    return (
-      <View style={styles.filterBtnContainer}>
-        <Btn onPress={() => setFilterVisible(true)} style={styles.filterBtn}>
-          {filterIcon}
-        </Btn>
-        <Text style={baseStyles.textSm}>Show Filters</Text>
-      </View>
-    );
-  }
+    </View>
+  );
 };
 
 export default Filter;

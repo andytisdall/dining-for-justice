@@ -6,30 +6,19 @@ const height = Dimensions.get('screen').height;
 
 export default StyleSheet.create({
   loading: {height},
-  restaurantList: {
-    paddingBottom: 50,
-  },
-  restaurantListCol: {
-    justifyContent: 'space-around',
-  },
+
   listHeader: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    alignItems: 'center',
     backgroundColor: colors.midnightBlue,
     borderBottomColor: colors.lightGrey,
     borderBottomWidth: 2,
     paddingVertical: 4 * sizeMultiplier,
+    paddingHorizontal: 6 * sizeMultiplier,
   },
   mapBtn: {padding: 4 * sizeMultiplier},
-  listMap: {
-    position: 'absolute',
-    flexDirection: 'row-reverse',
-    right: 0,
-    width: '63%',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginRight: 10 * sizeMultiplier,
-  },
   refetch: {
     alignItems: 'center',
     marginTop: 10,

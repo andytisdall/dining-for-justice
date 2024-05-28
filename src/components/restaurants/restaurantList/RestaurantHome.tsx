@@ -18,8 +18,14 @@ const mapIcon = require('../../../assets/mapIcon.png');
 const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
   const {data: restaurants, isLoading, refetch} = useGetRestaurantsQuery();
 
-  const [sortedRestaurants, filterComponent, , orderBySelector, resetFilter] =
-    useFilter(restaurants);
+  const [
+    sortedRestaurants,
+    filterComponent,
+    checkboxComponent,
+    ,
+    orderBySelector,
+    resetFilter,
+  ] = useFilter(restaurants);
 
   const navigate = useCallback(
     (id: string) => {
@@ -38,7 +44,7 @@ const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
               source={mapIcon}
               style={[restaurantDetailStyles.restaurantLinkIcon]}
             />
-            <Text style={baseStyles.textSm}>View Map</Text>
+            <Text style={baseStyles.textSm}>Map</Text>
           </View>
         );
       }}
@@ -48,10 +54,9 @@ const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
   const listHeader = (
     <View style={restaurantStyles.listHeader}>
       {filterComponent}
-      <View style={restaurantStyles.listMap}>
-        {mapBtn}
-        {orderBySelector}
-      </View>
+      {mapBtn}
+      {orderBySelector}
+      {checkboxComponent}
     </View>
   );
 

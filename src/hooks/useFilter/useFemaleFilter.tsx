@@ -7,6 +7,7 @@ const useFemaleFilter = (): [
   (rest: Restaurant) => boolean,
   JSX.Element,
   () => void,
+  boolean,
 ] => {
   const [femaleOwned, setFemaleOwned] = useState(false);
 
@@ -32,7 +33,7 @@ const useFemaleFilter = (): [
     [femaleOwned],
   );
 
-  return [filter, component, () => setFemaleOwned(false)];
+  return [filter, component, () => setFemaleOwned(false), femaleOwned];
 };
 
 export default useFemaleFilter;
