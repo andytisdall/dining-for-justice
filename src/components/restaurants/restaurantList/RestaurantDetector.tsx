@@ -1,6 +1,6 @@
-import {View, FlatList, Text} from 'react-native';
+import {View, FlatList, Text, Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {useEffect, useMemo} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import Geolocation from 'react-native-geolocation-service';
 
 import {RestaurantStackNavigationProp} from '../../../navigation/types';
@@ -15,17 +15,19 @@ import {
 import Btn from '../../reusable/Btn';
 
 const RestaurantDetector = ({restaurants}: {restaurants: Restaurant[]}) => {
+  const [open, setOpen] = useState(false);
   const {data: location} = useGetLocationQuery();
   const [getPermission] = useGetPermissionMutation();
 
   const navigation = useNavigation<RestaurantStackNavigationProp>();
 
   useEffect(() => {
-    Geolocation.watchPosition(
+    const watchId = Geolocation.watchPosition(
       () => getPermission(),
       () => {},
       {useSignificantChanges: true},
     );
+    return Geolocation.clearWatch(watchId);
   }, [getPermission]);
 
   const restaurantsWithinRange = useMemo(() => {
@@ -45,21 +47,43 @@ const RestaurantDetector = ({restaurants}: {restaurants: Restaurant[]}) => {
     );
   };
 
-  const style = restaurantsWithinRange.length
-    ? restaurantStyles.restaurantDetectorVisible
+  const text = open
+    ? 'To check in to a location, go to one of the bars or restaurants below, select that location from this list, and hit the check-in button'
+    : 'Check in to win prizes!';
+
+  const style = open ? restaurantStyles.restaurantDetectorOpen : undefined;
+
+  const textStyle = open
+    ? restaurantStyles.restaurantDetectorTextOpen
     : undefined;
 
-  return (
-    <View style={[restaurantStyles.restaurantDetectorHidden, style]}>
-      <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
-        <Text style={baseStyles.text}>You are able to check in here:</Text>
-        <FlatList
-          data={restaurantsWithinRange}
-          renderItem={renderItem}
-          contentContainerStyle={baseStyles.centerSection}
-        />
+  if (restaurantsWithinRange.length) {
+    return (
+      <View style={[restaurantStyles.restaurantDetector]}>
+        <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
+          <Text style={baseStyles.text}>You are able to check in here:</Text>
+          <FlatList
+            data={restaurantsWithinRange}
+            renderItem={renderItem}
+            contentContainerStyle={baseStyles.centerSection}
+          />
+        </View>
       </View>
-    </View>
+    );
+  }
+
+  return (
+    <Pressable
+      onPress={() => setOpen(!open)}
+      style={[
+        restaurantStyles.restaurantDetector,
+        baseStyles.screenSection,
+        style,
+      ]}>
+      <Text style={[baseStyles.btnTextSm, baseStyles.centerText, textStyle]}>
+        {text}
+      </Text>
+    </Pressable>
   );
 };
 

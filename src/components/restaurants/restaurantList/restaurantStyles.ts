@@ -23,19 +23,19 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
   },
-  restaurantDetectorHidden: {
-    display: 'none',
-  },
-  restaurantDetectorVisible: {
-    display: 'flex',
+
+  restaurantDetector: {
     borderColor: colors.green,
     borderWidth: 1,
-    marginTop: 5 * sizeMultiplier,
+    marginTop: 10 * sizeMultiplier,
     marginHorizontal: 5 * sizeMultiplier,
     borderRadius: 25,
-    paddingHorizontal: 5 * sizeMultiplier,
-    backgroundColor: colors.midnightBlue,
+    paddingHorizontal: 10 * sizeMultiplier,
+    backgroundColor: colors.lightGrey,
+    paddingVertical: 5 * sizeMultiplier,
   },
+  restaurantDetectorOpen: {backgroundColor: colors.midnightBlue},
+  restaurantDetectorTextOpen: {color: 'white', fontSize: 12 * sizeMultiplier},
   restaurantDetectorItem: {
     backgroundColor: colors.yellow,
   },

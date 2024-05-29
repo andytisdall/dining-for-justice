@@ -28,7 +28,7 @@ export default StyleSheet.create({
   image1: {
     marginVertical: 5,
     flex: 1,
-    minHeight: width / 3,
+    minHeight: width / 2.8,
   },
   image2: {
     marginVertical: 5,
@@ -48,6 +48,6 @@ export default StyleSheet.create({
     fontSize: 15 * sizeMultiplier,
   },
   title3: {
-    fontSize: 8 * sizeMultiplier,
+    fontSize: 10 * sizeMultiplier,
   },
 });

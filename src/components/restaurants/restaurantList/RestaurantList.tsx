@@ -20,7 +20,7 @@ import Btn from '../../reusable/Btn';
 //   return <View></View>;
 // };
 
-const ZOOM_THRESHOLD = 120;
+const ZOOM_THRESHOLD = 150;
 
 const RestaurantList = memo(
   ({
@@ -59,17 +59,18 @@ const RestaurantList = memo(
         },
         onPanResponderMove: event => {
           const touches = event.nativeEvent.touches;
+
           setStartDist(currentDist => {
             if (touches.length >= 2) {
               const distance = calcDistance(
                 [touches[0].pageX, touches[0].pageY],
                 [touches[1].pageX, touches[1].pageY],
               );
-              if (distance - currentDist > ZOOM_THRESHOLD) {
+              if (distance - currentDist < -ZOOM_THRESHOLD) {
                 setZoom(current => (current < 3 ? current + 1 : current));
                 return distance;
               }
-              if (distance - currentDist < -ZOOM_THRESHOLD) {
+              if (distance - currentDist > ZOOM_THRESHOLD) {
                 setZoom(current => (current > 1 ? current - 1 : current));
                 return distance;
               }
@@ -92,6 +93,18 @@ const RestaurantList = memo(
     );
 
     const keyExtractor = useCallback((item: Restaurant) => item.id, []);
+
+    const getZoomHeight = () => {
+      if (zoom === 1) {
+        return 250;
+      }
+      if (zoom === 2) {
+        return 190;
+      }
+      if (zoom === 3) {
+        return 221;
+      }
+    };
 
     // const getItemLayout = (
     //   data: ArrayLike<Restaurant> | undefined | null,
@@ -121,7 +134,7 @@ const RestaurantList = memo(
       return (
         <MasonryFlashList
           {...panResponder.panHandlers}
-          estimatedItemSize={227}
+          estimatedItemSize={getZoomHeight()}
           numColumns={zoom}
           data={restaurants}
           renderItem={renderItem}

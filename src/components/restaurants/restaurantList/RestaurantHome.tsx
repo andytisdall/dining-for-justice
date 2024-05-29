@@ -57,6 +57,7 @@ const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
       {mapBtn}
       {orderBySelector}
       {checkboxComponent}
+      {!!restaurants && <RestaurantDetector restaurants={restaurants} />}
     </View>
   );
 
@@ -89,7 +90,7 @@ const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
   return (
     <ScreenBackground>
       {listHeader}
-      {!!restaurants && <RestaurantDetector restaurants={restaurants} />}
+
       {renderRestaurantHome()}
     </ScreenBackground>
   );

@@ -116,17 +116,16 @@ const useFilter: (
     return (
       <Filter
         filterVisible={filterVisible}
-        key={filterKey}
         onPress={() => setFilterVisible(!filterVisible)}
         activeFilters={numberOfActiveFilters}
       />
     );
-  }, [filterVisible, filterKey, numberOfActiveFilters]);
+  }, [filterVisible, numberOfActiveFilters]);
 
   const checkBoxComponent = useMemo(() => {
     if (filterVisible) {
       return (
-        <View style={filterStyles.checkboxes}>
+        <View style={filterStyles.checkboxes} key={filterKey}>
           {cocktailsCheckbox}
           {pocCheckbox}
           {femaleCheckbox}
@@ -145,6 +144,7 @@ const useFilter: (
     femaleCheckbox,
     isOpenCheckbox,
     filterVisible,
+    filterKey,
   ]);
 
   return [
