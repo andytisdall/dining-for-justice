@@ -18,9 +18,6 @@ export default StyleSheet.create({
     marginHorizontal: 5,
     flex: 1,
     justifyContent: 'space-between',
-    // width: boxWidth,
-    // minHeight: boxHeight,
-    // height: '100%',
   },
   cocktailsListItem: {
     borderColor: colors.yellow,

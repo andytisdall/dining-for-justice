@@ -1,27 +1,30 @@
 import {StyleSheet} from 'react-native';
 
 import colors from '../../styles/colors';
+import {sizeMultiplier} from '../../styles/baseStyles';
 
 export default StyleSheet.create({
   cocktail: {
     borderColor: colors.yellow,
   },
   photoContainer: {
+    marginVertical: 15,
     height: 200,
     width: 200,
-    marginVertical: 15,
     borderRadius: 100,
     overflow: 'hidden',
   },
   circularPhoto: {
-    height: 100,
-    width: 100,
+    flex: 1,
     borderRadius: 100,
     overflow: 'hidden',
+    height: 100,
+    width: 100,
+    marginVertical: 10 * sizeMultiplier,
   },
   photo: {flex: 1},
   votedListItem: {
     borderColor: colors.yellow,
-    backgroundColor: colors.darkPurple,
+    backgroundColor: colors.darkRed,
   },
 });

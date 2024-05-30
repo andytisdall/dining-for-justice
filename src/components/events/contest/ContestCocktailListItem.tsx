@@ -21,6 +21,7 @@ const ContestCocktailListItem = ({
   const {data: user} = useGetContactQuery();
 
   const existingVote = votes?.find(v => v.user === user?.id);
+  const cocktailVotes = votes?.filter(v => v.bar === cocktail.bar).length;
 
   const bar = bars?.find(b => b.id === cocktail.bar);
 
@@ -40,7 +41,12 @@ const ContestCocktailListItem = ({
               restaurantListItemStyles.restaurantListItem,
               pressedStyle,
             ]}>
-            <Text style={[baseStyles.centerText, baseStyles.text]}>
+            <Text
+              style={[
+                baseStyles.centerText,
+                baseStyles.text,
+                restaurantListItemStyles.title2,
+              ]}>
               {bar?.name}
             </Text>
             <View style={baseStyles.centerSection}>
@@ -53,6 +59,16 @@ const ContestCocktailListItem = ({
             <Text style={[baseStyles.inputLabel, baseStyles.centerText]}>
               {cocktail.name}
             </Text>
+            <View>
+              <Text style={[baseStyles.centerText, baseStyles.textSm]}>
+                {cocktailVotes} Votes
+              </Text>
+              {existingVote?.bar === cocktail.bar && (
+                <Text style={[baseStyles.centerText, baseStyles.textXSm]}>
+                  You voted for this cocktail
+                </Text>
+              )}
+            </View>
           </View>
         );
       }}

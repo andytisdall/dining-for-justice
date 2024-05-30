@@ -1,7 +1,8 @@
-import {View, FlatList, Text} from 'react-native';
+import {View, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 import {useMemo} from 'react';
+import {MasonryFlashList} from '@shopify/flash-list';
 
 import {EventStackNavigationProp} from '../../../navigation/types';
 import ScreenBackground from '../../reusable/ScreenBackground';
@@ -46,7 +47,8 @@ const ContestHome = () => {
     }
     if (cocktails?.length) {
       return (
-        <FlatList
+        <MasonryFlashList
+          estimatedItemSize={175}
           data={cocktails}
           renderItem={({item}) => (
             <ContestCocktailListItem
