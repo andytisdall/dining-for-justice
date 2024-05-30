@@ -117,6 +117,9 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+    buildFeatures {
+        buildConfig = true // <- set this to true
+    }
 }
 
 dependencies {

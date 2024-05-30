@@ -8,10 +8,6 @@ buildscript {
         targetSdkVersion = 34
         ndkVersion = "26.1.10909125"
         kotlinVersion = "1.9.22"
-
-
-        ndkVersion = "23.1.7779620"     
-
         playServicesLocationVersion = "21.0.1"
  
     }

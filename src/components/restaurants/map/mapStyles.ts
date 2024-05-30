@@ -4,9 +4,8 @@ export const height = Dimensions.get('screen').height;
 
 export default StyleSheet.create({
   map: {
-    height: height * 0.5,
+    height: height * 0.55,
   },
-
   userMarker: {zIndex: 1},
   selectedMarker: {zIndex: 2},
   listBtns: {

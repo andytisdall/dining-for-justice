@@ -18,7 +18,10 @@ const eventsApi = api.injectEndpoints({
     getEvents: builder.query<Event[], void>({
       query: () => '/d4j/events',
     }),
+    getCompetitionBars: builder.query<string[], void>({
+      query: () => '/d4j/events/cocktail-competition',
+    }),
   }),
 });
 
-export const {useGetEventsQuery} = eventsApi;
+export const {useGetEventsQuery, useGetCompetitionBarsQuery} = eventsApi;

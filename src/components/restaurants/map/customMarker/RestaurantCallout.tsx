@@ -16,6 +16,7 @@ const RestaurantCallout = ({restaurant}: {restaurant: Restaurant}) => {
               width={'100%'}
               height={'100%'}
               href={{uri: restaurant.photo}}
+              preserveAspectRatio="xMidYMid slice"
             />
           </Svg>
         );

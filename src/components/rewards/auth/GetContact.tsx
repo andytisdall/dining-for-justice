@@ -61,8 +61,6 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
     // if not, show the name fields so user can create a contact
     // then sign in the user that was created
 
-    console.log(token);
-
     if (!showNameFields) {
       const user = await signIn({email, token}).unwrap();
 
