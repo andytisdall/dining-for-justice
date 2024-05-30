@@ -10,14 +10,13 @@ import {
 import {useDispatch} from 'react-redux';
 
 import {setError} from '../../../state/apis/slices/errorSlice';
-import {RewardsStackParams} from '../RewardsNavigator';
+import {RewardsStackParams} from '../../../navigation/types';
 import Loading from '../../reusable/Loading';
 import EnterEmail from './EnterEmail';
 import EnterName from './EnterName';
 import {
   useSignInMutation,
   useCreateContactMutation,
-  useGetNotificationsPermissionMutation,
 } from '../../../state/apis/contactApi/contactApi';
 import Btn from '../../reusable/Btn';
 import baseStyles from '../../styles/baseStyles';
@@ -47,7 +46,6 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
 
   const [signIn, signInResult] = useSignInMutation();
   const [createContact, createContactResult] = useCreateContactMutation();
-  const [getNotficationsPermission] = useGetNotificationsPermissionMutation();
 
   const redirectScreen = 'RewardsHome';
 
@@ -58,11 +56,12 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
       return dispatch(setError('Please enter a valid email address'));
     }
 
-    await getNotficationsPermission();
-    const token = Notifications.token;
+    const token = Notifications.getToken();
     // if it's just the email entry, see if contact exists and sign them in if so
     // if not, show the name fields so user can create a contact
     // then sign in the user that was created
+
+    console.log(token);
 
     if (!showNameFields) {
       const user = await signIn({email, token}).unwrap();

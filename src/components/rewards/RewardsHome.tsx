@@ -1,11 +1,15 @@
 import {Text, View, FlatList} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useEffect} from 'react';
 
 import AnimatedLoading from '../reusable/AnimatedLoading';
-import {RewardsStackParams} from './RewardsNavigator';
+import {RewardsStackParams} from '../../navigation/types';
 import Btn from '../reusable/Btn';
 import baseStyles from '../styles/baseStyles';
-import {useGetContactQuery} from '../../state/apis/contactApi/contactApi';
+import {
+  useGetContactQuery,
+  useGetNotificationsPermissionMutation,
+} from '../../state/apis/contactApi/contactApi';
 import PastCheckIns from './pastVisits/PastCheckIns';
 import User from './auth/User';
 import rewardsStyles from './rewardsStyles';
@@ -20,6 +24,12 @@ type RewardsScreenProps = NativeStackScreenProps<
 
 const RewardsHome = ({navigation}: RewardsScreenProps) => {
   const {data: contact, isFetching: contactIsLoading} = useGetContactQuery();
+
+  const [getNotficationsPermission] = useGetNotificationsPermissionMutation();
+
+  useEffect(() => {
+    getNotficationsPermission();
+  }, [getNotficationsPermission]);
 
   const rewardsText = (
     <View style={[baseStyles.centerSection]}>

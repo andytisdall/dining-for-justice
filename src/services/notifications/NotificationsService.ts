@@ -29,7 +29,9 @@ class NotificationService {
     }
     PushNotification.configure({
       // onNotification: this.handleNotification,
-      onRegister: ({token}) => (this.token = token),
+      onRegister: ({token}) => {
+        this.token = token;
+      },
       // IOS ONLY (optional): default: all - Permissions to register.
       permissions: {
         alert: true,
@@ -42,6 +44,10 @@ class NotificationService {
     });
     this.getPermissions();
   }
+
+  getToken = () => {
+    return this.token;
+  };
 
   getPermissions = async () => {
     this.checkAndGetPermissionIfAlreadyGiven();

@@ -59,7 +59,11 @@ const RestaurantDetector = ({restaurants}: {restaurants: Restaurant[]}) => {
 
   if (restaurantsWithinRange.length) {
     return (
-      <View style={[restaurantStyles.restaurantDetector]}>
+      <View
+        style={[
+          restaurantStyles.restaurantDetector,
+          restaurantStyles.restaurantDetectorOpen,
+        ]}>
         <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
           <Text style={baseStyles.text}>You are able to check in here:</Text>
           <FlatList
