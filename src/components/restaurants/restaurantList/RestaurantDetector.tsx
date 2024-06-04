@@ -78,7 +78,10 @@ const RestaurantDetector = ({restaurants}: {restaurants: Restaurant[]}) => {
 
   return (
     <Pressable
-      onPress={() => setOpen(!open)}
+      onPress={() => {
+        setOpen(!open);
+        getPermission();
+      }}
       style={[
         restaurantStyles.restaurantDetector,
         baseStyles.screenSection,
