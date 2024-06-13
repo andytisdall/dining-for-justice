@@ -7,12 +7,12 @@ import {RestaurantStackNavigationProp} from '../../../navigation/types';
 import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
 import {userIsWithinRange} from '../restaurantDetail/checkIn/CheckIn';
 import restaurantStyles from './restaurantStyles';
-import baseStyles from '../../styles/baseStyles';
+import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
 import {
   useGetLocationQuery,
   useGetPermissionMutation,
 } from '../../../state/apis/rewardsApi/locationApi';
-import Btn from '../../reusable/Btn';
+import FastImage from 'react-native-fast-image';
 
 const RestaurantDetector = ({restaurants}: {restaurants: Restaurant[]}) => {
   const [open, setOpen] = useState(false);
@@ -39,11 +39,23 @@ const RestaurantDetector = ({restaurants}: {restaurants: Restaurant[]}) => {
 
   const renderItem = ({item}: {item: Restaurant}) => {
     return (
-      <Btn
-        style={restaurantStyles.restaurantDetectorItem}
+      <Pressable
         onPress={() => navigation.navigate('RestaurantDetail', {id: item.id})}>
-        <Text style={baseStyles.btnText}>{item.name}</Text>
-      </Btn>
+        {({pressed}) => {
+          const pressedStyle = getPressedStyle(pressed);
+          return (
+            <View
+              style={[restaurantStyles.restaurantDetectorItem, pressedStyle]}>
+              <FastImage
+                source={{uri: item.photo}}
+                resizeMode="cover"
+                style={restaurantStyles.restaurantDetectorPhoto}
+              />
+              <Text style={baseStyles.textSm}>{item.name}</Text>
+            </View>
+          );
+        }}
+      </Pressable>
     );
   };
 
@@ -51,7 +63,9 @@ const RestaurantDetector = ({restaurants}: {restaurants: Restaurant[]}) => {
     ? 'To check in to a location, go to one of the bars or restaurants below, select that location from this list, and hit the check-in button'
     : 'Check in to win prizes!';
 
-  const style = open ? restaurantStyles.restaurantDetectorOpen : undefined;
+  const style = open
+    ? restaurantStyles.restaurantDetectorOpen
+    : restaurantStyles.restaurantDetectorClosed;
 
   const textStyle = open
     ? restaurantStyles.restaurantDetectorTextOpen
@@ -59,17 +73,16 @@ const RestaurantDetector = ({restaurants}: {restaurants: Restaurant[]}) => {
 
   if (restaurantsWithinRange.length) {
     return (
-      <View
-        style={[
-          restaurantStyles.restaurantDetector,
-          restaurantStyles.restaurantDetectorOpen,
-        ]}>
+      <View style={[restaurantStyles.restaurantDetectorOpen]}>
         <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
-          <Text style={baseStyles.text}>You are able to check in here:</Text>
+          <Text style={baseStyles.text}>Check in now at:</Text>
           <FlatList
             data={restaurantsWithinRange}
             renderItem={renderItem}
-            contentContainerStyle={baseStyles.centerSection}
+            contentContainerStyle={[
+              baseStyles.centerSection,
+              baseStyles.screenSection,
+            ]}
           />
         </View>
       </View>
@@ -82,11 +95,7 @@ const RestaurantDetector = ({restaurants}: {restaurants: Restaurant[]}) => {
         setOpen(!open);
         getPermission();
       }}
-      style={[
-        restaurantStyles.restaurantDetector,
-        baseStyles.screenSection,
-        style,
-      ]}>
+      style={[baseStyles.screenSection, style]}>
       <Text style={[baseStyles.btnTextSm, baseStyles.centerText, textStyle]}>
         {text}
       </Text>

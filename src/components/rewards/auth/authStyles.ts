@@ -40,4 +40,7 @@ export default StyleSheet.create({
     borderColor: 'white',
     padding: 0,
   },
+  getContact: {
+    paddingBottom: 400,
+  },
 });

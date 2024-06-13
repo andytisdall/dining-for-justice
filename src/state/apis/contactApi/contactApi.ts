@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import Notifications from '../../../services/notifications/NotificationsService';
 import {api} from '../../api';
 
 export interface SignInResponse {
@@ -27,12 +26,6 @@ interface SignInArgs {
 
 const contactApi = api.injectEndpoints({
   endpoints: builder => ({
-    getNotificationsPermission: builder.mutation<null, void>({
-      queryFn: async () => {
-        await Notifications.configure();
-        return {data: null};
-      },
-    }),
     getContact: builder.query<Contact | null, void>({
       query: () => '/d4j/contact',
       providesTags: ['Contact'],
@@ -79,6 +72,10 @@ const contactApi = api.injectEndpoints({
       },
       invalidatesTags: ['Contact'],
     }),
+
+    getVersion: builder.query<{currentVersion: string}, void>({
+      query: () => '/d4j/version',
+    }),
   }),
 });
 
@@ -87,5 +84,5 @@ export const {
   useSignInMutation,
   useSignOutMutation,
   useCreateContactMutation,
-  useGetNotificationsPermissionMutation,
+  useGetVersionQuery,
 } = contactApi;

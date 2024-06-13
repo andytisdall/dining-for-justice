@@ -1,7 +1,9 @@
-import PushNotification from 'react-native-push-notification';
+import PushNotification, {
+  ReceivedNotification,
+} from 'react-native-push-notification';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import {
-  AppState,
+  // AppState,
   Platform,
   AppStateStatus,
   PermissionsAndroid,
@@ -14,24 +16,30 @@ import {checkNotifications, RESULTS} from 'react-native-permissions';
 // Android doesn't need the user's consent to send notifications, whereas iOS does
 // but Android's user can still turn off notifications in the system settings
 
+export type IncomingNotification = Omit<ReceivedNotification, 'userInfo'>;
+
 class NotificationService {
   public token?: string;
+  public initNotification?: IncomingNotification;
+  public listeners: Record<
+    string,
+    (notification: IncomingNotification) => void
+  >;
+  public channelId: string;
+
+  constructor() {
+    this.channelId = 'PUSH-LOCAL-NOTIFICATIONS';
+    this.listeners = {};
+  }
 
   delete = () => {
     PushNotificationIOS.removeEventListener('registrationError');
   };
 
   async configure() {
-    if (Platform.OS === 'android') {
-      PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
-      );
-    }
     PushNotification.configure({
-      // onNotification: this.handleNotification,
-      onRegister: ({token}) => {
-        this.token = token;
-      },
+      onNotification: this.handleNotification,
+      onRegister: ({token}: {token: string}) => (this.token = token),
       // IOS ONLY (optional): default: all - Permissions to register.
       permissions: {
         alert: true,
@@ -40,18 +48,9 @@ class NotificationService {
       },
 
       popInitialNotification: true,
-      requestPermissions: true, // set to true if you want to request iOS notification when the app starts
+      // requestPermissions: true, // set to true if you want to request iOS notification when the app starts
     });
-    this.getPermissions();
-  }
-
-  getToken = () => {
-    return this.token;
-  };
-
-  getPermissions = async () => {
-    this.checkAndGetPermissionIfAlreadyGiven();
-    // this.initAndroidLocalScheduledNotifications();
+    this.initAndroidLocalScheduledNotifications();
     if (Platform.OS === 'ios') {
       PushNotificationIOS.addEventListener(
         'registrationError',
@@ -59,8 +58,8 @@ class NotificationService {
       );
     }
     await new Promise(resolve => setTimeout(resolve, 1000));
-    AppState.addEventListener('change', this.handleAppStateChange);
-  };
+    // AppState.addEventListener('change', this.handleAppStateChange);
+  }
 
   handleAppStateChange = (newState: AppStateStatus) => {
     if (newState === 'active') {
@@ -76,6 +75,11 @@ class NotificationService {
   };
 
   checkPermission = async () => {
+    if (Platform.OS === 'android') {
+      PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
+      );
+    }
     const authStatus = await checkNotifications().then(({status}) => status);
     // …'unavailable' | 'denied' | 'limited' | 'granted' | 'blocked'
     let permission: {granted: boolean; canAsk?: boolean} = {
@@ -140,102 +144,98 @@ class NotificationService {
   };
 
   // LOCAL NOTIFICATIONS
+  // same as in strings.xml, for Android
+  initAndroidLocalScheduledNotifications = () => {
+    PushNotification.createChannel(
+      {
+        channelId: this.channelId, // (required)
+        channelName: 'Push local notifications', // (required)
+        soundName: 'default', // (optional) See `soundName` parameter of `localNotification` function
+        importance: 4, // (optional) default: 4. Int value of the Android notification importance
+        vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
+      },
+      created => console.log(`createChannel returned '${created}'`),
+    );
+  };
 
-  // channelId = 'PUSH-LOCAL-NOTIFICATIONS'; // same as in strings.xml, for Android
-  // initAndroidLocalScheduledNotifications = () => {
-  //   PushNotification.createChannel(
-  //     {
-  //       channelId: this.channelId, // (required)
-  //       channelName: 'Push local notifications', // (required)
-  //       soundName: 'default', // (optional) See `soundName` parameter of `localNotification` function
-  //       importance: 4, // (optional) default: 4. Int value of the Android notification importance
-  //       vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
-  //     },
-  //     created => console.log(`createChannel returned '${created}'`),
-  //   );
-  // };
+  localNotification(
+    {
+      title,
+      message,
+      playSound = true,
+      soundName = 'default',
+    }: {
+      title?: string;
+      message: string;
+      playSound?: boolean;
+      soundName?: string;
+    } = {message: 'default message'},
+  ) {
+    PushNotification.localNotification({
+      title,
+      message,
+      playSound,
+      soundName,
+      channelId: this.channelId,
+    });
+  }
 
-  // localNotification(
-  //   {
-  //     title,
-  //     message,
-  //     playSound = true,
-  //     soundName = 'default',
-  //   }: {
-  //     title?: string;
-  //     message: string;
-  //     playSound?: boolean;
-  //     soundName?: string;
-  //   } = {message: 'default message'},
-  // ) {
-  //   PushNotification.localNotification({
-  //     title,
-  //     message,
-  //     playSound,
-  //     soundName,
-  //     channelId: this.channelId,
-  //   });
-  // }
-
-  // cancelAll() {
-  //   PushNotification.cancelAllLocalNotifications();
-  // }
+  cancelAll() {
+    PushNotification.cancelAllLocalNotifications();
+  }
 
   // PUSH NOTIFICATIONS
-  // getInitNotification() {
-  //   PushNotification.popInitialNotification(notification => {
-  //     if (notification) {
-  //       this.handleNotification(notification);
-  //     }
-  //   });
-  // }
+  getInitNotification() {
+    PushNotification.popInitialNotification(notification => {
+      if (notification) {
+        this.handleNotification(notification);
+      }
+    });
+  }
 
-  // listeners = {};
-  // handleNotification = (
-  //   notification: Omit<ReceivedNotification, 'userInfo'>,
-  // ) => {
-  // console.log('handle Notification', JSON.stringify(notification, null, 2));
+  handleNotification = (notification: IncomingNotification) => {
+    // console.log('handle Notification', JSON.stringify(notification, null, 2));
 
-  /* ANDROID FOREGROUND */
+    /* ANDROID FOREGROUND */
 
-  // if (Platform.OS === 'android') {
-  //   // if not the line below, the notification is launched without notifying
-  //   // with the line below, there is a local notification triggered
-  //   if (notification.foreground && !notification.userInteraction) {
-  //     return;
-  //   }
-  // }
-  /* LISTENERS */
+    if (Platform.OS === 'android') {
+      // if not the line below, the notification is launched without notifying
+      // with the line below, there is a local notification triggered
+      if (notification.foreground && !notification.userInteraction) {
+        return;
+      }
+    }
+    /* LISTENERS */
 
-  // const listenerKeys = Object.keys(this.listeners);
-  //  handle initial notification if any, if no listener is mounted yet
-  // if (!listenerKeys.length) {
-  //   this.initNotification = notification;
-  //   notification.finish(PushNotificationIOS.FetchResult.NoData);
-  //   return;
-  // }
-  // this.initNotification = undefined;
+    const listenerKeys = Object.keys(this.listeners);
+    //  handle initial notification if any, if no listener is mounted yet
+    if (!listenerKeys.length) {
+      this.initNotification = notification;
+      notification.finish(PushNotificationIOS.FetchResult.NoData);
+      return;
+    }
+    this.initNotification = undefined;
 
-  //handle normal notification
-  // for (let i = listenerKeys.length - 1; i >= 0; i--) {
-  //   const notificationHandler = this.listeners[listenerKeys[i]];
-  //   notificationHandler(notification);
-  // }
-  // notification.finish(PushNotificationIOS.FetchResult.NoData);
-  // };
+    // handle normal notification
+    for (let i = listenerKeys.length - 1; i >= 0; i--) {
+      const notificationHandler = this.listeners[listenerKeys[i]];
+      notificationHandler(notification);
+    }
+    notification.finish(PushNotificationIOS.FetchResult.NoData);
+  };
 
-  // listen = callback => {
-  //   const listenerKey = `listener_${Date.now()}`;
-  //   this.listeners[listenerKey] = callback;
-  //   if (this.initNotification) {
-  //     this.handleNotification(this.initNotification);
-  //   }
-  //   return listenerKey;
-  // };
+  listen = (callback: (notification: IncomingNotification) => void) => {
+    const listenerKey = `listener_${Date.now()}`;
+    this.listeners[listenerKey] = callback;
+    if (this.initNotification) {
+      this.handleNotification(this.initNotification);
+    }
+    return listenerKey;
+  };
 
-  // remove = listenerKey => {
-  //   delete this.listeners[listenerKey];
-  // };
+  remove = (listenerKey: string) => {
+    delete this.listeners[listenerKey];
+  };
 }
 
 const Notifications = new NotificationService();

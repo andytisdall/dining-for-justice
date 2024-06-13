@@ -8,6 +8,12 @@ import {CompositeNavigationProp} from '@react-navigation/native';
 
 import {Cocktail} from '../state/apis/contestApi';
 
+export interface NotificationData {
+  screen: string;
+  subScreen?: string;
+  params?: Record<string, string>;
+}
+
 export type RootTabsParams = {
   Rewards: NavigatorScreenParams<RewardsStackParams>;
   Restaurants: NavigatorScreenParams<RestaurantStackParams>;
@@ -15,6 +21,16 @@ export type RootTabsParams = {
   Events: NavigatorScreenParams<EventsStackParams>;
 };
 
+export type RootNavigationProp = CompositeNavigationProp<
+  CompositeNavigationProp<
+    BottomTabNavigationProp<RootTabsParams>,
+    NativeStackNavigationProp<RestaurantStackParams>
+  >,
+  CompositeNavigationProp<
+    NativeStackNavigationProp<EventsStackParams>,
+    NativeStackNavigationProp<RewardsStackParams>
+  >
+>;
 //
 
 export type HomeNavigationProp = CompositeNavigationProp<

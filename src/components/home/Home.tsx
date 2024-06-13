@@ -9,6 +9,7 @@ import CKInfo from './CKInfo';
 import {HomeNavigationProp} from '../../navigation/types';
 import Sponsors from './Sponsors';
 import FastImage from 'react-native-fast-image';
+import VersionDetector from './VersionDetector';
 
 const d4jLogo = require('../../assets/logos/d4j_logo.png');
 
@@ -17,6 +18,8 @@ const Home = ({navigation}: {navigation: HomeNavigationProp}) => {
     <ScreenBackground>
       <ScrollView contentContainerStyle={[baseStyles.scrollView]}>
         <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
+          <VersionDetector />
+
           <View style={[homeStyles.logoContainer, baseStyles.centerSection]}>
             <FastImage
               source={d4jLogo}

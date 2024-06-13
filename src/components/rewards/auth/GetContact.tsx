@@ -1,12 +1,6 @@
 import {useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {
-  View,
-  Text,
-  ScrollView,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import {useDispatch} from 'react-redux';
 
 import {setError} from '../../../state/apis/slices/errorSlice';
@@ -56,7 +50,7 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
       return dispatch(setError('Please enter a valid email address'));
     }
 
-    const token = Notifications.getToken();
+    const token = Notifications.token;
     // if it's just the email entry, see if contact exists and sign them in if so
     // if not, show the name fields so user can create a contact
     // then sign in the user that was created
@@ -109,7 +103,7 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
       return <AnimatedLoading />;
     }
     return (
-      <>
+      <View style={authStyles.getContact}>
         <View style={[baseStyles.screenSection, authStyles.authHeader]}>
           <Text style={[baseStyles.text]}>
             Enter your email to claim your rewards
@@ -136,18 +130,14 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
             </Btn>
           </View>
         </View>
-      </>
+      </View>
     );
   };
 
   return (
     <ScreenBackground>
       <ScrollView contentContainerStyle={baseStyles.scrollView}>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          keyboardVerticalOffset={200}>
-          {renderContent()}
-        </KeyboardAvoidingView>
+        {renderContent()}
       </ScrollView>
     </ScreenBackground>
   );
