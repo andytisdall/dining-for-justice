@@ -12,7 +12,7 @@ import {
   useGetAllVotesQuery,
   useVoteMutation,
   useEditVoteMutation,
-} from '../../../state/apis/contestApi';
+} from '../../../state/apis/eventsApi/contestApi';
 import Loading from '../../reusable/Loading';
 import {useGetContactQuery} from '../../../state/apis/contactApi/contactApi';
 import {ContestDetailScreenProps} from '../../../navigation/types';

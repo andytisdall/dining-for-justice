@@ -33,7 +33,9 @@ const CustomMarker = forwardRef(
           latitude: restaurant.coords!.latitude,
           longitude: restaurant.coords!.longitude,
         }}
-        onPress={() => selectRestaurant(restaurant)}
+        onPress={() => {
+          selectRestaurant(restaurant);
+        }}
         ref={ref}
         image={icon}
         style={[style]}>

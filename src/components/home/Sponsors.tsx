@@ -2,19 +2,27 @@ import {View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 import homeStyles from './homeStyles';
-import StGeorge from './StGeorge';
+// import StGeorge from './StGeorge';
 import baseStyles from '../styles/baseStyles';
 
 const titosLogo = require('../../assets/logos/titos-logo.png');
 const evanLogo = require('../../assets/logos/evan-logo.png');
 const maestroLogo = require('../../assets/logos/maestro-logo.jpg');
 const conejosLogo = require('../../assets/logos/conejos-logo.png');
+const stGeorgeLogo = require('../../assets/logos/st-george-logo.png');
 
 const Sponsors = () => {
   return (
     <View style={homeStyles.sponsors}>
-      <StGeorge />
+      {/* <StGeorge /> */}
       <View style={baseStyles.screenSection}>
+        <View style={homeStyles.stGeorgeLogoContainer}>
+          <FastImage
+            source={stGeorgeLogo}
+            style={homeStyles.logo}
+            resizeMode="contain"
+          />
+        </View>
         <View style={homeStyles.sponsorLogoRow}>
           <View style={homeStyles.sponsorLogoContainer}>
             <FastImage

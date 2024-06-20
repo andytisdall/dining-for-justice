@@ -28,8 +28,8 @@ export default StyleSheet.create({
   },
   moreInfoBtn: {backgroundColor: colors.red},
   sponsors: {
-    paddingVertical: 20 * sizeMultiplier,
-    backgroundColor: colors.purple,
+    paddingBottom: 20 * sizeMultiplier,
+    // backgroundColor: colors.purple,
   },
   stGeorgeLogoContainer: {
     height: 70 * sizeMultiplier,

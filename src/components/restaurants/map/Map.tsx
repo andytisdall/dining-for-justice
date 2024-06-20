@@ -5,6 +5,7 @@ import RNReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 import useFilter from '../../../hooks/useFilter/useFilter';
 import {
+  // Coordinates,
   Restaurant,
   useGetRestaurantsQuery,
 } from '../../../state/apis/restaurantApi/restaurantApi';
@@ -58,7 +59,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
   const markerRef = useRef<MapMarker>(null);
   const mapRef = useRef<MapView>(null);
   const listRef = useRef<FlatList>(null);
-  const restaurantRef = useRef(id);
+  // const restaurantRef = useRef(id);
   const zoomRef = useRef(INITIAL_COORDS.latitudeDelta);
   const initialLoadRef = useRef(false);
 
@@ -68,14 +69,20 @@ const Map = ({navigation, route}: MapScreenProps) => {
 
   const restaurant = sortedRestaurants?.find(r => r.id === selectedRestaurant);
 
-  useEffect(() => {
-    if (restaurant && markerRef.current) {
-      markerRef.current.showCallout();
-      if (Platform.OS === 'android') {
-        markerRef.current.showCallout();
-      }
-    }
-  }, [restaurant]);
+  // useEffect(() => {
+  //   if (restaurant?.coords && markerRef.current && mapRef.current) {
+  // markerRef.current.showCallout();
+  // if (Platform.OS === 'android') {
+  //   markerRef.current.showCallout();
+  // }
+  // zoomToLocation({
+  //   coordinates: restaurant.coords,
+  //   zoom: zoomRef.current,
+  //   map: mapRef.current,
+  //   offset: true,
+  // });
+  //   }
+  // }, [restaurant]);
 
   const centerRestaurant = useCallback((rest: Restaurant) => {
     if (rest.coords && mapRef.current) {
@@ -85,6 +92,13 @@ const Map = ({navigation, route}: MapScreenProps) => {
         map: mapRef.current,
         offset: true,
       });
+      if (Platform.OS === 'android') {
+        setTimeout(() => {
+          if (markerRef.current) {
+            markerRef.current.showCallout();
+          }
+        }, 1000);
+      }
     }
   }, []);
 
@@ -103,7 +117,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
         centerRestaurant(rest);
         scrollToTop();
       }
-      restaurantRef.current = restaurantId;
+      setSelectedRestaurant(restaurantId);
     },
     [sortedRestaurants, centerRestaurant],
   );
@@ -118,16 +132,14 @@ const Map = ({navigation, route}: MapScreenProps) => {
       markerRef.current.showCallout();
       centerRestaurant(restaurant);
       initialLoadRef.current = true;
-      if (Platform.OS === 'android') {
-        markerRef.current.showCallout();
-      }
     }
   }, [restaurant, centerRestaurant]);
 
   const selectRestaurantMarker = useCallback(
     (rest: Restaurant) => {
       centerRestaurant(rest);
-      restaurantRef.current = rest.id;
+      // restaurantRef.current = rest.id;
+      setSelectedRestaurant(rest.id);
     },
     [centerRestaurant],
   );
@@ -162,8 +174,19 @@ const Map = ({navigation, route}: MapScreenProps) => {
   ]);
 
   const syncStateToMap = useCallback((region: Region) => {
+    // zoomRef.current = region.latitudeDelta;
+    // zoomToLocation({
+    //   coordinates: region,
+    //   zoom: region.latitudeDelta,
+    //   map: mapRef.current!,
+    //   offset: true,
+    // });
+    // mapRef.current?.setCamera({
+    //   zoom: region.latitudeDelta,
+    //   center: {latitude: region.latitude, longitude: region.longitude},
+    // });
+    // markerRef?.current?.showCallout();
     zoomRef.current = region.latitudeDelta;
-    setSelectedRestaurant(restaurantRef.current);
   }, []);
 
   const zoomToUserLocation = useCallback(async () => {
@@ -178,7 +201,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
         map: mapRef.current,
         coordinates: location,
       });
-      restaurantRef.current = '';
+      markerRef.current?.hideCallout();
     }
   }, [getPermission, location, openEnableLocationModal]);
 
@@ -197,6 +220,17 @@ const Map = ({navigation, route}: MapScreenProps) => {
     );
   }, [filterComponent, zoomToUserLocation, checkboxComponent]);
 
+  // const adjustZoom = (coordinates: Coordinates) => {
+  //   if (mapRef.current) {
+  //     zoomToLocation({
+  //       coordinates,
+  //       map: mapRef.current,
+  //       zoom: zoomRef.current,
+  //       offset: true,
+  //     });
+  //   }
+  // };
+
   const map = useMemo(() => {
     return (
       <MapView
@@ -205,7 +239,10 @@ const Map = ({navigation, route}: MapScreenProps) => {
         style={mapStyles.map}
         initialRegion={INITIAL_COORDS}
         onMapLoaded={onMapLoaded}
-        onRegionChangeComplete={syncStateToMap}>
+        onMarkerSelect={e => {
+          e.preventDefault();
+        }}
+        onRegionChange={syncStateToMap}>
         {renderUserMarker(locationPermission, location)}
         {markers}
         {renderRangeCircle(range, location)}

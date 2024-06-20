@@ -1,12 +1,12 @@
 import {Text, Pressable, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 
-import {Cocktail} from '../../../state/apis/contestApi';
+import {Cocktail} from '../../../state/apis/eventsApi/contestApi';
 import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
 import contestStyles from './contestStyles';
 import restaurantListItemStyles from '../../restaurants/restaurantList/restaurantListItemStyles';
 import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
-import {useGetAllVotesQuery} from '../../../state/apis/contestApi';
+import {useGetAllVotesQuery} from '../../../state/apis/eventsApi/contestApi';
 import {useGetContactQuery} from '../../../state/apis/contactApi/contactApi';
 
 const ContestCocktailListItem = ({

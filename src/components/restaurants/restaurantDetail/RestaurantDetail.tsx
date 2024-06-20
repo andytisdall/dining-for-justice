@@ -18,9 +18,10 @@ import CocktailInfo from './CocktailInfo';
 import Refresh from '../../reusable/Refresh';
 import {RestaurantDetailScreenProps} from '../../../navigation/types';
 import SuccessModal from './checkIn/SuccessModal';
+import AnimatedLoading from '../../reusable/AnimatedLoading';
 
 const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
-  const {data, refetch} = useGetRestaurantsQuery();
+  const {data, refetch, isLoading} = useGetRestaurantsQuery();
   const {data: user} = useGetContactQuery();
 
   const [successModalOpen, setSuccessModalOpen] = useState(false);
@@ -113,10 +114,16 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
 
   return (
     <ScreenBackground>
-      <FlatList data={[renderDetails]} renderItem={renderItem} />
-      {enableLocationModal}
-      {successModalOpen && (
-        <SuccessModal onPress={() => setSuccessModalOpen(false)} />
+      {isLoading ? (
+        <AnimatedLoading />
+      ) : (
+        <>
+          <FlatList data={[renderDetails]} renderItem={renderItem} />
+          {enableLocationModal}
+          {successModalOpen && (
+            <SuccessModal onPress={() => setSuccessModalOpen(false)} />
+          )}
+        </>
       )}
     </ScreenBackground>
   );

@@ -1,7 +1,6 @@
 import {View, FlatList, Text, Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {useEffect, useMemo, useState} from 'react';
-import Geolocation from 'react-native-geolocation-service';
+import {useMemo, useState} from 'react';
 
 import {RestaurantStackNavigationProp} from '../../../navigation/types';
 import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
@@ -20,15 +19,6 @@ const RestaurantDetector = ({restaurants}: {restaurants: Restaurant[]}) => {
   const [getPermission] = useGetPermissionMutation();
 
   const navigation = useNavigation<RestaurantStackNavigationProp>();
-
-  useEffect(() => {
-    const watchId = Geolocation.watchPosition(
-      () => getPermission(),
-      () => {},
-      {useSignificantChanges: true},
-    );
-    return Geolocation.clearWatch(watchId);
-  }, [getPermission]);
 
   const restaurantsWithinRange = useMemo(() => {
     return restaurants.filter(

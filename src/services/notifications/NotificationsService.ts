@@ -146,16 +146,23 @@ class NotificationService {
   // LOCAL NOTIFICATIONS
   // same as in strings.xml, for Android
   initAndroidLocalScheduledNotifications = () => {
-    PushNotification.createChannel(
-      {
-        channelId: this.channelId, // (required)
-        channelName: 'Push local notifications', // (required)
-        soundName: 'default', // (optional) See `soundName` parameter of `localNotification` function
-        importance: 4, // (optional) default: 4. Int value of the Android notification importance
-        vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
-      },
-      created => console.log(`createChannel returned '${created}'`),
-    );
+    const channelId = this.channelId;
+    PushNotification.channelExists(channelId, function (exists) {
+      if (exists) {
+        console.log('Notification Channel Exists');
+      } else {
+        PushNotification.createChannel(
+          {
+            channelId: channelId, // (required)
+            channelName: 'Push local notifications', // (required)
+            soundName: 'default', // (optional) See `soundName` parameter of `localNotification` function
+            importance: 4, // (optional) default: 4. Int value of the Android notification importance
+            vibrate: true, // (optional) default: true. Creates the default vibration patten if true.
+          },
+          created => console.log(`createChannel returned '${created}'`),
+        );
+      }
+    });
   };
 
   localNotification(
@@ -194,17 +201,18 @@ class NotificationService {
   }
 
   handleNotification = (notification: IncomingNotification) => {
-    // console.log('handle Notification', JSON.stringify(notification, null, 2));
+    console.log('handle Notification', JSON.stringify(notification, null, 2));
 
     /* ANDROID FOREGROUND */
+    // console.log(notification);
 
-    if (Platform.OS === 'android') {
-      // if not the line below, the notification is launched without notifying
-      // with the line below, there is a local notification triggered
-      if (notification.foreground && !notification.userInteraction) {
-        return;
-      }
-    }
+    // if (Platform.OS === 'android') {
+    // if not the line below, the notification is launched without notifying
+    // with the line below, there is a local notification triggered
+    // if (notification.foreground && !notification.userInteraction) {
+    //   return;
+    // }
+    // }
     /* LISTENERS */
 
     const listenerKeys = Object.keys(this.listeners);

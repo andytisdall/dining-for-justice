@@ -20,6 +20,7 @@ const Error = () => {
       </Pressable>
     );
   }
+  return null;
 };
 
 const styles = StyleSheet.create({

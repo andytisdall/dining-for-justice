@@ -1,8 +1,7 @@
 import {useEffect, PropsWithChildren} from 'react';
 import {useNavigation} from '@react-navigation/native';
 
-import Notifications from './NotificationsService';
-import {IncomingNotification} from './NotificationsService';
+import Notifications, {IncomingNotification} from './NotificationsService';
 import {RootNavigationProp, NotificationData} from '../../navigation/types';
 
 const NotificationContainer = ({children}: PropsWithChildren) => {
@@ -11,6 +10,7 @@ const NotificationContainer = ({children}: PropsWithChildren) => {
   useEffect(() => {
     const listenerKey = Notifications.listen(
       (notification: IncomingNotification) => {
+        // console.log(notification);
         try {
           const {screen, subScreen, params} =
             notification.data as NotificationData;
@@ -31,6 +31,8 @@ const NotificationContainer = ({children}: PropsWithChildren) => {
             navigation.navigate(screen);
           }
         } catch (err) {
+          console.log(err);
+          console.log(notification);
           console.log('Malformed notification data');
         }
       },

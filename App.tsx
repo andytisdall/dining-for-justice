@@ -23,56 +23,68 @@ import NotificationContainer from './src/services/notifications/NotificationProv
 
 const RootTabs = createBottomTabNavigator<RootTabsParams>();
 
-const App = () => {
+export const Providers = ({children}: {children: React.ReactNode}) => {
   return (
     <Provider store={store}>
-      <SafeAreaView style={baseStyles.app}>
-        <NavigationContainer>
-          <NotificationContainer>
-            <RootTabs.Navigator
-              screenOptions={{
-                tabBarHideOnKeyboard: true,
-                headerShown: false,
-                tabBarItemStyle: baseStyles.tabBarItem,
-              }}>
-              <RootTabs.Screen
-                name="Home"
-                component={Home}
-                options={{
-                  tabBarIcon: createTabIcon('home'),
-                  tabBarLabel: createTabLabel('Home'),
-                }}
-              />
-              <RootTabs.Screen
-                name="Restaurants"
-                component={RestaurantNavigator}
-                options={{
-                  tabBarIcon: createTabIcon('restaurants'),
-                  tabBarLabel: createTabLabel('Explore'),
-                }}
-              />
-              <RootTabs.Screen
-                name="Events"
-                component={EventsNavigator}
-                options={{
-                  tabBarIcon: createTabIcon('events'),
-                  tabBarLabel: createTabLabel('Events'),
-                }}
-              />
-              <RootTabs.Screen
-                name="Rewards"
-                component={RewardsNavigator}
-                options={{
-                  tabBarIcon: createTabIcon('rewards'),
-                  tabBarLabel: createTabLabel('Rewards'),
-                }}
-              />
-            </RootTabs.Navigator>
-            <Error />
-          </NotificationContainer>
-        </NavigationContainer>
-      </SafeAreaView>
+      <NavigationContainer>
+        <NotificationContainer>{children}</NotificationContainer>
+      </NavigationContainer>
     </Provider>
+  );
+};
+
+export const BaseComponent = () => {
+  return (
+    <SafeAreaView style={baseStyles.app}>
+      <RootTabs.Navigator
+        screenOptions={{
+          tabBarHideOnKeyboard: true,
+          headerShown: false,
+          tabBarItemStyle: baseStyles.tabBarItem,
+        }}>
+        <RootTabs.Screen
+          name="Home"
+          component={Home}
+          options={{
+            tabBarIcon: createTabIcon('home'),
+            tabBarLabel: createTabLabel('Home'),
+          }}
+        />
+        <RootTabs.Screen
+          name="Restaurants"
+          component={RestaurantNavigator}
+          options={{
+            tabBarIcon: createTabIcon('restaurants'),
+            tabBarLabel: createTabLabel('Explore'),
+          }}
+        />
+        <RootTabs.Screen
+          name="Events"
+          component={EventsNavigator}
+          options={{
+            tabBarIcon: createTabIcon('events'),
+            tabBarLabel: createTabLabel('Events'),
+          }}
+        />
+        <RootTabs.Screen
+          name="Rewards"
+          component={RewardsNavigator}
+          options={{
+            tabBarIcon: createTabIcon('rewards'),
+            tabBarLabel: createTabLabel('Rewards'),
+          }}
+        />
+      </RootTabs.Navigator>
+      <Error />
+    </SafeAreaView>
+  );
+};
+
+const App = () => {
+  return (
+    <Providers>
+      <BaseComponent />
+    </Providers>
   );
 };
 
