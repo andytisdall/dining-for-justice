@@ -69,18 +69,15 @@ const Map = ({navigation, route}: MapScreenProps) => {
 
   const restaurant = sortedRestaurants?.find(r => r.id === selectedRestaurant);
 
+  const showCalloutIfAndroid = () => {
+    if (markerRef.current && Platform.OS === 'android') {
+      markerRef.current.showCallout();
+    }
+  };
+
   // useEffect(() => {
   //   if (restaurant?.coords && markerRef.current && mapRef.current) {
-  // markerRef.current.showCallout();
-  // if (Platform.OS === 'android') {
-  //   markerRef.current.showCallout();
-  // }
-  // zoomToLocation({
-  //   coordinates: restaurant.coords,
-  //   zoom: zoomRef.current,
-  //   map: mapRef.current,
-  //   offset: true,
-  // });
+  //     markerRef.current.showCallout();
   //   }
   // }, [restaurant]);
 
@@ -92,13 +89,9 @@ const Map = ({navigation, route}: MapScreenProps) => {
         map: mapRef.current,
         offset: true,
       });
-      if (Platform.OS === 'android') {
-        setTimeout(() => {
-          if (markerRef.current) {
-            markerRef.current.showCallout();
-          }
-        }, 1000);
-      }
+      setTimeout(() => {
+        showCalloutIfAndroid();
+      }, 1000);
     }
   }, []);
 
@@ -118,6 +111,10 @@ const Map = ({navigation, route}: MapScreenProps) => {
         scrollToTop();
       }
       setSelectedRestaurant(restaurantId);
+      setTimeout(() => {
+        markerRef.current?.showCallout();
+        showCalloutIfAndroid();
+      }, 500);
     },
     [sortedRestaurants, centerRestaurant],
   );
@@ -239,9 +236,6 @@ const Map = ({navigation, route}: MapScreenProps) => {
         style={mapStyles.map}
         initialRegion={INITIAL_COORDS}
         onMapLoaded={onMapLoaded}
-        onMarkerSelect={e => {
-          e.preventDefault();
-        }}
         onRegionChange={syncStateToMap}>
         {renderUserMarker(locationPermission, location)}
         {markers}

@@ -10,10 +10,27 @@ import {HomeNavigationProp} from '../../navigation/types';
 import Sponsors from './Sponsors';
 import FastImage from 'react-native-fast-image';
 import VersionDetector from './VersionDetector';
+import {useGetAnnouncementQuery} from '../../state/apis/notificationApi/notificationApi';
+import {useState} from 'react';
+import AnnouncementModal from './Announcement';
 
 const d4jLogo = require('../../assets/logos/d4j_logo.png');
 
 const Home = ({navigation}: {navigation: HomeNavigationProp}) => {
+  const [showAnnouncement, setShowAnnouncement] = useState(true);
+  const {data: announcement} = useGetAnnouncementQuery();
+
+  const renderAnnouncement = () => {
+    if (showAnnouncement && announcement) {
+      return (
+        <AnnouncementModal
+          announcement={announcement}
+          dismiss={() => setShowAnnouncement(false)}
+        />
+      );
+    }
+  };
+
   return (
     <ScreenBackground>
       <ScrollView contentContainerStyle={[baseStyles.scrollView]}>
@@ -49,6 +66,7 @@ const Home = ({navigation}: {navigation: HomeNavigationProp}) => {
         <CKInfo />
         <Sponsors />
       </ScrollView>
+      {renderAnnouncement()}
     </ScreenBackground>
   );
 };
