@@ -85,8 +85,8 @@ android {
         applicationId "org.ckoakland.diningforjustice"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 13
-        versionName "1.10"
+        versionCode 15
+        versionName "1.12"
     }
     signingConfigs {
         debug {

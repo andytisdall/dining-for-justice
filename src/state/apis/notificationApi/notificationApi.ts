@@ -11,7 +11,7 @@ export interface Announcement {
 
 const notificationApi = api.injectEndpoints({
   endpoints: builder => ({
-    getAnnouncement: builder.query<Announcement, void>({
+    getAnnouncement: builder.query<Announcement | null, void>({
       query: () => '/d4j/announcement',
     }),
   }),
