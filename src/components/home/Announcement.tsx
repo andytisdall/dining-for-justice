@@ -38,24 +38,27 @@ const AnnouncementModal = ({
         navigation.navigate(screen, {
           screen: subScreen,
           params: params,
+          initial: false,
         });
       } else if (subScreen) {
         // @ts-ignore
         navigation.navigate(screen, {
           screen: subScreen,
+          initial: false,
         });
       } else {
         // @ts-ignore
         navigation.navigate(screen);
       }
     }
+    dismiss();
   };
 
   const renderLink = () => {
     if (announcement.data) {
       return (
         <Btn onPress={navigate}>
-          <Text>Go to there.</Text>
+          <Text>More Info</Text>
         </Btn>
       );
     }

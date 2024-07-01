@@ -24,11 +24,14 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
   const rewardsText = (
     <View style={[baseStyles.centerSection]}>
       <Text style={[baseStyles.text, rewardsStyles.rewardsHeadline]}>
-        Earn points to win prizes
+        Thank you for checking in!
       </Text>
 
       <Text style={[baseStyles.centerText, baseStyles.textSm]}>
-        Every D4J restaurant you visit is a chance to win rewards!
+        Cocktails for a Cause is over, and we will be conducting our prize
+        drawing the first week of July. Stay tuned to see if you're a winner,
+        and check back here in the future to learn about the next opportunity to
+        win rewards!
       </Text>
     </View>
   );
@@ -37,11 +40,11 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
     return (
       <View style={baseStyles.screenSection}>
         {rewardsText}
-        <View style={baseStyles.centerSection}>
+        {/* <View style={baseStyles.centerSection}>
           <Btn onPress={() => navigation.navigate('Prizes')}>
             <Text style={baseStyles.btnText}>More Info</Text>
           </Btn>
-        </View>
+        </View> */}
         <PastCheckIns />
         <User />
       </View>
@@ -60,7 +63,7 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
         <View style={baseStyles.screenSection}>
           <Btn onPress={() => navigation.navigate('GetContact')}>
             <Text style={[baseStyles.btnText, baseStyles.centerText]}>
-              Enter your email address to get started
+              Sign In
             </Text>
           </Btn>
         </View>

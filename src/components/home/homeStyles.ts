@@ -27,14 +27,10 @@ export default StyleSheet.create({
     fontFamily: font,
   },
   moreInfoBtn: {backgroundColor: colors.red},
-  sponsors: {
-    paddingBottom: 20 * sizeMultiplier,
-    // backgroundColor: colors.purple,
-  },
+
   stGeorgeLogoContainer: {
     height: 70 * sizeMultiplier,
     width: 275 * sizeMultiplier,
-    marginVertical: 10 * sizeMultiplier,
   },
   sponsorLogoRow: {
     flexDirection: 'row',

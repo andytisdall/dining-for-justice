@@ -58,6 +58,10 @@ const EventsHome = () => {
     [eventsObject],
   );
 
+  const upcomingEvents = useMemo(() => {
+    return events?.filter(e => new Date(e.startDate) > new Date());
+  }, [events]);
+
   const renderEventsHome = () => {
     if (isLoading) {
       return <AnimatedLoading />;
@@ -65,7 +69,7 @@ const EventsHome = () => {
     return (
       <View style={[baseStyles.scrollView]}>
         <Calendar renderItems={renderEvent} />
-        {events && <EventsList events={events} />}
+        {upcomingEvents && <EventsList events={upcomingEvents} />}
       </View>
     );
   };

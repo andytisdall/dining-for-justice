@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   content: {
-    width: '75%',
+    // width: '75%',
     justifyContent: 'center',
     backgroundColor: colors.yellow,
     alignItems: 'center',

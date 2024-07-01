@@ -4,7 +4,6 @@ import ScreenBackground from '../reusable/ScreenBackground';
 import baseStyles from '../styles/baseStyles';
 import homeStyles from './homeStyles';
 import Btn from '../reusable/Btn';
-import MatchingMeals from './MatchingMeals';
 import CKInfo from './CKInfo';
 import {HomeNavigationProp} from '../../navigation/types';
 import Sponsors from './Sponsors';
@@ -60,11 +59,11 @@ const Home = ({navigation}: {navigation: HomeNavigationProp}) => {
             <Text style={baseStyles.text}>More Info</Text>
           </Btn>
 
-          <MatchingMeals />
+          {/* <MatchingMeals /> */}
         </View>
 
-        <CKInfo />
         <Sponsors />
+        <CKInfo />
       </ScrollView>
       {renderAnnouncement()}
     </ScreenBackground>
