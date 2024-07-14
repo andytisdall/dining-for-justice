@@ -58,8 +58,6 @@ const Home = ({navigation}: {navigation: HomeNavigationProp}) => {
             style={homeStyles.moreInfoBtn}>
             <Text style={baseStyles.text}>More Info</Text>
           </Btn>
-
-          {/* <MatchingMeals /> */}
         </View>
 
         <Sponsors />

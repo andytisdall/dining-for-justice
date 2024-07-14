@@ -12,6 +12,7 @@ import useCocktailsFilter from './useCocktailsFilter';
 import Filter from './Filter';
 import {View} from 'react-native';
 import filterStyles from './filterStyles';
+import useIsActiveFilter from './useIsActiveFilter';
 
 const useFilter: (
   restaurants: Restaurant[] | undefined,
@@ -42,6 +43,8 @@ const useFilter: (
     useIsOpenFilter();
   const [cocktailsFilter, cocktailsCheckbox, resetCocktails, cocktailsActive] =
     useCocktailsFilter();
+  const [isActiveFiler, isActiveCheckbox, resetIsActive, isActiveActive] =
+    useIsActiveFilter();
 
   useEffect(() => {
     getPermission();
@@ -61,6 +64,7 @@ const useFilter: (
       nearMeActive,
       isOpenActive,
       cocktailsActive,
+      isActiveActive,
     ].reduce((prev, cur) => (cur ? prev + 1 : prev), 0);
   }, [
     cocktailsActive,
@@ -69,6 +73,7 @@ const useFilter: (
     pocActive,
     nearMeActive,
     isOpenActive,
+    isActiveActive,
   ]);
 
   const resetFilter = () => {
@@ -78,18 +83,15 @@ const useFilter: (
     resetNearMe();
     resetPoc();
     resetVegan();
+    resetIsActive();
     setFilterKey(filterKey + 'a');
-  };
-
-  const isActive = (rest: Restaurant) => {
-    return rest.status === 'Active';
   };
 
   const sortedRestaurants = useMemo(() => {
     if (restaurants) {
       const sorted = restaurants.filter(
         rest =>
-          isActive(rest) &&
+          isActiveFiler(rest) &&
           femaleFilter(rest) &&
           isOpenFilter(rest) &&
           pocFilter(rest) &&
@@ -110,6 +112,7 @@ const useFilter: (
     restaurants,
     sort,
     cocktailsFilter,
+    isActiveFiler,
   ]);
 
   const filterComponent = useMemo(() => {
@@ -126,6 +129,7 @@ const useFilter: (
     if (filterVisible) {
       return (
         <View style={filterStyles.checkboxes} key={filterKey}>
+          {isActiveCheckbox}
           {cocktailsCheckbox}
           {pocCheckbox}
           {femaleCheckbox}
@@ -136,6 +140,7 @@ const useFilter: (
       );
     }
   }, [
+    isActiveCheckbox,
     cocktailsCheckbox,
     veganCheckbox,
     locationPermission,

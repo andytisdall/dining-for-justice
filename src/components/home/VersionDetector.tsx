@@ -59,7 +59,9 @@ const VersionDetector = () => {
     <View style={[baseStyles.centerSection]}>
       {versionIsOutdated() && !!renderLink() && (
         <View style={baseStyles.centerSection}>
-          <Text style={baseStyles.textSm}>Your app is outdated</Text>
+          <Text style={baseStyles.textSm}>
+            There is a newer version of the D4J app available!
+          </Text>
           {renderLink()}
         </View>
       )}

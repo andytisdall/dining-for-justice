@@ -47,4 +47,17 @@ export default StyleSheet.create({
   title3: {
     fontSize: 10 * sizeMultiplier,
   },
+  currentPartner: {
+    backgroundColor: colors.yellow,
+    marginTop: 5,
+    borderWidth: 1,
+    borderColor: colors.yellow,
+    borderRadius: 5,
+    paddingHorizontal: 5 * sizeMultiplier,
+    alignSelf: 'center',
+    opacity: 0.7,
+  },
+  currentPartnerText: {
+    fontSize: 10 * sizeMultiplier,
+  },
 });

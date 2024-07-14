@@ -14,7 +14,7 @@ import RestaurantLinks from './RestaurantLinks';
 import RestaurantInfo from './RestaurantInfo';
 import {useGetContactQuery} from '../../../state/apis/contactApi/contactApi';
 import useEnableLocation from '../../../hooks/useEnableLocation';
-import CocktailInfo from './CocktailInfo';
+// import CocktailInfo from './CocktailInfo';
 import Refresh from '../../reusable/Refresh';
 import {RestaurantDetailScreenProps} from '../../../navigation/types';
 import SuccessModal from './checkIn/SuccessModal';
@@ -76,9 +76,9 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
       return (
         <View style={baseStyles.screenSection}>
           {renderImage}
-          {restaurant.cuisine === 'cocktails' && (
+          {/* {restaurant.cuisine === 'cocktails' && (
             <CocktailInfo restaurant={restaurant} />
-          )}
+          )} */}
 
           <RestaurantInfo restaurant={restaurant} />
 

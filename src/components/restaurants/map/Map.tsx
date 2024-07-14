@@ -75,12 +75,6 @@ const Map = ({navigation, route}: MapScreenProps) => {
     }
   };
 
-  // useEffect(() => {
-  //   if (restaurant?.coords && markerRef.current && mapRef.current) {
-  //     markerRef.current.showCallout();
-  //   }
-  // }, [restaurant]);
-
   const centerRestaurant = useCallback((rest: Restaurant) => {
     if (rest.coords && mapRef.current) {
       zoomToLocation({
@@ -136,7 +130,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
     (rest: Restaurant) => {
       centerRestaurant(rest);
       // restaurantRef.current = rest.id;
-      setSelectedRestaurant(rest.id);
+      // setSelectedRestaurant(rest.id);
     },
     [centerRestaurant],
   );

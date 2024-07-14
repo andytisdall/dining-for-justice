@@ -9,7 +9,7 @@ import {useGetContactQuery} from '../../state/apis/contactApi/contactApi';
 import PastCheckIns from './pastVisits/PastCheckIns';
 import User from './auth/User';
 import rewardsStyles from './rewardsStyles';
-import Prizes from './prize/Prizes';
+// import Prizes from './prize/Prizes';
 
 import ScreenBackground from '../reusable/ScreenBackground';
 
@@ -67,7 +67,7 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
             </Text>
           </Btn>
         </View>
-        <Prizes />
+        {/* <Prizes /> */}
       </View>
     );
   };
