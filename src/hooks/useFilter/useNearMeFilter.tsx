@@ -5,10 +5,7 @@ import {
   Coordinates,
 } from '../../state/apis/restaurantApi/restaurantApi';
 import FilterCheckbox from './FilterCheckbox';
-import {
-  useGetLocationQuery,
-  useGetPermissionMutation,
-} from '../../state/apis/rewardsApi/locationApi';
+import useLocation from '../useLocation';
 
 const NEAR_ME_RANGE = 0.00918;
 
@@ -21,8 +18,7 @@ const useNearMeFilter = (): [
 ] => {
   const [nearMe, setNearMe] = useState(false);
 
-  const {data: location} = useGetLocationQuery();
-  const [getPermission] = useGetPermissionMutation();
+  const location = useLocation();
 
   const restaurantIsNearMe = useCallback(
     (coords: Coordinates) => {
@@ -59,13 +55,12 @@ const useNearMeFilter = (): [
       <FilterCheckbox
         enabled={nearMe}
         setValue={(value: boolean) => {
-          getPermission();
           setNearMe(value);
         }}
         label="Near Me"
       />
     ),
-    [nearMe, getPermission],
+    [nearMe],
   );
 
   return [

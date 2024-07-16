@@ -1,8 +1,6 @@
 import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
 import {Platform} from 'react-native';
-import Geolocation from 'react-native-geolocation-service';
 
-import {Coordinates} from '../restaurantApi/restaurantApi';
 import {api} from '../../api';
 
 const LOCATION_PERMISSION =
@@ -25,33 +23,8 @@ const locationApi = api.injectEndpoints({
         }
         return {data: false};
       },
-      invalidatesTags: ['Location'],
-    }),
-    getLocation: builder.query<Coordinates | null, void>({
-      queryFn: async () => {
-        try {
-          const location: Coordinates | null = await new Promise(
-            (resolve, reject) => {
-              Geolocation.getCurrentPosition(
-                position => {
-                  resolve({
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
-                  });
-                },
-                reject,
-                {maximumAge: 10000, timeout: 15000, enableHighAccuracy: true},
-              );
-            },
-          );
-          return {data: location};
-        } catch {
-          return {data: null};
-        }
-      },
-      providesTags: ['Location'],
     }),
   }),
 });
 
-export const {useGetLocationQuery, useGetPermissionMutation} = locationApi;
+export const {useGetPermissionMutation} = locationApi;

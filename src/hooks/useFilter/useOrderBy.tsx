@@ -7,10 +7,7 @@ import {
   Restaurant,
   Coordinates,
 } from '../../state/apis/restaurantApi/restaurantApi';
-import {
-  useGetLocationQuery,
-  useGetPermissionMutation,
-} from '../../state/apis/rewardsApi/locationApi';
+import useLocation from '../useLocation';
 
 const useOrderBy = (): [
   (a: Restaurant, b: Restaurant) => number,
@@ -18,8 +15,7 @@ const useOrderBy = (): [
 ] => {
   const [order, setOrder] = useState<'abc' | 'loc'>('abc');
 
-  const {data: location} = useGetLocationQuery();
-  const [getPermission] = useGetPermissionMutation();
+  const location = useLocation();
 
   const sortByAbc = useCallback((a: Restaurant, b: Restaurant) => {
     const aWords = a.name.split(' ');
@@ -97,7 +93,6 @@ const useOrderBy = (): [
           </Pressable>
           <Pressable
             onPress={() => {
-              getPermission();
               setOrder('loc');
             }}>
             {({pressed}) => {
@@ -120,7 +115,7 @@ const useOrderBy = (): [
         </View>
       </View>
     );
-  }, [order, getPermission]);
+  }, [order]);
 
   return [sortingFunc, component];
 };

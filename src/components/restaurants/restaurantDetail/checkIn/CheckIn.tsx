@@ -4,7 +4,6 @@ import RNReactNativeHapticFeedback from 'react-native-haptic-feedback';
 // import {utcToZonedTime} from 'date-fns-tz';
 
 import Loading from '../../../reusable/Loading';
-import {useGetLocationQuery} from '../../../../state/apis/rewardsApi/locationApi';
 import {useCheckInMutation} from '../../../../state/apis/rewardsApi/checkInApi';
 import baseStyles from '../../../styles/baseStyles';
 import {
@@ -12,10 +11,12 @@ import {
   Coordinates,
 } from '../../../../state/apis/restaurantApi/restaurantApi';
 import Btn from '../../../reusable/Btn';
-import {useGetPermissionMutation} from '../../../../state/apis/rewardsApi/locationApi';
 import checkInStyles from './checkInStyles';
 import CheckInSuccess from './CheckInSuccess';
 import CheckInError from './CheckInError';
+import {useGetPermissionMutation} from '../../../../state/apis/rewardsApi/locationApi';
+import useLocation from '../../../../hooks/useLocation';
+
 // import InitialMessage from './InitialMessage';
 
 // const START_DATE = utcToZonedTime('2024-05-23', 'America/Los_Angeles');
@@ -48,7 +49,7 @@ const CheckIn = ({
 }) => {
   const [inRange, setInRange] = useState<boolean>();
 
-  const {data: location, isLoading: loadingLocation} = useGetLocationQuery();
+  const location = useLocation();
 
   const [getPermission] = useGetPermissionMutation();
 
@@ -57,7 +58,7 @@ const CheckIn = ({
 
   const translateValue = useRef(new Animated.Value(0)).current;
 
-  const loading = loadingCheckin || loadingLocation;
+  const loading = loadingCheckin;
 
   const openAnimation = Animated.timing(translateValue, {
     toValue: 1,
@@ -84,7 +85,7 @@ const CheckIn = ({
   ]).start;
 
   const renderResult = () => {
-    if (!loadingLocation && !inRange) {
+    if (!inRange) {
       return (
         <CheckInError message="To earn points, you must be present at this location" />
       );

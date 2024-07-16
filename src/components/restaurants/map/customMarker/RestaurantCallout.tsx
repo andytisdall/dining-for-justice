@@ -47,7 +47,7 @@ const RestaurantCallout = ({restaurant}: {restaurant: Restaurant}) => {
         </Text>
         {renderImage()}
         <Text style={restaurantCalloutStyles.detailsText}>
-          click to see details
+          press to see details
         </Text>
       </View>
     </View>

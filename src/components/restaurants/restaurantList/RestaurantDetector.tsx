@@ -1,22 +1,17 @@
 import {View, FlatList, Text, Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useMemo} from 'react';
+import FastImage from 'react-native-fast-image';
 
 import {RestaurantStackNavigationProp} from '../../../navigation/types';
 import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
 import {userIsWithinRange} from '../restaurantDetail/checkIn/CheckIn';
 import restaurantStyles from './restaurantStyles';
 import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
-import {
-  useGetLocationQuery,
-  // useGetPermissionMutation,
-} from '../../../state/apis/rewardsApi/locationApi';
-import FastImage from 'react-native-fast-image';
+import useLocation from '../../../hooks/useLocation';
 
 const RestaurantDetector = ({restaurants}: {restaurants: Restaurant[]}) => {
-  // const [open, setOpen] = useState(false);
-  const {data: location} = useGetLocationQuery();
-  // const [getPermission] = useGetPermissionMutation();
+  const location = useLocation();
 
   const navigation = useNavigation<RestaurantStackNavigationProp>();
 
@@ -83,14 +78,17 @@ const RestaurantDetector = ({restaurants}: {restaurants: Restaurant[]}) => {
     // <Pressable
     //   onPress={() => {
     //     setOpen(!open);
-    //     getPermission();
     //   }}
     //   style={[baseStyles.screenSection, style]}>
     //   <Text style={[baseStyles.btnTextSm, baseStyles.centerText, textStyle]}>
     //     {text}
     //   </Text>
     // </Pressable>
-    <View />
+    <View>
+      <Text style={baseStyles.textSm}>
+        Location: {location?.latitude} - {location?.longitude}
+      </Text>
+    </View>
   );
 };
 

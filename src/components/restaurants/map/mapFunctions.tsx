@@ -78,11 +78,8 @@ export const renderRangeCircle = (
 
 export const resetMap = (map: MapView) => map.animateToRegion(INITIAL_COORDS);
 
-export const renderUserMarker = (
-  locationPermission?: boolean,
-  location?: Coordinates | null,
-) => {
-  if (locationPermission && location) {
+export const renderUserMarker = (location?: Coordinates | null) => {
+  if (location) {
     const {latitude, longitude} = location;
     return <UserMarker latitude={latitude} longitude={longitude} />;
   }

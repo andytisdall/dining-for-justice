@@ -1,6 +1,6 @@
 import {FlatList, Dimensions, Text, Platform} from 'react-native';
 import MapView, {PROVIDER_GOOGLE, Region, MapMarker} from 'react-native-maps';
-import {useRef, useState, useEffect, useMemo, useCallback} from 'react';
+import {useRef, useState, useMemo, useCallback} from 'react';
 import RNReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 import useFilter from '../../../hooks/useFilter/useFilter';
@@ -9,10 +9,7 @@ import {
   Restaurant,
   useGetRestaurantsQuery,
 } from '../../../state/apis/restaurantApi/restaurantApi';
-import {
-  useGetLocationQuery,
-  useGetPermissionMutation,
-} from '../../../state/apis/rewardsApi/locationApi';
+import UserMarker from './customMarker/UserMarker';
 import mapStyles from './mapStyles';
 import baseStyles from '../../styles/baseStyles';
 import ScreenBackground from '../../reusable/ScreenBackground';
@@ -25,12 +22,13 @@ import {
   INITIAL_COORDS,
   renderRangeCircle,
   zoomToLocation,
-  renderUserMarker,
   resetMap,
 } from './mapFunctions';
 import useRespondToScroll from '../../../hooks/useRespondToScroll';
 import Btn from '../../reusable/Btn';
 import {MapScreenProps} from '../../../navigation/types';
+import useLocation from '../../../hooks/useLocation';
+import {useGetPermissionMutation} from '../../../state/apis/rewardsApi/locationApi';
 
 const height = Dimensions.get('screen').height;
 
@@ -39,8 +37,9 @@ const Map = ({navigation, route}: MapScreenProps) => {
 
   const [selectedRestaurant, setSelectedRestaurant] = useState(id);
 
+  const [getPermission] = useGetPermissionMutation();
   const {data: restaurants} = useGetRestaurantsQuery();
-  const {data: location} = useGetLocationQuery();
+  const location = useLocation();
 
   const [
     sortedRestaurants,
@@ -52,22 +51,22 @@ const Map = ({navigation, route}: MapScreenProps) => {
   ] = useFilter(restaurants);
   const [onScroll, PopUp] = useRespondToScroll(height);
 
-  const [getPermission, {data: locationPermission}] =
-    useGetPermissionMutation();
   const [openEnableLocationModal, enableLocationModal] = useEnableLocation();
 
   const markerRef = useRef<MapMarker>(null);
   const mapRef = useRef<MapView>(null);
   const listRef = useRef<FlatList>(null);
-  // const restaurantRef = useRef(id);
   const zoomRef = useRef(INITIAL_COORDS.latitudeDelta);
   const initialLoadRef = useRef(false);
 
-  useEffect(() => {
-    getPermission();
-  }, [getPermission]);
-
   const restaurant = sortedRestaurants?.find(r => r.id === selectedRestaurant);
+
+  const userMarker = useMemo(() => {
+    if (location) {
+      const {latitude, longitude} = location;
+      return <UserMarker latitude={latitude} longitude={longitude} />;
+    }
+  }, [location]);
 
   const showCalloutIfAndroid = () => {
     if (markerRef.current && Platform.OS === 'android') {
@@ -129,8 +128,9 @@ const Map = ({navigation, route}: MapScreenProps) => {
   const selectRestaurantMarker = useCallback(
     (rest: Restaurant) => {
       centerRestaurant(rest);
-      // restaurantRef.current = rest.id;
-      // setSelectedRestaurant(rest.id);
+      if (Platform.OS === 'android') {
+        setSelectedRestaurant(rest.id);
+      }
     },
     [centerRestaurant],
   );
@@ -165,18 +165,6 @@ const Map = ({navigation, route}: MapScreenProps) => {
   ]);
 
   const syncStateToMap = useCallback((region: Region) => {
-    // zoomRef.current = region.latitudeDelta;
-    // zoomToLocation({
-    //   coordinates: region,
-    //   zoom: region.latitudeDelta,
-    //   map: mapRef.current!,
-    //   offset: true,
-    // });
-    // mapRef.current?.setCamera({
-    //   zoom: region.latitudeDelta,
-    //   center: {latitude: region.latitude, longitude: region.longitude},
-    // });
-    // markerRef?.current?.showCallout();
     zoomRef.current = region.latitudeDelta;
   }, []);
 
@@ -211,17 +199,6 @@ const Map = ({navigation, route}: MapScreenProps) => {
     );
   }, [filterComponent, zoomToUserLocation, checkboxComponent]);
 
-  // const adjustZoom = (coordinates: Coordinates) => {
-  //   if (mapRef.current) {
-  //     zoomToLocation({
-  //       coordinates,
-  //       map: mapRef.current,
-  //       zoom: zoomRef.current,
-  //       offset: true,
-  //     });
-  //   }
-  // };
-
   const map = useMemo(() => {
     return (
       <MapView
@@ -231,19 +208,12 @@ const Map = ({navigation, route}: MapScreenProps) => {
         initialRegion={INITIAL_COORDS}
         onMapLoaded={onMapLoaded}
         onRegionChange={syncStateToMap}>
-        {renderUserMarker(locationPermission, location)}
+        {userMarker}
         {markers}
         {renderRangeCircle(range, location)}
       </MapView>
     );
-  }, [
-    location,
-    markers,
-    onMapLoaded,
-    range,
-    locationPermission,
-    syncStateToMap,
-  ]);
+  }, [location, markers, onMapLoaded, range, syncStateToMap, userMarker]);
 
   const mapRestaurantList = useMemo(() => {
     return (
@@ -276,7 +246,14 @@ const Map = ({navigation, route}: MapScreenProps) => {
     );
   }, [PopUp]);
 
-  const data = [map, mapHeader, mapRestaurantList];
+  const data = [
+    map,
+    <Text>
+      {location?.latitude} {location?.longitude}
+    </Text>,
+    mapHeader,
+    mapRestaurantList,
+  ];
 
   const renderItem = ({item}: {item: JSX.Element}) => item;
 
