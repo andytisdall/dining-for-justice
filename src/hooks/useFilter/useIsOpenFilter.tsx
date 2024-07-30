@@ -62,7 +62,7 @@ const useIsOpenFilter = (): [
 
   const filter = useCallback(
     (rest: Restaurant) => {
-      if (openNow && !rest.openHours) {
+      if (openNow && (!rest.openHours || rest.closed)) {
         return false;
       }
       if (openNow) {

@@ -6,7 +6,7 @@ class LocationService {
   private listener?: number;
   private location?: Coordinates;
   private subscribers: Record<string, () => void>;
-  private mock = true;
+  private mock = false;
 
   constructor() {
     this.subscribers = {};
@@ -29,7 +29,11 @@ class LocationService {
         };
       }
       Object.values(this.subscribers).forEach(cb => cb());
-    }, 1000);
+    }, 500);
+  };
+
+  mockLocation = () => {
+    this.location = {latitude: 37.8105813, longitude: -122.2668509};
   };
 
   startListeningForLocation = () => {
@@ -42,7 +46,8 @@ class LocationService {
   subscribe = (callback: () => void) => {
     if (!this.listener) {
       if (this.mock) {
-        this.startMockLocationChange();
+        // this.startMockLocationChange();
+        this.mockLocation();
       } else {
         this.startListeningForLocation();
       }

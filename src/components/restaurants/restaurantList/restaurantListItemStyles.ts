@@ -55,9 +55,22 @@ export default StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 5 * sizeMultiplier,
     alignSelf: 'center',
-    opacity: 0.7,
+    opacity: 0.8,
   },
   currentPartnerText: {
     fontSize: 10 * sizeMultiplier,
+  },
+  closed: {color: colors.grey, textAlign: 'center'},
+  closedListItem: {
+    borderColor: colors.grey,
+  },
+  closedTitle: {
+    backgroundColor: colors.grey,
+    alignSelf: 'center',
+    paddingVertical: 2,
+    paddingHorizontal: 6,
+    overflow: 'hidden',
+    borderRadius: 10,
+    marginTop: 5,
   },
 });

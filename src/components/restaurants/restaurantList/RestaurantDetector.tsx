@@ -9,16 +9,22 @@ import {userIsWithinRange} from '../restaurantDetail/checkIn/CheckIn';
 import restaurantStyles from './restaurantStyles';
 import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
 import useLocation from '../../../hooks/useLocation';
+import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
 
-const RestaurantDetector = ({restaurants}: {restaurants: Restaurant[]}) => {
+const RestaurantDetector = () => {
+  const {data: restaurants} = useGetRestaurantsQuery();
+
   const location = useLocation();
 
   const navigation = useNavigation<RestaurantStackNavigationProp>();
 
   const restaurantsWithinRange = useMemo(() => {
-    return restaurants.filter(
+    return restaurants?.filter(
       rest =>
-        rest.coords && location && userIsWithinRange(rest.coords, location),
+        !rest.closed &&
+        rest.coords &&
+        location &&
+        userIsWithinRange(rest.coords, location),
     );
   }, [location, restaurants]);
 
@@ -44,19 +50,7 @@ const RestaurantDetector = ({restaurants}: {restaurants: Restaurant[]}) => {
     );
   };
 
-  // const text = open
-  //   ? 'To check in to a location, go to one of the bars or restaurants below, select that location from this list, and hit the check-in button'
-  //   : 'Check in to win prizes!';
-
-  // const style = open
-  //   ? restaurantStyles.restaurantDetectorOpen
-  //   : restaurantStyles.restaurantDetectorClosed;
-
-  // const textStyle = open
-  //   ? restaurantStyles.restaurantDetectorTextOpen
-  //   : undefined;
-
-  if (restaurantsWithinRange.length) {
+  if (restaurantsWithinRange?.length) {
     return (
       <View style={[restaurantStyles.restaurantDetectorOpen]}>
         <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
@@ -64,32 +58,14 @@ const RestaurantDetector = ({restaurants}: {restaurants: Restaurant[]}) => {
           <FlatList
             data={restaurantsWithinRange}
             renderItem={renderItem}
-            contentContainerStyle={[
-              baseStyles.centerSection,
-              baseStyles.screenSection,
-            ]}
+            contentContainerStyle={[baseStyles.centerSection]}
           />
         </View>
       </View>
     );
   }
 
-  return (
-    // <Pressable
-    //   onPress={() => {
-    //     setOpen(!open);
-    //   }}
-    //   style={[baseStyles.screenSection, style]}>
-    //   <Text style={[baseStyles.btnTextSm, baseStyles.centerText, textStyle]}>
-    //     {text}
-    //   </Text>
-    // </Pressable>
-    <View>
-      <Text style={baseStyles.textSm}>
-        Location: {location?.latitude} - {location?.longitude}
-      </Text>
-    </View>
-  );
+  return <View />;
 };
 
 export default RestaurantDetector;

@@ -28,10 +28,8 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
       </Text>
 
       <Text style={[baseStyles.centerText, baseStyles.textSm]}>
-        Cocktails for a Cause is over, and we will be conducting our prize
-        drawing the first week of July. Stay tuned to see if you're a winner,
-        and check back here in the future to learn about the next opportunity to
-        win rewards!
+        When you check in at any retaurant or bar on our list, CK gets a free
+        meal donation!
       </Text>
     </View>
   );

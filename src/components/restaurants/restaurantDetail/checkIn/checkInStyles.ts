@@ -21,18 +21,20 @@ export default StyleSheet.create({
   },
   checkInBubble: {
     alignItems: 'center',
-    paddingVertical: 3 * sizeMultiplier,
-    paddingHorizontal: 5 * sizeMultiplier,
+    paddingVertical: 5 * sizeMultiplier,
+    paddingHorizontal: 7 * sizeMultiplier,
     justifyContent: 'center',
   },
   checkInText: {
     color: colors.green,
     paddingHorizontal: 10 * sizeMultiplier,
     fontSize: 10 * sizeMultiplier,
+    textAlign: 'center',
   },
   checkInErrorText: {
     color: colors.yellow,
     paddingHorizontal: 10 * sizeMultiplier,
+    textAlign: 'center',
   },
   background: {
     position: 'absolute',

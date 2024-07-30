@@ -6,7 +6,7 @@ import homeStyles from './homeStyles';
 import Btn from '../reusable/Btn';
 import CKInfo from './CKInfo';
 import {HomeNavigationProp} from '../../navigation/types';
-import Sponsors from './Sponsors';
+// import Sponsors from './Sponsors';
 import FastImage from 'react-native-fast-image';
 import VersionDetector from './VersionDetector';
 import {useGetAnnouncementQuery} from '../../state/apis/notificationApi/notificationApi';
@@ -60,7 +60,7 @@ const Home = ({navigation}: {navigation: HomeNavigationProp}) => {
           </Btn>
         </View>
 
-        <Sponsors />
+        {/* <Sponsors /> */}
         <CKInfo />
       </ScrollView>
       {renderAnnouncement()}

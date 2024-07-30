@@ -51,11 +51,15 @@ const RestaurantListItem = ({
 
   const isActive = restaurant.status === 'Active';
 
-  const activeListItemStyle = isActive
+  const listItemStyle = isActive
     ? restaurantListItemStyles.cocktailsListItem
+    : restaurant.closed
+    ? restaurantListItemStyles.closedListItem
     : undefined;
-  const activeTitleStyle = isActive
+  const listItemTitleStyle = isActive
     ? restaurantListItemStyles.cocktailsTitle
+    : restaurant.closed
+    ? restaurantListItemStyles.closedTitle
     : undefined;
 
   return (
@@ -63,7 +67,8 @@ const RestaurantListItem = ({
       onPress={() => {
         RNReactNativeHapticFeedback.trigger('impactLight');
         onPress(restaurant.id);
-      }}>
+      }}
+      disabled={restaurant.closed}>
       {({pressed}) => {
         const pressedStyle = getPressedStyle(pressed);
         return (
@@ -71,20 +76,21 @@ const RestaurantListItem = ({
             style={[
               restaurantListItemStyles.restaurantListItem,
               pressedStyle,
-              activeListItemStyle,
+              listItemStyle,
             ]}>
             <Text style={[baseStyles.text, baseStyles.centerText, titleStyle]}>
               {restaurant.name}
             </Text>
-            {image}
+            {!restaurant.closed && image}
             <Text
               style={[
                 baseStyles.textXSm,
                 restaurantListItemStyles.cuisine,
                 baseStyles.centerText,
-                activeTitleStyle,
+                listItemTitleStyle,
               ]}>
-              {zoom < 3 && cuisine}
+              {zoom < 3 && !restaurant.closed && cuisine}
+              {restaurant.closed && <Text>Closed</Text>}
             </Text>
             {isActive && (
               <View style={restaurantListItemStyles.currentPartner}>

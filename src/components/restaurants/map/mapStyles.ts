@@ -10,9 +10,9 @@ export default StyleSheet.create({
   selectedMarker: {zIndex: 2},
   listBtns: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     marginHorizontal: 10,
-    marginTop: 5,
+    marginBottom: 5,
   },
   goToMapBtn: {zIndex: 10},
 });

@@ -1,4 +1,4 @@
-import {FlatList, Dimensions, Text, Platform} from 'react-native';
+import {FlatList, Dimensions, Text, Platform, View} from 'react-native';
 import MapView, {PROVIDER_GOOGLE, Region, MapMarker} from 'react-native-maps';
 import {useRef, useState, useMemo, useCallback} from 'react';
 import RNReactNativeHapticFeedback from 'react-native-haptic-feedback';
@@ -16,7 +16,6 @@ import ScreenBackground from '../../reusable/ScreenBackground';
 import useEnableLocation from '../../../hooks/useEnableLocation';
 import MapHeader from './MapHeader';
 import CustomMarker from './customMarker/CustomMarker';
-import MapRestaurantList from './MapRestaurantList';
 import RestaurantList from '../restaurantList/RestaurantList';
 import {
   INITIAL_COORDS,
@@ -29,6 +28,7 @@ import Btn from '../../reusable/Btn';
 import {MapScreenProps} from '../../../navigation/types';
 import useLocation from '../../../hooks/useLocation';
 import {useGetPermissionMutation} from '../../../state/apis/rewardsApi/locationApi';
+import RestaurantDetector from '../restaurantList/RestaurantDetector';
 
 const height = Dimensions.get('screen').height;
 
@@ -137,7 +137,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
 
   const markers = useMemo(() => {
     return sortedRestaurants
-      ?.filter(r => r.coords)
+      ?.filter(r => r.coords && !r.closed)
       .map(rest => {
         const isSelectedRestaurant = rest.id === selectedRestaurant;
         const ref = isSelectedRestaurant ? markerRef : undefined;
@@ -217,13 +217,14 @@ const Map = ({navigation, route}: MapScreenProps) => {
 
   const mapRestaurantList = useMemo(() => {
     return (
-      <MapRestaurantList orderByComponent={orderByComponent}>
+      <View>
+        <View style={mapStyles.listBtns}>{orderByComponent}</View>
         <RestaurantList
           onRestaurantPress={onPressRestaurantListItem}
           restaurants={sortedRestaurants}
           resetFilterState={resetFilter}
         />
-      </MapRestaurantList>
+      </View>
     );
   }, [
     orderByComponent,
@@ -246,14 +247,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
     );
   }, [PopUp]);
 
-  const data = [
-    map,
-    <Text>
-      {location?.latitude} {location?.longitude}
-    </Text>,
-    mapHeader,
-    mapRestaurantList,
-  ];
+  const data = [<RestaurantDetector />, map, mapHeader, mapRestaurantList];
 
   const renderItem = ({item}: {item: JSX.Element}) => item;
 

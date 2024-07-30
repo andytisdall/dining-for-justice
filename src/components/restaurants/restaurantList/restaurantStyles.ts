@@ -24,12 +24,16 @@ export default StyleSheet.create({
     marginTop: 10,
   },
 
-  restaurantDetectorOpen: {width: '100%'},
-  restaurantDetectorTextOpen: {color: 'white', fontSize: 12 * sizeMultiplier},
+  restaurantDetectorOpen: {width: '100%', backgroundColor: colors.midnightBlue},
+  restaurantDetectorTextOpen: {
+    color: 'white',
+    fontSize: 12 * sizeMultiplier,
+  },
   restaurantDetectorItem: {
     backgroundColor: colors.darkBlue,
     borderColor: colors.yellow,
     borderWidth: 1,
+    marginTop: 10 * sizeMultiplier,
     paddingHorizontal: 10 * sizeMultiplier,
     paddingVertical: 5 * sizeMultiplier,
     borderRadius: 25,
