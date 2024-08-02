@@ -43,7 +43,7 @@ const useFilter: (
     useIsOpenFilter();
   const [cocktailsFilter, cocktailsCheckbox, resetCocktails, cocktailsActive] =
     useCocktailsFilter();
-  const [isActiveFiler, isActiveCheckbox, resetIsActive, isActiveActive] =
+  const [isActiveFilter, isActiveCheckbox, resetIsActive, isActiveActive] =
     useIsActiveFilter();
 
   useEffect(() => {
@@ -91,7 +91,8 @@ const useFilter: (
     if (restaurants) {
       const sorted = restaurants.filter(
         rest =>
-          isActiveFiler(rest) &&
+          !rest.closed &&
+          isActiveFilter(rest) &&
           femaleFilter(rest) &&
           isOpenFilter(rest) &&
           pocFilter(rest) &&
@@ -112,7 +113,7 @@ const useFilter: (
     restaurants,
     sort,
     cocktailsFilter,
-    isActiveFiler,
+    isActiveFilter,
   ]);
 
   const filterComponent = useMemo(() => {
