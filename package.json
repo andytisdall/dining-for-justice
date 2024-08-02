@@ -1,6 +1,6 @@
 {
   "name": "d4japp",
-  "version": "1.15",
+  "version": "1.16",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
