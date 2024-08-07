@@ -57,6 +57,8 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Check in at a D4J location to earn rewards</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Check in at a D4J location to earn rewards</string>
 	<key>NSUserNotificationsUsageDescription</key>

@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   content: {
     // width: '75%',
     justifyContent: 'center',
-    backgroundColor: colors.yellow,
+    backgroundColor: colors.orange,
     alignItems: 'center',
     padding: 20,
     shadowColor: 'black',

@@ -66,6 +66,9 @@ export const restaurantApi = api.injectEndpoints({
         body: {restaurantId},
       }),
     }),
+    getStyleWeekBars: builder.query<Restaurant[], void>({
+      query: () => '/d4j/restaurants/style-week',
+    }),
   }),
 });
 
@@ -73,4 +76,5 @@ export const {
   useGetRestaurantsQuery,
   useGetRestaurantDetailsQuery,
   useUpdateRestaurantMutation,
+  useGetStyleWeekBarsQuery,
 } = restaurantApi;

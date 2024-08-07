@@ -65,7 +65,10 @@ const PastCheckIns = () => {
         <View>
           <View style={[baseStyles.screenSection]}>
             <View style={baseStyles.centerSection}>
-              <Text style={baseStyles.text}>Your Past Visits</Text>
+              <Text
+                style={[baseStyles.textSm, pastVisitsStyles.pastVisitItemText]}>
+                Your Past Visits
+              </Text>
             </View>
           </View>
           <View style={pastVisitsStyles.pastVisitsHeader}>

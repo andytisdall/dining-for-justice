@@ -20,7 +20,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   cocktailsListItem: {
-    borderColor: colors.yellow,
+    borderColor: colors.orange,
   },
   image1: {
     marginVertical: 5,
@@ -36,7 +36,7 @@ export default StyleSheet.create({
     color: colors.blue,
   },
   cocktailsTitle: {
-    color: colors.yellow,
+    color: colors.orange,
   },
   title1: {
     fontSize: 20 * sizeMultiplier,
@@ -48,10 +48,10 @@ export default StyleSheet.create({
     fontSize: 10 * sizeMultiplier,
   },
   currentPartner: {
-    backgroundColor: colors.yellow,
+    backgroundColor: colors.orange,
     marginTop: 5,
     borderWidth: 1,
-    borderColor: colors.yellow,
+    borderColor: colors.orange,
     borderRadius: 5,
     paddingHorizontal: 5 * sizeMultiplier,
     alignSelf: 'center',

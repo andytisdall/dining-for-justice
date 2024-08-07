@@ -12,6 +12,9 @@ import VersionDetector from './VersionDetector';
 import {useGetAnnouncementQuery} from '../../state/apis/notificationApi/notificationApi';
 import {useState} from 'react';
 import AnnouncementModal from './Announcement';
+import Style from './Style';
+import LinearGradient from 'react-native-linear-gradient';
+import colors from '../styles/colors';
 
 const d4jLogo = require('../../assets/logos/d4j_logo.png');
 
@@ -33,17 +36,20 @@ const Home = ({navigation}: {navigation: HomeNavigationProp}) => {
   return (
     <ScreenBackground>
       <ScrollView contentContainerStyle={[baseStyles.scrollView]}>
-        <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
-          <VersionDetector />
-
-          <View style={[homeStyles.logoContainer, baseStyles.centerSection]}>
-            <FastImage
-              source={d4jLogo}
-              style={homeStyles.logo}
-              resizeMode="contain"
-            />
+        <LinearGradient colors={[colors.grey, colors.darkGrey, 'black']}>
+          <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
+            <VersionDetector />
+            <View style={[homeStyles.logoContainer, baseStyles.centerSection]}>
+              <FastImage
+                source={d4jLogo}
+                style={homeStyles.logo}
+                resizeMode="contain"
+              />
+            </View>
+            <Style />
           </View>
-
+        </LinearGradient>
+        <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
           <Text style={baseStyles.title}>Eat, Drink, Support Community</Text>
           <Text style={[baseStyles.inputLabel, baseStyles.centerText]}>
             Be sure to support community when you dine out in Oakland. Explore
@@ -60,7 +66,6 @@ const Home = ({navigation}: {navigation: HomeNavigationProp}) => {
           </Btn>
         </View>
 
-        {/* <Sponsors /> */}
         <CKInfo />
       </ScrollView>
       {renderAnnouncement()}

@@ -20,6 +20,7 @@ import createTabLabel from './src/components/reusable/tabs/TabLabel';
 import EventsNavigator from './src/components/events/EventsNavigator';
 import {RootTabsParams} from './src/navigation/types';
 import NotificationContainer from './src/services/notifications/NotificationProvider';
+import colors from './src/components/styles/colors';
 
 const RootTabs = createBottomTabNavigator<RootTabsParams>();
 
@@ -41,6 +42,16 @@ export const BaseComponent = () => {
           tabBarHideOnKeyboard: true,
           headerShown: false,
           tabBarItemStyle: baseStyles.tabBarItem,
+          tabBarStyle: {
+            backgroundColor: colors.orange,
+            borderTopColor: colors.red,
+            borderTopWidth: 2,
+            borderColor: colors.red,
+            borderWidth: 2,
+            paddingVertical: 3,
+          },
+          tabBarActiveTintColor: colors.red,
+          tabBarInactiveTintColor: colors.grey,
         }}>
         <RootTabs.Screen
           name="Home"

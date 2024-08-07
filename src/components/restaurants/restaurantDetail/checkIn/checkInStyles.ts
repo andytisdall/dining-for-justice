@@ -10,7 +10,7 @@ export default StyleSheet.create({
     borderRadius: 25,
   },
   notWithinRange: {
-    borderColor: colors.yellow,
+    borderColor: colors.orange,
     borderWidth: 3,
     borderRadius: 25,
   },
@@ -32,7 +32,7 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
   checkInErrorText: {
-    color: colors.yellow,
+    color: colors.orange,
     paddingHorizontal: 10 * sizeMultiplier,
     textAlign: 'center',
   },
@@ -49,7 +49,7 @@ export default StyleSheet.create({
     width: 200 * sizeMultiplier,
     // height: 200 * sizeMultiplier,
     justifyContent: 'center',
-    backgroundColor: colors.yellow,
+    backgroundColor: colors.orange,
     alignItems: 'center',
     padding: 30,
     shadowColor: 'black',

@@ -36,7 +36,7 @@ export default StyleSheet.create({
   cocktailInfo: {
     backgroundColor: colors.lightGrey,
     borderWidth: 2,
-    borderColor: colors.yellow,
+    borderColor: colors.orange,
     borderRadius: 25,
     marginBottom: 10,
     maxWidth: '75%',
@@ -56,7 +56,7 @@ export default StyleSheet.create({
     fontSize: 11 * sizeMultiplier,
   },
   cocktailsHeader: {
-    backgroundColor: colors.yellow,
+    backgroundColor: colors.orange,
   },
   cocktailsTitle: {
     marginBottom: 5,
@@ -67,7 +67,7 @@ export default StyleSheet.create({
     borderTopRightRadius: 25,
   },
   cocktailsTitleText: {
-    color: colors.yellow,
+    color: colors.orange,
     fontFamily: TITLE_FONT,
     fontSize: 18 * sizeMultiplier,
     textAlign: 'center',

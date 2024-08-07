@@ -5,7 +5,7 @@ import {sizeMultiplier} from '../../styles/baseStyles';
 
 export default StyleSheet.create({
   cocktail: {
-    borderColor: colors.yellow,
+    borderColor: colors.orange,
   },
   photoContainer: {
     marginVertical: 15,
@@ -24,7 +24,7 @@ export default StyleSheet.create({
   },
   photo: {flex: 1},
   votedListItem: {
-    borderColor: colors.yellow,
+    borderColor: colors.orange,
     backgroundColor: colors.darkRed,
   },
 });

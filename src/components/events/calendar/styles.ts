@@ -25,7 +25,7 @@ export default StyleSheet.create({
   calendarDate: {
     flexBasis: '14.285%',
     borderWidth: 0.5,
-    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+    backgroundColor: colors.beige,
     minHeight: dateHeight,
   },
   blankDate: {
@@ -83,7 +83,7 @@ export default StyleSheet.create({
     position: 'absolute',
     right: 10,
     top: -15 * sizeMultiplier,
-    backgroundColor: colors.lightGrey,
+    backgroundColor: colors.beige,
     margin: 0,
   },
   resetBtnText: {

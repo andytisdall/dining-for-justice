@@ -7,39 +7,30 @@ import {MasonryFlashList} from '@shopify/flash-list';
 import {EventStackNavigationProp} from '../../../navigation/types';
 import ScreenBackground from '../../reusable/ScreenBackground';
 import ContestCocktailListItem from './ContestCocktailListItem';
-import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
-import {useGetCompetitionBarsQuery} from '../../../state/apis/eventsApi/eventsApi';
+import {useGetStyleWeekBarsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
+
 import ContestHeader from './ContestHeader';
 import baseStyles from '../../styles/baseStyles';
 import AnimatedLoading from '../../reusable/AnimatedLoading';
 import homeStyles from '../../home/homeStyles';
 
-const stGeorgeLogo = require('../../../assets/logos/st-george-logo.png');
+const styleLogo = require('../../../assets/logos/style_logo.png');
 
 const ContestHome = () => {
-  const {data: restaurants, isLoading: restaurantsLoading} =
-    useGetRestaurantsQuery();
-  const {data: restaurantIds, isLoading: idsLoading} =
-    useGetCompetitionBarsQuery();
+  const {data: bars, isLoading} = useGetStyleWeekBarsQuery();
 
   const navigation = useNavigation<EventStackNavigationProp>();
 
-  const isLoading = restaurantsLoading || idsLoading;
-
   const cocktails = useMemo(() => {
-    if (restaurantIds) {
-      return restaurants
-        ?.filter(rest => restaurantIds.includes(rest.id))
-        .map(rest => {
-          return {
-            name: rest.cocktailName!,
-            description: rest.cocktailDescription!,
-            bar: rest.id,
-            photo: rest.photo!,
-          };
-        });
-    }
-  }, [restaurantIds, restaurants]);
+    return bars?.map(rest => {
+      return {
+        name: rest.cocktailName!,
+        description: rest.cocktailDescription!,
+        bar: rest.id,
+        photo: rest.photo!,
+      };
+    });
+  }, [bars]);
 
   const renderCocktails = () => {
     if (isLoading) {
@@ -65,9 +56,9 @@ const ContestHome = () => {
     }
     return (
       <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
-        <View style={homeStyles.stGeorgeLogoContainer}>
+        <View style={homeStyles.styleLogoContainer}>
           <FastImage
-            source={stGeorgeLogo}
+            source={styleLogo}
             style={homeStyles.logo}
             resizeMode="contain"
           />

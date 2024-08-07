@@ -6,11 +6,11 @@ import {sizeMultiplier} from '../../styles/baseStyles';
 export default StyleSheet.create({
   signOutBtn: {
     backgroundColor: 'transparent',
-    borderColor: colors.pink,
+    borderColor: colors.orange,
     borderBottomWidth: 1,
   },
   signOutBtnText: {
-    color: colors.pink,
+    color: colors.orange,
     fontSize: 15 * sizeMultiplier,
   },
   user: {
@@ -20,7 +20,7 @@ export default StyleSheet.create({
     marginHorizontal: 10,
   },
   authFieldLabel: {
-    color: colors.yellow,
+    color: colors.orange,
     marginBottom: 10,
   },
   authHeader: {
@@ -37,9 +37,10 @@ export default StyleSheet.create({
   },
   deleteAccountBtn: {
     backgroundColor: 'transparent',
-    borderColor: 'white',
+    borderColor: colors.red,
     padding: 0,
   },
+  deleteAccountBtnText: {color: colors.red},
   getContact: {
     paddingBottom: 400,
   },

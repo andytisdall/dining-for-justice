@@ -10,6 +10,7 @@ export interface SignInResponse {
 export interface Contact {
   id: string;
   email: string;
+  unconfirmed?: boolean;
 }
 
 export interface CreateContactArgs {

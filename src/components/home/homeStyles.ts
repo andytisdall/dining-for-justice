@@ -28,9 +28,10 @@ export default StyleSheet.create({
   },
   moreInfoBtn: {backgroundColor: colors.red},
 
-  stGeorgeLogoContainer: {
+  styleLogoContainer: {
     height: 70 * sizeMultiplier,
     width: 275 * sizeMultiplier,
+    justifyContent: 'center',
   },
   sponsorLogoRow: {
     flexDirection: 'row',
@@ -57,7 +58,7 @@ export default StyleSheet.create({
     backgroundColor: 'black',
     padding: 15 * sizeMultiplier,
     borderColor: colors.red,
-    shadowColor: 'blaxk',
+    shadowColor: 'black',
     shadowOffset: {width: -5, height: 10},
     shadowOpacity: 0.7,
     shadowRadius: 10,
@@ -68,7 +69,7 @@ export default StyleSheet.create({
     marginVertical: 10 * sizeMultiplier,
   },
   announcementTitle: {
-    color: colors.yellow,
+    color: colors.orange,
   },
   announcementDismiss: {
     backgroundColor: 'white',
@@ -86,5 +87,8 @@ export default StyleSheet.create({
     color: colors.red,
     fontSize: 25 * sizeMultiplier,
     fontWeight: '600',
+  },
+  styleWeek: {
+    backgroundColor: colors.darkGrey,
   },
 });

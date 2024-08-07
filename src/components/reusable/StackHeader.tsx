@@ -10,7 +10,7 @@ import {sizeMultiplier} from '../styles/baseStyles';
 
 export const TITLE_FONT = 'Alice';
 
-const gradientColors = ['black', colors.darkPurple, colors.darkGrey];
+const gradientColors = [colors.orange, colors.orange];
 
 const start = {x: 0, y: 0};
 const end = {x: 0, y: 1.2};
@@ -77,7 +77,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 6,
     justifyContent: 'center',
-    borderBottomWidth: 3,
+    borderWidth: 3,
     borderColor: colors.darkGrey,
   },
   image: {
@@ -92,7 +92,7 @@ export const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 25 * sizeMultiplier,
-    color: 'white',
+    color: 'black',
     fontFamily: TITLE_FONT,
     textAlign: 'center',
     lineHeight: 28 * sizeMultiplier,
@@ -101,8 +101,8 @@ export const styles = StyleSheet.create({
   btn: {
     borderWidth: 2,
     borderRadius: 50 * sizeMultiplier,
-    backgroundColor: colors.lightGrey,
-    borderColor: 'white',
+    backgroundColor: colors.beige,
+    borderColor: 'black',
     marginLeft: 10,
     height: 35 * sizeMultiplier,
     width: 35 * sizeMultiplier,

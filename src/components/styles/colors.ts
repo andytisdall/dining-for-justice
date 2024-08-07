@@ -1,5 +1,6 @@
 export default {
-  yellow: 'rgb(250, 200, 50)',
+  orange: '#ef9c0e',
+  beige: '#f9f1cc',
   green: 'rgb(200,220,150)',
   grey: 'rgb(80,80,80)',
   darkGrey: 'rgb(50,50,50)',
@@ -9,7 +10,7 @@ export default {
   midnightBlue: 'rgb(20,20,30)',
   nightBlue: 'rgb(30,30,60)',
   pink: 'rgb(250,220,250)',
-  red: '#bf1d28',
+  red: '#c32b2f',
   darkRed: 'rgb(150,0,30)',
   purple: 'rgb(50,0,50)',
   darkPurple: 'rgb(40,0,30)',

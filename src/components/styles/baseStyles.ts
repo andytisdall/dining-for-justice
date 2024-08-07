@@ -56,7 +56,7 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: 25 * sizeMultiplier,
-    color: 'white',
+    color: colors.beige,
     textAlign: 'center',
     paddingTop: 8 * sizeMultiplier,
   },
@@ -73,7 +73,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   inputLabel: {
-    color: colors.yellow,
+    color: colors.orange,
     marginRight: 5,
     fontWeight: '600',
     fontSize: 15 * sizeMultiplier,

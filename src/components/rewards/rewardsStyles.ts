@@ -4,7 +4,7 @@ import colors from '../styles/colors';
 import {sizeMultiplier} from '../styles/baseStyles';
 
 export default StyleSheet.create({
-  rewardsHeadline: {color: colors.green, marginBottom: 10 * sizeMultiplier},
+  rewardsHeadline: {color: colors.beige, marginBottom: 10 * sizeMultiplier},
   pointsSummary: {
     flexDirection: 'row',
   },

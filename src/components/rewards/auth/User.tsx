@@ -25,7 +25,9 @@ const User = () => {
             'https://portal.ckoakland.org/delete-data/' + contact?.email,
           )
         }>
-        <Text style={baseStyles.textXSm}>Delete My Account</Text>
+        <Text style={[baseStyles.textXSm, authStyles.deleteAccountBtnText]}>
+          Delete My Account
+        </Text>
       </Btn>
     </View>
   );

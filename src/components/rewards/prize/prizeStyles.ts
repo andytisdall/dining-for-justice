@@ -12,7 +12,7 @@ export default StyleSheet.create({
     marginLeft: 20,
   },
   prizePoints: {
-    color: colors.yellow,
+    color: colors.orange,
     marginRight: 5,
   },
   prizeError: {

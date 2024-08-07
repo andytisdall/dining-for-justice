@@ -31,7 +31,7 @@ export default StyleSheet.create({
   },
   restaurantDetectorItem: {
     backgroundColor: colors.darkBlue,
-    borderColor: colors.yellow,
+    borderColor: colors.orange,
     borderWidth: 1,
     marginTop: 10 * sizeMultiplier,
     paddingHorizontal: 10 * sizeMultiplier,
@@ -51,7 +51,7 @@ export default StyleSheet.create({
     borderWidth: 1,
   },
   restaurantDetectorClosed: {
-    backgroundColor: colors.yellow,
+    backgroundColor: colors.orange,
     marginVertical: 5 * sizeMultiplier,
     borderRadius: 25,
   },
