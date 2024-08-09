@@ -13,7 +13,7 @@ export default StyleSheet.create({
   logo: {height: '100%', width: '100%'},
   totalMeals: {
     fontSize: 35 * sizeMultiplier,
-    color: 'pink',
+    color: colors.orange,
     marginTop: 10,
     fontWeight: '600',
   },

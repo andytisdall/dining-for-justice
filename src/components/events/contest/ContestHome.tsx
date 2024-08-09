@@ -22,14 +22,24 @@ const ContestHome = () => {
   const navigation = useNavigation<EventStackNavigationProp>();
 
   const cocktails = useMemo(() => {
-    return bars?.map(rest => {
-      return {
-        name: rest.cocktailName!,
-        description: rest.cocktailDescription!,
-        bar: rest.id,
-        photo: rest.photo!,
-      };
-    });
+    if (bars) {
+      return [...bars]
+        ?.sort(() => {
+          const randomNum = Math.random() * 100;
+          if (randomNum < 50) {
+            return -1;
+          }
+          return 1;
+        })
+        .map(rest => {
+          return {
+            name: rest.cocktailName!,
+            description: rest.cocktailDescription!,
+            bar: rest.id,
+            photo: rest.photo!,
+          };
+        });
+    }
   }, [bars]);
 
   const renderCocktails = () => {
@@ -39,7 +49,7 @@ const ContestHome = () => {
     if (cocktails?.length) {
       return (
         <MasonryFlashList
-          estimatedItemSize={175}
+          estimatedItemSize={250}
           data={cocktails}
           renderItem={({item}) => (
             <ContestCocktailListItem
@@ -49,7 +59,6 @@ const ContestHome = () => {
               }
             />
           )}
-          numColumns={2}
           ListHeaderComponent={ContestHeader}
         />
       );
@@ -64,7 +73,7 @@ const ContestHome = () => {
           />
         </View>
         <Text style={[baseStyles.centerText, baseStyles.inputLabel]}>
-          Cocktail Competition Details Coming Soon!
+          Vote for your favorite Oakland Style Week cocktail!
         </Text>
       </View>
     );

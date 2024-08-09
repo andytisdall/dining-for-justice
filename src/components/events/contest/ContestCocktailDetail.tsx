@@ -24,7 +24,7 @@ const ContestCocktailDetail = ({
   const {data: bars} = useGetRestaurantsQuery();
   const [vote, {isLoading: voteMutationisLoading}] = useVoteMutation();
   const [editVote, {isLoading: editIsLoading}] = useEditVoteMutation();
-  const {data: votes, isLoading: getVotesIsLoading} = useGetAllVotesQuery();
+  const {data: votes, isFetching: getVotesIsLoading} = useGetAllVotesQuery();
 
   const {data: user} = useGetContactQuery();
 

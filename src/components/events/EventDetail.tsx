@@ -11,7 +11,7 @@ import ScreenBackground from '../reusable/ScreenBackground';
 import ContestHome from './contest/ContestHome';
 import {EventDetailScreenProps} from '../../navigation/types';
 
-export const ST_GEORGE_ID = '701UP000006WOmvYAG';
+export const STYLE_WEEK_ID = '701UP00000ACmHeYAL';
 
 const EventDetail = ({route, navigation}: EventDetailScreenProps) => {
   const {id} = route.params;
@@ -103,7 +103,7 @@ const EventDetail = ({route, navigation}: EventDetailScreenProps) => {
     }
   };
 
-  if (id === ST_GEORGE_ID) {
+  if (id === STYLE_WEEK_ID) {
     return <ContestHome />;
   }
 

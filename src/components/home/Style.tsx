@@ -6,6 +6,7 @@ import Btn from '../reusable/Btn';
 import homeStyles from './homeStyles';
 import baseStyles from '../styles/baseStyles';
 import {HomeNavigationProp} from '../../navigation/types';
+import {STYLE_WEEK_ID} from '../events/EventDetail';
 
 const styleLogo = require('../../assets/logos/style_logo.png');
 
@@ -25,7 +26,14 @@ const Style = () => {
         cocktail and also be stylish!
       </Text>
       <View style={baseStyles.centerSection}>
-        <Btn onPress={() => navigation.navigate('EventsHome')}>
+        <Btn
+          onPress={() =>
+            navigation.navigate('Events', {
+              screen: 'EventDetail',
+              params: {id: STYLE_WEEK_ID},
+              initial: false,
+            })
+          }>
           <Text style={baseStyles.btnText}>Vote</Text>
         </Btn>
       </View>

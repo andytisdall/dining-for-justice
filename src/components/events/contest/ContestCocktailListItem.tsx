@@ -5,7 +5,7 @@ import {Cocktail} from '../../../state/apis/eventsApi/contestApi';
 import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
 import contestStyles from './contestStyles';
 import restaurantListItemStyles from '../../restaurants/restaurantList/restaurantListItemStyles';
-import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
+import {useGetStyleWeekBarsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
 import {useGetAllVotesQuery} from '../../../state/apis/eventsApi/contestApi';
 import {useGetContactQuery} from '../../../state/apis/contactApi/contactApi';
 
@@ -16,7 +16,7 @@ const ContestCocktailListItem = ({
   cocktail: Cocktail;
   onPress: () => void;
 }) => {
-  const {data: bars} = useGetRestaurantsQuery();
+  const {data: bars} = useGetStyleWeekBarsQuery();
   const {data: votes} = useGetAllVotesQuery();
   const {data: user} = useGetContactQuery();
 
@@ -37,37 +37,42 @@ const ContestCocktailListItem = ({
         return (
           <View
             style={[
-              getVotedStyle(),
-              restaurantListItemStyles.restaurantListItem,
+              contestStyles.cocktailListItem,
               pressedStyle,
+              getVotedStyle(),
             ]}>
-            <Text
-              style={[
-                baseStyles.centerText,
-                baseStyles.text,
-                restaurantListItemStyles.title2,
-              ]}>
-              {bar?.name}
-            </Text>
-            <View style={baseStyles.centerSection}>
-              <FastImage
-                source={{uri: cocktail.photo}}
-                resizeMode="cover"
-                style={contestStyles.circularPhoto}
-              />
-            </View>
-            <Text style={[baseStyles.inputLabel, baseStyles.centerText]}>
-              {cocktail.name}
-            </Text>
-            <View>
-              <Text style={[baseStyles.centerText, baseStyles.textSm]}>
-                {cocktailVotes} Votes
-              </Text>
-              {existingVote?.bar === cocktail.bar && (
-                <Text style={[baseStyles.centerText, baseStyles.textXSm]}>
-                  You voted for this cocktail
+            <View style={contestStyles.cocktailListItemBody}>
+              <View style={baseStyles.centerSection}>
+                <FastImage
+                  source={{uri: cocktail.photo}}
+                  resizeMode="cover"
+                  style={contestStyles.circularPhoto}
+                />
+              </View>
+
+              <View style={contestStyles.cocktailListItemText}>
+                <Text
+                  style={[
+                    baseStyles.centerText,
+                    baseStyles.text,
+                    restaurantListItemStyles.title2,
+                  ]}>
+                  {bar?.name}
                 </Text>
-              )}
+                <Text style={[baseStyles.inputLabel, baseStyles.centerText]}>
+                  {cocktail.name}
+                </Text>
+                <View>
+                  <Text style={[baseStyles.centerText, baseStyles.textSm]}>
+                    {cocktailVotes} Votes
+                  </Text>
+                  {existingVote?.bar === cocktail.bar && (
+                    <Text style={[baseStyles.centerText, baseStyles.textXSm]}>
+                      You voted for this cocktail
+                    </Text>
+                  )}
+                </View>
+              </View>
             </View>
           </View>
         );

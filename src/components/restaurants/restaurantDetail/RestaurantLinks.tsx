@@ -11,7 +11,7 @@ import {RestaurantStackNavigationProp} from '../../../navigation/types';
 import restaurantStyles from '../restaurantList/restaurantStyles';
 
 const mapIcon = require('../../../assets/mapIcon.png');
-const menuIcon = require('../../../assets/menu-icon.png');
+const menuIcon = require('../../../assets/menuIcon.png');
 
 const RestaurantLinks = ({restaurant}: {restaurant: Restaurant}) => {
   const {data: details} = useGetRestaurantDetailsQuery(restaurant.googleId);

@@ -32,9 +32,10 @@ const RestaurantCallout = ({restaurant}: {restaurant: Restaurant}) => {
       );
     }
   };
+
   return (
-    <View style={restaurantCalloutStyles.callout}>
-      <View style={baseStyles.centerSection}>
+    <View style={[restaurantCalloutStyles.callout]}>
+      <View style={[baseStyles.centerSection]}>
         <View style={restaurantCalloutStyles.calloutNameContainer}>
           <Text style={restaurantCalloutStyles.calloutName}>
             {restaurant.name}

@@ -5,10 +5,10 @@ import styles from './styles';
 type TabIconProps = {focused: boolean; color: string; size: number};
 
 const tabImages = {
-  home: require('../../../assets/homeIcon.webp'),
-  restaurants: require('../../../assets/restaurantIcon.png'),
-  rewards: require('../../../assets/dollarIcon.webp'),
-  events: require('../../../assets/cal.jpg'),
+  home: require('../../../assets/tabIcons/homeIcon.webp'),
+  restaurants: require('../../../assets/tabIcons/restaurantIcon.png'),
+  rewards: require('../../../assets/tabIcons/dollarIcon.webp'),
+  events: require('../../../assets/tabIcons/cal.png'),
 };
 
 const createTabIcon = (icon: 'home' | 'restaurants' | 'rewards' | 'events') => {

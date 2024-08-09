@@ -2,6 +2,10 @@ import {StyleSheet, Animated, Image, View, Easing} from 'react-native';
 import {useRef} from 'react';
 import {sizeMultiplier} from '../styles/baseStyles';
 
+const PIZZA_ICON = require('../../assets/loadingAnimation/pizza.png');
+const CHICKEN_ICON = require('../../assets/loadingAnimation/chicken.png');
+const COCKTAIL_ICON = require('../../assets/loadingAnimation/cocktail.png');
+
 const AnimatedLoading = () => {
   const translateValue1 = useRef(new Animated.Value(0)).current;
   const translateValue2 = useRef(new Animated.Value(0)).current;
@@ -84,28 +88,19 @@ const AnimatedLoading = () => {
         style={{
           transform: [{translateY: translateValue1}, {rotate: rotation1}],
         }}>
-        <Image
-          source={require('../../assets/pizza.png')}
-          style={styles.pizza}
-        />
+        <Image source={PIZZA_ICON} style={styles.pizza} />
       </Animated.View>
       <Animated.View
         style={{
           transform: [{translateY: translateValue2}, {rotate: rotation2}],
         }}>
-        <Image
-          source={require('../../assets/chicken.png')}
-          style={styles.chicken}
-        />
+        <Image source={CHICKEN_ICON} style={styles.chicken} />
       </Animated.View>
       <Animated.View
         style={{
           transform: [{translateY: translateValue3}, {rotate: rotation3}],
         }}>
-        <Image
-          source={require('../../assets/cocktail.png')}
-          style={styles.chicken}
-        />
+        <Image source={COCKTAIL_ICON} style={styles.chicken} />
       </Animated.View>
     </View>
   );

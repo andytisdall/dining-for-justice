@@ -23,8 +23,26 @@ export default StyleSheet.create({
     marginVertical: 10 * sizeMultiplier,
   },
   photo: {flex: 1},
+
+  cocktailListItem: {
+    borderColor: colors.lightGrey,
+    borderWidth: 2,
+    paddingHorizontal: 15 * sizeMultiplier,
+    borderRadius: 15,
+    marginHorizontal: 5,
+    flex: 1,
+    marginVertical: 5 * sizeMultiplier,
+  },
   votedListItem: {
-    borderColor: colors.orange,
-    backgroundColor: colors.darkRed,
+    borderColor: colors.red,
+    backgroundColor: 'rgba(250,250,250,.2)',
+  },
+  cocktailListItemBody: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  cocktailListItemText: {
+    width: '75%',
+    justifyContent: 'space-around',
   },
 });
