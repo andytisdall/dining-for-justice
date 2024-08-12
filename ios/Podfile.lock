@@ -984,11 +984,11 @@ PODS:
     - React-Core
   - react-native-geolocation-service (5.3.1):
     - React
-  - react-native-google-maps (1.15.6):
+  - react-native-google-maps (1.17.3):
     - Google-Maps-iOS-Utils (= 4.2.2)
     - GoogleMaps (= 7.4.0)
     - React-Core
-  - react-native-maps (1.15.6):
+  - react-native-maps (1.17.3):
     - React-Core
   - react-native-pure-jwt (3.0.2):
     - JWT (= 3.0.0-beta.12)
@@ -1558,8 +1558,8 @@ SPEC CHECKSUMS:
   react-native-config: 86038147314e2e6d10ea9972022aa171e6b1d4d8
   react-native-date-picker: 90d1d60802a20085125657940b944f2bb4e5c113
   react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
-  react-native-google-maps: 7ca1d252585c9ee2bbe2a3f64e4c061801b43d64
-  react-native-maps: 7b2c2cee95271592a92ba485eea1dec66a363a6e
+  react-native-google-maps: 4fcc7464c6e1337af1463af6813466a1f6ebee8a
+  react-native-maps: 5d563f21238f8e8fea24ae6ff2772bfde17f6f34
   react-native-pure-jwt: c7aabf3e38f688922741774c5b37d1288fc64311
   react-native-safe-area-context: dcab599c527c2d7de2d76507a523d20a0b83823d
   React-nativeconfig: fa5de9d8f4dbd5917358f8ad3ad1e08762f01dcb

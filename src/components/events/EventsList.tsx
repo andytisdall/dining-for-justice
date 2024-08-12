@@ -38,8 +38,7 @@ const EventsList = ({events}: {events: Event[]}) => {
   const panResponder = useRef(
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
-      onMoveShouldSetPanResponder: (e, gesture) =>
-        gesture.dx !== 0 && gesture.dy !== 0,
+      onMoveShouldSetPanResponder: () => true,
       onPanResponderMove: (event, gesture) => {
         setEventsListExpanded(expanded => {
           if (expanded && gesture.dy > 0) {

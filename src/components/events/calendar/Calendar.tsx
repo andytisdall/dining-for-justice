@@ -129,8 +129,11 @@ const Calendar = ({
       }
       const items = renderItems(d);
 
+      const todayStyle =
+        d === format(new Date(), 'yyyy-MM-dd') ? styles.today : undefined;
+
       return (
-        <View style={styles.calendarDate} key={d}>
+        <View style={[styles.calendarDate, todayStyle]} key={d}>
           <View style={styles.calendarDateBackground}>
             <View style={styles.calendarDateNumberContainer}>
               <Text style={styles.calendarDateNumber}>

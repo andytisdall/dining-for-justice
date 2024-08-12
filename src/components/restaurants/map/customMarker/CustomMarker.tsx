@@ -1,10 +1,11 @@
 import {MapMarker, Marker} from 'react-native-maps';
 import {Callout} from 'react-native-maps';
-import RestaurantCallout from './RestaurantCallout';
+import {forwardRef} from 'react';
 
+import CalloutArrow from './CalloutArrow';
+import RestaurantCallout from './RestaurantCallout';
 import {Restaurant} from '../../../../state/apis/restaurantApi/restaurantApi';
 import mapStyles from '../mapStyles';
-import {forwardRef} from 'react';
 
 const COCKTAIL_MARKER = require('../../../../assets/mapIcons/cocktail_marker.png');
 const RESTAURANT_MARKER = require('../../../../assets/mapIcons/restaurant_marker.png');
@@ -39,8 +40,9 @@ const CustomMarker = forwardRef(
         ref={ref}
         image={icon}
         style={[style]}>
-        <Callout onPress={restaurantLink}>
+        <Callout onPress={restaurantLink} tooltip={true}>
           <RestaurantCallout restaurant={restaurant} />
+          <CalloutArrow />
         </Callout>
       </Marker>
     );

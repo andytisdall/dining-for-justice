@@ -21,7 +21,7 @@ const ContestCocktailDetail = ({
   route,
   navigation,
 }: ContestDetailScreenProps) => {
-  const {data: bars} = useGetRestaurantsQuery();
+  const {data: bars, isLoading: barsIsLoading} = useGetRestaurantsQuery();
   const [vote, {isLoading: voteMutationisLoading}] = useVoteMutation();
   const [editVote, {isLoading: editIsLoading}] = useEditVoteMutation();
   const {data: votes, isFetching: getVotesIsLoading} = useGetAllVotesQuery();
@@ -46,7 +46,11 @@ const ContestCocktailDetail = ({
   );
   const numberOfVotes = cocktailVotes?.length;
 
-  const isLoading = editIsLoading || voteMutationisLoading || getVotesIsLoading;
+  const isLoading =
+    editIsLoading ||
+    voteMutationisLoading ||
+    getVotesIsLoading ||
+    barsIsLoading;
 
   const renderVote = () => {
     if (isLoading) {
@@ -70,26 +74,26 @@ const ContestCocktailDetail = ({
       return renderAlternateVote();
     }
     return (
-      <>
-        <Btn
-          onPress={() => {
-            RNReactNativeHapticFeedback.trigger('notificationSuccess');
+      <View>
+        {!existingVoteForThisCocktail && (
+          <Btn
+            onPress={() => {
+              RNReactNativeHapticFeedback.trigger('notificationSuccess');
 
-            vote(cocktail.bar);
-          }}
-          disabled={!!existingVoteForThisCocktail}>
-          <Text>Vote</Text>
-        </Btn>
+              vote(cocktail.bar);
+            }}
+            style={contestStyles.voteBtn}>
+            <Text style={contestStyles.voteBtnText}>Vote</Text>
+          </Btn>
+        )}
         {renderExistingVote()}
-      </>
+      </View>
     );
   };
 
   const renderExistingVote = () => {
     if (existingVoteForThisCocktail) {
-      return (
-        <Text style={baseStyles.textXSm}>You voted for this cocktail</Text>
-      );
+      return <Text style={baseStyles.textSm}>You voted for this cocktail</Text>;
     }
   };
 
@@ -110,11 +114,22 @@ const ContestCocktailDetail = ({
         onPress={() => {
           RNReactNativeHapticFeedback.trigger('notificationSuccess');
           editVote(cocktail.bar);
-        }}>
-        <Text>Vote for this Cocktail Instead</Text>
+        }}
+        style={contestStyles.voteBtn}>
+        <Text style={contestStyles.voteBtnText}>
+          Vote for this Cocktail Instead
+        </Text>
       </Btn>
     );
   };
+
+  if (!bar) {
+    return (
+      <ScreenBackground>
+        <Text>Could not find this bar's info.</Text>
+      </ScreenBackground>
+    );
+  }
 
   return (
     <ScreenBackground>
@@ -146,7 +161,21 @@ const ContestCocktailDetail = ({
             </Text>
           </View>
 
-          <View style={baseStyles.centerSection}>{renderVote()}</View>
+          <View
+            style={[baseStyles.centerSection, contestStyles.voteBtnSection]}>
+            {renderVote()}
+          </View>
+          <View style={baseStyles.centerSection}>
+            <Btn
+              onPress={() =>
+                navigation.navigate('Restaurants', {
+                  screen: 'RestaurantDetail',
+                  params: {id: bar.id},
+                })
+              }>
+              <Text>Location Details</Text>
+            </Btn>
+          </View>
         </View>
       </ScrollView>
     </ScreenBackground>

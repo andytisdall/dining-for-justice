@@ -23,7 +23,17 @@ export default StyleSheet.create({
     marginVertical: 10 * sizeMultiplier,
   },
   photo: {flex: 1},
-
+  voteBtnSection: {marginBottom: 30 * sizeMultiplier},
+  voteBtn: {
+    backgroundColor: colors.red,
+    borderColor: 'white',
+  },
+  voteBtnText: {
+    color: 'white',
+    fontSize: 15 * sizeMultiplier,
+    textAlign: 'center',
+    fontWeight: '600',
+  },
   cocktailListItem: {
     borderColor: colors.lightGrey,
     borderWidth: 2,

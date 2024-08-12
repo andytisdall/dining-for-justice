@@ -5,19 +5,14 @@ import {sizeMultiplier} from '../../styles/baseStyles';
 
 export default StyleSheet.create({
   signOutBtn: {
-    backgroundColor: 'transparent',
-    borderColor: colors.orange,
-    borderBottomWidth: 1,
+    backgroundColor: colors.orange,
   },
   signOutBtnText: {
-    color: colors.orange,
-    fontSize: 15 * sizeMultiplier,
+    fontSize: 12 * sizeMultiplier,
   },
   user: {
-    width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal: 10,
   },
   authFieldLabel: {
     color: colors.orange,
@@ -37,10 +32,10 @@ export default StyleSheet.create({
   },
   deleteAccountBtn: {
     backgroundColor: 'transparent',
-    borderColor: colors.red,
+    borderColor: colors.orange,
     padding: 0,
   },
-  deleteAccountBtnText: {color: colors.red},
+  deleteAccountBtnText: {color: colors.orange},
   getContact: {
     paddingBottom: 400,
   },

@@ -6,11 +6,12 @@ import {
   Restaurant,
   useGetRestaurantDetailsQuery,
 } from '../../../state/apis/restaurantApi/restaurantApi';
+import {useCallback} from 'react';
 
 const OpeningHours = ({restaurant}: {restaurant: Restaurant}) => {
   const {data: details} = useGetRestaurantDetailsQuery(restaurant.googleId);
 
-  const renderHourItem = ({item}: {item: string}) => {
+  const renderHourItem = useCallback(({item}: {item: string}) => {
     const items = item.split(':');
     const day = items.splice(0, 1);
     const hours = items.join(':').split(',');
@@ -26,7 +27,7 @@ const OpeningHours = ({restaurant}: {restaurant: Restaurant}) => {
         </View>
       </View>
     );
-  };
+  }, []);
 
   if (details?.openHours) {
     return (

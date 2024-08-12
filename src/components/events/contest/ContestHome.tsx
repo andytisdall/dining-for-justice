@@ -1,6 +1,5 @@
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import FastImage from 'react-native-fast-image';
 import {useMemo} from 'react';
 import {MasonryFlashList} from '@shopify/flash-list';
 
@@ -12,9 +11,6 @@ import {useGetStyleWeekBarsQuery} from '../../../state/apis/restaurantApi/restau
 import ContestHeader from './ContestHeader';
 import baseStyles from '../../styles/baseStyles';
 import AnimatedLoading from '../../reusable/AnimatedLoading';
-import homeStyles from '../../home/homeStyles';
-
-const styleLogo = require('../../../assets/logos/style_logo.png');
 
 const ContestHome = () => {
   const {data: bars, isLoading} = useGetStyleWeekBarsQuery();
@@ -49,7 +45,7 @@ const ContestHome = () => {
     if (cocktails?.length) {
       return (
         <MasonryFlashList
-          estimatedItemSize={250}
+          estimatedItemSize={141}
           data={cocktails}
           renderItem={({item}) => (
             <ContestCocktailListItem
@@ -63,20 +59,7 @@ const ContestHome = () => {
         />
       );
     }
-    return (
-      <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
-        <View style={homeStyles.styleLogoContainer}>
-          <FastImage
-            source={styleLogo}
-            style={homeStyles.logo}
-            resizeMode="contain"
-          />
-        </View>
-        <Text style={[baseStyles.centerText, baseStyles.inputLabel]}>
-          Vote for your favorite Oakland Style Week cocktail!
-        </Text>
-      </View>
-    );
+    return <ContestHeader />;
   };
 
   return (

@@ -34,23 +34,21 @@ const RestaurantCallout = ({restaurant}: {restaurant: Restaurant}) => {
   };
 
   return (
-    <View style={[restaurantCalloutStyles.callout]}>
-      <View style={[baseStyles.centerSection]}>
-        <View style={restaurantCalloutStyles.calloutNameContainer}>
-          <Text style={restaurantCalloutStyles.calloutName}>
-            {restaurant.name}
-          </Text>
-        </View>
-        <Text style={restaurantCalloutStyles.detailsText}>
-          {restaurant.cuisine === 'cocktails'
-            ? 'Cocktails for a Cause'
-            : restaurant.cuisine}
-        </Text>
-        {renderImage()}
-        <Text style={restaurantCalloutStyles.detailsText}>
-          press to see details
+    <View style={[baseStyles.centerSection, restaurantCalloutStyles.callout]}>
+      <View style={restaurantCalloutStyles.calloutNameContainer}>
+        <Text style={restaurantCalloutStyles.calloutName}>
+          {restaurant.name}
         </Text>
       </View>
+      <Text style={restaurantCalloutStyles.detailsText}>
+        {restaurant.cuisine === 'cocktails'
+          ? 'Cocktails for a Cause'
+          : restaurant.cuisine}
+      </Text>
+      {renderImage()}
+      <Text style={restaurantCalloutStyles.detailsText}>
+        press to see details
+      </Text>
     </View>
   );
 };

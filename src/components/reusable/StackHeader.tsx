@@ -89,9 +89,10 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 10,
+    transform: [{translateX: sizeMultiplier * 10}],
   },
   titleText: {
-    fontSize: 25 * sizeMultiplier,
+    fontSize: 20 * sizeMultiplier,
     color: 'black',
     fontFamily: TITLE_FONT,
     textAlign: 'center',

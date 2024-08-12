@@ -101,4 +101,5 @@ export default StyleSheet.create({
     fontWeight: '600',
     fontSize: 8 * sizeMultiplier,
   },
+  today: {borderWidth: 2, borderColor: colors.red},
 });
