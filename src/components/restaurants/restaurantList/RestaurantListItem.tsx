@@ -49,19 +49,6 @@ const RestaurantListItem = ({
     }
   }, [zoom]);
 
-  const isActive = restaurant.status === 'Active';
-
-  const listItemStyle = isActive
-    ? restaurantListItemStyles.cocktailsListItem
-    : restaurant.closed
-    ? restaurantListItemStyles.closedListItem
-    : undefined;
-  const listItemTitleStyle = isActive
-    ? restaurantListItemStyles.cocktailsTitle
-    : restaurant.closed
-    ? restaurantListItemStyles.closedTitle
-    : undefined;
-
   return (
     <Pressable
       onPress={() => {
@@ -73,11 +60,7 @@ const RestaurantListItem = ({
         const pressedStyle = getPressedStyle(pressed);
         return (
           <View
-            style={[
-              restaurantListItemStyles.restaurantListItem,
-              pressedStyle,
-              listItemStyle,
-            ]}>
+            style={[restaurantListItemStyles.restaurantListItem, pressedStyle]}>
             <Text style={[baseStyles.text, baseStyles.centerText, titleStyle]}>
               {restaurant.name}
             </Text>
@@ -87,18 +70,10 @@ const RestaurantListItem = ({
                 baseStyles.textXSm,
                 restaurantListItemStyles.cuisine,
                 baseStyles.centerText,
-                listItemTitleStyle,
               ]}>
               {zoom < 3 && !restaurant.closed && cuisine}
               {restaurant.closed && <Text>Closed</Text>}
             </Text>
-            {isActive && (
-              <View style={restaurantListItemStyles.currentPartner}>
-                <Text style={restaurantListItemStyles.currentPartnerText}>
-                  Current Partner
-                </Text>
-              </View>
-            )}
           </View>
         );
       }}

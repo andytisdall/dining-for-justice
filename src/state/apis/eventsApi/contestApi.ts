@@ -14,9 +14,6 @@ export interface ContestVote {
 
 const contestApi = api.injectEndpoints({
   endpoints: builder => ({
-    getCocktails: builder.query<Cocktail[], void>({
-      query: () => '/d4j/contest/cocktails',
-    }),
     vote: builder.mutation<null, string>({
       query: barId => ({
         method: 'POST',
@@ -41,9 +38,5 @@ const contestApi = api.injectEndpoints({
   }),
 });
 
-export const {
-  useGetCocktailsQuery,
-  useVoteMutation,
-  useEditVoteMutation,
-  useGetAllVotesQuery,
-} = contestApi;
+export const {useVoteMutation, useEditVoteMutation, useGetAllVotesQuery} =
+  contestApi;

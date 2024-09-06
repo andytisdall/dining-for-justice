@@ -1,7 +1,6 @@
 import {View, Text, Pressable} from 'react-native';
 import {format} from 'date-fns';
 
-import Btn from '../../reusable/Btn';
 import styles from './styles';
 import Arrow from '../../../assets/right-arrow.svg';
 
@@ -14,9 +13,6 @@ const CalendarHeader = ({
 }) => {
   return (
     <View style={styles.header}>
-      <Btn onPress={() => changeMonth('reset')} style={styles.resetBtn}>
-        <Text style={styles.resetBtnText}>Reset</Text>
-      </Btn>
       <View style={styles.monthHeader}>
         <Pressable
           onPress={() => {

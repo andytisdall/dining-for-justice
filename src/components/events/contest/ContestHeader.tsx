@@ -3,6 +3,7 @@ import FastImage from 'react-native-fast-image';
 
 import baseStyles from '../../styles/baseStyles';
 import homeStyles from '../../home/homeStyles';
+import contestStyles from './contestStyles';
 
 const styleLogo = require('../../../assets/logos/style_logo.png');
 
@@ -16,7 +17,12 @@ const ContestHeader = () => {
           resizeMode="contain"
         />
       </View>
-      <Text style={baseStyles.title}>
+      <Text
+        style={[
+          baseStyles.text,
+          baseStyles.centerText,
+          contestStyles.headerTitle,
+        ]}>
         Vote for your favorite cocktail here!
       </Text>
     </View>

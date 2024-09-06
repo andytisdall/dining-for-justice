@@ -105,8 +105,8 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
     return (
       <View style={authStyles.getContact}>
         <View style={[baseStyles.screenSection, authStyles.authHeader]}>
-          <Text style={[baseStyles.text]}>
-            Enter your email to claim your rewards
+          <Text style={[baseStyles.textSm, baseStyles.centerText]}>
+            Enter your email to sign in / sign up
           </Text>
         </View>
         <View style={baseStyles.screenSection}>

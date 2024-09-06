@@ -31,8 +31,7 @@ const EventsNavigator = () => {
         component={ContestHome}
         options={{
           header: StackHeader,
-          headerTitle: 'Cocktail Contest',
-          headerBackVisible: false,
+          headerTitle: 'Oakland Style Week Cocktail Contest',
         }}
       />
       <EventsStack.Screen

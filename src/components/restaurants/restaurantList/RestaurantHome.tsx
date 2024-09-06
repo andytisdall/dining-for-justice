@@ -1,9 +1,13 @@
 import {View, Text, Pressable, Image} from 'react-native';
-import {useCallback} from 'react';
+import {useCallback, useMemo} from 'react';
+import _ from 'lodash';
 
 import restaurantStyles from './restaurantStyles';
 import AnimatedLoading from '../../reusable/AnimatedLoading';
-import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
+import {
+  useGetRestaurantsQuery,
+  useGetStyleWeekBarsQuery,
+} from '../../../state/apis/restaurantApi/restaurantApi';
 import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
 import restaurantDetailStyles from '../restaurantDetail/restaurantDetailStyles';
 import useFilter from '../../../hooks/useFilter/useFilter';
@@ -17,6 +21,13 @@ const mapIcon = require('../../../assets/mapIcon.png');
 
 const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
   const {data: restaurants, isLoading, refetch} = useGetRestaurantsQuery();
+  const {data: bars} = useGetStyleWeekBarsQuery();
+
+  const combinedRestaurants = useMemo(() => {
+    if (restaurants && bars) {
+      return Object.values(_.mapKeys([...restaurants, ...bars], 'id'));
+    }
+  }, [restaurants, bars]);
 
   const [
     sortedRestaurants,
@@ -25,7 +36,7 @@ const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
     ,
     orderBySelector,
     resetFilter,
-  ] = useFilter(restaurants);
+  ] = useFilter(combinedRestaurants);
 
   const navigate = useCallback(
     (id: string) => {

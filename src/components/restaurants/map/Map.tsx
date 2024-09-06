@@ -2,12 +2,14 @@ import {FlatList, Dimensions, Text, Platform, View} from 'react-native';
 import MapView, {PROVIDER_GOOGLE, Region, MapMarker} from 'react-native-maps';
 import {useRef, useState, useMemo, useCallback} from 'react';
 import RNReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import _ from 'lodash';
 
 import useFilter from '../../../hooks/useFilter/useFilter';
 import {
   // Coordinates,
   Restaurant,
   useGetRestaurantsQuery,
+  useGetStyleWeekBarsQuery,
 } from '../../../state/apis/restaurantApi/restaurantApi';
 import UserMarker from './customMarker/UserMarker';
 import mapStyles from './mapStyles';
@@ -39,6 +41,14 @@ const Map = ({navigation, route}: MapScreenProps) => {
 
   const [getPermission] = useGetPermissionMutation();
   const {data: restaurants} = useGetRestaurantsQuery();
+  const {data: bars} = useGetStyleWeekBarsQuery();
+
+  const combinedRestaurants = useMemo(() => {
+    if (restaurants && bars) {
+      return Object.values(_.mapKeys([...restaurants, ...bars], 'id'));
+    }
+  }, [restaurants, bars]);
+
   const location = useLocation();
 
   const [
@@ -48,7 +58,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
     range,
     orderByComponent,
     resetFilter,
-  ] = useFilter(restaurants);
+  ] = useFilter(combinedRestaurants);
   const [onScroll, PopUp] = useRespondToScroll(height);
 
   const [openEnableLocationModal, enableLocationModal] = useEnableLocation();

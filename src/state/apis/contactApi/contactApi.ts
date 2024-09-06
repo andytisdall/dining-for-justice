@@ -73,10 +73,6 @@ const contactApi = api.injectEndpoints({
       },
       invalidatesTags: ['Contact'],
     }),
-
-    getVersion: builder.query<{currentVersion: string}, void>({
-      query: () => '/d4j/version',
-    }),
   }),
 });
 
@@ -85,5 +81,4 @@ export const {
   useSignInMutation,
   useSignOutMutation,
   useCreateContactMutation,
-  useGetVersionQuery,
 } = contactApi;

@@ -2,7 +2,8 @@ import {StyleSheet, Dimensions} from 'react-native';
 
 import colors from './colors';
 
-export const sizeMultiplier = Dimensions.get('screen').width / 300;
+export const sizeMultiplier =
+  (Dimensions.get('screen').height + Dimensions.get('screen').width) / 900;
 export const font = 'Manrope';
 
 export default StyleSheet.create({

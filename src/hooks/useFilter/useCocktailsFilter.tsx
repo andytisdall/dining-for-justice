@@ -27,7 +27,7 @@ const useCocktailsFilter = (): [
       <FilterCheckbox
         enabled={cocktails}
         setValue={setCocktails}
-        label="Cocktails for a Cause"
+        label="Oakland Style Week"
       />
     ),
     [cocktails],

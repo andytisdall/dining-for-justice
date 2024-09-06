@@ -44,9 +44,7 @@ const RestaurantInfo = ({restaurant}: {restaurant: Restaurant}) => {
         {!!details?.address && (
           <Pressable
             style={restaurantDetailStyles.restaurantDetailItem}
-            onPress={() =>
-              showLocation({address: `${details.address} Oakland, CA`})
-            }>
+            onPress={() => showLocation({address: `${details.address}`})}>
             <Text style={baseStyles.inputLabel}>Address: </Text>
             <Text style={[baseStyles.textSm, restaurantDetailStyles.address]}>
               {details.address}

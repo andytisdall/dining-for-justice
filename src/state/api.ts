@@ -32,5 +32,5 @@ export const api = createApi({
   reducerPath: 'api',
   baseQuery: baseQueryWithToken,
   endpoints: () => ({}),
-  tagTypes: ['Contact', 'CheckIn', 'AllCheckIns', 'Vote'],
+  tagTypes: ['Contact', 'CheckIn', 'AllCheckIns', 'Vote', 'Style-Active'],
 });

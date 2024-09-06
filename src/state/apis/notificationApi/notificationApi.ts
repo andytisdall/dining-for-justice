@@ -1,7 +1,10 @@
 import {api} from '../../api';
 
-import {NotificationData} from '../../../navigation/types';
-
+export interface NotificationData {
+  screen: string;
+  subScreen?: string;
+  params?: Record<string, string>;
+}
 export interface Announcement {
   title: string;
   message: string;

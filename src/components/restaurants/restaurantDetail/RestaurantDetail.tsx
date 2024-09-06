@@ -1,9 +1,13 @@
 import {View, Text, FlatList} from 'react-native';
 import {useEffect, useMemo, useCallback, useState} from 'react';
 import FastImage from 'react-native-fast-image';
+import _ from 'lodash';
 
 import Btn from '../../reusable/Btn';
-import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
+import {
+  useGetRestaurantsQuery,
+  useGetStyleWeekBarsQuery,
+} from '../../../state/apis/restaurantApi/restaurantApi';
 import baseStyles from '../../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetailStyles';
 import OpeningHours from './OpeningHours';
@@ -14,21 +18,30 @@ import RestaurantLinks from './RestaurantLinks';
 import RestaurantInfo from './RestaurantInfo';
 import {useGetContactQuery} from '../../../state/apis/contactApi/contactApi';
 import useEnableLocation from '../../../hooks/useEnableLocation';
-// import CocktailInfo from './CocktailInfo';
 import Refresh from '../../reusable/Refresh';
 import {RestaurantDetailScreenProps} from '../../../navigation/types';
 import SuccessModal from './checkIn/SuccessModal';
 import AnimatedLoading from '../../reusable/AnimatedLoading';
+import {useGetStyleWeekActiveQuery} from '../../../state/apis/configApi/configApi';
+import eventStyles from '../../events/eventStyles';
 
 const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
-  const {data, refetch, isLoading} = useGetRestaurantsQuery();
+  const {data: restaurants, refetch, isLoading} = useGetRestaurantsQuery();
   const {data: user} = useGetContactQuery();
+  const {data: bars} = useGetStyleWeekBarsQuery();
+  const {data: styleWeekActive} = useGetStyleWeekActiveQuery(null);
 
   const [successModalOpen, setSuccessModalOpen] = useState(false);
 
   const {id} = route.params;
 
-  const restaurant = data?.find(res => res.id === id);
+  const combinedRestaurants = useMemo(() => {
+    if (restaurants && bars) {
+      return Object.values(_.mapKeys([...restaurants, ...bars], 'id'));
+    }
+  }, [restaurants, bars]);
+
+  const restaurant = combinedRestaurants?.find(res => res.id === id);
 
   const [openModal, enableLocationModal] = useEnableLocation();
 
@@ -71,16 +84,34 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     );
   }, [navigation]);
 
+  const renderVoteBtn = useMemo(() => {
+    return (
+      <View style={baseStyles.centerSection}>
+        <Btn
+          onPress={() =>
+            navigation.navigate('Events', {
+              screen: 'ContestHome',
+              initial: false,
+            })
+          }
+          style={eventStyles.contestBtn}>
+          <Text style={baseStyles.textSm}>Oakland Style Week</Text>
+          <Text style={baseStyles.textXSm}>Vote for this bar's cocktail</Text>
+        </Btn>
+      </View>
+    );
+  }, [navigation]);
+
   const renderDetails = useMemo(() => {
     if (restaurant) {
       return (
         <View style={baseStyles.screenSection}>
           {renderImage}
-          {/* {restaurant.cuisine === 'cocktails' && (
-            <CocktailInfo restaurant={restaurant} />
-          )} */}
 
           <RestaurantInfo restaurant={restaurant} />
+          {restaurant.cuisine === 'cocktails' &&
+            styleWeekActive &&
+            renderVoteBtn}
 
           {!user ? (
             renderSignIn()
@@ -108,7 +139,16 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
         <Refresh refetch={refetch} />
       </View>
     );
-  }, [refetch, renderImage, openModal, renderSignIn, restaurant, user]);
+  }, [
+    refetch,
+    renderImage,
+    openModal,
+    renderSignIn,
+    restaurant,
+    user,
+    renderVoteBtn,
+    styleWeekActive,
+  ]);
 
   const renderItem = ({item}: {item: JSX.Element}) => item;
 

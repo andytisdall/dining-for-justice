@@ -8,8 +8,8 @@ import {useGetEventsQuery} from '../../state/apis/eventsApi/eventsApi';
 import baseStyles from '../styles/baseStyles';
 import eventStyles from './eventStyles';
 import ScreenBackground from '../reusable/ScreenBackground';
-import ContestHome from './contest/ContestHome';
 import {EventDetailScreenProps} from '../../navigation/types';
+import {useGetStyleWeekActiveQuery} from '../../state/apis/configApi/configApi';
 
 export const STYLE_WEEK_ID = '701UP00000ACmHeYAL';
 
@@ -17,6 +17,7 @@ const EventDetail = ({route, navigation}: EventDetailScreenProps) => {
   const {id} = route.params;
 
   const {data: events} = useGetEventsQuery();
+  const {data: styleWeekActive} = useGetStyleWeekActiveQuery(null);
 
   const event = events ? Object.values(events).find(e => e.id === id) : null;
 
@@ -26,10 +27,28 @@ const EventDetail = ({route, navigation}: EventDetailScreenProps) => {
     }
   }, [navigation, event]);
 
+  const renderContestLink = () => {
+    if (styleWeekActive) {
+      return (
+        <View style={baseStyles.centerSection}>
+          <Btn
+            onPress={() => navigation.navigate('ContestHome')}
+            style={eventStyles.contestBtn}>
+            <Text style={[baseStyles.text, baseStyles.centerText]}>VOTE</Text>
+            <Text style={[baseStyles.textXSm, baseStyles.centerText]}>
+              for your favorite cocktail
+            </Text>
+          </Btn>
+        </View>
+      );
+    }
+  };
+
   const renderEventInfo = () => {
     if (event) {
       return (
         <View style={baseStyles.screenSection}>
+          {id === STYLE_WEEK_ID && renderContestLink()}
           {!!event.photo && (
             <FastImage
               source={{uri: event.photo}}
@@ -102,10 +121,6 @@ const EventDetail = ({route, navigation}: EventDetailScreenProps) => {
       );
     }
   };
-
-  if (id === STYLE_WEEK_ID) {
-    return <ContestHome />;
-  }
 
   return (
     <ScreenBackground>

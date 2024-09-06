@@ -3,7 +3,9 @@ import {StyleSheet, Dimensions} from 'react-native';
 import colors from '../../styles/colors';
 import {sizeMultiplier} from '../../styles/baseStyles';
 
-const dateHeight = Dimensions.get('screen').height / 11;
+const height = Dimensions.get('screen').height;
+const dateHeight = height / 10.5;
+const width = Dimensions.get('screen').width;
 
 export default StyleSheet.create({
   calendar: {
@@ -54,16 +56,15 @@ export default StyleSheet.create({
   },
   header: {
     justifyContent: 'center',
-    minHeight: sizeMultiplier * 40,
+    minHeight: sizeMultiplier * 50,
   },
   monthHeader: {
     position: 'absolute',
-    right: Dimensions.get('screen').width / 4,
+    right: width / 4,
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 20,
     alignItems: 'center',
-    width: Dimensions.get('screen').width / 2,
+    width: width / 2,
   },
   btn: {backgroundColor: 'blue'},
   left: {
@@ -75,20 +76,18 @@ export default StyleSheet.create({
     color: 'white',
   },
   calendarContainer: {
-    width: Dimensions.get('screen').width * 2.5,
+    width: width * 2.5,
     justifyContent: 'space-between',
     flexDirection: 'row',
   },
   resetBtn: {
     position: 'absolute',
     right: 10,
-    top: -15 * sizeMultiplier,
+    top: height / 2,
     backgroundColor: colors.beige,
     margin: 0,
   },
-  resetBtnText: {
-    fontSize: 12,
-  },
+
   eventContainer: {
     backgroundColor: colors.green,
     zIndex: -1,

@@ -1,24 +1,16 @@
 import {Text, View, FlatList} from 'react-native';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import AnimatedLoading from '../reusable/AnimatedLoading';
-import {RewardsStackParams} from '../../navigation/types';
-import Btn from '../reusable/Btn';
 import baseStyles from '../styles/baseStyles';
 import {useGetContactQuery} from '../../state/apis/contactApi/contactApi';
 import PastCheckIns from './pastVisits/PastCheckIns';
 import User from './auth/User';
 import rewardsStyles from './rewardsStyles';
-// import Prizes from './prize/Prizes';
+import RewardsNotSignedIn from './RewardsNotSignedIn';
 
 import ScreenBackground from '../reusable/ScreenBackground';
 
-type RewardsScreenProps = NativeStackScreenProps<
-  RewardsStackParams,
-  'RewardsHome'
->;
-
-const RewardsHome = ({navigation}: RewardsScreenProps) => {
+const RewardsHome = () => {
   const {data: contact, isFetching: contactIsLoading} = useGetContactQuery();
 
   const rewardsText = (
@@ -38,34 +30,8 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
     return (
       <View style={baseStyles.screenSection}>
         {rewardsText}
-        {/* <View style={baseStyles.centerSection}>
-          <Btn onPress={() => navigation.navigate('Prizes')}>
-            <Text style={baseStyles.btnText}>More Info</Text>
-          </Btn>
-        </View> */}
         <PastCheckIns />
         <User />
-      </View>
-    );
-  };
-
-  const renderNotSignedIn = () => {
-    return (
-      <View
-        style={[
-          rewardsStyles.notSignedIn,
-          baseStyles.centerSection,
-          baseStyles.screenSection,
-        ]}>
-        {rewardsText}
-        <View style={baseStyles.screenSection}>
-          <Btn onPress={() => navigation.navigate('GetContact')}>
-            <Text style={[baseStyles.btnText, baseStyles.centerText]}>
-              Sign In
-            </Text>
-          </Btn>
-        </View>
-        {/* <Prizes /> */}
       </View>
     );
   };
@@ -76,7 +42,7 @@ const RewardsHome = ({navigation}: RewardsScreenProps) => {
         <AnimatedLoading />
       </View>
     ) : !contact ? (
-      renderNotSignedIn()
+      <RewardsNotSignedIn />
     ) : (
       renderSignedIn()
     );

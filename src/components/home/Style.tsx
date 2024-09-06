@@ -21,9 +21,9 @@ const Style = () => {
           resizeMode="contain"
         />
       </View>
-      <Text style={[baseStyles.text, baseStyles.centerText]}>
-        Oakland Style Week cocktails competition. Vote for your favorite
-        cocktail and also be stylish!
+      <Text style={[baseStyles.textSm, baseStyles.centerText]}>
+        Oakland Style Week features a cocktail competition including Oakland's
+        most creative bars. Vote for the most stylish cocktail!
       </Text>
       <View style={baseStyles.centerSection}>
         <Btn
@@ -34,7 +34,7 @@ const Style = () => {
               initial: false,
             })
           }>
-          <Text style={baseStyles.btnText}>Vote</Text>
+          <Text style={baseStyles.btnText}>Learn More</Text>
         </Btn>
       </View>
     </View>

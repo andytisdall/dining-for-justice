@@ -6,7 +6,6 @@ import homeStyles from './homeStyles';
 import Btn from '../reusable/Btn';
 import CKInfo from './CKInfo';
 import {HomeNavigationProp} from '../../navigation/types';
-// import Sponsors from './Sponsors';
 import FastImage from 'react-native-fast-image';
 import VersionDetector from './VersionDetector';
 import {useGetAnnouncementQuery} from '../../state/apis/notificationApi/notificationApi';
@@ -15,10 +14,12 @@ import AnnouncementModal from './Announcement';
 import Style from './Style';
 import LinearGradient from 'react-native-linear-gradient';
 import colors from '../styles/colors';
+import {useGetEventsQuery} from '../../state/apis/eventsApi/eventsApi';
 
 const d4jLogo = require('../../assets/logos/d4j_logo.png');
 
 const Home = ({navigation}: {navigation: HomeNavigationProp}) => {
+  useGetEventsQuery();
   const [showAnnouncement, setShowAnnouncement] = useState(true);
   const {data: announcement} = useGetAnnouncementQuery();
 
@@ -51,12 +52,13 @@ const Home = ({navigation}: {navigation: HomeNavigationProp}) => {
         </LinearGradient>
         <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
           <Text style={baseStyles.title}>Eat, Drink, Support Community</Text>
-          <Text style={[baseStyles.inputLabel, baseStyles.centerText]}>
-            Be sure to support community when you dine out in Oakland. Explore
-            our list of restaurants and bars where you can eat and drink with
-            purpose.
-          </Text>
-
+          <View style={baseStyles.screenSection}>
+            <Text style={[baseStyles.inputLabel, baseStyles.centerText]}>
+              Be sure to support community when you dine out in Oakland. Explore
+              our list of restaurants and bars where you can eat and drink with
+              purpose.
+            </Text>
+          </View>
           <Btn
             onPress={() =>
               navigation.navigate('Restaurants', {screen: 'RestaurantHome'})

@@ -25,13 +25,11 @@ export default StyleSheet.create({
   photo: {flex: 1},
   voteBtnSection: {marginBottom: 30 * sizeMultiplier},
   voteBtn: {
-    backgroundColor: colors.red,
+    backgroundColor: colors.orange,
     borderColor: 'white',
   },
   voteBtnText: {
-    color: 'white',
-    fontSize: 15 * sizeMultiplier,
-    textAlign: 'center',
+    fontSize: 13 * sizeMultiplier,
     fontWeight: '600',
   },
   cocktailListItem: {
@@ -42,6 +40,7 @@ export default StyleSheet.create({
     marginHorizontal: 5,
     flex: 1,
     marginVertical: 5 * sizeMultiplier,
+    paddingVertical: 5 * sizeMultiplier,
   },
   votedListItem: {
     borderColor: colors.red,
@@ -52,7 +51,27 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   cocktailListItemText: {
-    width: '75%',
+    width: '65%',
     justifyContent: 'space-around',
+  },
+  cocktailListItemTitle: {textDecorationLine: 'underline', fontWeight: '600'},
+  cocktailListItemCocktailName: {
+    color: colors.orange,
+    fontSize: 14 * sizeMultiplier,
+    paddingVertical: 5 * sizeMultiplier,
+  },
+  cocktailListItemVotes: {
+    backgroundColor: colors.lightGrey,
+    alignSelf: 'center',
+    borderRadius: 5,
+    padding: 5,
+    overflow: 'hidden',
+    fontSize: 11 * sizeMultiplier,
+    marginBottom: 3 * sizeMultiplier,
+  },
+  headerTitle: {color: colors.beige},
+  cocktailDetailTitle: {
+    fontSize: 25 * sizeMultiplier,
+    color: colors.orange,
   },
 });

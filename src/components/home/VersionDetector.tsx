@@ -1,6 +1,6 @@
 import {View, Text, Platform, Linking} from 'react-native';
 
-import {useGetVersionQuery} from '../../state/apis/contactApi/contactApi';
+import {useGetVersionQuery} from '../../state/apis/configApi/configApi';
 import pkg from '../../../package.json';
 import Btn from '../reusable/Btn';
 import baseStyles from '../styles/baseStyles';
@@ -39,7 +39,9 @@ const VersionDetector = () => {
       const majorIsOutdated = currentMajor > usingMajor;
       const minorIsOutdated = currentMinor > usingMinor;
 
-      return majorIsOutdated || minorIsOutdated;
+      return (
+        majorIsOutdated || (minorIsOutdated && currentMajor === usingMajor)
+      );
     }
     return false;
   };

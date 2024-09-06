@@ -19,7 +19,7 @@ export default StyleSheet.create({
   eventsList: {
     width: '100%',
     position: 'absolute',
-    bottom: -height / 1.48,
+    bottom: -height / 1.45,
     backgroundColor: colors.midnightBlue,
     borderColor: 'white',
     borderTopLeftRadius: 25,
@@ -54,5 +54,9 @@ export default StyleSheet.create({
   },
   eventDetailsLineHeader: {
     alignSelf: 'flex-start',
+  },
+  contestBtn: {
+    backgroundColor: colors.red,
+    borderWidth: 3,
   },
 });

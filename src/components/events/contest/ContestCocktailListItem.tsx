@@ -4,7 +4,6 @@ import FastImage from 'react-native-fast-image';
 import {Cocktail} from '../../../state/apis/eventsApi/contestApi';
 import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
 import contestStyles from './contestStyles';
-import restaurantListItemStyles from '../../restaurants/restaurantList/restaurantListItemStyles';
 import {useGetStyleWeekBarsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
 import {useGetAllVotesQuery} from '../../../state/apis/eventsApi/contestApi';
 import {useGetContactQuery} from '../../../state/apis/contactApi/contactApi';
@@ -55,15 +54,19 @@ const ContestCocktailListItem = ({
                   style={[
                     baseStyles.centerText,
                     baseStyles.text,
-                    restaurantListItemStyles.title2,
+                    contestStyles.cocktailListItemTitle,
                   ]}>
                   {bar?.name}
                 </Text>
-                <Text style={[baseStyles.inputLabel, baseStyles.centerText]}>
+                <Text
+                  style={[
+                    contestStyles.cocktailListItemCocktailName,
+                    baseStyles.centerText,
+                  ]}>
                   {cocktail.name}
                 </Text>
                 <View>
-                  <Text style={[baseStyles.centerText, baseStyles.textSm]}>
+                  <Text style={[contestStyles.cocktailListItemVotes]}>
                     {cocktailVotes} Votes
                   </Text>
                   {existingVote?.bar === cocktail.bar && (

@@ -10,6 +10,7 @@ import {
   addMonths,
 } from 'date-fns';
 
+import Btn from '../../reusable/Btn';
 import {sizeMultiplier} from '../../styles/baseStyles';
 import DayNames from './DayNames';
 import CalendarHeader from './CalendarHeader';
@@ -158,6 +159,9 @@ const Calendar = ({
       <CalendarHeader month={month} changeMonth={changeMonth} />
       <DayNames />
       <View style={[styles.calendar]}>{getDays()}</View>
+      <Btn onPress={() => changeMonth('reset')} style={styles.resetBtn}>
+        <Text style={styles.resetBtnText}>Reset</Text>
+      </Btn>
     </Animated.View>
   );
 };
