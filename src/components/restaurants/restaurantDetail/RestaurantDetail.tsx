@@ -23,7 +23,7 @@ import {RestaurantDetailScreenProps} from '../../../navigation/types';
 import SuccessModal from './checkIn/SuccessModal';
 import AnimatedLoading from '../../reusable/AnimatedLoading';
 import {useGetStyleWeekActiveQuery} from '../../../state/apis/configApi/configApi';
-import eventStyles from '../../events/eventStyles';
+import ContestLink from '../../events/contest/ContestLink';
 
 const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
   const {data: restaurants, refetch, isLoading} = useGetRestaurantsQuery();
@@ -84,34 +84,17 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     );
   }, [navigation]);
 
-  const renderVoteBtn = useMemo(() => {
-    return (
-      <View style={baseStyles.centerSection}>
-        <Btn
-          onPress={() =>
-            navigation.navigate('Events', {
-              screen: 'ContestHome',
-              initial: false,
-            })
-          }
-          style={eventStyles.contestBtn}>
-          <Text style={baseStyles.textSm}>Oakland Style Week</Text>
-          <Text style={baseStyles.textXSm}>Vote for this bar's cocktail</Text>
-        </Btn>
-      </View>
-    );
-  }, [navigation]);
-
   const renderDetails = useMemo(() => {
     if (restaurant) {
       return (
         <View style={baseStyles.screenSection}>
           {renderImage}
 
+          {restaurant.cuisine === 'cocktails' && styleWeekActive && (
+            <ContestLink />
+          )}
+
           <RestaurantInfo restaurant={restaurant} />
-          {restaurant.cuisine === 'cocktails' &&
-            styleWeekActive &&
-            renderVoteBtn}
 
           {!user ? (
             renderSignIn()
@@ -146,7 +129,6 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     renderSignIn,
     restaurant,
     user,
-    renderVoteBtn,
     styleWeekActive,
   ]);
 

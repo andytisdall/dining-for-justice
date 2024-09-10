@@ -74,4 +74,16 @@ export default StyleSheet.create({
     fontSize: 25 * sizeMultiplier,
     color: colors.orange,
   },
+  contestLinkBtnImg: {width: 150 * sizeMultiplier, height: 50 * sizeMultiplier},
+  contestLinkBtn: {
+    backgroundColor: 'white',
+    borderRadius: 0,
+  },
+  contestLinkBtnText1: {
+    fontSize: 20 * sizeMultiplier,
+    fontWeight: '700',
+  },
+  contestLinkBtnText2: {
+    fontSize: 15 * sizeMultiplier,
+  },
 });

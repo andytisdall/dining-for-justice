@@ -16,10 +16,9 @@ const RestaurantListItem = ({
   onPress: (id: string) => void;
   zoom: number;
 }) => {
-  const cuisine =
-    restaurant.cuisine === 'cocktails'
-      ? 'Cocktails for a Cause'
-      : restaurant.cuisine;
+  const isSpecial = restaurant.cuisine === 'cocktails';
+
+  const cuisine = isSpecial ? 'Oakland Style Week' : restaurant.cuisine;
 
   const image = useMemo(() => {
     const style =
@@ -49,6 +48,13 @@ const RestaurantListItem = ({
     }
   }, [zoom]);
 
+  const listItemStyle = isSpecial
+    ? restaurantListItemStyles.cocktailsListItem
+    : undefined;
+  const cuisineStyle = isSpecial
+    ? restaurantListItemStyles.cocktailsTitle
+    : undefined;
+
   return (
     <Pressable
       onPress={() => {
@@ -60,7 +66,11 @@ const RestaurantListItem = ({
         const pressedStyle = getPressedStyle(pressed);
         return (
           <View
-            style={[restaurantListItemStyles.restaurantListItem, pressedStyle]}>
+            style={[
+              restaurantListItemStyles.restaurantListItem,
+              pressedStyle,
+              listItemStyle,
+            ]}>
             <Text style={[baseStyles.text, baseStyles.centerText, titleStyle]}>
               {restaurant.name}
             </Text>
@@ -70,6 +80,7 @@ const RestaurantListItem = ({
                 baseStyles.textXSm,
                 restaurantListItemStyles.cuisine,
                 baseStyles.centerText,
+                cuisineStyle,
               ]}>
               {zoom < 3 && !restaurant.closed && cuisine}
               {restaurant.closed && <Text>Closed</Text>}

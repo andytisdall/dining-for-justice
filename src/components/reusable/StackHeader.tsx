@@ -78,7 +78,7 @@ export const styles = StyleSheet.create({
     transform: [{translateX: sizeMultiplier * 10}],
   },
   titleText: {
-    fontSize: 24 * sizeMultiplier,
+    fontSize: 22 * sizeMultiplier,
     color: 'black',
     fontFamily: TITLE_FONT,
     textAlign: 'center',

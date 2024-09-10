@@ -5,7 +5,7 @@ import baseStyles from '../../styles/baseStyles';
 import homeStyles from '../../home/homeStyles';
 import contestStyles from './contestStyles';
 
-const styleLogo = require('../../../assets/logos/style_logo.png');
+const styleLogo = require('../../../assets/logos/style_logo.jpg');
 
 const ContestHeader = () => {
   return (

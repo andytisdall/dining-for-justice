@@ -6,7 +6,7 @@ const configApi = api.injectEndpoints({
       query: () => '/d4j/version',
     }),
     getStyleWeekActive: builder.query<boolean, null>({
-      query: () => '/d4j/style-week',
+      queryFn: () => ({data: true}),
     }),
   }),
 });

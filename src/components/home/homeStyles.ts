@@ -29,8 +29,8 @@ export default StyleSheet.create({
   moreInfoBtn: {backgroundColor: colors.red},
 
   styleLogoContainer: {
-    height: 70 * sizeMultiplier,
-    width: 275 * sizeMultiplier,
+    height: 100 * sizeMultiplier,
+    width: 250 * sizeMultiplier,
     justifyContent: 'center',
   },
   sponsorLogoRow: {
