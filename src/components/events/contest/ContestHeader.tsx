@@ -10,6 +10,14 @@ const styleLogo = require('../../../assets/logos/style_logo.jpg');
 const ContestHeader = () => {
   return (
     <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
+      <Text
+        style={[
+          baseStyles.textLg,
+          baseStyles.centerText,
+          contestStyles.headerTitle,
+        ]}>
+        Vote for your favorite cocktail
+      </Text>
       <View style={homeStyles.styleLogoContainer}>
         <FastImage
           source={styleLogo}
@@ -17,14 +25,6 @@ const ContestHeader = () => {
           resizeMode="contain"
         />
       </View>
-      <Text
-        style={[
-          baseStyles.text,
-          baseStyles.centerText,
-          contestStyles.headerTitle,
-        ]}>
-        Vote for your favorite cocktail here!
-      </Text>
     </View>
   );
 };

@@ -1,8 +1,9 @@
 import {View} from 'react-native';
-import {useCallback, useMemo} from 'react';
+import {useCallback, useMemo, useRef} from 'react';
 import {addDays} from 'date-fns';
 import {format, zonedTimeToUtc} from 'date-fns-tz';
 
+import colors from '../styles/colors';
 import Calendar from './calendar/Calendar';
 import {useGetEventsQuery, Event} from '../../state/apis/eventsApi/eventsApi';
 import ScreenBackground from '../reusable/ScreenBackground';
@@ -13,8 +14,12 @@ import baseStyles from '../styles/baseStyles';
 
 type EventsState = Record<string, Event>;
 
+const eventColors = [colors.green, colors.blue, colors.red, colors.orange];
+
 const EventsHome = () => {
   const {data: events, isLoading} = useGetEventsQuery();
+
+  const eventIds = useRef<string[]>([]);
 
   const eventsObject = useMemo(() => {
     if (events) {
@@ -38,8 +43,9 @@ const EventsHome = () => {
           );
         }
         dates.forEach(date => {
-          state[date] = event;
+          state[date] = {name: '', id: event.id, startDate: ''};
         });
+        state[dates[0]] = event;
       });
       return state;
     }
@@ -50,7 +56,13 @@ const EventsHome = () => {
     (day: string) => {
       const event = eventsObject ? eventsObject[day] : undefined;
       if (event) {
-        return <EventCalendarItem event={event} />;
+        if (!eventIds.current.includes(event.id)) {
+          eventIds.current.push(event.id);
+        }
+        const eventIndex = eventIds.current.findIndex(id => id === event.id);
+        return (
+          <EventCalendarItem event={event} color={eventColors[eventIndex]} />
+        );
       } else {
         return <View />;
       }

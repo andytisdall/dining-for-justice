@@ -8,6 +8,7 @@ import StackHeader from '../reusable/StackHeader';
 import PrizeInfo from './prize/PrizeInfo';
 import ContestRules from './prize/ContestRules';
 import {RewardsStackParams} from '../../navigation/types';
+import Confirm from './auth/Confirm';
 
 const RewardsStack = createNativeStackNavigator<RewardsStackParams>();
 
@@ -19,7 +20,7 @@ const RewardsNavigator = () => {
         component={RewardsHome}
         options={{
           header: StackHeader,
-          headerTitle: 'Rewards',
+          headerTitle: 'Account',
           headerBackVisible: false,
         }}
       />
@@ -37,6 +38,11 @@ const RewardsNavigator = () => {
         name="Rules"
         component={ContestRules}
         options={{header: StackHeader, headerTitle: 'Contest Rules'}}
+      />
+      <RewardsStack.Screen
+        name="Confirm"
+        component={Confirm}
+        options={{header: StackHeader, headerTitle: 'Confirm'}}
       />
     </RewardsStack.Navigator>
   );

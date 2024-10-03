@@ -1,7 +1,9 @@
-import {NavigatorScreenParams} from '@react-navigation/native';
+import {
+  NavigatorScreenParams,
+  CompositeNavigationProp,
+} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
-import {CompositeNavigationProp} from '@react-navigation/native';
 
 import {RewardsStackParams} from './rewards';
 import {RestaurantStackParams} from './restaurant';
@@ -13,6 +15,11 @@ export type RootTabsParams = {
   Home: undefined;
   Events: NavigatorScreenParams<EventsStackParams>;
 };
+
+export type AllScreenParams = RootTabsParams &
+  RewardsStackParams &
+  RestaurantStackParams &
+  EventsStackParams;
 
 export type RootNavigationProp = CompositeNavigationProp<
   CompositeNavigationProp<

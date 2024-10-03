@@ -11,6 +11,7 @@ import {useGetStyleWeekBarsQuery} from '../../../state/apis/restaurantApi/restau
 import ContestHeader from './ContestHeader';
 import baseStyles from '../../styles/baseStyles';
 import AnimatedLoading from '../../reusable/AnimatedLoading';
+import ContestLogos from './ContestLogos';
 
 const ContestHome = () => {
   const {data: bars, isLoading} = useGetStyleWeekBarsQuery();
@@ -65,6 +66,7 @@ const ContestHome = () => {
   return (
     <ScreenBackground>
       <View style={baseStyles.scrollView}>{renderCocktails()}</View>
+      <ContestLogos />
     </ScreenBackground>
   );
 };

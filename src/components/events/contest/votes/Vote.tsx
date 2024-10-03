@@ -41,7 +41,11 @@ const Vote = ({cocktail}: {cocktail: Cocktail}) => {
     if (!existingVoteForThisCocktail) {
       return <CreateVote cocktail={cocktail} />;
     }
-    return <Text style={baseStyles.textSm}>You voted for this cocktail</Text>;
+    return (
+      <Text style={[baseStyles.textSm, contestStyles.votedText]}>
+        You voted for this cocktail
+      </Text>
+    );
   };
 
   const renderNotSignedIn = () => {
@@ -62,8 +66,19 @@ const Vote = ({cocktail}: {cocktail: Cocktail}) => {
   const renderNotActive = () => {
     return (
       <View>
-        <Text style={baseStyles.text}>
+        <Text style={baseStyles.textSm}>
           Voting has closed for the cocktail contest.
+        </Text>
+      </View>
+    );
+  };
+
+  const renderUnconfirmed = () => {
+    return (
+      <View>
+        <Text style={baseStyles.textSm}>
+          You must confirm your email before you can vote. Check your inbox for
+          your link.
         </Text>
       </View>
     );
@@ -75,22 +90,18 @@ const Vote = ({cocktail}: {cocktail: Cocktail}) => {
 
   return (
     <>
-      <Text
-        style={[
-          baseStyles.textLg,
-          baseStyles.centerText,
-          baseStyles.screenSection,
-        ]}>
-        Total Votes: {numberOfVotes}
-      </Text>
-
       <View style={[baseStyles.centerSection, contestStyles.voteBtnSection]}>
         {!styleWeekActive
           ? renderNotActive()
           : !user
           ? renderNotSignedIn()
+          : user.unconfirmed
+          ? renderUnconfirmed()
           : renderVote()}
       </View>
+      <Text style={[baseStyles.text, baseStyles.centerText]}>
+        Total Votes: {numberOfVotes}
+      </Text>
     </>
   );
 };

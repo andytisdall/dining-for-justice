@@ -5,6 +5,7 @@ import {
 import {CompositeNavigationProp} from '@react-navigation/native';
 import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 
+import {RestaurantStackParams} from './restaurant';
 import {RootTabsParams} from './rootTabs';
 import {Cocktail} from '../state/apis/eventsApi/contestApi';
 import {RewardsStackParams} from './rewards';
@@ -32,4 +33,9 @@ export type EventStackNavigationProp =
 export type EventNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<RootTabsParams, 'Events'>,
   NativeStackNavigationProp<RewardsStackParams>
+>;
+
+export type ContestNavigationProp = CompositeNavigationProp<
+  BottomTabNavigationProp<RootTabsParams, 'Events'>,
+  NativeStackNavigationProp<RestaurantStackParams>
 >;

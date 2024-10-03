@@ -160,7 +160,7 @@ const Calendar = ({
       <DayNames />
       <View style={[styles.calendar]}>{getDays()}</View>
       <Btn onPress={() => changeMonth('reset')} style={styles.resetBtn}>
-        <Text style={styles.resetBtnText}>Reset</Text>
+        <Text>Reset</Text>
       </Btn>
     </Animated.View>
   );

@@ -39,4 +39,9 @@ export default StyleSheet.create({
   getContact: {
     paddingBottom: 400,
   },
+  confirm: {
+    minHeight: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

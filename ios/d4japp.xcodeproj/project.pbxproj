@@ -48,6 +48,7 @@
 		89C6BE57DB24E9ADA2F236DE /* Pods-d4japp-d4jappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-d4japp-d4jappTests.release.xcconfig"; path = "Target Support Files/Pods-d4japp-d4jappTests/Pods-d4japp-d4jappTests.release.xcconfig"; sourceTree = "<group>"; };
 		8A1F19062BA94AB50048CF61 /* Manrope.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Manrope.ttf; path = ../../src/assets/fonts/Manrope.ttf; sourceTree = "<group>"; };
 		8A3DEB762BC48432005CA4E1 /* Alice.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Alice.ttf; path = ../../src/assets/fonts/Alice.ttf; sourceTree = "<group>"; };
+		8A91C2872CAB44AB00AD5AE2 /* d4jappDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = d4jappDebug.entitlements; path = d4japp/d4jappDebug.entitlements; sourceTree = "<group>"; };
 		8AC4281E2BC3355E0081CF6A /* hermes.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = hermes.xcframework; path = "Pods/hermes-engine/destroot/Library/Frameworks/universal/hermes.xcframework"; sourceTree = "<group>"; };
 		8AD19F522BBE0A1E00575CAB /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		8AFF295F2B3CBFA60049A490 /* d4japp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = d4japp.entitlements; path = d4japp/d4japp.entitlements; sourceTree = "<group>"; };
@@ -94,6 +95,7 @@
 		13B07FAE1A68108700A75B9A /* d4japp */ = {
 			isa = PBXGroup;
 			children = (
+				8A91C2872CAB44AB00AD5AE2 /* d4jappDebug.entitlements */,
 				8AFF295F2B3CBFA60049A490 /* d4japp.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -494,7 +496,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = d4japp/d4japp.entitlements;
+				CODE_SIGN_ENTITLEMENTS = d4japp/d4jappDebug.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F2APTT7PN6;
@@ -507,7 +509,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -539,7 +541,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0;
+				MARKETING_VERSION = 2.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -619,10 +621,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_CFLAGS = "$(inherited)  ";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
@@ -631,10 +630,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -700,10 +696,7 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_CFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_CFLAGS = "$(inherited)  ";
 				OTHER_CPLUSPLUSFLAGS = (
 					"$(OTHER_CFLAGS)",
 					"-DFOLLY_NO_CONFIG",
@@ -712,10 +705,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;

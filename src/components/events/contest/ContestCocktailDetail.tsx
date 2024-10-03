@@ -1,11 +1,9 @@
-import {View, Text, ScrollView} from 'react-native';
-import {useEffect} from 'react';
+import {View, Text, ScrollView, Pressable} from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 import ScreenBackground from '../../reusable/ScreenBackground';
 import baseStyles from '../../styles/baseStyles';
 import contestStyles from './contestStyles';
-import Btn from '../../reusable/Btn';
 import {useGetStyleWeekBarsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
 
 import {ContestDetailScreenProps} from '../../../navigation/types';
@@ -19,12 +17,6 @@ const ContestCocktailDetail = ({
 
   const {cocktail} = route.params;
   const bar = bars?.find(b => cocktail.bar === b.id);
-
-  useEffect(() => {
-    if (bar) {
-      navigation.setOptions({headerTitle: bar.name});
-    }
-  }, [bar, navigation]);
 
   if (!bar) {
     return (
@@ -40,41 +32,39 @@ const ContestCocktailDetail = ({
     <ScreenBackground>
       <ScrollView style={baseStyles.scrollView}>
         <View style={baseStyles.screenSection}>
-          <View style={baseStyles.centerSection}>
-            <View style={contestStyles.photoContainer}>
-              <FastImage
-                source={{uri: cocktail.photo}}
-                style={contestStyles.photo}
-                resizeMode="cover"
-              />
-            </View>
-            <Text style={contestStyles.cocktailDetailTitle}>
-              {cocktail.name}
-            </Text>
-            <View style={baseStyles.screenBorders}>
-              <Text
-                style={[
-                  baseStyles.textSm,
-                  baseStyles.centerText,
-                  baseStyles.screenSection,
-                ]}>
-                {cocktail.description}
+          <Pressable
+            onPress={() =>
+              navigation.navigate('Restaurants', {
+                screen: 'RestaurantDetail',
+                params: {id: bar.id},
+                initial: false,
+              })
+            }>
+            <View style={baseStyles.centerSection}>
+              <View style={contestStyles.photoContainer}>
+                <FastImage
+                  source={{uri: cocktail.photo}}
+                  style={contestStyles.photo}
+                  resizeMode="cover"
+                />
+              </View>
+              <Text style={contestStyles.cocktailDetailBar}>{bar.name}</Text>
+              <Text style={contestStyles.cocktailDetailTitle}>
+                {cocktail.name}
               </Text>
             </View>
+          </Pressable>
+          <View style={baseStyles.screenBorders}>
+            <Text
+              style={[
+                baseStyles.textSm,
+                baseStyles.centerText,
+                baseStyles.screenSection,
+              ]}>
+              {cocktail.description}
+            </Text>
           </View>
           <Vote cocktail={cocktail} />
-          <View style={baseStyles.centerSection}>
-            <Btn
-              onPress={() =>
-                navigation.navigate('Restaurants', {
-                  screen: 'RestaurantDetail',
-                  params: {id: bar.id},
-                  initial: false,
-                })
-              }>
-              <Text>Location Details</Text>
-            </Btn>
-          </View>
         </View>
       </ScrollView>
     </ScreenBackground>

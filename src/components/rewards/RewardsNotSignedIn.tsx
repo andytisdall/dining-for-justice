@@ -29,7 +29,7 @@ const RewardsNotSignedIn = () => {
             baseStyles.textSm,
             baseStyles.screenSection,
           ]}>
-          When you check in at any retaurant or bar on our list, CK gets a free
+          When you check in at any restaurant or bar on our list, CK gets a free
           meal donation!
         </Text>
       </View>

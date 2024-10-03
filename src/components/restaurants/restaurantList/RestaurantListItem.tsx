@@ -18,7 +18,9 @@ const RestaurantListItem = ({
 }) => {
   const isSpecial = restaurant.cuisine === 'cocktails';
 
-  const cuisine = isSpecial ? 'Oakland Style Week' : restaurant.cuisine;
+  const cuisine = isSpecial
+    ? 'Oakland Style Week Mixology Competition'
+    : 'Dining for Justice';
 
   const image = useMemo(() => {
     const style =

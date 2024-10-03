@@ -24,7 +24,7 @@ const EventsNavigator = () => {
       <EventsStack.Screen
         name="EventDetail"
         component={EventDetail}
-        options={{header: StackHeader}}
+        options={{header: StackHeader, title: ''}}
       />
       <EventsStack.Screen
         name="ContestHome"
@@ -37,7 +37,10 @@ const EventsNavigator = () => {
       <EventsStack.Screen
         name="ContestDetail"
         component={ContestCocktailDetail}
-        options={{header: StackHeader}}
+        options={{
+          header: StackHeader,
+          headerTitle: 'Oakland Style Week Cocktail Contest',
+        }}
       />
     </EventsStack.Navigator>
   );

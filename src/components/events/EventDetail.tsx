@@ -10,12 +10,12 @@ import eventStyles from './eventStyles';
 import ScreenBackground from '../reusable/ScreenBackground';
 import {EventDetailScreenProps} from '../../navigation/types';
 import {useGetStyleWeekActiveQuery} from '../../state/apis/configApi/configApi';
-import homeStyles from '../home/homeStyles';
 import ContestLink from './contest/ContestLink';
+import ContestLogos from './contest/ContestLogos';
+import ContestParticipants from './contest/ContestParticipants';
 
 export const STYLE_WEEK_ID = '701UP00000ACmHeYAL';
-
-const visitOaklandLogo = require('../../assets/logos/vo_logo.png');
+const STYLE_COCKTAILS_ID = '701UP00000DTNGHYA5';
 
 const EventDetail = ({route, navigation}: EventDetailScreenProps) => {
   const {id} = route.params;
@@ -26,6 +26,7 @@ const EventDetail = ({route, navigation}: EventDetailScreenProps) => {
   const event = events ? Object.values(events).find(e => e.id === id) : null;
 
   const eventIsStyleWeek = id === STYLE_WEEK_ID;
+  const eventIsStyleCocktails = id === STYLE_COCKTAILS_ID;
 
   useEffect(() => {
     if (event) {
@@ -45,26 +46,28 @@ const EventDetail = ({route, navigation}: EventDetailScreenProps) => {
               resizeMode="contain"
             />
           )}
-          <View style={eventStyles.eventDetailsLine}>
-            <Text
-              style={[
-                baseStyles.inputLabel,
-                eventStyles.eventDetailsLineHeader,
-              ]}>
-              Location:
-            </Text>
-            <View>
-              {!!event.venue && (
-                <Text style={baseStyles.text}>{event.venue}</Text>
-              )}
-              {!!event.address && (
-                <Text style={baseStyles.textSm}>{event.address}</Text>
-              )}
-              {!!event.city && (
-                <Text style={baseStyles.textSm}>{event.city}, CA</Text>
-              )}
+          {(event.venue || event.address || event.city) && (
+            <View style={eventStyles.eventDetailsLine}>
+              <Text
+                style={[
+                  baseStyles.inputLabel,
+                  eventStyles.eventDetailsLineHeader,
+                ]}>
+                Location:
+              </Text>
+              <View>
+                {!!event.venue && (
+                  <Text style={baseStyles.text}>{event.venue}</Text>
+                )}
+                {!!event.address && (
+                  <Text style={baseStyles.textSm}>{event.address}</Text>
+                )}
+                {!!event.city && (
+                  <Text style={baseStyles.textSm}>{event.city}, CA</Text>
+                )}
+              </View>
             </View>
-          </View>
+          )}
           <View style={eventStyles.eventDetailsLine}>
             <Text style={baseStyles.inputLabel}>Date: </Text>
             <View>
@@ -106,15 +109,9 @@ const EventDetail = ({route, navigation}: EventDetailScreenProps) => {
           <View style={baseStyles.screenSection}>
             <Text style={baseStyles.textSm}>{event.description}</Text>
           </View>
-          <View style={baseStyles.centerSection}>
-            <View style={[homeStyles.styleLogoContainer]}>
-              <FastImage
-                source={visitOaklandLogo}
-                style={[homeStyles.logo]}
-                resizeMode="contain"
-              />
-            </View>
-          </View>
+
+          {eventIsStyleWeek && <ContestLogos />}
+          {eventIsStyleCocktails && <ContestParticipants />}
         </View>
       );
     }

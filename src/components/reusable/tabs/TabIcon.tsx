@@ -7,7 +7,7 @@ type TabIconProps = {focused: boolean; color: string; size: number};
 const tabImages = {
   home: require('../../../assets/tabIcons/homeIcon.webp'),
   restaurants: require('../../../assets/tabIcons/restaurantIcon.png'),
-  rewards: require('../../../assets/tabIcons/dollarIcon.webp'),
+  rewards: require('../../../assets/tabIcons/personIcon.png'),
   events: require('../../../assets/tabIcons/cal.png'),
 };
 

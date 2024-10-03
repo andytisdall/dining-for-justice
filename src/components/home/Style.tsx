@@ -7,6 +7,7 @@ import homeStyles from './homeStyles';
 import baseStyles from '../styles/baseStyles';
 import {HomeNavigationProp} from '../../navigation/types';
 import {STYLE_WEEK_ID} from '../events/EventDetail';
+import colors from '../styles/colors';
 
 const styleLogo = require('../../assets/logos/style_logo.jpg');
 
@@ -21,24 +22,26 @@ const Style = () => {
     });
   };
   return (
-    <View style={[baseStyles.screenSection]}>
-      <Pressable style={homeStyles.styleLogoContainer} onPress={navigate}>
-        <FastImage
-          source={styleLogo}
-          style={homeStyles.logo}
-          resizeMode="contain"
-        />
-      </Pressable>
-      <Text style={[baseStyles.textSm, baseStyles.centerText]}>
-        Oakland Style Week features a cocktail competition including Oakland's
-        most creative bars. Vote for the most stylish cocktail!
-      </Text>
-      <View style={baseStyles.centerSection}>
-        <Btn onPress={navigate}>
-          <Text style={baseStyles.btnText}>Learn More</Text>
-        </Btn>
+    <Pressable onPress={navigate}>
+      <View style={[baseStyles.screenSection]}>
+        <View style={homeStyles.styleLogoContainer}>
+          <FastImage
+            source={styleLogo}
+            style={homeStyles.logo}
+            resizeMode="contain"
+          />
+        </View>
+        <Text style={[baseStyles.textSm, baseStyles.centerText]}>
+          Oakland Style Week features a cocktail competition including Oakland's
+          most creative bars. Vote for the most stylish cocktail!
+        </Text>
+        <View style={baseStyles.centerSection}>
+          <Btn onPress={navigate} style={{backgroundColor: colors.violet}}>
+            <Text style={baseStyles.btnText}>Learn More</Text>
+          </Btn>
+        </View>
       </View>
-    </View>
+    </Pressable>
   );
 };
 

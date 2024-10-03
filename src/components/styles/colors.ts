@@ -10,4 +10,5 @@ export default {
   midnightBlue: 'rgb(10,30,20)',
   pink: 'rgb(250,220,250)',
   red: '#c32b2f',
+  violet: 'rgb(250,120,180)',
 };

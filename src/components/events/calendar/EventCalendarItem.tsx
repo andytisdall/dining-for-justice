@@ -14,7 +14,7 @@ const abridgeCampaignName = (name: string) => {
   return name;
 };
 
-const EventCalendarItem = ({event}: {event: Event}) => {
+const EventCalendarItem = ({event, color}: {event: Event; color: string}) => {
   const navigation = useNavigation<EventStackNavigationProp>();
 
   return (
@@ -24,7 +24,7 @@ const EventCalendarItem = ({event}: {event: Event}) => {
           id: event.id,
         })
       }
-      style={styles.eventContainer}>
+      style={[styles.eventContainer, {backgroundColor: color}]}>
       <Text style={styles.eventText}>{abridgeCampaignName(event.name)}</Text>
     </Pressable>
   );

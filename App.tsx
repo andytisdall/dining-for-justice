@@ -7,7 +7,7 @@
 import {SafeAreaView} from 'react-native';
 import {Provider} from 'react-redux';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, LinkingOptions} from '@react-navigation/native';
 
 import {store} from './src/state/store';
 import Error from './src/components/reusable/ErrorMessage';
@@ -18,16 +18,40 @@ import Home from './src/components/home/Home';
 import createTabIcon from './src/components/reusable/tabs/TabIcon';
 import createTabLabel from './src/components/reusable/tabs/TabLabel';
 import EventsNavigator from './src/components/events/EventsNavigator';
-import {RootTabsParams} from './src/navigation/types';
+import {RootTabsParams, AllScreenParams} from './src/navigation/types';
 import NotificationContainer from './src/services/notifications/NotificationProvider';
 import colors from './src/components/styles/colors';
 
 const RootTabs = createBottomTabNavigator<RootTabsParams>();
 
+const linking: LinkingOptions<AllScreenParams> = {
+  prefixes: ['https://portal.ckoakland.org/d4japp'],
+  config: {
+    initialRouteName: 'Home' as const,
+    screens: {
+      Home: 'home',
+      Rewards: {
+        path: 'account',
+        initialRouteName: 'RewardsHome',
+        screens: {
+          Confirm: 'confirm/:code',
+        },
+      },
+      Events: {
+        path: 'events',
+        initialRouteName: 'EventsHome',
+        screens: {
+          ContestHome: 'Contest',
+        },
+      },
+    },
+  },
+};
+
 export const Providers = ({children}: {children: React.ReactNode}) => {
   return (
     <Provider store={store}>
-      <NavigationContainer>
+      <NavigationContainer linking={linking}>
         <NotificationContainer>{children}</NotificationContainer>
       </NavigationContainer>
     </Provider>
@@ -82,7 +106,7 @@ export const BaseComponent = () => {
           component={RewardsNavigator}
           options={{
             tabBarIcon: createTabIcon('rewards'),
-            tabBarLabel: createTabLabel('Rewards'),
+            tabBarLabel: createTabLabel('Account'),
           }}
         />
       </RootTabs.Navigator>

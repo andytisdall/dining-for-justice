@@ -25,6 +25,14 @@ interface SignInArgs {
   token?: string;
 }
 
+const setToken = async (response: SignInResponse | null) => {
+  if (response) {
+    await AsyncStorage.setItem('d4j-token', response.token);
+    return response.contact;
+  }
+  return null;
+};
+
 const contactApi = api.injectEndpoints({
   endpoints: builder => ({
     getContact: builder.query<Contact | null, void>({
@@ -43,26 +51,17 @@ const contactApi = api.injectEndpoints({
         method: 'POST',
         body,
       }),
-      transformResponse: async (response: SignInResponse | null) => {
-        if (response) {
-          await AsyncStorage.setItem('d4j-token', response.token);
-          return response.contact;
-        }
-        return null;
-      },
+      transformResponse: setToken,
       invalidatesTags: ['Contact', 'CheckIn'],
     }),
 
-    createContact: builder.mutation<Contact, CreateContactArgs>({
+    createContact: builder.mutation<Contact | null, CreateContactArgs>({
       query: body => ({
         url: '/d4j/contact',
         method: 'POST',
         body,
       }),
-      transformResponse: async (response: SignInResponse) => {
-        await AsyncStorage.setItem('d4j-token', response.token);
-        return response.contact;
-      },
+      transformResponse: setToken,
     }),
 
     signOut: builder.mutation<null, void>({
@@ -73,6 +72,15 @@ const contactApi = api.injectEndpoints({
       },
       invalidatesTags: ['Contact'],
     }),
+
+    confirmContact: builder.mutation<null, {code: string}>({
+      query: body => ({
+        url: '/d4j/confirm-email',
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Contact'],
+    }),
   }),
 });
 
@@ -81,4 +89,5 @@ export const {
   useSignInMutation,
   useSignOutMutation,
   useCreateContactMutation,
+  useConfirmContactMutation,
 } = contactApi;

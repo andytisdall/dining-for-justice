@@ -65,6 +65,7 @@ export const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: colors.darkGrey,
     backgroundColor: colors.orange,
+    minHeight: 50 * sizeMultiplier,
   },
   image: {
     width: '100%',

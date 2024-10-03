@@ -23,15 +23,29 @@ const RewardsHome = () => {
       </Text>
 
       <Text style={[baseStyles.centerText, baseStyles.textSm]}>
-        When you check in at any retaurant or bar on our list, CK gets a free
+        When you check in at any restaurant or bar on our list, CK gets a free
         meal donation!
       </Text>
     </View>
   );
 
+  const renderUnconfirmed = () => {
+    if (contact?.unconfirmed) {
+      return (
+        <View style={[baseStyles.centerSection, baseStyles.screenSection]}>
+          <Text style={[baseStyles.textSm, baseStyles.centerText]}>
+            You have been sent a confirmation email. Please follow the
+            instructions in this email to finish creating your account.
+          </Text>
+        </View>
+      );
+    }
+  };
+
   const renderSignedIn = () => {
     return (
       <View style={baseStyles.screenSection}>
+        {renderUnconfirmed()}
         {styleWeekActive && <ContestLink />}
         {rewardsText}
         <PastCheckIns />

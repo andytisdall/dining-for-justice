@@ -23,7 +23,7 @@ const RestaurantNavigator = () => {
       <RestaurantStack.Screen
         name="RestaurantDetail"
         component={RestaurantDetail}
-        options={{header: StackHeader}}
+        options={{header: StackHeader, title: ''}}
       />
       <RestaurantStack.Screen
         name="RestaurantMap"

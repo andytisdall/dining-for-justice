@@ -1,38 +1,54 @@
-import {View, Text} from 'react-native';
+import {View, Text, Pressable, Animated} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {useRef, useEffect} from 'react';
 
 import baseStyles from '../../styles/baseStyles';
 import contestStyles from './contestStyles';
 import {RootNavigationProp} from '../../../navigation/rootTabs';
 import FastImage from 'react-native-fast-image';
-import Btn from '../../reusable/Btn';
 
 const styleBtnImg = require('../../../assets/logos/style_btn.png');
 
 const ContestLink = () => {
   const navigation = useNavigation<RootNavigationProp>();
+
+  const translateValue = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.spring(translateValue, {
+      toValue: 1,
+      useNativeDriver: true,
+      bounciness: 15,
+      speed: 0.3,
+    }).start();
+  }, [translateValue]);
+
+  const navigate = () => {
+    navigation.navigate('Events', {
+      screen: 'ContestHome',
+      initial: false,
+    });
+  };
+
   return (
-    <View style={[baseStyles.centerSection, baseStyles.screenSection]}>
-      <Btn
-        onPress={() =>
-          navigation.navigate('Events', {
-            screen: 'ContestHome',
-            initial: false,
-          })
-        }
-        style={contestStyles.contestLinkBtn}>
-        <View style={baseStyles.centerSection}>
+    <Animated.View
+      style={{
+        transform: [{scale: translateValue}],
+      }}>
+      <Pressable
+        onPress={navigate}
+        style={[baseStyles.centerSection, baseStyles.screenSection]}>
+        <View style={contestStyles.contestLinkBtn}>
           <FastImage
             source={styleBtnImg}
             style={contestStyles.contestLinkBtnImg}
           />
         </View>
-        <Text
-          style={[baseStyles.centerText, contestStyles.contestLinkBtnText2]}>
-          Vote for your favorite cocktail!
+        <Text style={[baseStyles.centerText, contestStyles.contestLinkBtnText]}>
+          Vote for your favorite cocktail here!
         </Text>
-      </Btn>
-    </View>
+      </Pressable>
+    </Animated.View>
   );
 };
 

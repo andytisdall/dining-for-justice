@@ -1,12 +1,12 @@
-import {Text} from 'react-native';
+import {Text, View} from 'react-native';
 import RNReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
+import ThumbsUp from '../../../reusable/ThumbsUp';
 import Btn from '../../../reusable/Btn';
 import {
   Cocktail,
   useVoteMutation,
 } from '../../../../state/apis/eventsApi/contestApi';
-import Loading from '../../../reusable/Loading';
 import contestStyles from '../contestStyles';
 import baseStyles from '../../../styles/baseStyles';
 
@@ -14,7 +14,11 @@ const CreateVote = ({cocktail}: {cocktail: Cocktail}) => {
   const [vote, {isLoading}] = useVoteMutation();
 
   if (isLoading) {
-    return <Loading />;
+    return (
+      <View style={contestStyles.thumbsUpContainer}>
+        <ThumbsUp />
+      </View>
+    );
   }
 
   return (
