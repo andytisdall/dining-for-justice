@@ -16,8 +16,7 @@ import CheckInSuccess from './CheckInSuccess';
 import CheckInError from './CheckInError';
 import {useGetPermissionMutation} from '../../../../state/apis/rewardsApi/locationApi';
 import useLocation from '../../../../hooks/useLocation';
-
-// import InitialMessage from './InitialMessage';
+import InitialMessage from './InitialMessage';
 
 // const START_DATE = utcToZonedTime('2024-05-23', 'America/Los_Angeles');
 // const END_DATE = utcToZonedTime('2024-06-01', 'America/Los_Angeles');
@@ -159,9 +158,7 @@ const CheckIn = ({
               {renderResult()}
             </Animated.View>
           ) : (
-            <Text style={checkInStyles.checkInText}>
-              CK gets a matching meal donation when you check in!
-            </Text>
+            <InitialMessage restaurantId={restaurant.id} />
           )}
         </View>
       );

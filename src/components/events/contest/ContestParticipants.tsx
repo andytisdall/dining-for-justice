@@ -6,6 +6,7 @@ import {useGetStyleWeekBarsQuery} from '../../../state/apis/restaurantApi/restau
 import baseStyles from '../../styles/baseStyles';
 import {ContestNavigationProp} from '../../../navigation/events';
 import contestStyles from './contestStyles';
+import Btn from '../../reusable/Btn';
 
 const ContestParticipants = () => {
   const {data: bars, isLoading} = useGetStyleWeekBarsQuery();
@@ -40,9 +41,14 @@ const ContestParticipants = () => {
   }
 
   return (
-    <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
-      <Text style={baseStyles.textLg}>Participating Locations:</Text>
-      <View style={baseStyles.screenSection}>{renderBars()}</View>
+    <View style={baseStyles.centerSection}>
+      <Btn onPress={() => navigation.navigate('Rewards', {screen: 'Prizes'})}>
+        <Text>Prize Details</Text>
+      </Btn>
+      <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
+        <Text style={baseStyles.textLg}>Participating Locations:</Text>
+        <View style={baseStyles.screenSection}>{renderBars()}</View>
+      </View>
     </View>
   );
 };

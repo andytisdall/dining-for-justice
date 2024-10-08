@@ -59,18 +59,20 @@ export default StyleSheet.create({
     backgroundColor: colors.orange,
   },
   cocktailsTitle: {
-    marginBottom: 5,
+    // marginBottom: 5,
     backgroundColor: colors.darkGrey,
-    paddingVertical: 5 * sizeMultiplier,
+    paddingTop: 5 * sizeMultiplier,
     paddingHorizontal: 10 * sizeMultiplier,
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
+    marginBottom: 5 * sizeMultiplier,
   },
   cocktailsTitleText: {
     color: colors.orange,
     fontFamily: TITLE_FONT,
     fontSize: 18 * sizeMultiplier,
     textAlign: 'center',
+    marginBottom: 5 * sizeMultiplier,
   },
   address: {
     textDecorationLine: 'underline',

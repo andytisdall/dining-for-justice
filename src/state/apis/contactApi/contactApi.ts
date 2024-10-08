@@ -52,7 +52,7 @@ const contactApi = api.injectEndpoints({
         body,
       }),
       transformResponse: setToken,
-      invalidatesTags: ['Contact', 'CheckIn'],
+      invalidatesTags: ['Contact', 'CheckIn', 'Config'],
     }),
 
     createContact: builder.mutation<Contact | null, CreateContactArgs>({
@@ -62,6 +62,7 @@ const contactApi = api.injectEndpoints({
         body,
       }),
       transformResponse: setToken,
+      invalidatesTags: ['Config'],
     }),
 
     signOut: builder.mutation<null, void>({
@@ -70,7 +71,7 @@ const contactApi = api.injectEndpoints({
         api.util.resetApiState();
         return {data: null};
       },
-      invalidatesTags: ['Contact'],
+      invalidatesTags: ['Contact', 'Config'],
     }),
 
     confirmContact: builder.mutation<null, {code: string}>({

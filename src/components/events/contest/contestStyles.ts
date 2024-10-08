@@ -32,6 +32,7 @@ export default StyleSheet.create({
     fontWeight: '600',
   },
   votedText: {color: colors.violet},
+  voteUnconfirmedText: {color: colors.red, textAlign: 'center'},
   totalVotesText: {color: colors.lightGrey},
   cocktailListItem: {
     borderColor: colors.lightGrey,

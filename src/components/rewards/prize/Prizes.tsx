@@ -32,14 +32,22 @@ const Prizes = () => {
       <Text style={[baseStyles.textLg, baseStyles.centerText]}>
         Each D4J point is a chance to win!
       </Text>
-      <View style={[baseStyles.centerSection, baseStyles.screenSection]}>
+      <View style={[baseStyles.centerSection]}>
+        <View style={baseStyles.screenSection}>
+          <Text style={[baseStyles.centerText, baseStyles.textSm]}>
+            To check in when you're at a bar or restaurant, go to the "Explore"
+            tab at the bottom of your screen, and find your location.
+          </Text>
+        </View>
+        <View style={baseStyles.screenSection}>
+          <Text style={[baseStyles.centerText, baseStyles.textSm]}>
+            Each point is a chance to win our prize drawing at the end of
+            October!
+          </Text>
+        </View>
         <Btn onPress={() => navigation.navigate('Rules')}>
           <Text style={baseStyles.btnText}>Contest Rules</Text>
         </Btn>
-        <Text style={[baseStyles.centerText, baseStyles.textSm]}>
-          To check in when you're at a bar or restaurant, go to the "Explore"
-          tab at the bottom of your screen, and find your location.
-        </Text>
       </View>
       {isLoading && <Loading />}
       {prizes && <FlatList data={prizes} renderItem={renderItem} />}

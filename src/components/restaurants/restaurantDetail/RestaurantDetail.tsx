@@ -24,12 +24,14 @@ import SuccessModal from './checkIn/SuccessModal';
 import AnimatedLoading from '../../reusable/AnimatedLoading';
 import {useGetStyleWeekActiveQuery} from '../../../state/apis/configApi/configApi';
 import ContestLink from '../../events/contest/ContestLink';
+import CocktailInfo from './CocktailInfo';
+import Loading from '../../reusable/Loading';
 
 const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
   const {data: restaurants, refetch, isLoading} = useGetRestaurantsQuery();
-  const {data: user} = useGetContactQuery();
+  const {data: user, isLoading: userLoading} = useGetContactQuery();
   const {data: bars} = useGetStyleWeekBarsQuery();
-  const {data: styleWeekActive} = useGetStyleWeekActiveQuery(null);
+  const {data} = useGetStyleWeekActiveQuery();
 
   const [successModalOpen, setSuccessModalOpen] = useState(false);
 
@@ -52,7 +54,7 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
   }, [navigation, restaurant]);
 
   const renderImage = useMemo(() => {
-    if (restaurant?.photo) {
+    if (restaurant?.photo && restaurant.cuisine !== 'cocktails') {
       return (
         <FastImage
           source={{
@@ -90,14 +92,21 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
         <View style={baseStyles.screenSection}>
           {renderImage}
 
-          {restaurant.cuisine === 'cocktails' && styleWeekActive && (
+          {restaurant.cuisine === 'cocktails' && data?.contestActive && (
             <ContestLink />
+          )}
+          {restaurant.cuisine === 'cocktails' && data?.styleMonthActive && (
+            <CocktailInfo restaurant={restaurant} />
           )}
 
           <RestaurantInfo restaurant={restaurant} />
 
           {!user ? (
-            renderSignIn()
+            userLoading ? (
+              <Loading />
+            ) : (
+              renderSignIn()
+            )
           ) : (
             <CheckIn
               restaurant={restaurant}
@@ -129,7 +138,8 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
     renderSignIn,
     restaurant,
     user,
-    styleWeekActive,
+    data,
+    userLoading,
   ]);
 
   const renderItem = ({item}: {item: JSX.Element}) => item;

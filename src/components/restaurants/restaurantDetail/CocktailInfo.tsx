@@ -1,4 +1,5 @@
 import {View, Text} from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
 import baseStyles from '../../styles/baseStyles';
@@ -43,9 +44,17 @@ const CocktailInfo = ({restaurant}: {restaurant: Restaurant}) => {
       <View style={restaurantDetailStyles.cocktailInfo}>
         <View style={restaurantDetailStyles.cocktailsTitle}>
           <Text style={restaurantDetailStyles.cocktailsTitleText}>
-            Cocktails for a Cause
+            Oakland Style
           </Text>
+          <FastImage
+            source={{
+              uri: restaurant.photo,
+            }}
+            style={restaurantDetailStyles.photo}
+            resizeMode="contain"
+          />
         </View>
+
         <View style={baseStyles.centerSection}>
           <Text style={baseStyles.btnText}>{header()}</Text>
           {!restaurant.cocktailName && (

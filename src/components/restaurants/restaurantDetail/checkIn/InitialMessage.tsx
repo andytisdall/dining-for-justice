@@ -14,7 +14,7 @@ const InitialMessage = ({
   disabled,
 }: {
   restaurantId: string;
-  disabled: boolean;
+  disabled?: boolean;
 }) => {
   const {data: checkIns} = useGetPointsQuery();
 
@@ -66,8 +66,7 @@ const InitialMessage = ({
         checkInStyles.checkInText,
         checkInStyles.checkInBubble,
       ]}>
-      Check in and Block will donate a free meal & you will get a chance to win
-      a prize!
+      Check in to get a chance to win prizes!
     </Text>
   );
 };

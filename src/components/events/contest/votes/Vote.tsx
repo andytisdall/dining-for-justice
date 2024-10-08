@@ -17,11 +17,13 @@ import {useGetStyleWeekActiveQuery} from '../../../../state/apis/configApi/confi
 
 const Vote = ({cocktail}: {cocktail: Cocktail}) => {
   const {data: votes, isFetching: votesPending} = useGetAllVotesQuery();
-  const {data: user} = useGetContactQuery();
-  const {data: styleWeekActive, isFetching: activePending} =
-    useGetStyleWeekActiveQuery(null, {
+  const {data: user} = useGetContactQuery(undefined, {refetchOnFocus: true});
+  const {data, isFetching: activePending} = useGetStyleWeekActiveQuery(
+    undefined,
+    {
       refetchOnFocus: true,
-    });
+    },
+  );
 
   const navigation = useNavigation<EventNavigationProp>();
   const cocktailVotes = votes?.filter(v => v.bar === cocktail.bar);
@@ -65,9 +67,9 @@ const Vote = ({cocktail}: {cocktail: Cocktail}) => {
 
   const renderNotActive = () => {
     return (
-      <View>
-        <Text style={baseStyles.textSm}>
-          Voting has closed for the cocktail contest.
+      <View style={baseStyles.screenSection}>
+        <Text style={[baseStyles.textSm, contestStyles.voteUnconfirmedText]}>
+          Voting has closed for the Mixology Competition.
         </Text>
       </View>
     );
@@ -75,8 +77,8 @@ const Vote = ({cocktail}: {cocktail: Cocktail}) => {
 
   const renderUnconfirmed = () => {
     return (
-      <View>
-        <Text style={baseStyles.textSm}>
+      <View style={baseStyles.screenSection}>
+        <Text style={[baseStyles.textSm, contestStyles.voteUnconfirmedText]}>
           You must confirm your email before you can vote. Check your inbox for
           your link.
         </Text>
@@ -91,7 +93,7 @@ const Vote = ({cocktail}: {cocktail: Cocktail}) => {
   return (
     <>
       <View style={[baseStyles.centerSection, contestStyles.voteBtnSection]}>
-        {!styleWeekActive
+        {!data?.contestActive
           ? renderNotActive()
           : !user
           ? renderNotSignedIn()
@@ -99,9 +101,11 @@ const Vote = ({cocktail}: {cocktail: Cocktail}) => {
           ? renderUnconfirmed()
           : renderVote()}
       </View>
-      <Text style={[baseStyles.text, baseStyles.centerText]}>
-        Total Votes: {numberOfVotes}
-      </Text>
+      <View style={baseStyles.screenSection}>
+        <Text style={[baseStyles.textSm, baseStyles.centerText]}>
+          Total Votes: {numberOfVotes}
+        </Text>
+      </View>
     </>
   );
 };

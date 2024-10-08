@@ -42,6 +42,7 @@ const EnterName = ({
           style={authStyles.input}
           autoCorrect={false}
           autoCapitalize="words"
+          returnKeyType="next"
         />
       </View>
       <View style={baseStyles.screenSection}>

@@ -6,6 +6,9 @@ import RNReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
 import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
 import restaurantListItemStyles from './restaurantListItemStyles';
+import {useGetStyleWeekActiveQuery} from '../../../state/apis/configApi/configApi';
+
+const STYLE_LOGO = require('../../../assets/logos/style_btn_white.png');
 
 const RestaurantListItem = ({
   restaurant,
@@ -16,10 +19,12 @@ const RestaurantListItem = ({
   onPress: (id: string) => void;
   zoom: number;
 }) => {
+  const {data} = useGetStyleWeekActiveQuery();
+
   const isSpecial = restaurant.cuisine === 'cocktails';
 
   const cuisine = isSpecial
-    ? 'Oakland Style Week Mixology Competition'
+    ? 'Oakland Style Mixology Competition'
     : 'Dining for Justice';
 
   const image = useMemo(() => {
@@ -27,16 +32,23 @@ const RestaurantListItem = ({
       zoom === 1
         ? restaurantListItemStyles.image1
         : restaurantListItemStyles.image2;
-    return restaurant.photo ? (
-      <FastImage
-        source={{uri: restaurant.photo}}
-        style={style}
-        resizeMode="cover"
-      />
-    ) : (
-      <View style={style} />
-    );
-  }, [restaurant.photo, zoom]);
+    if (restaurant.photo) {
+      if (!data?.styleMonthActive && restaurant.cuisine === 'cocktails') {
+        return (
+          <FastImage source={STYLE_LOGO} style={style} resizeMode="contain" />
+        );
+      }
+      return (
+        <FastImage
+          source={{uri: restaurant.photo}}
+          style={style}
+          resizeMode="cover"
+        />
+      );
+    } else {
+      <View style={style} />;
+    }
+  }, [restaurant, zoom, data]);
 
   const titleStyle = useMemo(() => {
     if (zoom === 1) {

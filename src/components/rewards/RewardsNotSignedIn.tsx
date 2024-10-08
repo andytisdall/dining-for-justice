@@ -20,7 +20,7 @@ const RewardsNotSignedIn = () => {
       ]}>
       <View style={[baseStyles.centerSection]}>
         <Text style={[baseStyles.text, rewardsStyles.rewardsHeadline]}>
-          Sign in to check in at our bar/restaurant partners!
+          Enter your email to check in at our bar/restaurant partners!
         </Text>
 
         <Text
@@ -29,8 +29,8 @@ const RewardsNotSignedIn = () => {
             baseStyles.textSm,
             baseStyles.screenSection,
           ]}>
-          When you check in at any restaurant or bar on our list, CK gets a free
-          meal donation!
+          When you check in at any restaurant or bar on our list, you get a
+          chance to win in our prize drawing, and CK gets a free meal donation!
         </Text>
       </View>
       <View style={baseStyles.screenSection}>

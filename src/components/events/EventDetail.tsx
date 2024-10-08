@@ -15,13 +15,15 @@ import ContestLogos from './contest/ContestLogos';
 import ContestParticipants from './contest/ContestParticipants';
 
 export const STYLE_WEEK_ID = '701UP00000ACmHeYAL';
-const STYLE_COCKTAILS_ID = '701UP00000DTNGHYA5';
+export const STYLE_COCKTAILS_ID = '701UP00000DTNGHYA5';
 
 const EventDetail = ({route, navigation}: EventDetailScreenProps) => {
   const {id} = route.params;
 
   const {data: events} = useGetEventsQuery();
-  const {data: styleWeekActive} = useGetStyleWeekActiveQuery(null);
+  const {data} = useGetStyleWeekActiveQuery(undefined, {
+    refetchOnFocus: true,
+  });
 
   const event = events ? Object.values(events).find(e => e.id === id) : null;
 
@@ -34,11 +36,28 @@ const EventDetail = ({route, navigation}: EventDetailScreenProps) => {
     }
   }, [navigation, event]);
 
+  const formatDate = (date: string) => {
+    return `${format(
+      zonedTimeToUtc(date, 'America/Los_Angeles'),
+      'eee, M/d/yy',
+    )}`;
+  };
+
+  const renderEndDate = () => {
+    if (event?.endDate) {
+      const formattedStartDate = formatDate(event.startDate);
+      const formattedEndDate = formatDate(event.endDate);
+      if (formattedStartDate !== formattedEndDate) {
+        return ' - ' + formattedEndDate;
+      }
+    }
+  };
+
   const renderEventInfo = () => {
     if (event) {
       return (
         <View style={baseStyles.screenSection}>
-          {eventIsStyleWeek && styleWeekActive && <ContestLink />}
+          {eventIsStyleWeek && data?.contestActive && <ContestLink />}
           {!!event.photo && (
             <FastImage
               source={{uri: event.photo}}
@@ -72,15 +91,8 @@ const EventDetail = ({route, navigation}: EventDetailScreenProps) => {
             <Text style={baseStyles.inputLabel}>Date: </Text>
             <View>
               <Text style={baseStyles.textSm}>
-                {format(
-                  zonedTimeToUtc(event.startDate, 'America/Los_Angeles'),
-                  'eee, M/d/yy',
-                )}
-                {!!event.endDate &&
-                  ` - ${format(
-                    zonedTimeToUtc(event.endDate, 'America/Los_Angeles'),
-                    'eee, M/d/yy',
-                  )}`}
+                {formatDate(event.startDate)}
+                {renderEndDate()}
               </Text>
             </View>
           </View>

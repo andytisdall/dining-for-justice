@@ -8,7 +8,9 @@ import {SafeAreaView} from 'react-native';
 import {Provider} from 'react-redux';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer, LinkingOptions} from '@react-navigation/native';
+import {setupListeners} from '@reduxjs/toolkit/query';
 
+import {RNListeners} from './src/state/listeners';
 import {store} from './src/state/store';
 import Error from './src/components/reusable/ErrorMessage';
 import RestaurantNavigator from './src/components/restaurants/RestaurantNavigator';
@@ -22,10 +24,19 @@ import {RootTabsParams, AllScreenParams} from './src/navigation/types';
 import NotificationContainer from './src/services/notifications/NotificationProvider';
 import colors from './src/components/styles/colors';
 
+setupListeners(store.dispatch, RNListeners);
+
 const RootTabs = createBottomTabNavigator<RootTabsParams>();
 
 const linking: LinkingOptions<AllScreenParams> = {
-  prefixes: ['https://portal.ckoakland.org/d4japp'],
+  prefixes: [
+    'https://portal.ckoakland.org/d4japp',
+    'portal.ckoakland.org/d4japp',
+    'http://portal.ckoakland.org/d4japp',
+    'https://portal.ckoakland.org',
+    'portal.ckoakland.org',
+    'http://portal.ckoakland.org',
+  ],
   config: {
     initialRouteName: 'Home' as const,
     screens: {

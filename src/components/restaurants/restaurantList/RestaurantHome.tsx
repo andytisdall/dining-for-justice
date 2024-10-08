@@ -20,7 +20,7 @@ import RestaurantDetector from './RestaurantDetector';
 const mapIcon = require('../../../assets/mapIcon.png');
 
 const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
-  const {data: restaurants, isLoading, refetch} = useGetRestaurantsQuery();
+  const {data: restaurants, isFetching, refetch} = useGetRestaurantsQuery();
   const {data: bars} = useGetStyleWeekBarsQuery();
 
   const combinedRestaurants = useMemo(() => {
@@ -73,7 +73,7 @@ const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
   );
 
   const renderRestaurantHome = () => {
-    if (isLoading) {
+    if (isFetching) {
       return (
         <View style={restaurantStyles.loading}>
           <AnimatedLoading />
