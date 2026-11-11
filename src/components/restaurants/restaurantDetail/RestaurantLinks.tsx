@@ -1,20 +1,18 @@
-import {View, Text, Linking, Image, Pressable} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { View, Text, Linking, Image, Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-import {
-  Restaurant,
-  useGetRestaurantDetailsQuery,
-} from '../../../state/apis/restaurantApi/restaurantApi';
-import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
+import { useGetRestaurantDetailsQuery } from '../../../state/apis/restaurantApi/restaurantApi';
+import baseStyles, { getPressedStyle } from '../../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetailStyles';
-import {RestaurantStackNavigationProp} from '../../../navigation/types';
+import { RestaurantStackNavigationProp } from '../../../navigation/types';
 import restaurantStyles from '../restaurantList/restaurantStyles';
+import { Restaurant } from '@community-kitchens/apiinterfaces';
 
 const mapIcon = require('../../../assets/mapIcon.png');
-const menuIcon = require('../../../assets/menu-icon.png');
+const menuIcon = require('../../../assets/menuIcon.png');
 
-const RestaurantLinks = ({restaurant}: {restaurant: Restaurant}) => {
-  const {data: details} = useGetRestaurantDetailsQuery(restaurant.googleId);
+const RestaurantLinks = ({ restaurant }: { restaurant: Restaurant }) => {
+  const { data: details } = useGetRestaurantDetailsQuery(restaurant.googleId);
 
   const navigation = useNavigation<RestaurantStackNavigationProp>();
 
@@ -22,8 +20,11 @@ const RestaurantLinks = ({restaurant}: {restaurant: Restaurant}) => {
     if (restaurant.coords) {
       return (
         <Pressable
-          onPress={() => navigation.push('RestaurantMap', {id: restaurant.id})}>
-          {({pressed}) => {
+          onPress={() =>
+            navigation.push('RestaurantMap', { id: restaurant.id })
+          }
+        >
+          {({ pressed }) => {
             const pressedStyle = getPressedStyle(pressed);
             return (
               <View style={[pressedStyle, restaurantStyles.mapBtn]}>
@@ -44,7 +45,7 @@ const RestaurantLinks = ({restaurant}: {restaurant: Restaurant}) => {
     if (details?.url) {
       return (
         <Pressable onPress={() => Linking.openURL(details.url)}>
-          {({pressed}) => {
+          {({ pressed }) => {
             const pressedStyle = getPressedStyle(pressed);
 
             return (

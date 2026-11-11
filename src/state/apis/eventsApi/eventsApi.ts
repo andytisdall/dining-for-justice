@@ -1,17 +1,18 @@
-import {api} from '../../api';
+import { api } from '../../api';
+import { Event } from '@community-kitchens/apiinterfaces';
 
-export interface Event {
-  id: string;
-  name: string;
-  startDate: string;
-  endDate?: string;
-  venue?: string;
-  description?: string;
-  address?: string;
-  city?: string;
-  url?: string;
-  photo?: string;
-}
+// export interface Event {
+//   id: string;
+//   name: string;
+//   startDate: string;
+//   endDate?: string;
+//   venue?: string;
+//   description?: string;
+//   address?: string;
+//   city?: string;
+//   url?: string;
+//   photo?: string;
+// }
 
 const eventsApi = api.injectEndpoints({
   endpoints: builder => ({
@@ -24,4 +25,4 @@ const eventsApi = api.injectEndpoints({
   }),
 });
 
-export const {useGetEventsQuery, useGetCompetitionBarsQuery} = eventsApi;
+export const { useGetEventsQuery, useGetCompetitionBarsQuery } = eventsApi;

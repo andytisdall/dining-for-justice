@@ -1,12 +1,18 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import colors from '../../styles/colors';
-import {sizeMultiplier} from '../../styles/baseStyles';
+import { sizeMultiplier } from '../../styles/baseStyles';
 
 const height = Dimensions.get('screen').height;
 
 export default StyleSheet.create({
-  loading: {height},
-
+  loading: { height },
+  listMap: {
+    position: 'absolute',
+    flexDirection: 'row',
+    right: 0,
+    width: '70%',
+    justifyContent: 'space-around',
+  },
   listHeader: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -18,20 +24,23 @@ export default StyleSheet.create({
     paddingVertical: 4 * sizeMultiplier,
     paddingHorizontal: 6 * sizeMultiplier,
   },
-  mapBtn: {padding: 4 * sizeMultiplier},
+  mapBtn: { padding: 4 * sizeMultiplier },
   refetch: {
     alignItems: 'center',
     marginTop: 10,
   },
 
-  restaurantDetectorOpen: {width: '100%', backgroundColor: colors.midnightBlue},
+  restaurantDetectorOpen: {
+    width: '100%',
+    backgroundColor: colors.midnightBlue,
+  },
   restaurantDetectorTextOpen: {
     color: 'white',
     fontSize: 12 * sizeMultiplier,
   },
   restaurantDetectorItem: {
     backgroundColor: colors.darkBlue,
-    borderColor: colors.yellow,
+    borderColor: colors.orange,
     borderWidth: 1,
     marginTop: 10 * sizeMultiplier,
     paddingHorizontal: 10 * sizeMultiplier,
@@ -51,8 +60,16 @@ export default StyleSheet.create({
     borderWidth: 1,
   },
   restaurantDetectorClosed: {
-    backgroundColor: colors.yellow,
+    backgroundColor: colors.orange,
     marginVertical: 5 * sizeMultiplier,
     borderRadius: 25,
   },
+  zoom: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    justifyContent: 'space-around',
+  },
+  zoomSlider: { height: 50, width: '90%' },
 });

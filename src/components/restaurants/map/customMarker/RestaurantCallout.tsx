@@ -1,12 +1,12 @@
-import {View, Text, Platform} from 'react-native';
-import {Svg, Image as ImageSvg} from 'react-native-svg';
-import FastImage from 'react-native-fast-image';
+import { View, Text, Platform } from 'react-native';
+import { Svg, Image as ImageSvg } from 'react-native-svg';
+import FastImage from '@d11/react-native-fast-image';
 
 import baseStyles from '../../../styles/baseStyles';
-import {Restaurant} from '../../../../state/apis/restaurantApi/restaurantApi';
-import restaurantCalloutStyles, {imageSize} from './restaurantCalloutStyles';
+import { Restaurant } from '@community-kitchens/apiinterfaces';
+import restaurantCalloutStyles, { imageSize } from './restaurantCalloutStyles';
 
-const RestaurantCallout = ({restaurant}: {restaurant: Restaurant}) => {
+const RestaurantCallout = ({ restaurant }: { restaurant: Restaurant }) => {
   const renderImage = () => {
     if (restaurant.photo) {
       if (Platform.OS === 'android') {
@@ -15,7 +15,7 @@ const RestaurantCallout = ({restaurant}: {restaurant: Restaurant}) => {
             <ImageSvg
               width={'100%'}
               height={'100%'}
-              href={{uri: restaurant.photo}}
+              href={{ uri: restaurant.photo }}
               preserveAspectRatio="xMidYMid slice"
             />
           </Svg>
@@ -24,7 +24,7 @@ const RestaurantCallout = ({restaurant}: {restaurant: Restaurant}) => {
       return (
         <View style={restaurantCalloutStyles.imageContainer}>
           <FastImage
-            source={{uri: restaurant.photo}}
+            source={{ uri: restaurant.photo }}
             style={restaurantCalloutStyles.image}
             resizeMode="cover"
           />
@@ -32,24 +32,23 @@ const RestaurantCallout = ({restaurant}: {restaurant: Restaurant}) => {
       );
     }
   };
+
   return (
-    <View style={restaurantCalloutStyles.callout}>
-      <View style={baseStyles.centerSection}>
-        <View style={restaurantCalloutStyles.calloutNameContainer}>
-          <Text style={restaurantCalloutStyles.calloutName}>
-            {restaurant.name}
-          </Text>
-        </View>
-        <Text style={restaurantCalloutStyles.detailsText}>
-          {restaurant.cuisine === 'cocktails'
-            ? 'Cocktails for a Cause'
-            : restaurant.cuisine}
-        </Text>
-        {renderImage()}
-        <Text style={restaurantCalloutStyles.detailsText}>
-          press to see details
+    <View style={[baseStyles.centerSection, restaurantCalloutStyles.callout]}>
+      <View style={restaurantCalloutStyles.calloutNameContainer}>
+        <Text style={restaurantCalloutStyles.calloutName}>
+          {restaurant.name}
         </Text>
       </View>
+      <Text style={restaurantCalloutStyles.detailsText}>
+        {restaurant.cuisine === 'cocktails'
+          ? 'Cocktails for a Cause'
+          : restaurant.cuisine}
+      </Text>
+      {renderImage()}
+      <Text style={restaurantCalloutStyles.detailsText}>
+        press to see details
+      </Text>
     </View>
   );
 };

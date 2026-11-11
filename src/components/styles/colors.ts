@@ -1,17 +1,16 @@
-export default {
-  yellow: 'rgb(250, 200, 50)',
+const colors = {
+  orange: '#ef9c0e',
+  beige: 'rgb(240,200,130)',
   green: 'rgb(200,220,150)',
   grey: 'rgb(80,80,80)',
   darkGrey: 'rgb(50,50,50)',
   lightGrey: 'rgb(170,170,170)',
-  blue: 'rgb(160,160,200)',
-  darkBlue: 'rgb(60,60,80)',
-  midnightBlue: 'rgb(20,20,30)',
-  nightBlue: 'rgb(30,30,60)',
+  blue: 'rgb(160,200,200)',
+  darkBlue: 'rgb(60,70,60)',
+  midnightBlue: 'rgb(10,30,20)',
   pink: 'rgb(250,220,250)',
-  red: '#bf1d28',
-  darkRed: 'rgb(150,0,30)',
-  purple: 'rgb(50,0,50)',
-  darkPurple: 'rgb(40,0,30)',
-  bloodRed: 'rgb(60,0,20)',
+  red: '#c32b2f',
+  violet: 'rgb(250,120,180)',
 };
+
+export default colors;

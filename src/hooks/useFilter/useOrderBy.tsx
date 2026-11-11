@@ -1,12 +1,12 @@
-import {useState, useMemo, useCallback} from 'react';
-import {View, Text, Pressable} from 'react-native';
+import { useState, useMemo, useCallback, JSX } from 'react';
+import { View, Text, Pressable } from 'react-native';
 
-import baseStyles, {getPressedStyle} from '../../components/styles/baseStyles';
+import baseStyles, {
+  getPressedStyle,
+} from '../../components/styles/baseStyles';
 import styles from './filterStyles';
-import {
-  Restaurant,
-  Coordinates,
-} from '../../state/apis/restaurantApi/restaurantApi';
+import { Restaurant, Coordinates } from '@community-kitchens/apiinterfaces';
+
 import useLocation from '../useLocation';
 
 const useOrderBy = (): [
@@ -75,7 +75,7 @@ const useOrderBy = (): [
         <Text style={baseStyles.textXSm}>Order by</Text>
         <View style={styles.orderBtns}>
           <Pressable onPress={() => setOrder('abc')}>
-            {({pressed}) => {
+            {({ pressed }) => {
               const pressedStyle = getPressedStyle(pressed);
               return (
                 <View style={[styles.orderBtn, abcBtnStyle, pressedStyle]}>
@@ -84,7 +84,8 @@ const useOrderBy = (): [
                       baseStyles.textXSm,
                       abcTextStyle,
                       baseStyles.centerText,
-                    ]}>
+                    ]}
+                  >
                     ABC
                   </Text>
                 </View>
@@ -94,8 +95,9 @@ const useOrderBy = (): [
           <Pressable
             onPress={() => {
               setOrder('loc');
-            }}>
-            {({pressed}) => {
+            }}
+          >
+            {({ pressed }) => {
               const pressedStyle = getPressedStyle(pressed);
               return (
                 <View style={[styles.orderBtn, locBtnStyle, pressedStyle]}>
@@ -105,7 +107,8 @@ const useOrderBy = (): [
                       locTextStyle,
                       baseStyles.centerText,
                       styles.distanceText,
-                    ]}>
+                    ]}
+                  >
                     Distance
                   </Text>
                 </View>

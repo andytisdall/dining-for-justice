@@ -1,89 +1,110 @@
-import {View, Text} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import FastImage from 'react-native-fast-image';
-import {useMemo} from 'react';
-import {MasonryFlashList} from '@shopify/flash-list';
+import { useMemo } from 'react';
+import { FlashList } from '@shopify/flash-list';
+import { View, Text } from 'react-native';
 
-import {EventStackNavigationProp} from '../../../navigation/types';
+import useLocation from '../../../hooks/useLocation';
 import ScreenBackground from '../../reusable/ScreenBackground';
 import ContestCocktailListItem from './ContestCocktailListItem';
-import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
-import {useGetCompetitionBarsQuery} from '../../../state/apis/eventsApi/eventsApi';
-import ContestHeader from './ContestHeader';
-import baseStyles from '../../styles/baseStyles';
+import ContestOver from './ContestOver';
 import AnimatedLoading from '../../reusable/AnimatedLoading';
-import homeStyles from '../../home/homeStyles';
-
-const stGeorgeLogo = require('../../../assets/logos/st-george-logo.png');
+import { useGetBarsQuery } from '../../../state/apis/eventsApi/contestApi';
+import ContestHeader from './ContestHeader';
+import { useGetContactQuery } from '../../../state/apis/contact/contactApi';
+import PreContest from './PreContest';
+import NotSignedIn from './NotSignedIn';
+import OutOfRange from './OutOfRange';
+import EnableLocation from './EnableLocation';
+import baseStyles from '../../styles/baseStyles';
+import { useGetStyleWeekActiveQuery } from '../../../state/apis/configApi/configApi';
+import { userIsWithinRange } from '../../restaurants/restaurantDetail/checkIn/CheckIn';
 
 const ContestHome = () => {
-  const {data: restaurants, isLoading: restaurantsLoading} =
-    useGetRestaurantsQuery();
-  const {data: restaurantIds, isLoading: idsLoading} =
-    useGetCompetitionBarsQuery();
+  const { data: bars, isLoading } = useGetBarsQuery();
+  const { data: user, isLoading: userIsLoading } = useGetContactQuery();
+  const { data: config } = useGetStyleWeekActiveQuery(undefined, {
+    pollingInterval: 20000,
+  });
 
-  const navigation = useNavigation<EventStackNavigationProp>();
+  const location = useLocation();
+  const preContest = config && new Date() < new Date(config?.startTime);
+  const postContest = config && new Date() > new Date(config?.endTime);
 
-  const isLoading = restaurantsLoading || idsLoading;
+  console.log(location);
 
   const cocktails = useMemo(() => {
-    if (restaurantIds) {
-      return restaurants
-        ?.filter(rest => restaurantIds.includes(rest.id))
-        .map(rest => {
-          return {
-            name: rest.cocktailName!,
-            description: rest.cocktailDescription!,
-            bar: rest.id,
-            photo: rest.photo!,
-          };
-        });
+    if (bars) {
+      return [...bars]?.sort((a, b) => (a.restaurant > b.restaurant ? 1 : -1));
     }
-  }, [restaurantIds, restaurants]);
+  }, [bars]);
 
-  const renderCocktails = () => {
-    if (isLoading) {
+  const locationCoords = location
+    ? {
+        latitude: location.latitude,
+        longitude: location.longitude,
+      }
+    : undefined;
+
+  const withinRange =
+    locationCoords &&
+    config?.coordinates &&
+    userIsWithinRange(config.coordinates, locationCoords);
+
+  const renderContestUnavailable = () => {
+    if (isLoading || userIsLoading) {
       return <AnimatedLoading />;
     }
-    if (cocktails?.length) {
+    if (!location) {
+      return <EnableLocation />;
+    }
+    if (!withinRange) {
+      return <OutOfRange />;
+    }
+    if (!user) {
+      return <NotSignedIn />;
+    }
+    if (preContest) {
+      return <PreContest />;
+    }
+    if (postContest) {
+      return <ContestOver />;
+    }
+    if (!cocktails?.length) {
       return (
-        <MasonryFlashList
-          estimatedItemSize={175}
-          data={cocktails}
-          renderItem={({item}) => (
-            <ContestCocktailListItem
-              cocktail={item}
-              onPress={() =>
-                navigation.navigate('ContestDetail', {cocktail: item})
-              }
-            />
-          )}
-          numColumns={2}
-          ListHeaderComponent={ContestHeader}
-        />
+        <View>
+          <Text>No Cocktails Found.</Text>
+        </View>
+      );
+    }
+  };
+
+  const renderContest = () => {
+    const contestValid =
+      location &&
+      withinRange &&
+      !isLoading &&
+      user &&
+      !preContest &&
+      !postContest &&
+      cocktails?.length;
+
+    if (!contestValid) {
+      return (
+        <View style={baseStyles.screen}>
+          <ContestHeader />
+          {renderContestUnavailable()}
+        </View>
       );
     }
     return (
-      <View style={[baseStyles.screenSection, baseStyles.centerSection]}>
-        <View style={homeStyles.stGeorgeLogoContainer}>
-          <FastImage
-            source={stGeorgeLogo}
-            style={homeStyles.logo}
-            resizeMode="contain"
-          />
-        </View>
-        <Text style={[baseStyles.centerText, baseStyles.inputLabel]}>
-          Cocktail Competition Details Coming Soon!
-        </Text>
-      </View>
+      <FlashList
+        data={cocktails}
+        renderItem={({ item }) => <ContestCocktailListItem cocktail={item} />}
+        ListHeaderComponent={ContestHeader}
+      />
     );
   };
 
-  return (
-    <ScreenBackground>
-      <View style={baseStyles.scrollView}>{renderCocktails()}</View>
-    </ScreenBackground>
-  );
+  return <ScreenBackground>{renderContest()}</ScreenBackground>;
 };
 
 export default ContestHome;

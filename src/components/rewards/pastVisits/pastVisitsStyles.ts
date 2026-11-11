@@ -5,7 +5,7 @@ import {sizeMultiplier} from '../../styles/baseStyles';
 
 export default StyleSheet.create({
   pastVisitsHeader: {
-    backgroundColor: colors.lightGrey,
+    backgroundColor: colors.beige,
     paddingBottom: 3,
     paddingTop: 2,
     flexDirection: 'row',
@@ -29,12 +29,12 @@ export default StyleSheet.create({
     paddingHorizontal: 10,
     maxWidth: '70%',
     textAlign: 'right',
+    color: colors.beige,
   },
   showMoreBtn: {
-    justifySelf: 'center',
     marginVertical: 10,
     padding: 5 * sizeMultiplier,
-    backgroundColor: colors.lightGrey,
+    backgroundColor: colors.beige,
   },
   pastVisits: {
     marginBottom: 50,

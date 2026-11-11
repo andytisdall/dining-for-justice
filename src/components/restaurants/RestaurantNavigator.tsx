@@ -1,16 +1,16 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import RestaurantDetail from './restaurantDetail/RestaurantDetail';
 import Map from './map/Map';
 import StackHeader from '../reusable/StackHeader';
 import RestaurantHome from './restaurantList/RestaurantHome';
-import {RestaurantStackParams} from '../../navigation/types';
+import { RestaurantStackParams } from '../../navigation/types';
 
 const RestaurantStack = createNativeStackNavigator<RestaurantStackParams>();
 
 const RestaurantNavigator = () => {
   return (
-    <RestaurantStack.Navigator screenOptions={{headerBackVisible: true}}>
+    <RestaurantStack.Navigator screenOptions={{ headerBackVisible: true }}>
       <RestaurantStack.Screen
         name="RestaurantHome"
         component={RestaurantHome}
@@ -23,7 +23,7 @@ const RestaurantNavigator = () => {
       <RestaurantStack.Screen
         name="RestaurantDetail"
         component={RestaurantDetail}
-        options={{header: StackHeader}}
+        options={{ header: StackHeader, title: '' }}
       />
       <RestaurantStack.Screen
         name="RestaurantMap"

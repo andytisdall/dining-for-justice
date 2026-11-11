@@ -1,9 +1,9 @@
-import {View, Text, FlatList} from 'react-native';
-import {useEffect, useMemo, useCallback, useState} from 'react';
-import FastImage from 'react-native-fast-image';
+import { View, Text, FlatList } from 'react-native';
+import { useEffect, useMemo, useCallback, useState, JSX } from 'react';
+import FastImage from '@d11/react-native-fast-image';
 
 import Btn from '../../reusable/Btn';
-import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
+
 import baseStyles from '../../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetailStyles';
 import OpeningHours from './OpeningHours';
@@ -12,34 +12,37 @@ import CheckIn from './checkIn/CheckIn';
 import RestaurantTags from './restaurantTags/RestaurantTags';
 import RestaurantLinks from './RestaurantLinks';
 import RestaurantInfo from './RestaurantInfo';
-import {useGetContactQuery} from '../../../state/apis/contactApi/contactApi';
+import { useGetContactQuery } from '../../../state/apis/contact/contactApi';
 import useEnableLocation from '../../../hooks/useEnableLocation';
-// import CocktailInfo from './CocktailInfo';
 import Refresh from '../../reusable/Refresh';
-import {RestaurantDetailScreenProps} from '../../../navigation/types';
+import { RestaurantDetailScreenProps } from '../../../navigation/types';
 import SuccessModal from './checkIn/SuccessModal';
 import AnimatedLoading from '../../reusable/AnimatedLoading';
+import Loading from '../../reusable/Loading';
+import useRestaurants from '../../../hooks/useRestaurants';
 
-const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
-  const {data, refetch, isLoading} = useGetRestaurantsQuery();
-  const {data: user} = useGetContactQuery();
+const RestaurantDetail = ({
+  route,
+  navigation,
+}: RestaurantDetailScreenProps) => {
+  const { data: user, isLoading: userLoading } = useGetContactQuery();
+  const { restaurants, isFetching: isLoading, refetch } = useRestaurants();
 
   const [successModalOpen, setSuccessModalOpen] = useState(false);
 
-  const {id} = route.params;
-
-  const restaurant = data?.find(res => res.id === id);
+  const { id } = route.params;
+  const restaurant = restaurants?.find(res => res.id === id);
 
   const [openModal, enableLocationModal] = useEnableLocation();
 
   useEffect(() => {
     if (restaurant) {
-      navigation.setOptions({headerTitle: restaurant.name});
+      navigation.setOptions({ headerTitle: restaurant.name });
     }
   }, [navigation, restaurant]);
 
   const renderImage = useMemo(() => {
-    if (restaurant?.photo) {
+    if (restaurant?.photo && restaurant.cuisine !== 'cocktails') {
       return (
         <FastImage
           source={{
@@ -60,8 +63,10 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
             navigation.navigate('Rewards', {
               screen: 'GetContact',
               initial: false,
+              params: { redirect: 'Restaurants' },
             })
-          }>
+          }
+        >
           <Text style={baseStyles.btnText}>
             To check in at this location & earn rewards, enter your email
             address
@@ -76,14 +81,15 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
       return (
         <View style={baseStyles.screenSection}>
           {renderImage}
-          {/* {restaurant.cuisine === 'cocktails' && (
-            <CocktailInfo restaurant={restaurant} />
-          )} */}
 
           <RestaurantInfo restaurant={restaurant} />
 
           {!user ? (
-            renderSignIn()
+            userLoading ? (
+              <Loading />
+            ) : (
+              renderSignIn()
+            )
           ) : (
             <CheckIn
               restaurant={restaurant}
@@ -108,9 +114,17 @@ const RestaurantDetail = ({route, navigation}: RestaurantDetailScreenProps) => {
         <Refresh refetch={refetch} />
       </View>
     );
-  }, [refetch, renderImage, openModal, renderSignIn, restaurant, user]);
+  }, [
+    refetch,
+    renderImage,
+    openModal,
+    renderSignIn,
+    restaurant,
+    user,
+    userLoading,
+  ]);
 
-  const renderItem = ({item}: {item: JSX.Element}) => item;
+  const renderItem = ({ item }: { item: JSX.Element }) => item;
 
   return (
     <ScreenBackground>

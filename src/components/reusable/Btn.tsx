@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   btn: {
     borderWidth: 1,
     borderRadius: 5,
-    backgroundColor: colors.green,
+    backgroundColor: colors.beige,
     overflow: 'hidden',
     alignSelf: 'baseline',
     margin: 10,

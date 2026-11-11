@@ -1,5 +1,5 @@
-import {TextInput} from 'react-native-paper';
-import {View, Text} from 'react-native';
+import { TextInput } from 'react-native-paper';
+import { View, Text } from 'react-native';
 import baseStyles from '../../styles/baseStyles';
 import authStyles from './authStyles';
 
@@ -24,7 +24,8 @@ const EnterEmail = ({
         autoCorrect={false}
         textContentType="emailAddress"
         onSubmitEditing={next}
-        blurOnSubmit
+        keyboardType="email-address"
+        accessibilityLabel="Email"
       />
     </View>
   );

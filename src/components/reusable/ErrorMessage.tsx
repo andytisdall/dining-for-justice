@@ -1,9 +1,9 @@
-import {View, Text, StyleSheet, Pressable} from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
-import {RootState} from '../../state/store';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../state/store';
 
-import {clearError} from '../../state/apis/slices/errorSlice';
-import {sizeMultiplier} from '../styles/baseStyles';
+import { clearError } from '../../state/apis/slices/errorSlice';
+import { sizeMultiplier } from '../styles/baseStyles';
 import colors from '../styles/colors';
 
 const Error = () => {
@@ -13,7 +13,8 @@ const Error = () => {
     return (
       <Pressable
         style={styles.background}
-        onPress={() => dispatch(clearError())}>
+        onPress={() => dispatch(clearError())}
+      >
         <View style={styles.error}>
           <Text style={styles.text}>{error}</Text>
         </View>
@@ -40,13 +41,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20 * sizeMultiplier,
     shadowColor: 'black',
-    shadowOffset: {width: -1, height: 5},
+    shadowOffset: { width: -1, height: 5 },
     shadowOpacity: 1,
     shadowRadius: 10,
-    borderColor: colors.darkRed,
+    borderColor: colors.red,
     borderWidth: 3,
   },
-  text: {fontSize: 15 * sizeMultiplier},
+  text: { fontSize: 15 * sizeMultiplier },
 });
 
 export default Error;

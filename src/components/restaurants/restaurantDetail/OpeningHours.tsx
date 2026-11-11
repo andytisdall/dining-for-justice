@@ -1,16 +1,15 @@
-import {FlatList, Text, View} from 'react-native';
+import { FlatList, Text, View } from 'react-native';
+import { useCallback } from 'react';
 
 import baseStyles from '../../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetailStyles';
-import {
-  Restaurant,
-  useGetRestaurantDetailsQuery,
-} from '../../../state/apis/restaurantApi/restaurantApi';
+import { useGetRestaurantDetailsQuery } from '../../../state/apis/restaurantApi/restaurantApi';
+import { Restaurant } from '@community-kitchens/apiinterfaces';
 
-const OpeningHours = ({restaurant}: {restaurant: Restaurant}) => {
-  const {data: details} = useGetRestaurantDetailsQuery(restaurant.googleId);
+const OpeningHours = ({ restaurant }: { restaurant: Restaurant }) => {
+  const { data: details } = useGetRestaurantDetailsQuery(restaurant.googleId);
 
-  const renderHourItem = ({item}: {item: string}) => {
+  const renderHourItem = useCallback(({ item }: { item: string }) => {
     const items = item.split(':');
     const day = items.splice(0, 1);
     const hours = items.join(':').split(',');
@@ -26,7 +25,7 @@ const OpeningHours = ({restaurant}: {restaurant: Restaurant}) => {
         </View>
       </View>
     );
-  };
+  }, []);
 
   if (details?.openHours) {
     return (

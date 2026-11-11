@@ -1,7 +1,7 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import colors from '../../components/styles/colors';
-import {sizeMultiplier} from '../../components/styles/baseStyles';
+import { sizeMultiplier } from '../../components/styles/baseStyles';
 
 export default StyleSheet.create({
   filterBtnContainer: {
@@ -17,16 +17,16 @@ export default StyleSheet.create({
     justifyContent: 'center',
     margin: 0,
   },
-  checkboxes: {width: '100%', flexDirection: 'row', flexWrap: 'wrap'},
+  checkboxes: { width: '100%', flexDirection: 'row', flexWrap: 'wrap' },
   checkbox: {
     width: '47%',
     flexDirection: 'row',
     alignItems: 'center',
     padding: 5,
   },
-  filterIcon: {width: 18 * sizeMultiplier, height: 18 * sizeMultiplier},
-  filterLabel: {flexWrap: 'wrap', flex: 1},
-  filterTitle: {width: 90 * sizeMultiplier},
+  filterIcon: { width: 18 * sizeMultiplier, height: 18 * sizeMultiplier },
+  filterLabel: { flexWrap: 'wrap', flex: 1 },
+  filterTitle: { width: 90 * sizeMultiplier },
   order: {
     alignItems: 'center',
     marginTop: 7 * sizeMultiplier,
@@ -43,12 +43,13 @@ export default StyleSheet.create({
     backgroundColor: colors.lightGrey,
   },
   orderTextSelected: {
-    color: colors.purple,
+    color: colors.darkBlue,
   },
   orderBtns: {
     flexDirection: 'row',
     marginTop: 2 * sizeMultiplier,
     alignItems: 'center',
   },
-  distanceText: {fontSize: 8 * sizeMultiplier},
+  distanceText: { fontSize: 8 * sizeMultiplier },
+  hidden: { display: 'none' },
 });

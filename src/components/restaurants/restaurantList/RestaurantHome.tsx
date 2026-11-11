@@ -1,22 +1,23 @@
-import {View, Text, Pressable, Image} from 'react-native';
-import {useCallback} from 'react';
+import { View, Text, Pressable, Image } from 'react-native';
+import { useCallback, useMemo } from 'react';
 
 import restaurantStyles from './restaurantStyles';
 import AnimatedLoading from '../../reusable/AnimatedLoading';
-import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
-import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
+import baseStyles, { getPressedStyle } from '../../styles/baseStyles';
 import restaurantDetailStyles from '../restaurantDetail/restaurantDetailStyles';
 import useFilter from '../../../hooks/useFilter/useFilter';
 import ScreenBackground from '../../reusable/ScreenBackground';
 import RestaurantList from './RestaurantList';
 import Refresh from '../../reusable/Refresh';
-import {RestaurantsScreenProps} from '../../../navigation/types';
+import { RestaurantsScreenProps } from '../../../navigation/types';
 import RestaurantDetector from './RestaurantDetector';
+import useRestaurants from '../../../hooks/useRestaurants';
+import { FlashList } from '@shopify/flash-list';
 
 const mapIcon = require('../../../assets/mapIcon.png');
 
-const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
-  const {data: restaurants, isLoading, refetch} = useGetRestaurantsQuery();
+const RestaurantHome = ({ navigation }: RestaurantsScreenProps) => {
+  const { restaurants, isFetching, refetch } = useRestaurants();
 
   const [
     sortedRestaurants,
@@ -29,40 +30,48 @@ const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
 
   const navigate = useCallback(
     (id: string) => {
-      navigation.navigate('RestaurantDetail', {id});
+      navigation.navigate('RestaurantDetail', { id });
     },
     [navigation],
   );
 
-  const mapBtn = (
-    <Pressable onPress={() => navigation.navigate('RestaurantMap', {id: ''})}>
-      {({pressed}) => {
-        const pressedStyle = getPressedStyle(pressed);
-        return (
-          <View style={[pressedStyle, restaurantStyles.mapBtn]}>
-            <Image
-              source={mapIcon}
-              style={[restaurantDetailStyles.restaurantLinkIcon]}
-            />
-            <Text style={baseStyles.textSm}>Map</Text>
-          </View>
-        );
-      }}
-    </Pressable>
+  const mapBtn = useMemo(
+    () => (
+      <Pressable
+        onPress={() => navigation.navigate('RestaurantMap', { id: '' })}
+      >
+        {({ pressed }) => {
+          const pressedStyle = getPressedStyle(pressed);
+          return (
+            <View style={[pressedStyle, restaurantStyles.mapBtn]}>
+              <Image
+                source={mapIcon}
+                style={[restaurantDetailStyles.restaurantLinkIcon]}
+              />
+              <Text style={baseStyles.textSm}>Map</Text>
+            </View>
+          );
+        }}
+      </Pressable>
+    ),
+    [navigation],
   );
 
-  const listHeader = (
-    <View style={restaurantStyles.listHeader}>
-      {filterComponent}
-      {mapBtn}
-      {orderBySelector}
-      {checkboxComponent}
-      <RestaurantDetector />
-    </View>
+  const listHeader = useMemo(
+    () => (
+      <View style={restaurantStyles.listHeader}>
+        {filterComponent}
+        {mapBtn}
+        {orderBySelector}
+        {checkboxComponent}
+        <RestaurantDetector />
+      </View>
+    ),
+    [filterComponent, mapBtn, orderBySelector, checkboxComponent],
   );
 
   const renderRestaurantHome = () => {
-    if (isLoading) {
+    if (isFetching) {
       return (
         <View style={restaurantStyles.loading}>
           <AnimatedLoading />
@@ -89,8 +98,10 @@ const RestaurantHome = ({navigation}: RestaurantsScreenProps) => {
 
   return (
     <ScreenBackground>
-      {listHeader}
-      {renderRestaurantHome()}
+      <FlashList
+        data={[listHeader, renderRestaurantHome()]}
+        renderItem={({ item }) => item}
+      />
     </ScreenBackground>
   );
 };

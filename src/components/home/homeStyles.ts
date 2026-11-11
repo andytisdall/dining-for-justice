@@ -1,8 +1,8 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import colors from '../styles/colors';
-import {sizeMultiplier} from '../styles/baseStyles';
-import {font} from '../styles/baseStyles';
+import { sizeMultiplier } from '../styles/baseStyles';
+import { font } from '../styles/baseStyles';
 
 export default StyleSheet.create({
   logoContainer: {
@@ -10,10 +10,10 @@ export default StyleSheet.create({
     width: 200 * sizeMultiplier,
     marginVertical: 5 * sizeMultiplier,
   },
-  logo: {height: '100%', width: '100%'},
+  logo: { height: '100%', width: '100%' },
   totalMeals: {
     fontSize: 35 * sizeMultiplier,
-    color: 'pink',
+    color: colors.orange,
     marginTop: 10,
     fontWeight: '600',
   },
@@ -26,12 +26,8 @@ export default StyleSheet.create({
     fontSize: 20 * sizeMultiplier,
     fontFamily: font,
   },
-  moreInfoBtn: {backgroundColor: colors.red},
+  moreInfoBtn: { backgroundColor: colors.red },
 
-  stGeorgeLogoContainer: {
-    height: 70 * sizeMultiplier,
-    width: 275 * sizeMultiplier,
-  },
   sponsorLogoRow: {
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -57,8 +53,8 @@ export default StyleSheet.create({
     backgroundColor: 'black',
     padding: 15 * sizeMultiplier,
     borderColor: colors.red,
-    shadowColor: 'blaxk',
-    shadowOffset: {width: -5, height: 10},
+    shadowColor: 'black',
+    shadowOffset: { width: -5, height: 10 },
     shadowOpacity: 0.7,
     shadowRadius: 10,
   },
@@ -68,7 +64,7 @@ export default StyleSheet.create({
     marginVertical: 10 * sizeMultiplier,
   },
   announcementTitle: {
-    color: colors.yellow,
+    color: colors.orange,
   },
   announcementDismiss: {
     backgroundColor: 'white',
@@ -86,5 +82,8 @@ export default StyleSheet.create({
     color: colors.red,
     fontSize: 25 * sizeMultiplier,
     fontWeight: '600',
+  },
+  styleWeek: {
+    backgroundColor: colors.darkGrey,
   },
 });

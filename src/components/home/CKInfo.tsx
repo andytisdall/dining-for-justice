@@ -1,16 +1,16 @@
-import {View, Text, Image, Linking} from 'react-native';
-import {useMemo} from 'react';
+import { View, Text, Image, Linking } from 'react-native';
+import { useMemo } from 'react';
 
 import baseStyles from '../styles/baseStyles';
 import homeStyles from './homeStyles';
 import AnimatedLoading from '../reusable/AnimatedLoading';
-import {useGetTotalMealsQuery} from '../../state/apis/impactApi/impactApi';
+import { useGetTotalMealsQuery } from '../../state/apis/impactApi/impactApi';
 import Btn from '../reusable/Btn';
 
-const ckLogo = require('../../assets/logos/ck_logo.png');
+const ckLogo = require('../../assets/ck_logo.png');
 
 const CKInfo = () => {
-  const {data: meals, isLoading} = useGetTotalMealsQuery();
+  const { data: meals, isLoading } = useGetTotalMealsQuery();
 
   const totalMeals = useMemo(() => {
     return (
@@ -45,7 +45,8 @@ const CKInfo = () => {
           {renderTotalMeals()}
           <Btn
             style={homeStyles.donateBtn}
-            onPress={() => Linking.openURL('https://www.ckoakland.org/donate')}>
+            onPress={() => Linking.openURL('https://www.ckoakland.org/donate')}
+          >
             <Text style={homeStyles.donateBtnText}>Donate Now</Text>
           </Btn>
         </View>

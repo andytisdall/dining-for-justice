@@ -1,23 +1,19 @@
-import {View, Text, Animated} from 'react-native';
-import {useRef, useState} from 'react';
+import { View, Text, Animated } from 'react-native';
+import { useRef, useState } from 'react';
 import RNReactNativeHapticFeedback from 'react-native-haptic-feedback';
 // import {utcToZonedTime} from 'date-fns-tz';
 
 import Loading from '../../../reusable/Loading';
-import {useCheckInMutation} from '../../../../state/apis/rewardsApi/checkInApi';
+import { useCheckInMutation } from '../../../../state/apis/rewardsApi/checkInApi';
 import baseStyles from '../../../styles/baseStyles';
-import {
-  Restaurant,
-  Coordinates,
-} from '../../../../state/apis/restaurantApi/restaurantApi';
+import { Restaurant, Coordinates } from '@community-kitchens/apiinterfaces';
 import Btn from '../../../reusable/Btn';
 import checkInStyles from './checkInStyles';
 import CheckInSuccess from './CheckInSuccess';
 import CheckInError from './CheckInError';
-import {useGetPermissionMutation} from '../../../../state/apis/rewardsApi/locationApi';
+import { useCheckPermissionMutation } from '../../../../state/apis/rewardsApi/locationApi';
 import useLocation from '../../../../hooks/useLocation';
-
-// import InitialMessage from './InitialMessage';
+import InitialMessage from './InitialMessage';
 
 // const START_DATE = utcToZonedTime('2024-05-23', 'America/Los_Angeles');
 // const END_DATE = utcToZonedTime('2024-06-01', 'America/Los_Angeles');
@@ -51,9 +47,9 @@ const CheckIn = ({
 
   const location = useLocation();
 
-  const [getPermission] = useGetPermissionMutation();
+  const [getPermission] = useCheckPermissionMutation();
 
-  const [checkIn, {data, isError, isLoading: loadingCheckin}] =
+  const [checkIn, { data, isError, isLoading: loadingCheckin }] =
     useCheckInMutation();
 
   const translateValue = useRef(new Animated.Value(0)).current;
@@ -146,7 +142,8 @@ const CheckIn = ({
         <View style={checkInStyles.checkIn}>
           <Btn
             onPress={checkInAction}
-            disabled={data?.result === 'SUCCESS' || CHECK_INS_DISABLED}>
+            disabled={data?.result === 'SUCCESS' || CHECK_INS_DISABLED}
+          >
             <Text style={baseStyles.btnText}>Check In</Text>
           </Btn>
           {loading && <Loading />}
@@ -154,14 +151,13 @@ const CheckIn = ({
             <Animated.View
               style={[
                 checkInStyles.checkInBubble,
-                {transform: [{scaleX: translateValue}]},
-              ]}>
+                { transform: [{ scaleX: translateValue }] },
+              ]}
+            >
               {renderResult()}
             </Animated.View>
           ) : (
-            <Text style={checkInStyles.checkInText}>
-              CK gets a matching meal donation when you check in!
-            </Text>
+            <InitialMessage restaurantId={restaurant.id} />
           )}
         </View>
       );

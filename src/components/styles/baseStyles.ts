@@ -1,16 +1,17 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 import colors from './colors';
 
-export const sizeMultiplier = Dimensions.get('screen').width / 300;
+export const sizeMultiplier =
+  (Dimensions.get('screen').height + Dimensions.get('screen').width) / 900;
 export const font = 'Manrope';
 
 export default StyleSheet.create({
-  app: {flex: 1},
-  scrollView: {minHeight: '100%'},
+  app: { flex: 1, backgroundColor: colors.orange },
+  scrollView: { minHeight: '100%' },
   screen: {
     flex: 1,
-    backgroundColor: colors.darkGrey,
+    // backgroundColor: colors.darkGrey,
   },
   screenSection: {
     padding: 10 * sizeMultiplier,
@@ -56,7 +57,7 @@ export default StyleSheet.create({
   },
   title: {
     fontSize: 25 * sizeMultiplier,
-    color: 'white',
+    color: colors.beige,
     textAlign: 'center',
     paddingTop: 8 * sizeMultiplier,
   },
@@ -73,7 +74,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
   inputLabel: {
-    color: colors.yellow,
+    color: colors.orange,
     marginRight: 5,
     fontWeight: '600',
     fontSize: 15 * sizeMultiplier,
@@ -85,12 +86,11 @@ export default StyleSheet.create({
   tabBarItem: {
     justifyContent: 'space-around',
     flexDirection: 'column',
-    marginBottom: 5,
   },
 });
 
 export const getPressedStyle = (pressed: boolean) => {
   if (pressed) {
-    return [{backgroundColor: 'rgba(250,250,250,.3)'}];
+    return [{ backgroundColor: 'rgba(250,250,250,.3)' }];
   }
 };

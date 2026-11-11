@@ -1,18 +1,16 @@
-import {View, Text} from 'react-native';
+import { View, Text } from 'react-native';
 
 import baseStyles from '../../../styles/baseStyles';
-import {
-  Restaurant,
-  useGetRestaurantDetailsQuery,
-} from '../../../../state/apis/restaurantApi/restaurantApi';
+import { useGetRestaurantDetailsQuery } from '../../../../state/apis/restaurantApi/restaurantApi';
 import restaurantTagStyles from './restaurantTagStyles';
 import TagIcon from './TagIcon';
+import { Restaurant } from '@community-kitchens/apiinterfaces';
 
-const RestaurantTags = ({restaurant}: {restaurant: Restaurant}) => {
-  const {data: details} = useGetRestaurantDetailsQuery(restaurant.googleId);
+const RestaurantTags = ({ restaurant }: { restaurant: Restaurant }) => {
+  const { data: details } = useGetRestaurantDetailsQuery(restaurant.googleId);
 
-  const {femaleOwned, pocOwned, vegan} = restaurant;
-  const {beer, wine, cocktails, breakfast} = details?.serves || {};
+  const { femaleOwned, pocOwned, vegan } = restaurant;
+  const { beer, wine, cocktails, breakfast } = details?.serves || {};
   const openNow = details?.openNow;
 
   // only display if at least one tag exists
@@ -35,7 +33,8 @@ const RestaurantTags = ({restaurant}: {restaurant: Restaurant}) => {
           style={[
             baseStyles.centerSection,
             restaurantTagStyles.restaurantIcons,
-          ]}>
+          ]}
+        >
           <Text style={[baseStyles.btnText, restaurantTagStyles.tagHeader]}>
             Tags:
           </Text>

@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Pressable,
 } from 'react-native';
-import {useState, PropsWithChildren, useMemo, useCallback} from 'react';
+import { useState, PropsWithChildren, useMemo, useCallback, JSX } from 'react';
 
 import Btn from '../components/reusable/Btn';
 import baseStyles from '../components/styles/baseStyles';
@@ -15,7 +15,7 @@ import colors from '../components/styles/colors';
 const Modal = ({
   children,
   onPress,
-}: {onPress: () => void} & PropsWithChildren) => {
+}: { onPress: () => void } & PropsWithChildren) => {
   return (
     <Pressable style={styles.background} onPress={onPress}>
       <Pressable style={styles.content} onPress={() => {}}>
@@ -64,9 +64,9 @@ const useEnableLocation = (): [() => void, JSX.Element | undefined] => {
     }
   }, [buttons, modalOpen]);
 
-  const openModal = () => {
+  const openModal = useCallback(() => {
     setModalOpen(true);
-  };
+  }, []);
 
   return [openModal, modal];
 };
@@ -84,11 +84,11 @@ const styles = StyleSheet.create({
   content: {
     // width: '75%',
     justifyContent: 'center',
-    backgroundColor: colors.yellow,
+    backgroundColor: colors.orange,
     alignItems: 'center',
     padding: 20,
     shadowColor: 'black',
-    shadowOffset: {width: -1, height: 5},
+    shadowOffset: { width: -1, height: 5 },
     shadowOpacity: 1,
     shadowRadius: 10,
     borderColor: colors.grey,

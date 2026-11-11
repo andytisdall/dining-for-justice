@@ -1,11 +1,11 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 
 import colors from '../../styles/colors';
-import {sizeMultiplier} from '../../styles/baseStyles';
+import { sizeMultiplier } from '../../styles/baseStyles';
 
 const width = Dimensions.get('screen').width;
-export const boxWidth = width / 2.2;
-export const boxHeight = width / 1.8;
+// export const boxWidth = width / 2.5;
+// export const boxHeight = width / 1.8;
 export const marginVertical = 10;
 
 export default StyleSheet.create({
@@ -20,7 +20,7 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   cocktailsListItem: {
-    borderColor: colors.yellow,
+    borderColor: colors.orange,
   },
   image1: {
     marginVertical: 5,
@@ -36,7 +36,7 @@ export default StyleSheet.create({
     color: colors.blue,
   },
   cocktailsTitle: {
-    color: colors.yellow,
+    color: colors.orange,
   },
   title1: {
     fontSize: 20 * sizeMultiplier,
@@ -48,10 +48,10 @@ export default StyleSheet.create({
     fontSize: 10 * sizeMultiplier,
   },
   currentPartner: {
-    backgroundColor: colors.yellow,
+    backgroundColor: colors.orange,
     marginTop: 5,
     borderWidth: 1,
-    borderColor: colors.yellow,
+    borderColor: colors.orange,
     borderRadius: 5,
     paddingHorizontal: 5 * sizeMultiplier,
     alignSelf: 'center',
@@ -60,7 +60,7 @@ export default StyleSheet.create({
   currentPartnerText: {
     fontSize: 10 * sizeMultiplier,
   },
-  closed: {color: colors.grey, textAlign: 'center'},
+  closed: { color: colors.grey, textAlign: 'center' },
   closedListItem: {
     borderColor: colors.grey,
   },

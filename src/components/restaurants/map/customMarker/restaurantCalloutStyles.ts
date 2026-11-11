@@ -7,7 +7,27 @@ const height = Dimensions.get('screen').height;
 export const imageSize = height / 7;
 
 export default StyleSheet.create({
-  callout: {},
+  callout: {
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: colors.grey,
+    padding: 3 * sizeMultiplier,
+  },
+  calloutArrow: {
+    alignSelf: 'center',
+    borderTopColor: 'white',
+    borderWidth: 10 * sizeMultiplier,
+    borderBottomWidth: 0,
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
+    transform: [{translateY: -1}],
+  },
+  calloutArrowBackground: {
+    position: 'absolute',
+    borderTopColor: colors.grey,
+    borderWidth: 11 * sizeMultiplier,
+    zIndex: -1,
+  },
   calloutNameContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',

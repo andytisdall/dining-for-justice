@@ -1,37 +1,30 @@
-import {StyleSheet, Dimensions} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import colors from '../../styles/colors';
-import {sizeMultiplier} from '../../styles/baseStyles';
-
-const width = Dimensions.get('screen').width;
+import { sizeMultiplier } from '../../styles/baseStyles';
 
 export default StyleSheet.create({
-  tabIconContainer: {paddingTop: 5},
+  tabIconContainer: {
+    paddingTop: 2,
+  },
   tabIcon: {
     flex: 1,
-    height: '100%',
     resizeMode: 'contain',
     width: '100%',
   },
-  tabLabel: {fontWeight: '600', textAlign: 'center'},
+  tabLabel: {
+    fontWeight: '600',
+    textAlign: 'center',
+    transform: [{ translateY: -3 }],
+  },
   focusedText: {
     fontWeight: '800',
   },
   focusedIcon: {
-    transform: [{scale: 1.2}],
+    transform: [{ scale: 1.2 }, { translateY: -2 * sizeMultiplier }],
   },
   focusedTab: {
     borderWidth: 1,
     borderColor: colors.grey,
-  },
-  contestLabel: {
-    marginTop: 3 * sizeMultiplier,
-    borderWidth: 1,
-    borderColor: colors.lightGrey,
-    borderRadius: 50,
-    paddingHorizontal: 10,
-    paddingTop: 3 * sizeMultiplier,
-    flex: 1,
-    maxWidth: width / 5,
   },
 });

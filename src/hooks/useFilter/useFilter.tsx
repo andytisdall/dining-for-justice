@@ -1,18 +1,21 @@
-import {useMemo, useState, useEffect} from 'react';
+import { useMemo, useState, useEffect, JSX } from 'react';
 
-import {Restaurant} from '../../state/apis/restaurantApi/restaurantApi';
-import {useGetPermissionMutation} from '../../state/apis/rewardsApi/locationApi';
+import { Restaurant } from '@community-kitchens/apiinterfaces';
+import {
+  useCheckPermissionMutation,
+  useGetPermissionQuery,
+} from '../../state/apis/rewardsApi/locationApi';
 import useFemaleFilter from './useFemaleFilter';
 import usePocFilter from './usePocFilter';
 import useNearMeFilter from './useNearMeFilter';
 import useVeganFilter from './useVeganFilter';
 import useIsOpenFilter from './useIsOpenFilter';
 import useOrderBy from './useOrderBy';
-import useCocktailsFilter from './useCocktailsFilter';
+// import useCocktailsFilter from './useCocktailsFilter';
 import Filter from './Filter';
-import {View} from 'react-native';
+import { View } from 'react-native';
 import filterStyles from './filterStyles';
-import useIsActiveFilter from './useIsActiveFilter';
+// import useIsActiveFilter from './useIsActiveFilter';
 
 const useFilter: (
   restaurants: Restaurant[] | undefined,
@@ -29,8 +32,9 @@ const useFilter: (
   const [filterVisible, setFilterVisible] = useState(false);
   const [filterKey, setFilterKey] = useState('filter-key');
 
-  const [getPermission, {data: locationPermission}] =
-    useGetPermissionMutation();
+  const [checkPermission, { data: locationPermission, isLoading }] =
+    useCheckPermissionMutation();
+  const { data: permission } = useGetPermissionQuery();
 
   const [femaleFilter, femaleCheckbox, resetFemale, femaleActive] =
     useFemaleFilter();
@@ -41,20 +45,20 @@ const useFilter: (
     useNearMeFilter();
   const [isOpenFilter, isOpenCheckbox, resetIsOpen, isOpenActive] =
     useIsOpenFilter();
-  const [cocktailsFilter, cocktailsCheckbox, resetCocktails, cocktailsActive] =
-    useCocktailsFilter();
-  const [isActiveFilter, isActiveCheckbox, resetIsActive, isActiveActive] =
-    useIsActiveFilter();
+  // const [cocktailsFilter, cocktailsCheckbox, resetCocktails, cocktailsActive] =
+  // useCocktailsFilter();
+  // const [isActiveFilter, isActiveCheckbox, resetIsActive, isActiveActive] =
+  //   useIsActiveFilter();
 
   useEffect(() => {
-    getPermission();
-  }, [getPermission]);
+    if (!permission) checkPermission();
+  }, [checkPermission, permission]);
 
   useEffect(() => {
     if (filterVisible) {
-      getPermission();
+      checkPermission();
     }
-  }, [getPermission, filterVisible]);
+  }, [checkPermission, filterVisible]);
 
   const numberOfActiveFilters = useMemo(() => {
     return [
@@ -63,27 +67,24 @@ const useFilter: (
       pocActive,
       nearMeActive,
       isOpenActive,
-      cocktailsActive,
-      isActiveActive,
+      // cocktailsActive,
     ].reduce((prev, cur) => (cur ? prev + 1 : prev), 0);
   }, [
-    cocktailsActive,
+    // cocktailsActive,
     femaleActive,
     veganActive,
     pocActive,
     nearMeActive,
     isOpenActive,
-    isActiveActive,
   ]);
 
   const resetFilter = () => {
-    resetCocktails();
+    // resetCocktails();
     resetFemale();
     resetIsOpen();
     resetNearMe();
     resetPoc();
     resetVegan();
-    resetIsActive();
     setFilterKey(filterKey + 'a');
   };
 
@@ -91,15 +92,13 @@ const useFilter: (
     if (restaurants) {
       const sorted = restaurants.filter(
         rest =>
-          !rest.closed &&
-          isActiveFilter(rest) &&
           femaleFilter(rest) &&
           isOpenFilter(rest) &&
           pocFilter(rest) &&
           nearMeFilter(rest) &&
           nearMeFilter(rest) &&
-          veganFilter(rest) &&
-          cocktailsFilter(rest),
+          veganFilter(rest),
+        // cocktailsFilter(rest),
       );
 
       return sorted?.sort(sort);
@@ -112,8 +111,7 @@ const useFilter: (
     pocFilter,
     restaurants,
     sort,
-    cocktailsFilter,
-    isActiveFilter,
+    // cocktailsFilter,
   ]);
 
   const filterComponent = useMemo(() => {
@@ -130,8 +128,7 @@ const useFilter: (
     if (filterVisible) {
       return (
         <View style={filterStyles.checkboxes} key={filterKey}>
-          {isActiveCheckbox}
-          {cocktailsCheckbox}
+          {/* {cocktailsCheckbox} */}
           {pocCheckbox}
           {femaleCheckbox}
           {isOpenCheckbox}
@@ -141,8 +138,7 @@ const useFilter: (
       );
     }
   }, [
-    isActiveCheckbox,
-    cocktailsCheckbox,
+    // cocktailsCheckbox,
     veganCheckbox,
     locationPermission,
     nearMeCheckbox,
@@ -158,7 +154,7 @@ const useFilter: (
     filterComponent,
     checkBoxComponent,
     range,
-    locationPermission ? orderBySelector : undefined,
+    locationPermission || isLoading ? orderBySelector : undefined,
     resetFilter,
   ];
 };

@@ -1,49 +1,38 @@
-import {api} from '../../api';
+import { api } from '../../api';
 
-export interface Cocktail {
-  name: string;
-  description: string;
-  photo: string;
-  bar: string; // salesforce ID of bar/restaurant
-}
+import { MixologyData, ContestVote } from '@community-kitchens/apiinterfaces';
 
-export interface ContestVote {
-  user: string;
-  bar: string;
-}
+// export interface MixologyData {
+//   mixologist: string;
+//   restaurant: string;
+// }
+
+// export interface ContestVote {
+//   user: string;
+//   bar: string;
+// }
 
 const contestApi = api.injectEndpoints({
   endpoints: builder => ({
-    getCocktails: builder.query<Cocktail[], void>({
+    getBars: builder.query<MixologyData[], void>({
       query: () => '/d4j/contest/cocktails',
     }),
+
     vote: builder.mutation<null, string>({
       query: barId => ({
         method: 'POST',
         url: '/d4j/contest/vote',
-        body: {barId},
+        body: { barId },
       }),
       invalidatesTags: ['Vote'],
     }),
 
-    editVote: builder.mutation<null, string>({
-      query: barId => ({
-        method: 'PATCH',
-        url: '/d4j/contest/vote',
-        body: {barId},
-      }),
-      invalidatesTags: ['Vote'],
-    }),
-    getAllVotes: builder.query<ContestVote[], void>({
+    getUserVote: builder.query<ContestVote, void>({
       query: () => '/d4j/contest/votes',
       providesTags: ['Vote'],
     }),
   }),
 });
 
-export const {
-  useGetCocktailsQuery,
-  useVoteMutation,
-  useEditVoteMutation,
-  useGetAllVotesQuery,
-} = contestApi;
+export const { useVoteMutation, useGetUserVoteQuery, useGetBarsQuery } =
+  contestApi;

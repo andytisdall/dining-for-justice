@@ -1,8 +1,8 @@
-import {Pressable, Text} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { Pressable, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
-import {EventStackNavigationProp} from '../../../navigation/types';
-import {Event} from '../../../state/apis/eventsApi/eventsApi';
+import { EventStackNavigationProp } from '../../../navigation/types';
+import { Event } from '@community-kitchens/apiinterfaces';
 import styles from './styles';
 
 const MAX_CAMPAIGN_NAME_LENGTH = 25;
@@ -14,9 +14,14 @@ const abridgeCampaignName = (name: string) => {
   return name;
 };
 
-const EventCalendarItem = ({event}: {event: Event}) => {
+const EventCalendarItem = ({
+  event,
+  color,
+}: {
+  event: Event;
+  color: string;
+}) => {
   const navigation = useNavigation<EventStackNavigationProp>();
-
   return (
     <Pressable
       onPress={() =>
@@ -24,7 +29,8 @@ const EventCalendarItem = ({event}: {event: Event}) => {
           id: event.id,
         })
       }
-      style={styles.eventContainer}>
+      style={[styles.eventContainer, { backgroundColor: color }]}
+    >
       <Text style={styles.eventText}>{abridgeCampaignName(event.name)}</Text>
     </Pressable>
   );

@@ -1,29 +1,23 @@
-import {useState} from 'react';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {View, Text, ScrollView} from 'react-native';
-import {useDispatch} from 'react-redux';
+import { useState, useRef } from 'react';
+import { View, Text, FlatList } from 'react-native';
+import { useDispatch } from 'react-redux';
 
-import {setError} from '../../../state/apis/slices/errorSlice';
-import {RewardsStackParams} from '../../../navigation/types';
+import { setError } from '../../../state/apis/slices/errorSlice';
+import { GetContactScreenProps } from '../../../navigation/types';
 import Loading from '../../reusable/Loading';
 import EnterEmail from './EnterEmail';
 import EnterName from './EnterName';
 import {
   useSignInMutation,
   useCreateContactMutation,
-} from '../../../state/apis/contactApi/contactApi';
+} from '../../../state/apis/contact/contactApi';
 import Btn from '../../reusable/Btn';
 import baseStyles from '../../styles/baseStyles';
 import ThumbsUp from '../../reusable/ThumbsUp';
 import AnimatedLoading from '../../reusable/AnimatedLoading';
 import authStyles from './authStyles';
 import ScreenBackground from '../../reusable/ScreenBackground';
-import Notifications from '../../../services/notifications/NotificationsService';
-
-type GetContactScreenProps = NativeStackScreenProps<
-  RewardsStackParams,
-  'GetContact'
->;
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 const validateEmail = (input: string) => {
   const validRegex =
@@ -32,47 +26,61 @@ const validateEmail = (input: string) => {
   return input.match(validRegex);
 };
 
-const GetContact = ({navigation}: GetContactScreenProps) => {
+const GetContact = ({ route, navigation }: GetContactScreenProps) => {
   const [email, setEmail] = useState('');
   const [showNameFields, setShowNameFields] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [city, setCity] = useState('');
+  const [subscribe, setSubscribe] = useState(true);
 
   const [signIn, signInResult] = useSignInMutation();
   const [createContact, createContactResult] = useCreateContactMutation();
 
-  const redirectScreen = 'RewardsHome';
-
   const dispatch = useDispatch();
+
+  const listRef = useRef<FlatList>(null);
+
+  const navigateAfterSignIn = () => {
+    // @ts-ignore
+    navigation.navigate('RewardsHome', {
+      redirect: route.params?.redirect,
+    });
+  };
 
   const handleSubmit = async () => {
     if (!validateEmail(email) && !showNameFields) {
       return dispatch(setError('Please enter a valid email address'));
     }
 
-    const token = Notifications.token;
     // if it's just the email entry, see if contact exists and sign them in if so
     // if not, show the name fields so user can create a contact
     // then sign in the user that was created
 
     if (!showNameFields) {
-      const user = await signIn({email, token}).unwrap();
+      const user = await signIn({
+        email,
+        subscribe,
+      }).unwrap();
 
       if (!user) {
         setShowNameFields(true);
       } else {
-        navigation.navigate(redirectScreen);
+        navigateAfterSignIn();
       }
     } else {
       const user = await createContact({
         email,
         firstName,
         lastName,
-        token,
+        city,
+        subscribe,
       }).unwrap();
 
-      await signIn({email: user.email});
-      navigation.navigate(redirectScreen);
+      if (user) {
+        await signIn({ email: user.email }).unwrap();
+        navigateAfterSignIn();
+      }
     }
   };
 
@@ -84,7 +92,9 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
           <Text style={baseStyles.textSm}>{email}</Text>
         </View>
         <Btn onPress={() => setShowNameFields(false)}>
-          <Text style={baseStyles.btnText}>Use a different email address</Text>
+          <Text style={baseStyles.btnTextSm}>
+            Use a different email address
+          </Text>
         </Btn>
       </View>
     );
@@ -105,8 +115,8 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
     return (
       <View style={authStyles.getContact}>
         <View style={[baseStyles.screenSection, authStyles.authHeader]}>
-          <Text style={[baseStyles.text]}>
-            Enter your email to claim your rewards
+          <Text style={[baseStyles.textSm, baseStyles.centerText]}>
+            Enter your email to sign in / sign up
           </Text>
         </View>
         <View style={baseStyles.screenSection}>
@@ -119,16 +129,34 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
                 setFirstName={setFirstName}
                 setLastName={setLastName}
                 next={handleSubmit}
+                city={city}
+                setCity={setCity}
+                listRef={listRef}
               />
             </>
           ) : (
             <EnterEmail email={email} setEmail={setEmail} next={handleSubmit} />
           )}
-          <View style={baseStyles.centerSection}>
-            <Btn onPress={handleSubmit}>
-              <Text style={baseStyles.btnText}>Submit</Text>
-            </Btn>
-          </View>
+        </View>
+        <View
+          style={[
+            baseStyles.screenSection,
+            authStyles.checkbox,
+            baseStyles.inputLabel,
+          ]}
+        >
+          <BouncyCheckbox
+            onPress={checked => setSubscribe(checked)}
+            isChecked={subscribe}
+          />
+          <Text style={baseStyles.textSm}>
+            I want to receive communications from Visit Oakland.
+          </Text>
+        </View>
+        <View style={baseStyles.centerSection}>
+          <Btn onPress={handleSubmit}>
+            <Text style={baseStyles.btnText}>Submit</Text>
+          </Btn>
         </View>
       </View>
     );
@@ -136,9 +164,11 @@ const GetContact = ({navigation}: GetContactScreenProps) => {
 
   return (
     <ScreenBackground>
-      <ScrollView contentContainerStyle={baseStyles.scrollView}>
-        {renderContent()}
-      </ScrollView>
+      <FlatList
+        data={[renderContent()]}
+        renderItem={({ item }) => item}
+        ref={listRef}
+      />
     </ScreenBackground>
   );
 };

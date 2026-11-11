@@ -1,18 +1,18 @@
-import {View, Text, Pressable} from 'react-native';
-import {useEffect} from 'react';
-import {showLocation} from 'react-native-map-link';
+import { View, Text, Pressable } from 'react-native';
+import { useEffect } from 'react';
+import { showLocation } from 'react-native-map-link';
 
 import restaurantDetailStyles from './restaurantDetailStyles';
 import baseStyles from '../../styles/baseStyles';
 import {
-  Restaurant,
   useGetRestaurantDetailsQuery,
   useUpdateRestaurantMutation,
 } from '../../../state/apis/restaurantApi/restaurantApi';
 import AnimatedLoading from '../../reusable/AnimatedLoading';
+import { Restaurant } from '@community-kitchens/apiinterfaces';
 
-const RestaurantInfo = ({restaurant}: {restaurant: Restaurant}) => {
-  const {data: details, isLoading} = useGetRestaurantDetailsQuery(
+const RestaurantInfo = ({ restaurant }: { restaurant: Restaurant }) => {
+  const { data: details, isLoading } = useGetRestaurantDetailsQuery(
     restaurant.googleId,
   );
 
@@ -20,13 +20,15 @@ const RestaurantInfo = ({restaurant}: {restaurant: Restaurant}) => {
 
   useEffect(() => {
     // see if there are any differences in the hours in salesforce and the hours in google, and get geocoordinates if they do not exist on the salesforce account
+    // also url
 
     if (
       restaurant &&
       details &&
       (JSON.stringify(restaurant.openHours) !==
         JSON.stringify(details.openHours) ||
-        (restaurant.googleId && !restaurant.coords?.latitude))
+        (restaurant.googleId && !restaurant.coords?.latitude) ||
+        restaurant.url !== details.url)
     ) {
       updateRestaurant(restaurant.id);
     }
@@ -44,9 +46,8 @@ const RestaurantInfo = ({restaurant}: {restaurant: Restaurant}) => {
         {!!details?.address && (
           <Pressable
             style={restaurantDetailStyles.restaurantDetailItem}
-            onPress={() =>
-              showLocation({address: `${details.address} Oakland, CA`})
-            }>
+            onPress={() => showLocation({ address: `${details.address}` })}
+          >
             <Text style={baseStyles.inputLabel}>Address: </Text>
             <Text style={[baseStyles.textSm, restaurantDetailStyles.address]}>
               {details.address}

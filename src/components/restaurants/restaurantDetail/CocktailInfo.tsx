@@ -1,10 +1,11 @@
-import {View, Text} from 'react-native';
+import { View, Text } from 'react-native';
+import FastImage from '@d11/react-native-fast-image';
 
-import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
+import { Restaurant } from '@community-kitchens/apiinterfaces';
 import baseStyles from '../../styles/baseStyles';
 import restaurantDetailStyles from './restaurantDetailStyles';
 
-const CocktailInfo = ({restaurant}: {restaurant: Restaurant}) => {
+const CocktailInfo = ({ restaurant }: { restaurant: Restaurant }) => {
   const cocktailInfo = (name?: string, description?: string) => {
     if (name && description) {
       return (
@@ -14,7 +15,8 @@ const CocktailInfo = ({restaurant}: {restaurant: Restaurant}) => {
               style={[
                 restaurantDetailStyles.cocktailName,
                 baseStyles.centerText,
-              ]}>
+              ]}
+            >
               {name}
             </Text>
           </View>
@@ -23,7 +25,8 @@ const CocktailInfo = ({restaurant}: {restaurant: Restaurant}) => {
               baseStyles.textXSm,
               baseStyles.centerText,
               restaurantDetailStyles.cocktailDescription,
-            ]}>
+            ]}
+          >
             {description}
           </Text>
         </>
@@ -43,9 +46,17 @@ const CocktailInfo = ({restaurant}: {restaurant: Restaurant}) => {
       <View style={restaurantDetailStyles.cocktailInfo}>
         <View style={restaurantDetailStyles.cocktailsTitle}>
           <Text style={restaurantDetailStyles.cocktailsTitleText}>
-            Cocktails for a Cause
+            Oakland Style
           </Text>
+          <FastImage
+            source={{
+              uri: restaurant.photo,
+            }}
+            style={restaurantDetailStyles.photo}
+            resizeMode="contain"
+          />
         </View>
+
         <View style={baseStyles.centerSection}>
           <Text style={baseStyles.btnText}>{header()}</Text>
           {!restaurant.cocktailName && (
@@ -53,7 +64,8 @@ const CocktailInfo = ({restaurant}: {restaurant: Restaurant}) => {
               style={[
                 restaurantDetailStyles.cocktailDescription,
                 baseStyles.centerText,
-              ]}>
+              ]}
+            >
               Coming Soon
             </Text>
           )}

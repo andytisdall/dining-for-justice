@@ -1,11 +1,9 @@
-import {useMemo} from 'react';
-import {addDays} from 'date-fns';
-import {Text} from 'react-native';
+import { useMemo } from 'react';
+import { addDays } from 'date-fns';
+import { Text } from 'react-native';
 
-import {
-  CheckIn,
-  useGetPointsQuery,
-} from '../../../../state/apis/rewardsApi/checkInApi';
+import { useGetPointsQuery } from '../../../../state/apis/rewardsApi/checkInApi';
+import { D4JCheckIn } from '@community-kitchens/apiinterfaces';
 import baseStyles from '../../../styles/baseStyles';
 import checkInStyles from './checkInStyles';
 
@@ -14,12 +12,12 @@ const InitialMessage = ({
   disabled,
 }: {
   restaurantId: string;
-  disabled: boolean;
+  disabled?: boolean;
 }) => {
-  const {data: checkIns} = useGetPointsQuery();
+  const { data: checkIns } = useGetPointsQuery();
 
   const existingCheckIn = useMemo(() => {
-    return checkIns?.find((ch: CheckIn) => {
+    return checkIns?.find((ch: D4JCheckIn) => {
       const today = new Date();
       today.setHours(0);
       today.setMinutes(0);
@@ -40,7 +38,8 @@ const InitialMessage = ({
           baseStyles.centerText,
           checkInStyles.checkInText,
           checkInStyles.checkInBubble,
-        ]}>
+        ]}
+      >
         Check in to this location to earn prizes starting June 1st!
       </Text>
     );
@@ -53,7 +52,8 @@ const InitialMessage = ({
           baseStyles.centerText,
           checkInStyles.checkInText,
           checkInStyles.checkInBubble,
-        ]}>
+        ]}
+      >
         You have already checked in to this location today
       </Text>
     );
@@ -65,9 +65,9 @@ const InitialMessage = ({
         baseStyles.centerText,
         checkInStyles.checkInText,
         checkInStyles.checkInBubble,
-      ]}>
-      Check in and Block will donate a free meal & you will get a chance to win
-      a prize!
+      ]}
+    >
+      Check in to get a chance to win prizes!
     </Text>
   );
 };

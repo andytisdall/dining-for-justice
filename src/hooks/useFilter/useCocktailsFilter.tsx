@@ -1,6 +1,6 @@
-import {useCallback, useState, useMemo} from 'react';
+import { useCallback, useState, useMemo, JSX } from 'react';
 
-import {Restaurant} from '../../state/apis/restaurantApi/restaurantApi';
+import { Restaurant } from '@community-kitchens/apiinterfaces';
 import FilterCheckbox from './FilterCheckbox';
 
 const useCocktailsFilter = (): [
@@ -27,7 +27,7 @@ const useCocktailsFilter = (): [
       <FilterCheckbox
         enabled={cocktails}
         setValue={setCocktails}
-        label="Cocktails for a Cause"
+        label="Oakland Style Cocktails"
       />
     ),
     [cocktails],

@@ -1,7 +1,7 @@
-import {useEffect, useSyncExternalStore} from 'react';
+import { useEffect, useSyncExternalStore } from 'react';
 
 import LocationService from '../services/LocationService';
-import {useGetPermissionMutation} from '../state/apis/rewardsApi/locationApi';
+import { useCheckPermissionMutation } from '../state/apis/rewardsApi/locationApi';
 
 const useLocation = () => {
   const location = useSyncExternalStore(
@@ -9,10 +9,11 @@ const useLocation = () => {
     LocationService.getLocation,
   );
 
-  const [getPermission] = useGetPermissionMutation();
+  const [getPermission] = useCheckPermissionMutation();
 
   useEffect(() => {
     getPermission();
+    return LocationService.destroyListener;
   }, [getPermission]);
 
   return location;

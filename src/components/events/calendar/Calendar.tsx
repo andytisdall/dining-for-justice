@@ -10,6 +10,7 @@ import {
   addMonths,
 } from 'date-fns';
 
+import Btn from '../../reusable/Btn';
 import {sizeMultiplier} from '../../styles/baseStyles';
 import DayNames from './DayNames';
 import CalendarHeader from './CalendarHeader';
@@ -129,8 +130,11 @@ const Calendar = ({
       }
       const items = renderItems(d);
 
+      const todayStyle =
+        d === format(new Date(), 'yyyy-MM-dd') ? styles.today : undefined;
+
       return (
-        <View style={styles.calendarDate} key={d}>
+        <View style={[styles.calendarDate, todayStyle]} key={d}>
           <View style={styles.calendarDateBackground}>
             <View style={styles.calendarDateNumberContainer}>
               <Text style={styles.calendarDateNumber}>
@@ -155,6 +159,9 @@ const Calendar = ({
       <CalendarHeader month={month} changeMonth={changeMonth} />
       <DayNames />
       <View style={[styles.calendar]}>{getDays()}</View>
+      <Btn onPress={() => changeMonth('reset')} style={styles.resetBtn}>
+        <Text>Reset</Text>
+      </Btn>
     </Animated.View>
   );
 };

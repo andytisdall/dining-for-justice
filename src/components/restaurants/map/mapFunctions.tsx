@@ -1,12 +1,11 @@
-import MapView, {Region, Circle} from 'react-native-maps';
+import MapView, { Region, Circle } from 'react-native-maps';
 
-import {Coordinates} from '../../../state/apis/restaurantApi/restaurantApi';
+import { Coordinates } from '@community-kitchens/apiinterfaces';
 import UserMarker from './customMarker/UserMarker';
-import {height} from './mapStyles';
+import { height } from './mapStyles';
 
 export const RANGE_MULTIPLIER = 90000;
 export const ZOOM_VALUE = 0.05;
-// export const ZOOM_VALUE = 0.01;
 
 export const INITIAL_COORDS: Region = {
   latitude: 37.81,
@@ -14,13 +13,6 @@ export const INITIAL_COORDS: Region = {
   latitudeDelta: 0.1,
   longitudeDelta: 0.1,
 };
-
-// export const INITIAL_COORDS: Region = {
-//   latitude: 37.81,
-//   longitude: -122.263,
-//   latitudeDelta: 0.03,
-//   longitudeDelta: 0.03,
-// };
 
 const getVerticalOffset = (zoom: number) => {
   return zoom * (height / 2500);
@@ -80,7 +72,7 @@ export const resetMap = (map: MapView) => map.animateToRegion(INITIAL_COORDS);
 
 export const renderUserMarker = (location?: Coordinates | null) => {
   if (location) {
-    const {latitude, longitude} = location;
+    const { latitude, longitude } = location;
     return <UserMarker latitude={latitude} longitude={longitude} />;
   }
 };

@@ -1,30 +1,39 @@
-import {View, Text, ScrollView, Linking} from 'react-native';
-import {format, zonedTimeToUtc} from 'date-fns-tz';
-import {useEffect} from 'react';
-import FastImage from 'react-native-fast-image';
+import { View, Text, ScrollView, Linking } from 'react-native';
+import { format, zonedTimeToUtc } from 'date-fns-tz';
+import { useEffect } from 'react';
+import FastImage from '@d11/react-native-fast-image';
 
 import Btn from '../reusable/Btn';
-import {useGetEventsQuery} from '../../state/apis/eventsApi/eventsApi';
+import { useGetEventsQuery } from '../../state/apis/eventsApi/eventsApi';
 import baseStyles from '../styles/baseStyles';
 import eventStyles from './eventStyles';
 import ScreenBackground from '../reusable/ScreenBackground';
-import ContestHome from './contest/ContestHome';
-import {EventDetailScreenProps} from '../../navigation/types';
+import { EventDetailScreenProps } from '../../navigation/types';
 
-export const ST_GEORGE_ID = '701UP000006WOmvYAG';
+const STYLE_EVENT_ID =
+  process.env.NODE_ENV === 'production'
+    ? '701UP00000lrXxFYAU'
+    : '701cX00000gXBMIQA4';
 
-const EventDetail = ({route, navigation}: EventDetailScreenProps) => {
-  const {id} = route.params;
+const EventDetail = ({ route, navigation }: EventDetailScreenProps) => {
+  const { id } = route.params;
 
-  const {data: events} = useGetEventsQuery();
+  const { data: events } = useGetEventsQuery();
 
   const event = events ? Object.values(events).find(e => e.id === id) : null;
 
   useEffect(() => {
     if (event) {
-      navigation.setOptions({headerTitle: event.name});
+      navigation.setOptions({ headerTitle: event.name });
     }
   }, [navigation, event]);
+
+  const formatDate = (date: string) => {
+    return `${format(
+      zonedTimeToUtc(date, 'America/Los_Angeles'),
+      'eee, M/d/yy',
+    )}`;
+  };
 
   const renderEventInfo = () => {
     if (event) {
@@ -32,44 +41,43 @@ const EventDetail = ({route, navigation}: EventDetailScreenProps) => {
         <View style={baseStyles.screenSection}>
           {!!event.photo && (
             <FastImage
-              source={{uri: event.photo}}
+              source={{ uri: event.photo }}
               style={eventStyles.photo}
               resizeMode="contain"
             />
           )}
-          <View style={eventStyles.eventDetailsLine}>
-            <Text
-              style={[
-                baseStyles.inputLabel,
-                eventStyles.eventDetailsLineHeader,
-              ]}>
-              Location:
-            </Text>
-            <View>
-              {!!event.venue && (
-                <Text style={baseStyles.text}>{event.venue}</Text>
-              )}
-              {!!event.address && (
-                <Text style={baseStyles.textSm}>{event.address}</Text>
-              )}
-              {!!event.city && (
-                <Text style={baseStyles.textSm}>{event.city}, CA</Text>
-              )}
+          {(event.venue || event.address || event.city) && (
+            <View style={eventStyles.eventDetailsLine}>
+              <Text
+                style={[
+                  baseStyles.inputLabel,
+                  eventStyles.eventDetailsLineHeader,
+                ]}
+              >
+                Location:
+              </Text>
+              <View>
+                {!!event.venue && (
+                  <Text style={baseStyles.text}>{event.venue}</Text>
+                )}
+                {!!event.address && (
+                  <Text style={baseStyles.textSm}>{event.address}</Text>
+                )}
+                {!!event.city && (
+                  <Text style={baseStyles.textSm}>{event.city}, CA</Text>
+                )}
+              </View>
             </View>
-          </View>
+          )}
           <View style={eventStyles.eventDetailsLine}>
             <Text style={baseStyles.inputLabel}>Date: </Text>
             <View>
               <Text style={baseStyles.textSm}>
-                {format(
-                  zonedTimeToUtc(event.startDate, 'America/Los_Angeles'),
-                  'eee, M/d/yy',
-                )}
+                {formatDate(event.startDate)}
                 {!!event.endDate &&
-                  ` - ${format(
-                    zonedTimeToUtc(event.endDate, 'America/Los_Angeles'),
-                    'eee, M/d/yy',
-                  )}`}
+                  format(new Date(event.endDate), 'M/d/yy') !==
+                    format(new Date(event.startDate), 'M/d/yy') &&
+                  ` - ${formatDate(event.endDate)}`}
               </Text>
             </View>
           </View>
@@ -95,6 +103,15 @@ const EventDetail = ({route, navigation}: EventDetailScreenProps) => {
               </Btn>
             </View>
           )}
+
+          {event.id === STYLE_EVENT_ID && (
+            <View style={baseStyles.centerSection}>
+              <Btn onPress={() => navigation.push('ContestHome')}>
+                <Text style={baseStyles.btnText}>Vote Now</Text>
+              </Btn>
+            </View>
+          )}
+
           <View style={baseStyles.screenSection}>
             <Text style={baseStyles.textSm}>{event.description}</Text>
           </View>
@@ -102,10 +119,6 @@ const EventDetail = ({route, navigation}: EventDetailScreenProps) => {
       );
     }
   };
-
-  if (id === ST_GEORGE_ID) {
-    return <ContestHome />;
-  }
 
   return (
     <ScreenBackground>

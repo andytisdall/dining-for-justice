@@ -1,9 +1,9 @@
-import {View, Text, Pressable} from 'react-native';
-import FastImage from 'react-native-fast-image';
-import {useNavigation} from '@react-navigation/native';
+import { View, Text, Pressable } from 'react-native';
+import FastImage from '@d11/react-native-fast-image';
+import { useNavigation } from '@react-navigation/native';
 
-import {Announcement} from '../../state/apis/notificationApi/notificationApi';
-import {HomeNavigationProp} from '../../navigation/types';
+import { NotificationPayload } from '@community-kitchens/apiinterfaces';
+import { HomeNavigationProp } from '../../navigation/types';
 import Btn from '../reusable/Btn';
 import homeStyles from './homeStyles';
 import baseStyles from '../styles/baseStyles';
@@ -12,7 +12,7 @@ const AnnouncementModal = ({
   announcement,
   dismiss,
 }: {
-  announcement: Announcement;
+  announcement: NotificationPayload;
   dismiss: () => void;
 }) => {
   const navigation = useNavigation<HomeNavigationProp>();
@@ -21,7 +21,7 @@ const AnnouncementModal = ({
     if (announcement.photo) {
       return (
         <FastImage
-          source={{uri: announcement.photo}}
+          source={{ uri: announcement.photo }}
           style={homeStyles.announcementPhoto}
           resizeMode="cover"
         />
@@ -30,8 +30,8 @@ const AnnouncementModal = ({
   };
 
   const navigate = () => {
-    if (announcement.data) {
-      const {screen, subScreen, params} = announcement.data;
+    if (announcement.custom) {
+      const { screen, subScreen, params } = announcement.custom;
 
       if (subScreen && params) {
         // @ts-ignore
@@ -55,7 +55,7 @@ const AnnouncementModal = ({
   };
 
   const renderLink = () => {
-    if (announcement.data) {
+    if (announcement.custom) {
       return (
         <Btn onPress={navigate}>
           <Text>More Info</Text>
@@ -76,12 +76,13 @@ const AnnouncementModal = ({
               baseStyles.textLg,
               baseStyles.centerText,
               homeStyles.announcementTitle,
-            ]}>
+            ]}
+          >
             {announcement.title}
           </Text>
           <View style={baseStyles.screenSection}>
             <Text style={[baseStyles.textSm, baseStyles.centerText]}>
-              {announcement.message}
+              {announcement.body}
             </Text>
           </View>
           {renderPhoto()}

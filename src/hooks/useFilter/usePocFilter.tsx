@@ -1,6 +1,6 @@
-import {useState, useCallback, useMemo} from 'react';
+import { useState, useCallback, useMemo, JSX } from 'react';
 
-import {Restaurant} from '../../state/apis/restaurantApi/restaurantApi';
+import { Restaurant } from '@community-kitchens/apiinterfaces';
 import FilterCheckbox from './FilterCheckbox';
 
 const usePocFilter = (): [

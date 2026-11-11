@@ -1,14 +1,10 @@
-import {FlatList, Dimensions, Text, Platform, View} from 'react-native';
-import MapView, {PROVIDER_GOOGLE, Region, MapMarker} from 'react-native-maps';
-import {useRef, useState, useMemo, useCallback} from 'react';
+import { FlatList, Dimensions, Text, Platform, View } from 'react-native';
+import MapView, { PROVIDER_GOOGLE, MapMarker } from 'react-native-maps';
+import { useRef, useState, useMemo, useCallback, JSX } from 'react';
 import RNReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 import useFilter from '../../../hooks/useFilter/useFilter';
-import {
-  // Coordinates,
-  Restaurant,
-  useGetRestaurantsQuery,
-} from '../../../state/apis/restaurantApi/restaurantApi';
+import { Restaurant } from '@community-kitchens/apiinterfaces';
 import UserMarker from './customMarker/UserMarker';
 import mapStyles from './mapStyles';
 import baseStyles from '../../styles/baseStyles';
@@ -25,20 +21,29 @@ import {
 } from './mapFunctions';
 import useRespondToScroll from '../../../hooks/useRespondToScroll';
 import Btn from '../../reusable/Btn';
-import {MapScreenProps} from '../../../navigation/types';
+import { MapScreenProps } from '../../../navigation/types';
 import useLocation from '../../../hooks/useLocation';
-import {useGetPermissionMutation} from '../../../state/apis/rewardsApi/locationApi';
+import { useCheckPermissionMutation } from '../../../state/apis/rewardsApi/locationApi';
 import RestaurantDetector from '../restaurantList/RestaurantDetector';
+import useRestaurants from '../../../hooks/useRestaurants';
+
+type Region = {
+  latitude: number;
+  longitude: number;
+  latitudeDelta: number;
+  longitudeDelta: number;
+};
 
 const height = Dimensions.get('screen').height;
 
-const Map = ({navigation, route}: MapScreenProps) => {
-  const {id} = route.params;
+const Map = ({ navigation, route }: MapScreenProps) => {
+  const { id } = route.params;
 
   const [selectedRestaurant, setSelectedRestaurant] = useState(id);
+  const { restaurants } = useRestaurants();
 
-  const [getPermission] = useGetPermissionMutation();
-  const {data: restaurants} = useGetRestaurantsQuery();
+  const [getPermission] = useCheckPermissionMutation();
+
   const location = useLocation();
 
   const [
@@ -63,7 +68,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
 
   const userMarker = useMemo(() => {
     if (location) {
-      const {latitude, longitude} = location;
+      const { latitude, longitude } = location;
       return <UserMarker latitude={latitude} longitude={longitude} />;
     }
   }, [location]);
@@ -90,7 +95,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
 
   const navigateToRestaurant = useCallback(
     (restaurantId: string) => {
-      navigation.push('RestaurantDetail', {id: restaurantId});
+      navigation.push('RestaurantDetail', { id: restaurantId });
     },
     [navigation],
   );
@@ -140,7 +145,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
       ?.filter(r => r.coords && !r.closed)
       .map(rest => {
         const isSelectedRestaurant = rest.id === selectedRestaurant;
-        const ref = isSelectedRestaurant ? markerRef : undefined;
+        const ref = isSelectedRestaurant ? markerRef : null;
 
         const restaurantLink = () => {
           RNReactNativeHapticFeedback.trigger('impactLight');
@@ -192,7 +197,8 @@ const Map = ({navigation, route}: MapScreenProps) => {
             resetMap(mapRef.current);
           }
         }}
-        onLocationPress={zoomToUserLocation}>
+        onLocationPress={zoomToUserLocation}
+      >
         {filterComponent}
         {checkboxComponent}
       </MapHeader>
@@ -207,7 +213,8 @@ const Map = ({navigation, route}: MapScreenProps) => {
         style={mapStyles.map}
         initialRegion={INITIAL_COORDS}
         onMapLoaded={onMapLoaded}
-        onRegionChange={syncStateToMap}>
+        onRegionChange={syncStateToMap}
+      >
         {userMarker}
         {markers}
         {renderRangeCircle(range, location)}
@@ -234,7 +241,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
   ]);
 
   const scrollToTop = () => {
-    listRef.current?.scrollToIndex({index: 0});
+    listRef.current?.scrollToIndex({ index: 0 });
   };
 
   const goToMapBtn = useMemo(() => {
@@ -249,7 +256,7 @@ const Map = ({navigation, route}: MapScreenProps) => {
 
   const data = [<RestaurantDetector />, map, mapHeader, mapRestaurantList];
 
-  const renderItem = ({item}: {item: JSX.Element}) => item;
+  const renderItem = ({ item }: { item: JSX.Element }) => item;
 
   return (
     <ScreenBackground>

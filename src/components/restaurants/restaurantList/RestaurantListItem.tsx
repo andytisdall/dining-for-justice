@@ -1,11 +1,12 @@
-import {Pressable, View, Text} from 'react-native';
-import {useMemo} from 'react';
-import FastImage from 'react-native-fast-image';
+import { Pressable, View, Text } from 'react-native';
+import { useMemo } from 'react';
+import FastImage from '@d11/react-native-fast-image';
 import RNReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
-import {Restaurant} from '../../../state/apis/restaurantApi/restaurantApi';
-import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
+import { Restaurant } from '@community-kitchens/apiinterfaces';
+import baseStyles, { getPressedStyle } from '../../styles/baseStyles';
 import restaurantListItemStyles from './restaurantListItemStyles';
+// import {useGetStyleWeekActiveQuery} from '../../../state/apis/configApi/configApi';
 
 const RestaurantListItem = ({
   restaurant,
@@ -16,26 +17,29 @@ const RestaurantListItem = ({
   onPress: (id: string) => void;
   zoom: number;
 }) => {
-  const cuisine =
-    restaurant.cuisine === 'cocktails'
-      ? 'Cocktails for a Cause'
-      : restaurant.cuisine;
+  // const {data} = useGetStyleWeekActiveQuery();
+
+  const isSpecial = restaurant.cuisine === 'cocktails';
+
+  const cuisine = restaurant.cuisine;
 
   const image = useMemo(() => {
     const style =
       zoom === 1
         ? restaurantListItemStyles.image1
         : restaurantListItemStyles.image2;
-    return restaurant.photo ? (
-      <FastImage
-        source={{uri: restaurant.photo}}
-        style={style}
-        resizeMode="cover"
-      />
-    ) : (
-      <View style={style} />
-    );
-  }, [restaurant.photo, zoom]);
+    if (restaurant.photo) {
+      return (
+        <FastImage
+          source={{ uri: restaurant.photo }}
+          style={style}
+          resizeMode="cover"
+        />
+      );
+    } else {
+      <View style={style} />;
+    }
+  }, [restaurant, zoom]);
 
   const titleStyle = useMemo(() => {
     if (zoom === 1) {
@@ -49,17 +53,11 @@ const RestaurantListItem = ({
     }
   }, [zoom]);
 
-  const isActive = restaurant.status === 'Active';
-
-  const listItemStyle = isActive
+  const listItemStyle = isSpecial
     ? restaurantListItemStyles.cocktailsListItem
-    : restaurant.closed
-    ? restaurantListItemStyles.closedListItem
     : undefined;
-  const listItemTitleStyle = isActive
+  const cuisineStyle = isSpecial
     ? restaurantListItemStyles.cocktailsTitle
-    : restaurant.closed
-    ? restaurantListItemStyles.closedTitle
     : undefined;
 
   return (
@@ -68,8 +66,9 @@ const RestaurantListItem = ({
         RNReactNativeHapticFeedback.trigger('impactLight');
         onPress(restaurant.id);
       }}
-      disabled={restaurant.closed}>
-      {({pressed}) => {
+      disabled={restaurant.closed}
+    >
+      {({ pressed }) => {
         const pressedStyle = getPressedStyle(pressed);
         return (
           <View
@@ -77,7 +76,8 @@ const RestaurantListItem = ({
               restaurantListItemStyles.restaurantListItem,
               pressedStyle,
               listItemStyle,
-            ]}>
+            ]}
+          >
             <Text style={[baseStyles.text, baseStyles.centerText, titleStyle]}>
               {restaurant.name}
             </Text>
@@ -87,18 +87,12 @@ const RestaurantListItem = ({
                 baseStyles.textXSm,
                 restaurantListItemStyles.cuisine,
                 baseStyles.centerText,
-                listItemTitleStyle,
-              ]}>
-              {zoom < 3 && !restaurant.closed && cuisine}
+                cuisineStyle,
+              ]}
+            >
+              {!restaurant.closed && cuisine}
               {restaurant.closed && <Text>Closed</Text>}
             </Text>
-            {isActive && (
-              <View style={restaurantListItemStyles.currentPartner}>
-                <Text style={restaurantListItemStyles.currentPartnerText}>
-                  Current Partner
-                </Text>
-              </View>
-            )}
           </View>
         );
       }}

@@ -1,78 +1,76 @@
-import {Text, Pressable, View} from 'react-native';
-import FastImage from 'react-native-fast-image';
+import { Text, View } from 'react-native';
+import RNReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
-import {Cocktail} from '../../../state/apis/eventsApi/contestApi';
-import baseStyles, {getPressedStyle} from '../../styles/baseStyles';
+import Btn from '../../reusable/Btn';
+import baseStyles from '../../styles/baseStyles';
 import contestStyles from './contestStyles';
-import restaurantListItemStyles from '../../restaurants/restaurantList/restaurantListItemStyles';
-import {useGetRestaurantsQuery} from '../../../state/apis/restaurantApi/restaurantApi';
-import {useGetAllVotesQuery} from '../../../state/apis/eventsApi/contestApi';
-import {useGetContactQuery} from '../../../state/apis/contactApi/contactApi';
+import {
+  useGetUserVoteQuery,
+  useVoteMutation,
+} from '../../../state/apis/eventsApi/contestApi';
+import Loading from '../../reusable/Loading';
+import { MixologyData } from '@community-kitchens/apiinterfaces';
 
-const ContestCocktailListItem = ({
-  cocktail,
-  onPress,
-}: {
-  cocktail: Cocktail;
-  onPress: () => void;
-}) => {
-  const {data: bars} = useGetRestaurantsQuery();
-  const {data: votes} = useGetAllVotesQuery();
-  const {data: user} = useGetContactQuery();
+const ContestCocktailListItem = ({ cocktail }: { cocktail: MixologyData }) => {
+  const { data: vote, isLoading: voteQueryLoading } = useGetUserVoteQuery();
 
-  const existingVote = votes?.find(v => v.user === user?.id);
-  const cocktailVotes = votes?.filter(v => v.bar === cocktail.bar).length;
+  const [castVote, { isLoading: castVoteLoading }] = useVoteMutation();
 
-  const bar = bars?.find(b => b.id === cocktail.bar);
+  const existingVoteForThisCocktail = vote?.bar === cocktail.restaurant;
 
-  const getVotedStyle = () => {
-    if (existingVote?.bar === cocktail.bar) {
-      return contestStyles.votedListItem;
-    }
+  const renderVoteBtn = () => {
+    return (
+      <Btn
+        onPress={async () => {
+          RNReactNativeHapticFeedback.trigger('notificationSuccess');
+          await castVote(cocktail.restaurant).unwrap();
+        }}
+        style={contestStyles.voteBtn}
+      >
+        <Text style={contestStyles.voteBtnText}>Vote</Text>
+      </Btn>
+    );
   };
+
+  const votedStyle = existingVoteForThisCocktail
+    ? contestStyles.votedListItem
+    : undefined;
+
   return (
-    <Pressable onPress={onPress}>
-      {({pressed}) => {
-        const pressedStyle = getPressedStyle(pressed);
-        return (
-          <View
-            style={[
-              getVotedStyle(),
-              restaurantListItemStyles.restaurantListItem,
-              pressedStyle,
-            ]}>
-            <Text
-              style={[
-                baseStyles.centerText,
-                baseStyles.text,
-                restaurantListItemStyles.title2,
-              ]}>
-              {bar?.name}
+    <View style={[contestStyles.cocktailListItem, votedStyle]}>
+      <Text
+        style={[
+          baseStyles.centerText,
+          baseStyles.text,
+          contestStyles.cocktailListItemTitle,
+        ]}
+      >
+        {cocktail.restaurant}
+      </Text>
+      {castVoteLoading || voteQueryLoading ? (
+        <Loading />
+      ) : (
+        <View style={contestStyles.cocktailListItemContent}>
+          <View style={contestStyles.cocktailListItemInfo}>
+            <Text style={contestStyles.cocktailListItemLabel}>Cocktail:</Text>
+            <Text style={[contestStyles.cocktailListItemCocktailName]}>
+              {cocktail.cocktail}
             </Text>
-            <View style={baseStyles.centerSection}>
-              <FastImage
-                source={{uri: cocktail.photo}}
-                resizeMode="cover"
-                style={contestStyles.circularPhoto}
-              />
-            </View>
-            <Text style={[baseStyles.inputLabel, baseStyles.centerText]}>
-              {cocktail.name}
+            <Text style={contestStyles.cocktailListItemLabel}>Mixologist:</Text>
+            <Text style={contestStyles.cocktailListItemCocktailName}>
+              {cocktail.mixologist}
             </Text>
-            <View>
-              <Text style={[baseStyles.centerText, baseStyles.textSm]}>
-                {cocktailVotes} Votes
-              </Text>
-              {existingVote?.bar === cocktail.bar && (
-                <Text style={[baseStyles.centerText, baseStyles.textXSm]}>
-                  You voted for this cocktail
-                </Text>
-              )}
-            </View>
           </View>
-        );
-      }}
-    </Pressable>
+          {!existingVoteForThisCocktail ? (
+            renderVoteBtn()
+          ) : (
+            <Text style={[baseStyles.textSm, contestStyles.votedText]}>
+              You voted for this cocktail
+            </Text>
+          )}
+        </View>
+      )}
+    </View>
   );
 };
 

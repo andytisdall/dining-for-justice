@@ -1,9 +1,6 @@
-import {useState, useCallback, useMemo} from 'react';
+import { useState, useCallback, useMemo, JSX } from 'react';
 
-import {
-  Restaurant,
-  Coordinates,
-} from '../../state/apis/restaurantApi/restaurantApi';
+import { Restaurant, Coordinates } from '@community-kitchens/apiinterfaces';
 import FilterCheckbox from './FilterCheckbox';
 import useLocation from '../useLocation';
 

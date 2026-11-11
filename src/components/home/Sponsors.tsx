@@ -1,5 +1,5 @@
-import {View, Text} from 'react-native';
-import FastImage from 'react-native-fast-image';
+import { View, Text } from 'react-native';
+import FastImage from '@d11/react-native-fast-image';
 
 import baseStyles from '../styles/baseStyles';
 import homeStyles from './homeStyles';
@@ -9,7 +9,6 @@ const titosLogo = require('../../assets/logos/titos-logo.png');
 const evanLogo = require('../../assets/logos/evan-logo.png');
 const maestroLogo = require('../../assets/logos/maestro-logo.jpg');
 const conejosLogo = require('../../assets/logos/conejos-logo.png');
-const stGeorgeLogo = require('../../assets/logos/st-george-logo.png');
 const blockLogo = require('../../assets/logos/block-logo.png');
 
 const Sponsors = () => {
@@ -26,7 +25,8 @@ const Sponsors = () => {
               baseStyles.centerText,
               baseStyles.text,
               rewardsStyles.rewardsHeadline,
-            ]}>
+            ]}
+          >
             Block donated 2000 free community meals!
           </Text>
           <Text
@@ -34,7 +34,8 @@ const Sponsors = () => {
               baseStyles.centerText,
               baseStyles.text,
               rewardsStyles.rewardsHeadline,
-            ]}>
+            ]}
+          >
             Cocktails for a Cause is over, but you can still support the bars
             involved! Just check the list on the "Explore" screen.
           </Text>
@@ -47,15 +48,7 @@ const Sponsors = () => {
           />
         </View>
       </View>
-      <View style={homeStyles.sponsorLogoRow}>
-        <View style={homeStyles.stGeorgeLogoContainer}>
-          <FastImage
-            source={stGeorgeLogo}
-            style={homeStyles.logo}
-            resizeMode="contain"
-          />
-        </View>
-      </View>
+      <View style={homeStyles.sponsorLogoRow}></View>
       <View style={homeStyles.sponsorLogoRow}>
         <View style={homeStyles.sponsorLogoContainer}>
           <FastImage

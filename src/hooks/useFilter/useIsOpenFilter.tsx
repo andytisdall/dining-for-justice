@@ -1,7 +1,7 @@
-import {useState, useCallback, useMemo} from 'react';
-import {format, addDays} from 'date-fns';
+import { useState, useCallback, useMemo, JSX } from 'react';
+import { format, addDays } from 'date-fns';
 
-import {Restaurant} from '../../state/apis/restaurantApi/restaurantApi';
+import { Restaurant } from '@community-kitchens/apiinterfaces';
 import FilterCheckbox from './FilterCheckbox';
 
 const useIsOpenFilter = (): [
@@ -41,6 +41,8 @@ const useIsOpenFilter = (): [
 
         if (thisDay === todayText) {
           return true;
+        } else {
+          return false;
         }
       });
 

@@ -1,7 +1,7 @@
-import {useCallback, useState, useMemo} from 'react';
+import { useCallback, useState, useMemo, JSX } from 'react';
 
 import FilterCheckbox from './FilterCheckbox';
-import {Restaurant} from '../../state/apis/restaurantApi/restaurantApi';
+import { Restaurant } from '@community-kitchens/apiinterfaces';
 
 const useIsActiveFilter = (): [
   (rest: Restaurant) => boolean,

@@ -1,9 +1,9 @@
 import Geolocation from 'react-native-geolocation-service';
 
-import {Coordinates} from '../state/apis/restaurantApi/restaurantApi';
+import { Coordinates } from '@community-kitchens/apiinterfaces';
 
 class LocationService {
-  private listener?: number;
+  private listener?: NodeJS.Timeout;
   private location?: Coordinates;
   private subscribers: Record<string, () => void>;
   private mock = false;
@@ -14,10 +14,9 @@ class LocationService {
 
   // mock location change to test rendering sync
   startMockLocationChange = () => {
-    this.listener = 1;
-    setInterval(() => {
+    this.listener = setInterval(() => {
       if (this.location) {
-        const {latitude, longitude} = this.location;
+        const { latitude, longitude } = this.location;
         this.location = {
           latitude: latitude + 0.0003,
           longitude: longitude + 0.0002,
@@ -33,14 +32,13 @@ class LocationService {
   };
 
   mockLocation = () => {
-    this.location = {latitude: 37.8105813, longitude: -122.2668509};
+    this.location = { latitude: 37.8105813, longitude: -122.2668509 };
   };
 
   startListeningForLocation = () => {
-    this.listener = Geolocation.watchPosition(position => {
-      this.location = position.coords;
+    this.listener = setInterval(() => {
       Object.values(this.subscribers).forEach(cb => cb());
-    });
+    }, 5000);
   };
 
   subscribe = (callback: () => void) => {
@@ -54,18 +52,33 @@ class LocationService {
     }
     const subscriptionId = new Date().toISOString();
     this.subscribers[subscriptionId] = callback;
-    return () => delete this.subscribers[subscriptionId];
+    return () => {
+      delete this.subscribers[subscriptionId];
+      if (!Object.keys(this.subscribers).length) {
+        this.destroyListener();
+      }
+    };
   };
 
   destroyListener = () => {
     if (this.listener) {
-      Geolocation.clearWatch(this.listener);
+      clearInterval(this.listener);
+      this.listener = undefined;
     }
   };
 
   getLocation = () => {
+    Geolocation.getCurrentPosition(
+      position => {
+        this.location = position.coords;
+      },
+      () => {},
+      { enableHighAccuracy: true },
+    );
+
     return this.location;
   };
 }
 
-export default new LocationService();
+const locationService = new LocationService();
+export default locationService;

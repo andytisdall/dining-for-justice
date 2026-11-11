@@ -1,6 +1,6 @@
-import {useState, useMemo, useCallback} from 'react';
+import { useState, useMemo, useCallback, JSX } from 'react';
 
-import {Restaurant} from '../../state/apis/restaurantApi/restaurantApi';
+import { Restaurant } from '@community-kitchens/apiinterfaces';
 import FilterCheckbox from './FilterCheckbox';
 
 const useVeganFilter = (): [

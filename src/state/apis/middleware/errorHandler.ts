@@ -5,10 +5,10 @@ import {
   SerializedError,
 } from '@reduxjs/toolkit';
 
-import {setError} from '../slices/errorSlice';
-import {FetchBaseQueryError} from '@reduxjs/toolkit/query';
+import { setError } from '../slices/errorSlice';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
-type ServerErrorPayload = {data: {error: string}; status: number};
+type ServerErrorPayload = { data: { error: string }; status: number };
 
 export const rtkQueryErrorLogger: Middleware =
   (api: MiddlewareAPI) => next => action => {
@@ -23,9 +23,9 @@ export const rtkQueryErrorLogger: Middleware =
 
       let message = '';
       if (error) {
-        console.log(error);
+        console.log(action);
         if ('status' in error) {
-          const data = error.data as {error?: string};
+          const data = error.data as { error?: string };
           if (data?.error) {
             // if (typeof data.error === 'string') {
             message = data.error;
